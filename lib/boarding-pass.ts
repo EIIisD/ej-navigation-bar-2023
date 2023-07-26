@@ -1,6 +1,6 @@
 import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
 
-import { airports, IAirport } from "../config/airports"
+import { Airport, airports } from "../config/airports"
 
 const useRandomLocale = true
 
@@ -15,18 +15,18 @@ export const faker = new Faker({
     : [en],
 })
 
-export interface ICustomerEntitlements {
+export interface CustomerEntitlements {
   specialAssistance?: boolean
   largeCabinBag?: boolean
   underSeatCabinBag?: boolean
 }
 
-export interface IPassenger {
+export interface Passenger {
   name: string
   passportNumber: string
 }
 
-export interface IBoardingPass {
+export interface BoardingPass {
   dateOfTravel: Date
   flightNumber: string
   gateClosureTime: Date
@@ -36,10 +36,10 @@ export interface IBoardingPass {
   symbolForCheckedInLuggageBooked?: boolean
   symbolForFastTrackSecurityAllowance?: boolean
   symbolForFlexiFarePurchase?: boolean
-  customerEntitlements: ICustomerEntitlements
-  passengers: IPassenger[]
-  departureAirport: IAirport
-  arrivalAirport: IAirport
+  customerEntitlements: CustomerEntitlements
+  passengers: Passenger[]
+  departureAirport: Airport
+  arrivalAirport: Airport
   scheduledTimeOfDeparture: Date
 }
 
@@ -58,9 +58,9 @@ const generateRandomDepartureDate = () => {
   )
 }
 
-const generatePassengers = (): IPassenger[] => {
+const generatePassengers = (): Passenger[] => {
   const numberOfPassengers = Math.floor(Math.random() * 5) + 1
-  const passengers: IPassenger[] = []
+  const passengers: Passenger[] = []
   for (let i = 0; i < numberOfPassengers; i++) {
     passengers.push({
       name: faker.person.fullName(),
@@ -70,7 +70,7 @@ const generatePassengers = (): IPassenger[] => {
   return passengers
 }
 
-const generateTestBoardingPass = (): IBoardingPass => {
+const generateTestBoardingPass = (): BoardingPass => {
   const departureDate = generateRandomDepartureDate()
   const arrivalDate = new Date(
     departureDate.getFullYear(),

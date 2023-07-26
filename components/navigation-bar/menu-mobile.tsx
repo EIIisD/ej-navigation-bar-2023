@@ -8,7 +8,7 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { cva } from "class-variance-authority"
 import { AnimatePresence, motion } from "framer-motion"
 
-import { IMenu } from "@/config/menu"
+import { Menu } from "@/config/menu"
 import {
   addToOpenModals,
   cn,
@@ -81,7 +81,7 @@ export const MenuMobile = () => {
     )
   }
 
-  const handleNavigate = (menu: IMenu) => {
+  const handleNavigate = (menu: Menu) => {
     const message = `You successfully clicked "${menu.title}". Please keep in mind that this page is not currently in the demo.`
     if (menu.items && menu.items.length !== 0) setActiveMenuTitle(menu.title)
     else alert(message)

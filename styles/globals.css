@@ -61,12 +61,16 @@
       --page-inset-small: theme("spacing.6");
     }
   }
-  *:focus:not(:focus-visible) {
+  *:focus {
     outline: none;
   }
+  /* *:focus:not(:focus-visible) {
+    outline: none;
+  } */
   *:focus-visible {
-    outline: 4px solid invert;
-    outline-offset: 4px;
+    @apply ring-2 ring-white ring-offset-2 ring-offset-orange z-50;
+    /* outline: 4px solid invert;
+    outline-offset: 4px; */
   }
   @media (hover: none) {
     *:focus-visible {

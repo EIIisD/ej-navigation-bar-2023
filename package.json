@@ -3,14 +3,16 @@
   "version": "0.0.3",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "build:icons": "tsx ./build-icons.mjs && npm run format:write",
+    "start": "next start",
     "dev": "next dev --turbo",
+    "dev:ladle": "npx ladle serve",
+    "build": "next build",
+    "build:ladle": "npx ladle build",
+    "build:icons": "tsx ./build-icons.mjs && npm run format:write",
     "format": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,svg}\" --cache",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "start": "next start",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -19,6 +21,7 @@
     "@headlessui/react": "1.7.15",
     "@hookform/resolvers": "3.1.1",
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
+    "@ladle/react": "2.16.1",
     "@radix-ui/react-checkbox": "1.0.4",
     "@radix-ui/react-dialog": "1.0.4",
     "@radix-ui/react-dropdown-menu": "2.0.5",

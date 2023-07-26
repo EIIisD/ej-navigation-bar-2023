@@ -1,4 +1,4 @@
-export type TFlag =
+export type Flag =
   | "unitedKingdom"
   | "france"
   | "germany"
@@ -15,13 +15,13 @@ export type TFlag =
   | "israel"
   | "turkey"
 
-export interface ILanguage {
+export interface Language {
   value: string
   locale: string
-  flag: TFlag
+  flag: Flag
 }
 
-export const languages: ILanguage[] = [
+export const languages: Language[] = [
   { value: `English`, locale: "en_US", flag: "unitedKingdom" },
   { value: `Français`, locale: "fr_FR", flag: "france" },
   { value: `Deutsch`, locale: "de_DE", flag: "germany" },

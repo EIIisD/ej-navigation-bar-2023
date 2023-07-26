@@ -101,7 +101,7 @@ export const MenuAside = () => {
                   )}
                 >
                   <div className="absolute bottom-full right-[--page-inset] h-[--indicator-height] w-[--indicator-width] bg-white [clip-path:polygon(50%_0%,_0%_100%,_100%_100%)]" />
-                  <div className="flex flex-col overflow-hidden rounded-[length:inherit]">
+                  <div className="flex flex-col overflow-hidden rounded-[inherit]">
                     {menuItems?.map((item, itemIndex) => (
                       <Dropdown.Link key={itemIndex} asChild>
                         <button

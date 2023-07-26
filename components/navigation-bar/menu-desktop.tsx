@@ -7,9 +7,9 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 import { cva } from "class-variance-authority"
 import { motion } from "framer-motion"
 
-import { IMenu } from "@/config/menu"
+import { Menu } from "@/config/menu"
 import { cn } from "@/lib/utils"
-import { Icon, TIconName } from "@/components/icon"
+import { Icon, IconName } from "@/components/icon"
 import { AnimatedArrowIcon } from "@/components/navigation-bar/animated-arrow-icon"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
@@ -40,7 +40,7 @@ const MenuLink = React.forwardRef<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
     title: string
     description?: string
-    iconElement?: TIconName
+    iconElement?: IconName
   }
 >(
   (
@@ -100,7 +100,7 @@ const MenuLink = React.forwardRef<
 )
 MenuLink.displayName = "MenuLink"
 
-const ControlledTabs = ({ menuItem }: { menuItem: IMenu }) => {
+const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
   const defaultItem = menuItem.items?.[0]
   const [activeItem, setActiveItem] = React.useState<string | undefined>(
     defaultItem?.title

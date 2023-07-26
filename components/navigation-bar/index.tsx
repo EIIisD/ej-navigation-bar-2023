@@ -5,37 +5,36 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { languages } from "@/config/languages"
-import { IMenu } from "@/config/menu"
+import { Menu } from "@/config/menu"
 import { cn, disablePageScroll } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
 import { MenuAside } from "@/components/navigation-bar/menu-aside"
 import { MenuDesktop } from "@/components/navigation-bar/menu-desktop"
 import {
-  INavigationBarContext,
   NavigationBarContext,
   navigationBarContextDefs,
 } from "@/components/navigation-bar/navigation-bar-context"
 
 export const NavigationBar = () => {
   const [language, setLanguage] = React.useState<
-    INavigationBarContext["language"]
+    NavigationBarContext["language"]
   >(navigationBarContextDefs.language)
 
-  const [menu, setMenu] = React.useState<INavigationBarContext["menu"]>(
+  const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(
     navigationBarContextDefs.menu
   )
 
   const [isSignedIn, setIsSignedIn] = React.useState<
-    INavigationBarContext["isSignedIn"]
+    NavigationBarContext["isSignedIn"]
   >(navigationBarContextDefs.isSignedIn)
 
   const [openModals, setOpenModals] = React.useState<
-    INavigationBarContext["openModals"]
+    NavigationBarContext["openModals"]
   >(navigationBarContextDefs.openModals)
 
   React.useEffect(() => {
-    const updatedMenu: IMenu = {
+    const updatedMenu: Menu = {
       ...menu,
       items: menu?.items?.map((item) => {
         const authenticatedItem = {

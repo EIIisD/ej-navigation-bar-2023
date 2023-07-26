@@ -3,11 +3,11 @@
 import React from "react"
 
 import { cn } from "@/lib/utils"
-import { Icon, TIconName } from "@/components/icon"
+import { Icon, IconName } from "@/components/icon"
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  iconElement?: TIconName
+  iconElement?: IconName
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(

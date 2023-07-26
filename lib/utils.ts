@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-import { IMenu } from "@/config/menu"
+import { Menu } from "@/config/menu"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -30,14 +30,14 @@ export function wait(ms: number = 1000) {
 }
 
 export function findInMenu(
-  targetMenu: IMenu,
-  predicate: (item: IMenu) => boolean,
+  targetMenu: Menu,
+  predicate: (item: Menu) => boolean,
   returnParent: boolean = false
 ) {
   const traverse = (
-    currentMenu: IMenu[],
-    parentMenu: IMenu | null
-  ): IMenu | null => {
+    currentMenu: Menu[],
+    parentMenu: Menu | null
+  ): Menu | null => {
     for (const item of currentMenu) {
       if (predicate(item)) return returnParent ? parentMenu : item
       if (item.items) {

@@ -1,4 +1,4 @@
-export type IAirport = {
+export type Airport = {
   name: string
   canonicalUrlToken: string
   code: string
@@ -8,7 +8,7 @@ export type IAirport = {
   terminal?: string
 }
 
-export const airports: IAirport[] = [
+export const airports: Airport[] = [
   {
     name: "Tirana",
     canonicalUrlToken: "tirana",

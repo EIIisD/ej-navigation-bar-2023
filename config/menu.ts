@@ -1,7 +1,7 @@
 import { toTitleCase } from "@artsy/to-title-case"
 
 import { languages } from "@/config/languages"
-import { TIconName } from "@/components/icon"
+import { IconName } from "@/components/icon"
 import {
   BookingDotComAttributionBanner,
   CarTrawlerAttributionBanner,
@@ -11,21 +11,21 @@ import { DialogLanguageSelect } from "@/components/navigation-bar/dialog-languag
 import { FlightTracker } from "@/components/navigation-bar/flight-tracker"
 import { MarketingArea } from "@/components/navigation-bar/marketing-area"
 
-export interface IGroup {
+export interface Group {
   title: string
-  iconElement?: TIconName
+  iconElement?: IconName
   hasVisibleLabel?: boolean
 }
 
-export interface IMenu {
+export interface Menu {
   id?: string
   title: string
-  groups?: IGroup[]
+  groups?: Group[]
   group: string
   description?: string
-  items?: IMenu[]
-  iconElement?: TIconName
-  secondaryItemElement?: TIconName
+  items?: Menu[]
+  iconElement?: IconName
+  secondaryItemElement?: IconName
   flag?: string
   widgetElement?: (props: any) => JSX.Element
   attributionBannerElement?: (props: any) => JSX.Element
@@ -34,7 +34,7 @@ export interface IMenu {
   isHidden?: boolean
 }
 
-const flightInfoItems: IMenu[] = [
+const flightInfoItems: Menu[] = [
   {
     title: toTitleCase(`Last minute flight deals`),
     description: "Last-minute savings",
@@ -205,7 +205,7 @@ const flightInfoItems: IMenu[] = [
   },
 ]
 
-const holidaysItems: IMenu[] = [
+const holidaysItems: Menu[] = [
   {
     title: toTitleCase(`easyJet Holidays`),
     description: "Your one-stop holiday shop",
@@ -361,7 +361,7 @@ const holidaysItems: IMenu[] = [
   },
 ]
 
-const businessItems: IMenu[] = [
+const businessItems: Menu[] = [
   {
     title: toTitleCase(`Business Travel`),
     description: `Simplify your business trips`,
@@ -472,7 +472,7 @@ const businessItems: IMenu[] = [
   },
 ]
 
-const carsTransfersItems: IMenu[] = [
+const carsTransfersItems: Menu[] = [
   {
     title: toTitleCase(`All car rental deals`),
     description: `Explore our range of car rental deals`,
@@ -511,7 +511,7 @@ const carsTransfersItems: IMenu[] = [
   },
 ]
 
-const bookingDotComItems: IMenu[] = [
+const bookingDotComItems: Menu[] = [
   {
     title: toTitleCase(`New deals listed every day`),
     description: `Find fresh deals daily`,
@@ -598,7 +598,7 @@ const bookingDotComItems: IMenu[] = [
   },
 ]
 
-export const menu: IMenu = {
+export const menu: Menu = {
   title: "Menu",
   groups: [{ title: "Menu" }, { title: "Account", hasVisibleLabel: false }],
   group: "Menu",
