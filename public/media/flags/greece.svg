@@ -1,0 +1,93 @@
+<svg
+  width="32"
+  height="24"
+  viewBox="0 0 32 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g clip-path="url(#clip0_463_48007)">
+    <g clip-path="url(#clip1_463_48007)">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 -0.272461H32.1819V2.45311H-0.54541V-0.272461Z"
+        fill="#0D5EAF"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 2.45312H32.1819V5.18381H-0.54541V2.45312Z"
+        fill="white"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 5.18359H32.1819V7.90917H-0.54541V5.18359Z"
+        fill="#0D5EAF"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 7.90918H32.1819V10.6348H-0.54541V7.90918Z"
+        fill="white"
+      />
+      <path
+        d="M-0.54541 -0.272461H13.0927V13.3656H-0.54541V-0.272461Z"
+        fill="#0D5EAF"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 10.6348H32.1819V13.3655H-0.54541V10.6348Z"
+        fill="#0D5EAF"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 13.3652H32.1819V16.0908H-0.54541V13.3652Z"
+        fill="white"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 16.0908H32.1819V18.8164H-0.54541V16.0908Z"
+        fill="#0D5EAF"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.54541 18.8164H32.1819V21.5471H-0.54541V18.8164Z"
+        fill="white"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M4.91077 -0.273438H7.63634V13.3647H4.91077V-0.273438Z"
+        fill="white"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M-0.545532 5.18262H13.0926V7.90819H-0.545532V5.18262Z"
+        fill="white"
+      />
+      <path
+        d="M-0.54541 21.5469H32.1819V24.2724H-0.54541V21.5469Z"
+        fill="#0D5EAF"
+      />
+    </g>
+  </g>
+  <defs>
+    <clipPath id="clip0_463_48007">
+      <rect width="31.6364" height="24" fill="white" />
+    </clipPath>
+    <clipPath id="clip1_463_48007">
+      <rect
+        width="32.7273"
+        height="24.5455"
+        fill="white"
+        transform="translate(-0.54541 -0.272461)"
+      />
+    </clipPath>
+  </defs>
+</svg>

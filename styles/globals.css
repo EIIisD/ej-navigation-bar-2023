@@ -1,0 +1,85 @@
+@font-face {
+  font-family: "easyJet Rounded";
+  font-weight: 400;
+  font-display: block;
+  font-style: normal;
+  src: url("/fonts/easyjet_rounded_book.ttf") format("truetype");
+}
+@font-face {
+  font-family: "easyJet Rounded";
+  font-weight: 600;
+  font-display: block;
+  font-style: normal;
+  src: url("/fonts/easyjet_rounded_demi.ttf") format("truetype");
+}
+@font-face {
+  font-family: "easyJet Generation CY";
+  font-weight: 400;
+  font-display: block;
+  font-style: normal;
+  src: url("/fonts/easyjet_generation_cy.ttf") format("truetype");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --page-maxWidth: theme("screens.tablet-header-width");
+    --header-maxWidth: theme("screens.desktop-header-width");
+    --dialog-maxWidth: theme("maxWidth.xl");
+    --secondary-header-height: 40px;
+    --primary-header-height: 56px;
+    --header-height: var(--primary-header-height);
+    --page-inset-large: theme("spacing.9");
+    --page-inset: theme("spacing.6");
+    --page-inset-small: theme("spacing.3");
+    --icon-stroke-width: 2.75;
+  }
+  @screen tablet-header-width {
+    :root {
+      --header-height: calc(
+        var(--secondary-header-height) + var(--primary-header-height)
+      );
+      --page-inset-large: theme("spacing.12");
+      --page-inset: theme("spacing.9");
+      --page-inset-small: theme("spacing.6");
+    }
+  }
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+  *:focus-visible {
+    outline: 4px solid invert;
+    outline-offset: 4px;
+  }
+  @media (hover: none) {
+    *:focus-visible {
+      outline: none;
+    }
+  }
+  :where(button) {
+    text-align: inherit;
+  }
+  body {
+    @apply bg-white text-primary;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  symbol,
+  svg:not(:root) {
+    overflow: visible;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

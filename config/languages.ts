@@ -1,0 +1,18 @@
+export const languages = [
+  { value: `English`, flag: "unitedKingdom" },
+  { value: `Français`, flag: "france" },
+  { value: `Deutsch`, flag: "germany" },
+  { value: `Français (Suisse)`, flag: "switzerland" },
+  { value: `Deutsch (Schweiz)`, flag: "switzerland" },
+  { value: `Castellano`, flag: "spain" },
+  { value: `Nederlands`, flag: "netherlands" },
+  { value: `Portugues`, flag: "portugal" },
+  { value: `Català`, flag: "catalonia" },
+  { value: `Česky`, flag: "czechRepublic" },
+  { value: `Dansk`, flag: "denmark" },
+  { value: `Eλληνικά`, flag: "greece" },
+  { value: `Magyarul`, flag: "hungary" },
+  { value: `Polski`, flag: "poland" },
+  { value: `Türkçe`, flag: "israel" },
+  { value: `עברית`, flag: "turkey" },
+]
