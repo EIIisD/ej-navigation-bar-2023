@@ -78,15 +78,8 @@
   }
 
   :focus {
-    /* --ring-1-size: 2px;
-    --ring-2-size: calc(var(--ring-1-size) + 2px);
-    --ring-1: 0 0 0 var(--ring-1-size) theme("colors.white");
-    --ring-2: 0 0 0 var(--ring-2-size) theme("colors.orange.DEFAULT");
-    box-shadow: var(--ring-1), var(--ring-2); */
-    /* outline: 2px solid theme("colors.orange.DEFAULT"); */
     outline: 1px solid invert;
-    outline-offset: 0px;
-    outline: none;
+    outline-offset: 4px;
     z-index: 50;
   }
 

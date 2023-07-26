@@ -210,7 +210,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
           )
         })}
       </div>
-      <div className="py-[--page-inset-small] pl-[--page-inset] pr-[1px] max-desktop-header-width:hidden">
+      <div className="py-[--page-inset-small] pl-[--page-inset] max-desktop-header-width:hidden">
         {menuItem.widgetElement && <menuItem.widgetElement />}
       </div>
       <div className="absolute bottom-0 right-0 border-none px-[--page-inset] py-[--page-inset-small] text-primary">

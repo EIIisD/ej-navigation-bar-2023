@@ -117,7 +117,7 @@ export const NavigationBar = () => {
                       textButtonVariants({
                         variant: "bold",
                       }),
-                      "-mx-3 h-[--secondary-header-height] px-3 text-sm focus-visible:bg-white/20 focus-visible:outline-none"
+                      "-mx-3 h-[--secondary-header-height] px-3 text-sm"
                     )}
                   >
                     <span>{item.title}</span>
