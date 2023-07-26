@@ -100,7 +100,7 @@ export const MenuAside = () => {
                     "group-data-[state=closed]:duration-75 group-data-[state=closed]:ease-in group-data-[state=closed]:animate-out"
                   )}
                 >
-                  <div className="absolute bottom-full right-[--page-inset] h-[--indicator-height] w-[--indicator-width] bg-white [clip-path:polygon(50%_0%,_0%_100%,_100%_100%)]" />
+                  <div className="absolute bottom-full right-[--page-inset] h-[--indicator-height] w-[calc(2_*_var(--indicator-height))] bg-white [--indicator-height:0.5rem] [clip-path:polygon(50%_0%,_0%_100%,_100%_100%)]" />
                   <div className="flex flex-col overflow-hidden rounded-[inherit]">
                     {menuItems?.map((item, itemIndex) => (
                       <Dropdown.Link key={itemIndex} asChild>

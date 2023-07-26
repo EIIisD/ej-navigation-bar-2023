@@ -1,6 +1,6 @@
 import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
 
-import { Airport, airports } from "../config/airports"
+import { Airport, airports } from "@/config/airports"
 
 const useRandomLocale = true
 

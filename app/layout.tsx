@@ -1,4 +1,4 @@
-import "../styles/globals.css"
+import "@/styles/globals.css"
 
 import React from "react"
 import { Metadata } from "next"
@@ -35,13 +35,9 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <html
-        lang="en"
-        className="h-full overflow-y-scroll [scrollbar-gutter:stable]"
-        suppressHydrationWarning
-      >
+      <html lang="en" suppressHydrationWarning>
         <head />
-        <body className="flex min-h-full flex-col font-sans antialiased">
+        <body>
           <NavigationBar />
           {children}
           <Footer />

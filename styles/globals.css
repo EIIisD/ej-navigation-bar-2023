@@ -5,6 +5,7 @@
   font-style: normal;
   src: url("/fonts/easyjet_rounded_book.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "easyJet Rounded";
   font-weight: 600;
@@ -12,6 +13,7 @@
   font-style: normal;
   src: url("/fonts/easyjet_rounded_demi.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "easyJet Generation CY";
   font-weight: 400;
@@ -35,22 +37,8 @@
     --page-inset-large: theme("spacing.9");
     --page-inset: theme("spacing.6");
     --page-inset-small: theme("spacing.3");
-    --icon-stroke-width: 2.75;
-
-    --indicator-height: 0.5rem;
-    --indicator-width: calc(2 * var(--indicator-height));
-    --indicator-inset: 2rem;
-    --clip-with-indicator: polygon(
-      0 var(--indicator-height),
-      0 100%,
-      100% 100%,
-      100% var(--indicator-height),
-      calc(100% - var(--indicator-inset)) var(--indicator-height),
-      calc(100% - var(--indicator-inset) - 0.5 * var(--indicator-width)) 0,
-      calc(100% - var(--indicator-inset) - var(--indicator-width))
-        var(--indicator-height)
-    );
   }
+
   @screen tablet-header-width {
     :root {
       --header-height: calc(
@@ -61,35 +49,51 @@
       --page-inset-small: theme("spacing.6");
     }
   }
-  *:focus {
-    outline: none;
+
+  html {
+    height: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
-  /* *:focus:not(:focus-visible) {
-    outline: none;
-  } */
-  *:focus-visible {
-    @apply ring-2 ring-white ring-offset-2 ring-offset-orange z-50;
-    /* outline: 4px solid invert;
-    outline-offset: 4px; */
-  }
-  @media (hover: none) {
-    *:focus-visible {
-      outline: none;
-    }
-  }
-  :where(button) {
-    text-align: inherit;
-  }
+
   body {
-    @apply bg-white text-primary;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    font-family: theme("fontFamily.sans");
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
+    background-color: theme("colors.white");
+    color: theme("colors.primary.DEFAULT");
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
   }
+
   symbol,
   svg:not(:root) {
     overflow: visible;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    @apply ring-2 ring-white ring-offset-2 ring-offset-orange;
+    z-index: 50;
+  }
+
+  @media (hover: none) {
+    :focus-visible {
+      @apply ring-0 ring-offset-0;
+    }
+  }
+
+  :where(button) {
+    text-align: inherit;
   }
 }
 
@@ -97,6 +101,7 @@
   .scrollbar-none {
     scrollbar-width: none;
   }
+
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
