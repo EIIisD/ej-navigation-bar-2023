@@ -21,24 +21,21 @@ export default function IndexPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-black/0"></div>
         </div>
       </section>
-      <section className="bg-white">
-        <main className="mx-auto max-w-[--page-maxWidth] flex-auto p-[--page-inset]">
-          <div className="grid gap-[--page-inset]">
-            <div className="grid gap-4 py-3">
-              <h1 className="font-display text-4xl text-primary">
-                easyJet Menu Demo
-              </h1>
-              <span className="text-base text-secondary">
-                This is a private demo of a new design for the easyJet.com main
-                menu and is for research and testing purposes only. Please be
-                advised that this is not the actual easyJet website, if you are
-                looking for the actual easyJet website please visit easyJet.com.
-              </span>
-              <div className="mt-[--page-inset] h-[100vh] rounded-3xl bg-gradient-to-b from-gray-100 to-gray-300" />
-            </div>
+      <main className="mx-auto max-w-[--page-maxWidth] flex-auto bg-white p-[--page-inset]">
+        <div className="grid gap-[--page-inset]">
+          <div className="grid gap-4 py-3">
+            <h1 className="font-display text-4xl text-primary">
+              easyJet Menu Demo
+            </h1>
+            <span className="text-base text-secondary">
+              This is a private demo of a new design for the easyJet.com main
+              menu and is for research and testing purposes only. Please be
+              advised that this is not the actual easyJet website, if you are
+              looking for the actual easyJet website please visit easyJet.com.
+            </span>
           </div>
-        </main>
-      </section>
+        </div>
+      </main>
     </>
   )
 }

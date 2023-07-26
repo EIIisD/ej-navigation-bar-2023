@@ -329,7 +329,6 @@ export const MenuMobile = () => {
                                 onClick={() => {
                                   if (groupItem.id === "sign-out") {
                                     navigationBarContext.setIsSignedIn(false)
-                                    console.log("Signed out")
                                     handleClose()
                                   } else {
                                     handleNavigate(groupItem)

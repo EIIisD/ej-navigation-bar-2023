@@ -36,6 +36,20 @@
     --page-inset: theme("spacing.6");
     --page-inset-small: theme("spacing.3");
     --icon-stroke-width: 2.75;
+
+    --indicator-height: 0.5rem;
+    --indicator-width: calc(2 * var(--indicator-height));
+    --indicator-inset: 2rem;
+    --clip-with-indicator: polygon(
+      0 var(--indicator-height),
+      0 100%,
+      100% 100%,
+      100% var(--indicator-height),
+      calc(100% - var(--indicator-inset)) var(--indicator-height),
+      calc(100% - var(--indicator-inset) - 0.5 * var(--indicator-width)) 0,
+      calc(100% - var(--indicator-inset) - var(--indicator-width))
+        var(--indicator-height)
+    );
   }
   @screen tablet-header-width {
     :root {

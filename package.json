@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "build:icons": "tsx ./build-icons.mjs && npm run format:write",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "format": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,svg}\" --cache",
     "lint": "next lint",

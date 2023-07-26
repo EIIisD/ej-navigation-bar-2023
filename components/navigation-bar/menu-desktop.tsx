@@ -231,14 +231,9 @@ export const MenuDesktop = () => {
   const primaryMenu = navigationBarContext.menu.items?.filter(
     (i) => i.group === "Menu"
   )
-  const [activeItem, setActiveItem] = React.useState<string | undefined>()
 
   return (
-    <Menu.Root
-      value={activeItem}
-      onValueChange={setActiveItem}
-      className="z-10 flex max-w-max flex-1 items-center justify-center [&>[style='position:relative']]:[position:unset!important]"
-    >
+    <Menu.Root className="z-10 flex max-w-max flex-1 items-center justify-center [&>[style='position:relative']]:[position:unset!important]">
       <Menu.List className="group flex flex-1 list-none items-center justify-center gap-[--menu-gap]">
         {primaryMenu?.map((menuItem, menuItemIndex) => {
           return (

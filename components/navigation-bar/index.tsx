@@ -9,9 +9,8 @@ import { IMenu } from "@/config/menu"
 import { cn, disablePageScroll } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
-import { AccountButton } from "@/components/navigation-bar/account-button"
+import { MenuAside } from "@/components/navigation-bar/menu-aside"
 import { MenuDesktop } from "@/components/navigation-bar/menu-desktop"
-import { MenuMobile } from "@/components/navigation-bar/menu-mobile"
 import {
   INavigationBarContext,
   NavigationBarContext,
@@ -97,15 +96,7 @@ export const NavigationBar = () => {
             </div>
           </div>
 
-          <div className="mr-[calc(var(--page-inset-small)*-1)] flex h-[--primary-header-height] items-center justify-end gap-2 bg-gradient-to-r from-orange-light to-orange pl-[calc((var(--primary-header-height)/2)+var(--menu-gap))] pr-[--page-inset-small] [clip-path:polygon(calc(var(--primary-header-height)/2)_0,_100%_0,_100%_100%,_0%_100%)]">
-            {/* desktop and mobile */}
-            <AccountButton />
-
-            {/* mobile only */}
-            <div className="flex items-center gap-2 tablet-header-width:hidden">
-              <MenuMobile />
-            </div>
-          </div>
+          <MenuAside />
         </div>
 
         {/* secondary menu */}
@@ -154,7 +145,7 @@ export const NavigationBar = () => {
         {/* borders to differentiate the header from the page content and the theme-color area on mobile, we use divs so that they don't impact the variable-controlled header height */}
         {/* we hide this top border for the desktop header because the secondary nav is a solid orange and doesn't require differentiation from the theme-color */}
         <div className="absolute inset-x-0 top-0 h-[1px] bg-orange-light tablet-header-width:hidden" />
-        <div className="absolute inset-x-0 bottom-0 h-[1px] bg-orange-light" />
+        <div className="absolute inset-x-0 bottom-[-1px] h-[1px] bg-orange-light" />
       </header>
     </NavigationBarContext.Provider>
   )

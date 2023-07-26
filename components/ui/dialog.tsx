@@ -14,7 +14,7 @@ const DialogClose = DialogPrimitive.Close
 
 const useExperimentalStyling = false
 
-const sharedDialogAnimation = cn(
+const sharedAnimation = cn(
   "data-[state=open]:duration-300 data-[state=open]:ease-out data-[state=open]:animate-in",
   "data-[state=closed]:duration-200 data-[state=closed]:ease-in data-[state=closed]:animate-out"
 )
@@ -29,7 +29,7 @@ const DialogBody = React.forwardRef<
         "fixed inset-0 z-50 flex items-end justify-center bg-black/25 px-[--page-inset-small] py-[--header-height] backdrop-blur-sm tablet-header-width:items-center",
         "data-[state=open]:fade-in-0",
         "data-[state=closed]:fade-out-0",
-        sharedDialogAnimation
+        sharedAnimation
       )}
     >
       <DialogPrimitive.Content
@@ -38,7 +38,7 @@ const DialogBody = React.forwardRef<
           "flex max-h-full w-full flex-col rounded-xl bg-white text-primary shadow-xl tablet-header-width:max-w-[--dialog-maxWidth]",
           "data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-top-4",
           "data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-top-4",
-          sharedDialogAnimation,
+          sharedAnimation,
           className
         )}
         {...props}
