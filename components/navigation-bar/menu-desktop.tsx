@@ -122,7 +122,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
             onMouseEnter={() => {
               setActiveItem(tab.title)
             }}
-            className="group relative flex items-center rounded-none border-b-[0.5px] text-orange transition-colors duration-200 will-change-contents last:border-none focus-visible:-outline-offset-1 data-[state=active]:text-primary"
+            className="group relative flex items-center rounded-none border-b-[0.5px] text-orange transition-colors duration-200 last:border-none focus-visible:-outline-offset-1 data-[state=active]:text-primary"
           >
             {activeItem === tab.title && (
               <motion.div
@@ -252,7 +252,7 @@ export const MenuDesktop = () => {
                     ? "pb-[calc(var(--page-inset-small)*2+theme('height.8'))]"
                     : "pb-[--page-inset-small]",
                   "absolute inset-x-0 top-0 mx-auto w-full max-w-[--header-maxWidth] pt-[--page-inset-small]",
-                  "transform-gpu !duration-200 will-change-[transform,opacity] data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52"
+                  "data-[motion^=from-]:duration-300 data-[motion^=to-]:duration-200 data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52"
                 )}
               >
                 <ControlledTabs menuItem={menuItem} />
@@ -262,17 +262,18 @@ export const MenuDesktop = () => {
         })}
       </Menu.List>
 
-      <div className="fixed inset-x-0 top-[--header-height] overflow-hidden [--clip-padding:100px]">
+      <div className="fixed inset-x-0 top-[--header-height] overflow-hidden [--shadow-clip-padding:45px]">
         <Menu.Viewport
           className={cn(
-            "peer relative z-[2] mx-auto h-[calc(var(--radix-navigation-menu-viewport-height)+var(--clip-padding))] w-full max-w-[--header-maxWidth] overflow-hidden",
-            "transition-[height] !duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-top-4 data-[state=open]:slide-in-from-top-4"
+            "peer relative z-[2] mx-auto h-[calc(var(--radix-navigation-menu-viewport-height)+var(--shadow-clip-padding))] w-full max-w-[--header-maxWidth] overflow-hidden transition-[height]",
+            "data-[state=closed]:duration-200 data-[state=open]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-top-4 data-[state=open]:slide-in-from-top-4",
+            "will-change-contents",
           )}
         />
         <div
           className={cn(
-            "absolute inset-0 bottom-[--clip-padding] z-[1] bg-white shadow-xl",
-            "!duration-200 peer-[[data-state=open]]:animate-in peer-[[data-state=closed]]:animate-out peer-[[data-state=closed]]:fade-out-0 peer-[[data-state=open]]:fade-in-0 peer-[[data-state=closed]]:slide-out-to-top-4 peer-[[data-state=open]]:slide-in-from-top-4"
+            "absolute inset-0 bottom-[--shadow-clip-padding] z-[1] bg-white shadow-xl",
+            "peer-[[data-state=closed]]:duration-200 peer-[[data-state=open]]:duration-300 peer-[[data-state=open]]:animate-in peer-[[data-state=closed]]:animate-out peer-[[data-state=closed]]:fade-out-0 peer-[[data-state=open]]:fade-in-0 peer-[[data-state=closed]]:slide-out-to-top-4 peer-[[data-state=open]]:slide-in-from-top-4"
           )}
         />
       </div>
