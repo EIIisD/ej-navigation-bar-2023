@@ -89,6 +89,7 @@ const HelpCentreForm = React.forwardRef<HTMLFormElement, any>(
                 {topSearches.map((value) => (
                   <DialogClose key={value} asChild>
                     <Button
+                      type="submit"
                       variant="outline"
                       size="sm"
                       className="rounded-full border-gray-300 font-normal"
@@ -102,7 +103,9 @@ const HelpCentreForm = React.forwardRef<HTMLFormElement, any>(
           </DialogMain>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
             </DialogClose>
             <Button type="submit">Search</Button>
           </DialogFooter>
@@ -115,7 +118,11 @@ HelpCentreForm.displayName = "HelpCentreForm"
 
 export const dialogHelpCentreId = "dialog-help-centre"
 
-export const DialogHelpCentre = ({ children }: { children: string }) => {
+export const DialogHelpCentre = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const navigationBarContext = useNavigationBarContext()
   const isOpen = navigationBarContext.openModals.includes(dialogHelpCentreId)
 

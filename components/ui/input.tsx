@@ -11,7 +11,7 @@ export interface InputProps
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, iconElement, ...props }, ref) => {
+  ({ className, iconElement, ...props }, ref) => {
     return (
       <div className="relative flex w-full items-center text-sm">
         {iconElement && (
@@ -21,7 +21,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
         )}
         <input
-          type={type}
           className={cn(
             "flex h-11 w-full rounded-md border border-gray-300 bg-white px-5 py-2 text-[length:inherit] text-primary placeholder:text-secondary focus-visible:border-gray-400 focus-visible:outline-none",
             !!iconElement &&

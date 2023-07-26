@@ -6,6 +6,7 @@ import { toTitleCase } from "@artsy/to-title-case"
 import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
+import { DialogSignIn } from "@/components/navigation-bar/dialog-sign-in"
 import { menuDesktopTriggerStyle } from "@/components/navigation-bar/menu-desktop"
 import { menuMobileId } from "@/components/navigation-bar/menu-mobile"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
@@ -38,6 +39,7 @@ export const AccountButton = () => {
         <div>
           {/* mobile only */}
           <Button
+            type="button"
             variant="reversed"
             size="sm"
             onClick={() => {
@@ -71,10 +73,12 @@ export const AccountButton = () => {
           </button>
         </div>
       ) : (
-        <Button variant="reversed" size="sm" onClick={onSignIn}>
-          <Icon name="usersOutlined" className="-ml-1 h-4 w-4" />
-          <span>{toTitleCase(`Sign in`)}</span>
-        </Button>
+        <DialogSignIn>
+          <Button type="button" variant="reversed" size="sm">
+            <Icon name="usersOutlined" className="-ml-1 h-4 w-4" />
+            <span>{toTitleCase(`Sign in`)}</span>
+          </Button>
+        </DialogSignIn>
       )}
     </div>
   )

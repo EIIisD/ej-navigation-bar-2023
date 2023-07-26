@@ -1,10 +1,14 @@
 import { Metadata } from "next"
 
+import { boardingPassLog } from "@/lib/boarding-pass"
+
 export const metadata: Metadata = {
   title: "Boarding Pass",
 }
 
 export default function IndexPage() {
+  boardingPassLog()
+
   return (
     <>
       <section className="flex-auto bg-white">

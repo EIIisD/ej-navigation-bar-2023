@@ -35,7 +35,7 @@ const Tabs = {
   Content: motion(TabsPrimitive.Content),
 }
 
-const MenuButton = React.forwardRef<
+const MenuLink = React.forwardRef<
   HTMLAnchorElement,
   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
     title: string
@@ -98,7 +98,7 @@ const MenuButton = React.forwardRef<
     )
   }
 )
-MenuButton.displayName = "MenuButton"
+MenuLink.displayName = "MenuLink"
 
 const ControlledTabs = ({ menuItem }: { menuItem: IMenu }) => {
   const defaultItem = menuItem.items?.[0]
@@ -200,7 +200,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: IMenu }) => {
               tabIndex={isActiveTab ? undefined : -1}
             >
               {tab?.items?.map((tabLink) => (
-                <MenuButton
+                <MenuLink
                   key={tabLink.title}
                   tabIndex={isActiveTab ? undefined : -1}
                   {...tabLink}
@@ -240,9 +240,9 @@ export const MenuDesktop = () => {
       className="z-10 flex max-w-max flex-1 items-center justify-center [&>[style='position:relative']]:[position:unset!important]"
     >
       <Menu.List className="group flex flex-1 list-none items-center justify-center gap-[--menu-gap]">
-        {primaryMenu?.map((menuItem) => {
+        {primaryMenu?.map((menuItem, menuItemIndex) => {
           return (
-            <Menu.Item key={menuItem.title} value={menuItem.title}>
+            <Menu.Item key={menuItemIndex}>
               <Menu.Trigger className={menuDesktopTriggerStyle()}>
                 <span className="line-clamp-1 break-all">{menuItem.title}</span>
                 <Icon

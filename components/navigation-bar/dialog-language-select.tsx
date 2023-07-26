@@ -94,7 +94,9 @@ const LanguageSelectForm = React.forwardRef<HTMLFormElement, any>(
           </DialogMain>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
             </DialogClose>
             <Button type="submit">Apply</Button>
           </DialogFooter>
@@ -107,7 +109,11 @@ LanguageSelectForm.displayName = "LanguageSelectForm"
 
 export const dialogLanguageSelectId = "dialog-language-select"
 
-export const DialogLanguageSelect = ({ children }: { children: string }) => {
+export const DialogLanguageSelect = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const navigationBarContext = useNavigationBarContext()
   const isOpen = navigationBarContext.openModals.includes(
     dialogLanguageSelectId

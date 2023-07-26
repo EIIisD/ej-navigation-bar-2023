@@ -347,6 +347,7 @@ export const MenuMobile = () => {
                   <div className="fixed bottom-[--page-inset] place-self-center">
                     <Menu.Close asChild>
                       <Button
+                        type="button"
                         className="rounded-full text-base font-bold shadow-lg"
                         onClick={(e) => {
                           if (!isBaseMenu) {
