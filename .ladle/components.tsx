@@ -8,5 +8,9 @@ export const Provider: GlobalProvider = ({
   globalState,
   storyMeta,
 }) => {
-  return <div className="flex items-center justify-center">{children}</div>
+  return (
+    <div className="flex flex-col items-center justify-center gap-3">
+      {children}
+    </div>
+  )
 }
