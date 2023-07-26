@@ -210,7 +210,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
           )
         })}
       </div>
-      <div className="py-[--page-inset-small] pl-[--page-inset] max-desktop-header-width:hidden">
+      <div className="py-[--page-inset-small] pl-[--page-inset] pr-[1px] max-desktop-header-width:hidden">
         {menuItem.widgetElement && <menuItem.widgetElement />}
       </div>
       <div className="absolute bottom-0 right-0 border-none px-[--page-inset] py-[--page-inset-small] text-primary">
@@ -242,7 +242,7 @@ export const MenuDesktop = () => {
                 <span className="line-clamp-1 break-all">{menuItem.title}</span>
                 <Icon
                   name="arrowDown"
-                  className="h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:rotate-180"
+                  className="h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:-rotate-180"
                 />
                 <div className="absolute inset-x-[calc(var(--menu-gap)/2)] bottom-3 h-[2px] rounded-full bg-white opacity-0 transition-opacity duration-300 group-hover/menu-trigger:opacity-25 group-focus/menu-trigger:opacity-25 group-data-[state=open]/menu-trigger:opacity-100" />
               </Menu.Trigger>

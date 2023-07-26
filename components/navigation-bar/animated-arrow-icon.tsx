@@ -12,7 +12,7 @@ export const AnimatedArrowIcon = React.forwardRef<HTMLSpanElement, any>(
       <span
         ref={forwardedRef}
         className={cn(
-          "absolute ml-[.375ch] inline-flex h-[1em] w-[1em] translate-y-[0.075em] scale-90 items-center justify-center overflow-hidden",
+          "absolute ml-[.375ch] inline-flex h-[1em] w-[1em] translate-y-[0.125ex] scale-90 items-center justify-center overflow-hidden",
           className
         )}
         {...props}

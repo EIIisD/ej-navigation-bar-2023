@@ -68,7 +68,7 @@ module.exports = {
         DEFAULT: theme("colors.gray.200"),
       }),
       borderRadius: {
-        DEFAULT: "3px",
+        DEFAULT: "3.5px",
       },
       keyframes: {
         "accordion-down": {

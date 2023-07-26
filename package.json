@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "next start",
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "dev:ladle": "npx ladle serve",
     "build": "next build",
     "build:ladle": "npx ladle build",

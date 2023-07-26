@@ -30,7 +30,7 @@ export const MarketingArea = () => {
       <div>
         <h3 className="relative max-w-max text-base font-bold text-primary">
           Deals of the Week
-          <AnimatedArrowIcon show={showArrow} />
+          <AnimatedArrowIcon show={showArrow} className="translate-y-[0.5ex]" />
           <div className="absolute inset-0" />
         </h3>
         <div className="mt-1 text-sm text-secondary">

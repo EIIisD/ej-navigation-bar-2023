@@ -26,6 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { TextButton } from "@/components/ui/text-button"
 import {
   menuMobileItemStyle,
   menuMobileListStyle,
@@ -44,9 +45,9 @@ const topSearches = [
 ]
 
 const SignInForm = React.forwardRef<HTMLFormElement, any>(
-  ({ helpCentreForm, ...props }, ref) => {
+  ({ signInForm, ...props }, ref) => {
     return (
-      <Form {...helpCentreForm}>
+      <Form {...signInForm}>
         <form ref={ref} {...props}>
           <DialogMain className={menuMobileListStyle()}>
             <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>
@@ -58,38 +59,39 @@ const SignInForm = React.forwardRef<HTMLFormElement, any>(
             </p>
 
             <FormField
-              control={helpCentreForm.control}
+              control={signInForm.control}
               name="emailAddress"
               render={({ field }) => (
                 <FormItem
                   className={cn(
                     menuMobileItemStyle({ border: "none" }),
-                    "flex-col gap-4"
+                    "flex-col gap-0 space-y-2"
                   )}
                 >
-                  <FormLabel className="text-base font-bold">
-                    Email address
-                  </FormLabel>
+                  <FormLabel>Email address</FormLabel>
                   <FormControl>
-                    <Input type="email" autoComplete="email" {...field} />
+                    <Input
+                      type="email"
+                      autoComplete="email"
+                      placeholder="name@mail.com"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
-              control={helpCentreForm.control}
+              control={signInForm.control}
               name="password"
               render={({ field }) => (
                 <FormItem
                   className={cn(
                     menuMobileItemStyle({ border: "none" }),
-                    "flex-col gap-4"
+                    "flex-col gap-0 space-y-2"
                   )}
                 >
-                  <FormLabel className="text-base font-bold">
-                    Password
-                  </FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
@@ -102,13 +104,13 @@ const SignInForm = React.forwardRef<HTMLFormElement, any>(
               )}
             />
             <FormField
-              control={helpCentreForm.control}
+              control={signInForm.control}
               name="staySignedIn"
               render={({ field }) => (
                 <FormItem
                   className={cn(
                     menuMobileItemStyle({ border: "none" }),
-                    "flex-col gap-4"
+                    "flex-col gap-0 space-y-2"
                   )}
                 >
                   <div className="flex items-center gap-3">
@@ -119,7 +121,10 @@ const SignInForm = React.forwardRef<HTMLFormElement, any>(
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <label htmlFor="staySignedIn" className="text-primary">
+                    <label
+                      htmlFor="staySignedIn"
+                      className="cursor-pointer text-secondary"
+                    >
                       Keep me signed in
                     </label>
                   </div>
@@ -128,9 +133,12 @@ const SignInForm = React.forwardRef<HTMLFormElement, any>(
               )}
             />
             <div className={menuMobileItemStyle()}>
-              <Button type="button" size="text" variant="link">
+              <TextButton
+                type="button"
+                className="text-sm font-bold text-orange"
+              >
                 Forgotten your details?
-              </Button>
+              </TextButton>
             </div>
           </DialogMain>
           <DialogFooter>
@@ -196,7 +204,7 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogBody asChild>
-        <SignInForm helpCentreForm={signInForm} onSubmit={onSubmit} />
+        <SignInForm signInForm={signInForm} onSubmit={onSubmit} />
       </DialogBody>
     </Dialog>
   )

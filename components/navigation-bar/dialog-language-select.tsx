@@ -64,11 +64,11 @@ const LanguageSelectForm = React.forwardRef<HTMLFormElement, any>(
                                 ? "none"
                                 : "default",
                           }),
-                          "items-center gap-[--page-inset-small]"
+                          "group items-center gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
                         )}
                       >
                         <RadioGroup.Indicator
-                          className="peer relative h-5 w-5 rounded-full border border-gray-400 bg-white data-[state=checked]:text-orange data-[state=unchecked]:text-white"
+                          className="peer relative h-5 w-5 rounded-full border border-gray-400 bg-white transition-colors duration-300 data-[state=unchecked]:border-gray-300 data-[state=checked]:text-orange data-[state=unchecked]:text-white group-hover:data-[state=unchecked]:text-gray-200"
                           forceMount
                         >
                           <div className="absolute inset-1 rounded-full bg-current" />
@@ -79,7 +79,7 @@ const LanguageSelectForm = React.forwardRef<HTMLFormElement, any>(
                             alt={option.value}
                             width={36}
                             height={28}
-                            className="h-7 w-9 rounded-lg border-white bg-white"
+                            className="h-7 w-9 rounded-lg border-[1.5px] border-primary bg-primary"
                           />
                         </div>
                         <span className="text-base peer-data-[state=checked]:font-bold">

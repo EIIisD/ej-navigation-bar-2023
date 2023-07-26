@@ -8,6 +8,7 @@ import { languages } from "@/config/languages"
 import { Menu } from "@/config/menu"
 import { cn, disablePageScroll } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { textButtonVariants } from "@/components/ui/text-button"
 import { Icon } from "@/components/icon"
 import { MenuAside } from "@/components/navigation-bar/menu-aside"
 import { MenuDesktop } from "@/components/navigation-bar/menu-desktop"
@@ -113,11 +114,10 @@ export const NavigationBar = () => {
                   <ItemTag
                     href="/"
                     className={cn(
-                      buttonVariants({
-                        variant: "linkReversed",
-                        size: "text",
+                      textButtonVariants({
+                        variant: "bold",
                       }),
-                      "-mx-3 h-[--secondary-header-height] px-3"
+                      "-mx-3 h-[--secondary-header-height] px-3 text-sm focus-visible:bg-white/20 focus-visible:outline-none"
                     )}
                   >
                     <span>{item.title}</span>

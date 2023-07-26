@@ -1,6 +1,5 @@
-import Link from "next/link"
-
 import { menuFooter } from "@/config/menu-footer"
+import { TextButton } from "@/components/ui/text-button"
 
 export const Footer = () => {
   return (
@@ -14,9 +13,9 @@ export const Footer = () => {
               </h2>
               {section.items.map((item) => (
                 <li key={item}>
-                  <Link href="/" className="text-sm text-secondary">
+                  <TextButton className="-m-1 p-1 text-sm text-secondary">
                     {item}
-                  </Link>
+                  </TextButton>
                 </li>
               ))}
             </ul>

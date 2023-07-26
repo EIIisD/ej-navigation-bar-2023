@@ -48,7 +48,7 @@ export const MenuAside = () => {
             {/* mobile only */}
             <Button
               type="button"
-              variant="reversed"
+              variant="outline"
               size="sm"
               onClick={() => {
                 if (!navigationBarContext.openModals.includes(menuMobileId)) {
@@ -131,7 +131,7 @@ export const MenuAside = () => {
           </>
         ) : (
           <DialogSignIn>
-            <Button type="button" variant="reversed" size="sm">
+            <Button type="button" variant="outline" size="sm">
               <Icon name="usersOutlined" className="-ml-1 h-4 w-4" />
               <span>{toTitleCase(`Sign in`)}</span>
             </Button>

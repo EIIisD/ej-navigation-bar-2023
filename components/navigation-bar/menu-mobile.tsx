@@ -249,7 +249,7 @@ export const MenuMobile = () => {
                                       {!!groupItem.secondaryItemElement && (
                                         <Icon
                                           name={groupItem.secondaryItemElement}
-                                          className="h-[1.375rem] w-[1.375rem] shrink-0 rounded-md text-tertiary"
+                                          className="h-[1.375rem] w-[1.375rem] shrink-0 rounded text-tertiary"
                                         />
                                       )}
                                       {!!groupItem.flag && (

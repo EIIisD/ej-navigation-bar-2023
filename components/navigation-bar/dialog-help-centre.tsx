@@ -62,7 +62,7 @@ const HelpCentreForm = React.forwardRef<HTMLFormElement, any>(
                     "flex-col gap-4"
                   )}
                 >
-                  <FormLabel className="text-base font-bold">
+                  <FormLabel className="text-base">
                     What do you need help with?
                   </FormLabel>
                   <FormControl>
@@ -83,7 +83,9 @@ const HelpCentreForm = React.forwardRef<HTMLFormElement, any>(
                 "flex-col gap-4 text-sm"
               )}
             >
-              <div className="text-secondary">Top results:</div>
+              <FormLabel className="font-normal text-secondary">
+                Top results:
+              </FormLabel>
 
               <div className="flex flex-wrap gap-2">
                 {topSearches.map((value) => (
@@ -92,7 +94,7 @@ const HelpCentreForm = React.forwardRef<HTMLFormElement, any>(
                       type="submit"
                       variant="outline"
                       size="sm"
-                      className="rounded-full border-gray-300 font-normal"
+                      className="rounded-full font-normal"
                     >
                       {value}
                     </Button>

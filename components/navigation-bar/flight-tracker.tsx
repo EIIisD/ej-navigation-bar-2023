@@ -9,6 +9,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -55,14 +56,21 @@ const StatusByFlightForm = () => {
           name="flightNumber"
           render={({ field }) => (
             <FormItem className="space-y-2">
+              <FormLabel>Flight number</FormLabel>
               <FormControl>
-                <Input placeholder="Flight number: e.g. 1234" {...field} />
+                <Input
+                  placeholder="1234"
+                  iconElement="searchAndMenuAirplaneModeAltSolid"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Check status</Button>
+        <Button type="submit" className="mt-4">
+          Check status
+        </Button>
       </form>
     </Form>
   )
@@ -82,8 +90,13 @@ const StatusByRouteForm = () => {
           name="flightOrigin"
           render={({ field }) => (
             <FormItem className="space-y-2">
+              <FormLabel>From</FormLabel>
               <FormControl>
-                <Input placeholder="From: e.g. London Gatwick" {...field} />
+                <Input
+                  placeholder="London Gatwick"
+                  iconElementAfter="menuBurger"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -94,14 +107,21 @@ const StatusByRouteForm = () => {
           name="flightDestination"
           render={({ field }) => (
             <FormItem className="space-y-2">
+              <FormLabel>To</FormLabel>
               <FormControl>
-                <Input placeholder="To: e.g. Amsterdam" {...field} />
+                <Input
+                  placeholder="Amsterdam"
+                  iconElementAfter="menuBurger"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Check status</Button>
+        <Button type="submit" className="mt-4">
+          Check status
+        </Button>
       </form>
     </Form>
   )
