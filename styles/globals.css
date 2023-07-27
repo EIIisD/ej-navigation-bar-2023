@@ -15,6 +15,14 @@
 }
 
 @font-face {
+  font-family: "easyJet Rounded";
+  font-weight: 300;
+  font-display: block;
+  font-style: normal;
+  src: url("/fonts/easyjet_rounded_light.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "easyJet Generation CY";
   font-weight: 400;
   font-display: block;
@@ -90,6 +98,25 @@
 
   :where(button) {
     text-align: inherit;
+  }
+}
+
+@layer components {
+  .group\/pass {
+    --pass-border-color: theme("colors.orange.darker");
+    --pass-cutout-size: 24px;
+    --pass-cutout-margin: (var(--page-inset) + 1px);
+  }
+  .group\/pass:before {
+    @apply absolute inset-0 bg-[inherit] [mask:linear-gradient(to_bottom,rgb(0_0_0/0)_0%,rgb(0_0_0/1)_100%)] mix-blend-multiply opacity-10 content-[''];
+  }
+
+  .boarding-pass-mask {
+    --r: 40px;
+    --mask: radial-gradient(var(--r) at var(--r) 50%, #0000 98%, #000)
+      calc(var(--r) * -1);
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
   }
 }
 

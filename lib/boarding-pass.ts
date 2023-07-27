@@ -1,107 +1,87 @@
 /* eslint-disable */
 import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
+import { format, sub } from "date-fns"
 
 import { airports, type Airport } from "@/config/airports"
 
 const useRandomLocale = true
+const censorPassportNumber = true
 
-const randomItem = (array: any[]) => {
-  const randomIndex = Math.floor(Math.random() * array.length)
-  return array[randomIndex]
-}
+const randomItemFromArray = <T>(array: T[]): T =>
+  array[Math.floor(Math.random() * array.length)]
 
 export const faker = new Faker({
   locale: useRandomLocale
-    ? randomItem([de, el, es, fr, he, hu, nl, pl, tr])
+    ? randomItemFromArray([de, el, es, fr, he, hu, nl, pl, tr])
     : [en],
 })
 
-export interface CustomerEntitlements {
-  specialAssistance?: boolean
-  largeCabinBag?: boolean
-  underSeatCabinBag?: boolean
+export interface ICustomerEntitlements {
+  specialAssistance: boolean
+  largeCabinBag: boolean
+  underSeatCabinBag: boolean
 }
 
-export interface Passenger {
-  name: string
+export interface IPassenger {
+  firstName: string
+  lastName: string
   passportNumber: string
 }
 
-export interface BoardingPass {
-  dateOfTravel: Date
+export interface IBoardingPass {
+  dateOfTravel: string
   flightNumber: string
-  gateClosureTime: Date
+  gateClosureTime: string
   seatNumber: string
   reservationNumber: string
   checkInSequenceNumber: string
-  symbolForCheckedInLuggageBooked?: boolean
-  symbolForFastTrackSecurityAllowance?: boolean
-  symbolForFlexiFarePurchase?: boolean
-  customerEntitlements: CustomerEntitlements
-  passengers: Passenger[]
+  symbolForCheckedInLuggageBooked: boolean
+  symbolForFastTrackSecurityAllowance: boolean
+  symbolForFlexiFarePurchase: boolean
+  customerEntitlements: ICustomerEntitlements
+  passenger: IPassenger
+  infantPassenger: IPassenger | false
   departureAirport: Airport
   arrivalAirport: Airport
-  scheduledTimeOfDeparture: Date
+  scheduledTimeOfDeparture: string
 }
 
-const generateRandomDepartureDate = () => {
-  const now = new Date()
-  const randomHours = Math.floor(Math.random() * 24)
-  const randomMinutes = Math.floor(Math.random() * 60)
-  const randomSeconds = Math.floor(Math.random() * 60)
-  return new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    randomHours,
-    randomMinutes,
-    randomSeconds
+const generatePassenger = (): IPassenger => ({
+  firstName: faker.person.firstName(),
+  lastName: faker.person.lastName(),
+  passportNumber: censorPassportNumber
+    ? `${faker.string.numeric(2)}***${faker.string.numeric(4)}`
+    : faker.string.numeric(9),
+})
+
+const generateTerminal = (): string => {
+  const terminal = faker.string.fromCharacters("ABCDEF")
+  const gate = faker.number.int({ min: 1, max: 24 })
+  return [terminal, gate].join("")
+}
+
+export const generateBoardingPass = (): IBoardingPass => {
+  const passenger = generatePassenger()
+  const departureDate = faker.date.soon()
+  const departureAirport = faker.helpers.arrayElement(airports)
+  const arrivalAirport = faker.helpers.arrayElement(
+    airports.filter((airport) => airport.code !== departureAirport.code)
   )
-}
-
-const generatePassengers = (): Passenger[] => {
-  const numberOfPassengers = Math.floor(Math.random() * 5) + 1
-  const passengers: Passenger[] = []
-  const censorPassportNumber = true
-
-  for (let i = 0; i < numberOfPassengers; i++) {
-    passengers.push({
-      name: faker.person.fullName(),
-      passportNumber: censorPassportNumber
-        ? `${faker.string.numeric(2)}***${faker.string.numeric(4)}`
-        : faker.string.numeric(9),
-    })
-  }
-  return passengers
-}
-
-const generateTestBoardingPass = (): BoardingPass => {
-  const departureDate = generateRandomDepartureDate()
-  const arrivalDate = new Date(
-    departureDate.getFullYear(),
-    departureDate.getMonth(),
-    departureDate.getDate(),
-    departureDate.getHours() + 2,
-    departureDate.getMinutes(),
-    departureDate.getSeconds()
-  )
-  const passengers = generatePassengers()
 
   return {
-    dateOfTravel: departureDate,
+    dateOfTravel: format(departureDate, "dd/MM/yyyy"),
     flightNumber: `EZY${faker.airline.flightNumber({ addLeadingZeros: true })}`,
-    gateClosureTime: departureDate,
+    gateClosureTime: format(sub(departureDate, { minutes: 30 }), "HH:mm"),
     seatNumber: [
-      faker.number.int(31),
+      faker.number.int({ min: 1, max: 31 }),
       faker.string.fromCharacters("ABCDEF"),
     ].join(""),
     reservationNumber: faker.string.alphanumeric({
       length: 7,
       casing: "upper",
     }),
-    // Check with cat what the requirements for this are - length?
-    checkInSequenceNumber: `S${faker.string.numeric()}00`,
-    symbolForCheckedInLuggageBooked: faker.datatype.boolean(0.5),
+    checkInSequenceNumber: `S${faker.number.int({ min: 1, max: 9 })}00`,
+    symbolForCheckedInLuggageBooked: faker.datatype.boolean(1),
     symbolForFastTrackSecurityAllowance: faker.datatype.boolean(0.5),
     symbolForFlexiFarePurchase: faker.datatype.boolean(0.5),
     customerEntitlements: {
@@ -109,14 +89,18 @@ const generateTestBoardingPass = (): BoardingPass => {
       largeCabinBag: faker.datatype.boolean(0.25),
       underSeatCabinBag: faker.datatype.boolean(0.5),
     },
-    passengers: passengers,
-    departureAirport: randomItem(airports),
-    arrivalAirport: randomItem(airports),
-    scheduledTimeOfDeparture: departureDate,
+    passenger: passenger,
+    infantPassenger: faker.datatype.boolean(0.5)
+      ? { ...generatePassenger(), lastName: passenger.lastName }
+      : false,
+    departureAirport: {
+      ...departureAirport,
+      terminal: generateTerminal(),
+    },
+    arrivalAirport: {
+      ...arrivalAirport,
+      terminal: generateTerminal(),
+    },
+    scheduledTimeOfDeparture: format(departureDate, "HH:mm"),
   }
-}
-
-export const boardingPassLog = () => {
-  const data = faker.person.fullName()
-  console.log(data)
 }
