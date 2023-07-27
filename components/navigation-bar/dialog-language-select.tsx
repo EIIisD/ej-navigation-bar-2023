@@ -59,7 +59,11 @@ export const DialogLanguageSelect = ({
   const onSubmit = languageSelectForm.handleSubmit(
     (data: z.infer<typeof languageSelectFormSchema>) => {
       console.log(data)
-      if (data.language) navigationBarContext.setLanguage(data.language)
+
+      if (data.language) {
+        navigationBarContext.setLanguage(data.language)
+      }
+
       navigationBarContext.setOpenModals(
         removeFromOpenModals(
           navigationBarContext.openModals,
@@ -67,6 +71,8 @@ export const DialogLanguageSelect = ({
         )
       )
       languageSelectForm.reset()
+
+      return false
     }
   )
 
@@ -85,12 +91,25 @@ export const DialogLanguageSelect = ({
     }
   }
 
+  const id = {
+    trigger: `DialogLanguageSelect:Dialog.Trigger.0`,
+    content: `DialogLanguageSelect:Dialog.Content.0`,
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogBody asChild>
-        <Form {...languageSelectForm}>
-          <form onSubmit={() => void onSubmit()}>
+    <Form {...languageSelectForm}>
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+        <DialogTrigger id={id.trigger} aria-controls={id.content} asChild>
+          {children}
+        </DialogTrigger>
+        <DialogBody id={id.content} asChild>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+
+              return void onSubmit()
+            }}
+          >
             <DialogMain>
               <FormField
                 control={languageSelectForm.control}
@@ -155,8 +174,8 @@ export const DialogLanguageSelect = ({
               <Button type="submit">Apply</Button>
             </DialogFooter>
           </form>
-        </Form>
-      </DialogBody>
-    </Dialog>
+        </DialogBody>
+      </Dialog>
+    </Form>
   )
 }

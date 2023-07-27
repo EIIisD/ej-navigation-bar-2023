@@ -93,12 +93,25 @@ export const DialogHelpCentre = ({
     }
   }
 
+  const id = {
+    trigger: `DialogHelpCentre:Dialog.Trigger.0`,
+    content: `DialogHelpCentre:Dialog.Content.0`,
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogBody asChild>
-        <Form {...helpCentreForm}>
-          <form onSubmit={() => void onSubmit()}>
+    <Form {...helpCentreForm}>
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+        <DialogTrigger id={id.trigger} aria-controls={id.content} asChild>
+          {children}
+        </DialogTrigger>
+        <DialogBody id={id.content} asChild>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+
+              return void onSubmit()
+            }}
+          >
             <DialogMain className={menuMobileListStyle()}>
               <DialogTitle
                 className={menuMobileItemStyle({ variant: "title" })}
@@ -166,8 +179,8 @@ export const DialogHelpCentre = ({
               <Button type="submit">Search</Button>
             </DialogFooter>
           </form>
-        </Form>
-      </DialogBody>
-    </Dialog>
+        </DialogBody>
+      </Dialog>
+    </Form>
   )
 }

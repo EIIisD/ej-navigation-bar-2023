@@ -77,12 +77,25 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  const id = {
+    trigger: `DialogLanguageSelect:Dialog.Trigger.0`,
+    content: `DialogLanguageSelect:Dialog.Content.0`,
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogBody asChild>
-        <Form {...signInForm}>
-          <form onSubmit={() => void onSubmit()}>
+    <Form {...signInForm}>
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+        <DialogTrigger id={id.trigger} aria-controls={id.content} asChild>
+          {children}
+        </DialogTrigger>
+        <DialogBody id={id.content} asChild>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+
+              return void onSubmit()
+            }}
+          >
             <DialogMain className={menuMobileListStyle()}>
               <DialogTitle
                 className={menuMobileItemStyle({ variant: "title" })}
@@ -186,8 +199,8 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
               <Button type="submit">Sign in</Button>
             </DialogFooter>
           </form>
-        </Form>
-      </DialogBody>
-    </Dialog>
+        </DialogBody>
+      </Dialog>
+    </Form>
   )
 }

@@ -65,7 +65,14 @@ const StatusByFlightForm = () => {
 
   return (
     <Form {...statusByFlightForm}>
-      <form onSubmit={() => void onSubmit()} className="grid gap-4">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+
+          return void onSubmit()
+        }}
+        className="grid gap-4"
+      >
         <FormField
           control={statusByFlightForm.control}
           name="flightNumber"
@@ -114,7 +121,14 @@ const StatusByRouteForm = () => {
 
   return (
     <Form {...statusByRouteForm}>
-      <form onSubmit={() => void onSubmit()} className="grid gap-4">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+
+          return void onSubmit()
+        }}
+        className="grid gap-4"
+      >
         <FormField
           control={statusByRouteForm.control}
           name="flightOrigin"
