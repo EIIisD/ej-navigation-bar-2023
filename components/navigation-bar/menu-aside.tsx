@@ -40,6 +40,11 @@ export const MenuAside = () => {
     (item) => item.group === "Account" && item.isHidden === false
   )
 
+  const id = {
+    trigger: `MenuAside:Dropdown.Trigger.0`,
+    content: `MenuAside:Dropdown.Content.0`,
+  }
+
   return (
     <Dropdown.Root className="relative z-50 flex max-w-max flex-1 items-center justify-center">
       <div className="mr-[calc(var(--page-inset-small)*-1)] flex h-[--primary-header-height] items-center justify-end gap-2 bg-gradient-to-r from-orange-light to-orange pl-[calc((var(--primary-header-height)/2)+var(--menu-gap))] pr-[--page-inset-small] [clip-path:polygon(calc(var(--primary-header-height)/2)_0,_100%_0,_100%_100%,_0%_100%)]">
@@ -76,20 +81,23 @@ export const MenuAside = () => {
             {/* desktop only */}
             <Dropdown.List className="group flex flex-1 list-none items-center justify-center space-x-1 max-desktop-header-width:hidden">
               <Dropdown.Item>
-                <Dropdown.Trigger asChild>
-                  <button type="button" className={menuDesktopTriggerStyle()}>
-                    <span className="max-w-[15ch] truncate break-all">
-                      {toTitleCase(`Hello ${userNameExamples.long}`)}
-                    </span>
-                    <Icon
-                      name="arrowDown"
-                      className="relative h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:rotate-180"
-                    />
-                    <div className="absolute inset-x-4 bottom-3 h-[2px] rounded-full bg-white opacity-0 transition-opacity duration-300 group-hover/menu-trigger:opacity-25 group-focus/menu-trigger:opacity-25 group-data-[state=open]/menu-trigger:opacity-100" />
-                  </button>
+                <Dropdown.Trigger
+                  id={id.trigger}
+                  aria-controls={id.content}
+                  className={menuDesktopTriggerStyle()}
+                >
+                  <span className="max-w-[15ch] truncate break-all">
+                    {toTitleCase(`Hello ${userNameExamples.long}`)}
+                  </span>
+                  <Icon
+                    name="arrowDown"
+                    className="relative h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:rotate-180"
+                  />
+                  <div className="absolute inset-x-4 bottom-3 h-[2px] rounded-full bg-white opacity-0 transition-opacity duration-300 group-hover/menu-trigger:opacity-25 group-focus/menu-trigger:opacity-25 group-data-[state=open]/menu-trigger:opacity-100" />
                 </Dropdown.Trigger>
 
                 <Dropdown.Content
+                  id={id.content}
                   className={cn(
                     "relative flex flex-col rounded-lg bg-white text-primary shadow-xl",
                     "group-data-[state=open]:fade-in-0",

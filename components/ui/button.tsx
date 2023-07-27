@@ -20,9 +20,9 @@ const buttonVariants = cva(
         default:
           "bg-orange text-white [--contrast-outline-color:theme('colors.orange.darker/0.9')] [--hover-bg-overlay:theme('colors.white/0.1')]",
         outline:
-          "[--contrast-outline-color:theme('colors.orange.DEFAULT')] [--hover-bg-overlay:theme('colors.orange.DEFAULT/0.05')] bg-white text-orange",
+          "bg-white text-orange [--contrast-outline-color:theme('colors.orange.DEFAULT')] [--hover-bg-overlay:theme('colors.orange.DEFAULT/0.05')]",
         ghost:
-          "text-orange bg-white [--contrast-outline-color:theme('colors.white')] before:mix-blend-normal shadow-none before:shadow-none [--hover-bg-overlay:theme('colors.orange.DEFAULT/0.05')]",
+          "bg-white text-orange shadow-none [--hover-bg-overlay:theme('colors.orange.DEFAULT/0.05')] [--contrast-outline-color:theme('colors.white')] before:mix-blend-normal before:shadow-none",
       },
       size: {
         sm: "h-8 px-4 text-sm",

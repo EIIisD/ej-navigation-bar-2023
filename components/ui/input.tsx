@@ -3,7 +3,7 @@
 import React from "react"
 
 import { cn } from "@/lib/utils"
-import { Icon, IconName } from "@/components/icon"
+import { Icon, type IconName } from "@/components/icon"
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

@@ -1,7 +1,9 @@
 "use client"
 
 import { toTitleCase } from "@artsy/to-title-case"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -43,14 +45,27 @@ export const FlightTracker = () => {
 }
 
 const StatusByFlightForm = () => {
-  const statusByFlightForm = useForm()
+  const statusByFlightFormSchema = z.object({
+    flightNumber: z.string().nonempty(),
+  })
+
+  const statusByFlightForm = useForm<z.infer<typeof statusByFlightFormSchema>>({
+    resolver: zodResolver(statusByFlightFormSchema),
+    defaultValues: {
+      flightNumber: "",
+    },
+  })
+
+  const onSubmit = statusByFlightForm.handleSubmit(
+    (data: z.infer<typeof statusByFlightFormSchema>) => {
+      console.log(data)
+      statusByFlightForm.reset()
+    }
+  )
 
   return (
     <Form {...statusByFlightForm}>
-      <form
-        onSubmit={statusByFlightForm.handleSubmit(console.log)}
-        className="grid gap-4"
-      >
+      <form onSubmit={() => void onSubmit()} className="grid gap-4">
         <FormField
           control={statusByFlightForm.control}
           name="flightNumber"
@@ -77,14 +92,29 @@ const StatusByFlightForm = () => {
 }
 
 const StatusByRouteForm = () => {
-  const statusByRouteForm = useForm()
+  const statusByRouteFormSchema = z.object({
+    flightOrigin: z.string().nonempty(),
+    flightDestination: z.string().nonempty(),
+  })
+
+  const statusByRouteForm = useForm<z.infer<typeof statusByRouteFormSchema>>({
+    resolver: zodResolver(statusByRouteFormSchema),
+    defaultValues: {
+      flightOrigin: "",
+      flightDestination: "",
+    },
+  })
+
+  const onSubmit = statusByRouteForm.handleSubmit(
+    (data: z.infer<typeof statusByRouteFormSchema>) => {
+      console.log(data)
+      statusByRouteForm.reset()
+    }
+  )
 
   return (
     <Form {...statusByRouteForm}>
-      <form
-        onSubmit={statusByRouteForm.handleSubmit(console.log)}
-        className="grid gap-4"
-      >
+      <form onSubmit={() => void onSubmit()} className="grid gap-4">
         <FormField
           control={statusByRouteForm.control}
           name="flightOrigin"

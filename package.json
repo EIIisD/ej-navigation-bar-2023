@@ -12,8 +12,7 @@
     "format": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,svg}\" --cache",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "typecheck": "tsc --noEmit"
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@artsy/to-title-case": "1.1.0",
@@ -30,9 +29,12 @@
     "@radix-ui/react-radio-group": "1.1.3",
     "@radix-ui/react-slot": "1.0.2",
     "@radix-ui/react-tabs": "1.0.4",
+    "@types/eslint": "8.44.1",
     "@types/node": "20.4.5",
+    "@types/prettier": "2.7.3",
     "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",
+    "@typescript-eslint/eslint-plugin": "6.2.0",
     "@typescript-eslint/parser": "6.2.0",
     "autoprefixer": "10.4.14",
     "class-variance-authority": "0.7.0",

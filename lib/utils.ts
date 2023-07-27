@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-import { Menu } from "@/config/menu"
+import { type Menu } from "@/config/menu"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -20,19 +20,19 @@ export function disablePageScroll(disable: boolean) {
       const scrollY = page.style.top
       page.style.position = ""
       page.style.top = ""
-      window.scrollTo(0, parseInt(scrollY || "0") * -1)
+      window.scrollTo(0, parseInt(scrollY ?? "0") * -1)
     }
   }
 }
 
-export function wait(ms: number = 1000) {
+export function wait(ms = 1000) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export function findInMenu(
   targetMenu: Menu,
   predicate: (item: Menu) => boolean,
-  returnParent: boolean = false
+  returnParent = false
 ) {
   const traverse = (
     currentMenu: Menu[],
@@ -47,7 +47,7 @@ export function findInMenu(
     }
     return null
   }
-  return traverse(targetMenu.items || [], targetMenu) || targetMenu
+  return traverse(targetMenu.items ?? [], targetMenu) ?? targetMenu
 }
 
 export function addToOpenModals(openModals: string[], id: string) {

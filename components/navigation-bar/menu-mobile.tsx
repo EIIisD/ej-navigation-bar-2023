@@ -8,7 +8,7 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { cva } from "class-variance-authority"
 import { AnimatePresence, motion } from "framer-motion"
 
-import { Menu } from "@/config/menu"
+import { type Menu } from "@/config/menu"
 import {
   addToOpenModals,
   cn,
@@ -40,8 +40,8 @@ export const menuMobileItemStyle = cva(
     variants: {
       variant: {
         default: "py-4",
-        attributionWidget: "pb-8 -mt-6",
-        title: "pb-8 pt-10 text-[2.5rem] font-display !gap-3",
+        attributionWidget: "-mt-6 pb-8",
+        title: "!gap-3 pb-8 pt-10 font-display text-[2.5rem]",
         hiddenTitle: "py-6",
       },
       border: {
@@ -99,9 +99,14 @@ export const MenuMobile = () => {
     }
   }
 
+  const id = {
+    trigger: `MenuMobile:Menu.Trigger.0`,
+    content: `MenuMobile:Menu.Content.0`,
+  }
+
   return (
     <Menu.Root open={isOpen} onOpenChange={handleOpenChange} modal={false}>
-      <Menu.Trigger asChild>
+      <Menu.Trigger id={id.trigger} aria-controls={id.content} asChild>
         <button
           type="button"
           className="group/menu-icon relative grid h-[--primary-header-height] w-[--primary-header-height] shrink-0 place-items-center focus-visible:bg-white/20"
@@ -131,6 +136,7 @@ export const MenuMobile = () => {
               >
                 <Menu.Content
                   key={`${activeMenuTitle}-${navigationBarContext.language}`}
+                  id={id.content}
                   onInteractOutside={(e) => e.preventDefault()}
                   initial="hidden"
                   animate="visible"

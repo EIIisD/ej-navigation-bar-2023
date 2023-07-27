@@ -1,8 +1,7 @@
 import React from "react"
 import { type Story, type StoryDefault } from "@ladle/react"
-import { type VariantProps } from "class-variance-authority"
 
-import { Button, ButtonProps, buttonVariants } from "@/components/ui/button"
+import { Button, type ButtonProps } from "@/components/ui/button"
 
 export default {} satisfies StoryDefault
 

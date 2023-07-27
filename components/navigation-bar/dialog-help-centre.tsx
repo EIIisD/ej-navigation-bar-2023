@@ -42,81 +42,11 @@ const topSearches = [
   "Boarding",
 ]
 
-const HelpCentreForm = React.forwardRef<HTMLFormElement, any>(
-  ({ helpCentreForm, ...props }, ref) => {
-    return (
-      <Form {...helpCentreForm}>
-        <form ref={ref} {...props}>
-          <DialogMain className={menuMobileListStyle()}>
-            <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>
-              Help centre
-            </DialogTitle>
-
-            <FormField
-              control={helpCentreForm.control}
-              name="searchQuery"
-              render={({ field }) => (
-                <FormItem
-                  className={cn(
-                    menuMobileItemStyle({ border: "none" }),
-                    "flex-col gap-4"
-                  )}
-                >
-                  <FormLabel className="text-base">
-                    What do you need help with?
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      iconElement="searchAndMenuSearchOutlined"
-                      placeholder="Search FAQs"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div
-              className={cn(
-                menuMobileItemStyle({ border: "none" }),
-                "flex-col gap-4 text-sm"
-              )}
-            >
-              <FormLabel className="font-normal text-secondary">
-                Top results:
-              </FormLabel>
-
-              <div className="flex flex-wrap gap-2">
-                {topSearches.map((value) => (
-                  <DialogClose key={value} asChild>
-                    <Button
-                      type="submit"
-                      variant="outline"
-                      size="sm"
-                      className="rounded-full font-normal"
-                    >
-                      {value}
-                    </Button>
-                  </DialogClose>
-                ))}
-              </div>
-            </div>
-          </DialogMain>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button type="submit">Search</Button>
-          </DialogFooter>
-        </form>
-      </Form>
-    )
-  }
-)
-HelpCentreForm.displayName = "HelpCentreForm"
+const helpCentreFormSchema = z.object({
+  searchQuery: z.string({
+    required_error: "Your search query is empty. Please try again.",
+  }),
+})
 
 export const dialogHelpCentreId = "dialog-help-centre"
 
@@ -128,12 +58,6 @@ export const DialogHelpCentre = ({
   const navigationBarContext = useNavigationBarContext()
   const isOpen = navigationBarContext.openModals.includes(dialogHelpCentreId)
 
-  const helpCentreFormSchema = z.object({
-    searchQuery: z.string({
-      required_error: "Your search query is empty. Please try again.",
-    }),
-  })
-
   const helpCentreForm = useForm<z.infer<typeof helpCentreFormSchema>>({
     resolver: zodResolver(helpCentreFormSchema),
     defaultValues: {
@@ -141,20 +65,18 @@ export const DialogHelpCentre = ({
     },
   })
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    return helpCentreForm.handleSubmit(
-      (data: z.infer<typeof helpCentreFormSchema>) => {
-        console.log(data)
-        navigationBarContext.setOpenModals(
-          removeFromOpenModals(
-            navigationBarContext.openModals,
-            dialogHelpCentreId
-          )
+  const onSubmit = helpCentreForm.handleSubmit(
+    (data: z.infer<typeof helpCentreFormSchema>) => {
+      console.log(data)
+      navigationBarContext.setOpenModals(
+        removeFromOpenModals(
+          navigationBarContext.openModals,
+          dialogHelpCentreId
         )
-        helpCentreForm.reset()
-      }
-    )(event)
-  }
+      )
+      helpCentreForm.reset()
+    }
+  )
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
@@ -175,7 +97,76 @@ export const DialogHelpCentre = ({
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogBody asChild>
-        <HelpCentreForm helpCentreForm={helpCentreForm} onSubmit={onSubmit} />
+        <Form {...helpCentreForm}>
+          <form onSubmit={() => void onSubmit()}>
+            <DialogMain className={menuMobileListStyle()}>
+              <DialogTitle
+                className={menuMobileItemStyle({ variant: "title" })}
+              >
+                Help centre
+              </DialogTitle>
+
+              <FormField
+                control={helpCentreForm.control}
+                name="searchQuery"
+                render={({ field }) => (
+                  <FormItem
+                    className={cn(
+                      menuMobileItemStyle({ border: "none" }),
+                      "flex-col gap-4"
+                    )}
+                  >
+                    <FormLabel className="text-base">
+                      What do you need help with?
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        iconElement="searchAndMenuSearchOutlined"
+                        placeholder="Search FAQs"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div
+                className={cn(
+                  menuMobileItemStyle({ border: "none" }),
+                  "flex-col gap-4 text-sm"
+                )}
+              >
+                <FormLabel className="font-normal text-secondary">
+                  Top results:
+                </FormLabel>
+
+                <div className="flex flex-wrap gap-2">
+                  {topSearches.map((value) => (
+                    <DialogClose key={value} asChild>
+                      <Button
+                        type="submit"
+                        variant="outline"
+                        size="sm"
+                        className="rounded-full font-normal"
+                      >
+                        {value}
+                      </Button>
+                    </DialogClose>
+                  ))}
+                </div>
+              </div>
+            </DialogMain>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button type="submit">Search</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogBody>
     </Dialog>
   )

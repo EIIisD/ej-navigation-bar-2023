@@ -33,140 +33,17 @@ import {
 } from "@/components/navigation-bar/menu-mobile"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
-const topSearches = [
-  "Disruption Help Hub",
-  "Help Homepage",
-  "Flight Tracker",
-  "Travel information",
-  "Bag allowance",
-  "Damaged or delayed bags",
-  "Advanced passenger information",
-  "Boarding",
-]
-
-const SignInForm = React.forwardRef<HTMLFormElement, any>(
-  ({ signInForm, ...props }, ref) => {
-    return (
-      <Form {...signInForm}>
-        <form ref={ref} {...props}>
-          <DialogMain className={menuMobileListStyle()}>
-            <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>
-              Sign in
-            </DialogTitle>
-
-            <p className={cn(menuMobileItemStyle(), "text-secondary")}>
-              Sign in to view and manage your account and bookings.
-            </p>
-
-            <FormField
-              control={signInForm.control}
-              name="emailAddress"
-              render={({ field }) => (
-                <FormItem
-                  className={cn(
-                    menuMobileItemStyle({ border: "none" }),
-                    "flex-col gap-0 space-y-2"
-                  )}
-                >
-                  <FormLabel>Email address</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      autoComplete="email"
-                      placeholder="name@mail.com"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={signInForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem
-                  className={cn(
-                    menuMobileItemStyle({ border: "none" }),
-                    "flex-col gap-0 space-y-2"
-                  )}
-                >
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      autoComplete="current-password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={signInForm.control}
-              name="staySignedIn"
-              render={({ field }) => (
-                <FormItem
-                  className={cn(
-                    menuMobileItemStyle({ border: "none" }),
-                    "flex-col gap-0 space-y-2"
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <FormControl>
-                      <Checkbox
-                        id="staySignedIn"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <label
-                      htmlFor="staySignedIn"
-                      className="cursor-pointer text-secondary"
-                    >
-                      Keep me signed in
-                    </label>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className={menuMobileItemStyle()}>
-              <TextButton
-                type="button"
-                className="text-sm font-bold text-orange"
-              >
-                Forgotten your details?
-              </TextButton>
-            </div>
-          </DialogMain>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button type="submit">Sign in</Button>
-          </DialogFooter>
-        </form>
-      </Form>
-    )
-  }
-)
-SignInForm.displayName = "SignInForm"
+const signInFormSchema = z.object({
+  emailAddress: z.string().email(),
+  password: z.string(),
+  staySignedIn: z.boolean(),
+})
 
 export const dialogSignInId = "dialog-sign-in"
 
 export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
   const navigationBarContext = useNavigationBarContext()
   const isOpen = navigationBarContext.openModals.includes(dialogSignInId)
-
-  const signInFormSchema = z.object({
-    emailAddress: z.string().email(),
-    password: z.string(),
-    staySignedIn: z.boolean(),
-  })
 
   const signInForm = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
@@ -177,16 +54,16 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
     },
   })
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    return signInForm.handleSubmit((data: z.infer<typeof signInFormSchema>) => {
+  const onSubmit = signInForm.handleSubmit(
+    (data: z.infer<typeof signInFormSchema>) => {
       console.log(data)
       navigationBarContext.setIsSignedIn(true)
       navigationBarContext.setOpenModals(
         removeFromOpenModals(navigationBarContext.openModals, dialogSignInId)
       )
       signInForm.reset()
-    })(event)
-  }
+    }
+  )
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
@@ -204,7 +81,112 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogBody asChild>
-        <SignInForm signInForm={signInForm} onSubmit={onSubmit} />
+        <Form {...signInForm}>
+          <form onSubmit={() => void onSubmit()}>
+            <DialogMain className={menuMobileListStyle()}>
+              <DialogTitle
+                className={menuMobileItemStyle({ variant: "title" })}
+              >
+                Sign in
+              </DialogTitle>
+
+              <p className={cn(menuMobileItemStyle(), "text-secondary")}>
+                Sign in to view and manage your account and bookings.
+              </p>
+
+              <FormField
+                control={signInForm.control}
+                name="emailAddress"
+                render={({ field }) => (
+                  <FormItem
+                    className={cn(
+                      menuMobileItemStyle({ border: "none" }),
+                      "flex-col gap-0 space-y-2"
+                    )}
+                  >
+                    <FormLabel>Email address</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        autoComplete="email"
+                        placeholder="name@mail.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signInForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem
+                    className={cn(
+                      menuMobileItemStyle({ border: "none" }),
+                      "flex-col gap-0 space-y-2"
+                    )}
+                  >
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        autoComplete="current-password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signInForm.control}
+                name="staySignedIn"
+                render={({ field }) => (
+                  <FormItem
+                    className={cn(
+                      menuMobileItemStyle({ border: "none" }),
+                      "flex-col gap-0 space-y-2"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      <FormControl>
+                        <Checkbox
+                          id="staySignedIn"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <label
+                        htmlFor="staySignedIn"
+                        className="cursor-pointer text-secondary"
+                      >
+                        Keep me signed in
+                      </label>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className={menuMobileItemStyle()}>
+                <TextButton
+                  type="button"
+                  className="text-sm font-bold text-orange"
+                >
+                  Forgotten your details?
+                </TextButton>
+              </div>
+            </DialogMain>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button type="submit">Sign in</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogBody>
     </Dialog>
   )

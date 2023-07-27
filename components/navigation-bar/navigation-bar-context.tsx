@@ -3,7 +3,7 @@
 import React from "react"
 
 import { languages } from "@/config/languages"
-import { menu, Menu } from "@/config/menu"
+import { menu, type Menu } from "@/config/menu"
 
 export interface NavigationBarContext {
   language: string
@@ -18,13 +18,13 @@ export interface NavigationBarContext {
 
 export const navigationBarContextDefs = {
   language: languages[0].value,
-  setLanguage: () => {},
+  setLanguage: () => null,
   menu: menu,
-  setMenu: () => {},
+  setMenu: () => null,
   isSignedIn: false,
-  setIsSignedIn: () => {},
+  setIsSignedIn: () => null,
   openModals: [],
-  setOpenModals: () => {},
+  setOpenModals: () => null,
 }
 
 export const NavigationBarContext = React.createContext<NavigationBarContext>({

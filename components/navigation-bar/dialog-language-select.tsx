@@ -32,80 +32,9 @@ const RadioGroup = {
   Indicator: RadioGroupPrimitive.Indicator,
 }
 
-const LanguageSelectForm = React.forwardRef<HTMLFormElement, any>(
-  ({ languageSelectForm, currentLanguage, ...props }, ref) => {
-    return (
-      <Form {...languageSelectForm}>
-        <form ref={ref} {...props}>
-          <DialogMain>
-            <FormField
-              control={languageSelectForm.control}
-              name="language"
-              render={({ field: { value, ...field } }) => (
-                <FormControl>
-                  <RadioGroup.Root
-                    defaultValue={currentLanguage}
-                    className={menuMobileListStyle()}
-                    {...field}
-                  >
-                    <DialogTitle
-                      className={menuMobileItemStyle({ variant: "title" })}
-                    >
-                      Select Language
-                    </DialogTitle>
-                    {languages.map((option, optionIndex) => (
-                      <RadioGroup.Item
-                        key={option.value}
-                        value={option.value}
-                        className={cn(
-                          menuMobileItemStyle({
-                            border:
-                              optionIndex === languages.length - 1 || false
-                                ? "none"
-                                : "default",
-                          }),
-                          "group items-center gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
-                        )}
-                      >
-                        <RadioGroup.Indicator
-                          className="peer relative h-5 w-5 rounded-full border border-gray-400 bg-white transition-colors duration-300 data-[state=unchecked]:border-gray-300 data-[state=checked]:text-orange data-[state=unchecked]:text-white group-hover:data-[state=unchecked]:text-gray-200"
-                          forceMount
-                        >
-                          <div className="absolute inset-1 rounded-full bg-current" />
-                        </RadioGroup.Indicator>
-                        <div className="grid h-11 shrink-0 place-items-center">
-                          <Image
-                            src={`/media/flags/${option.flag}.svg`}
-                            alt={option.value}
-                            width={36}
-                            height={28}
-                            className="h-7 w-9 rounded-lg border-[1.5px] border-primary bg-primary"
-                          />
-                        </div>
-                        <span className="text-base peer-data-[state=checked]:font-bold">
-                          {option.value}
-                        </span>
-                      </RadioGroup.Item>
-                    ))}
-                  </RadioGroup.Root>
-                </FormControl>
-              )}
-            />
-          </DialogMain>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button type="submit">Apply</Button>
-          </DialogFooter>
-        </form>
-      </Form>
-    )
-  }
-)
-LanguageSelectForm.displayName = "LanguageSelectForm"
+const languageSelectFormSchema = z.object({
+  language: z.string().optional(),
+})
 
 export const dialogLanguageSelectId = "dialog-language-select"
 
@@ -119,10 +48,6 @@ export const DialogLanguageSelect = ({
     dialogLanguageSelectId
   )
 
-  const languageSelectFormSchema = z.object({
-    language: z.string().optional(),
-  })
-
   const languageSelectForm = useForm<z.infer<typeof languageSelectFormSchema>>({
     resolver: zodResolver(languageSelectFormSchema),
     defaultValues: {
@@ -130,21 +55,19 @@ export const DialogLanguageSelect = ({
     },
   })
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    return languageSelectForm.handleSubmit(
-      (data: z.infer<typeof languageSelectFormSchema>) => {
-        console.log(data)
-        if (data.language) navigationBarContext.setLanguage(data.language)
-        navigationBarContext.setOpenModals(
-          removeFromOpenModals(
-            navigationBarContext.openModals,
-            dialogLanguageSelectId
-          )
+  const onSubmit = languageSelectForm.handleSubmit(
+    (data: z.infer<typeof languageSelectFormSchema>) => {
+      console.log(data)
+      if (data.language) navigationBarContext.setLanguage(data.language)
+      navigationBarContext.setOpenModals(
+        removeFromOpenModals(
+          navigationBarContext.openModals,
+          dialogLanguageSelectId
         )
-        languageSelectForm.reset()
-      }
-    )(event)
-  }
+      )
+      languageSelectForm.reset()
+    }
+  )
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
@@ -165,11 +88,73 @@ export const DialogLanguageSelect = ({
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogBody asChild>
-        <LanguageSelectForm
-          languageSelectForm={languageSelectForm}
-          currentLanguage={navigationBarContext.language}
-          onSubmit={onSubmit}
-        />
+        <Form {...languageSelectForm}>
+          <form onSubmit={() => void onSubmit()}>
+            <DialogMain>
+              <FormField
+                control={languageSelectForm.control}
+                name="language"
+                render={({ field: { value: _, ...field } }) => (
+                  <FormControl>
+                    <RadioGroup.Root
+                      defaultValue={navigationBarContext.language}
+                      className={menuMobileListStyle()}
+                      {...field}
+                    >
+                      <DialogTitle
+                        className={menuMobileItemStyle({ variant: "title" })}
+                      >
+                        Select Language
+                      </DialogTitle>
+                      {languages.map((option, optionIndex) => (
+                        <RadioGroup.Item
+                          key={option.value}
+                          value={option.value}
+                          className={cn(
+                            menuMobileItemStyle({
+                              border:
+                                optionIndex === languages.length - 1 || false
+                                  ? "none"
+                                  : "default",
+                            }),
+                            "group items-center gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
+                          )}
+                        >
+                          <RadioGroup.Indicator
+                            className="peer relative h-5 w-5 rounded-full border border-gray-400 bg-white transition-colors duration-300 data-[state=unchecked]:border-gray-300 data-[state=checked]:text-orange data-[state=unchecked]:text-white group-hover:data-[state=unchecked]:text-gray-200"
+                            forceMount
+                          >
+                            <div className="absolute inset-1 rounded-full bg-current" />
+                          </RadioGroup.Indicator>
+                          <div className="grid h-11 shrink-0 place-items-center">
+                            <Image
+                              src={`/media/flags/${option.flag}.svg`}
+                              alt={option.value}
+                              width={36}
+                              height={28}
+                              className="h-7 w-9 rounded-lg border-[1.5px] border-primary bg-primary"
+                            />
+                          </div>
+                          <span className="text-base peer-data-[state=checked]:font-bold">
+                            {option.value}
+                          </span>
+                        </RadioGroup.Item>
+                      ))}
+                    </RadioGroup.Root>
+                  </FormControl>
+                )}
+              />
+            </DialogMain>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button type="submit">Apply</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogBody>
     </Dialog>
   )

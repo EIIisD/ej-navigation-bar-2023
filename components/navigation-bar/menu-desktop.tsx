@@ -7,9 +7,9 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 import { cva } from "class-variance-authority"
 import { motion } from "framer-motion"
 
-import { Menu } from "@/config/menu"
+import { type Menu } from "@/config/menu"
 import { cn } from "@/lib/utils"
-import { Icon, IconName } from "@/components/icon"
+import { Icon, type IconName } from "@/components/icon"
 import { AnimatedArrowIcon } from "@/components/navigation-bar/animated-arrow-icon"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
@@ -42,62 +42,54 @@ const MenuLink = React.forwardRef<
     description?: string
     iconElement?: IconName
   }
->(
-  (
-    { className, title, description, iconElement: IconElement, ...props },
-    ref
-  ) => {
-    const [showArrow, setShowArrow] = React.useState(false)
+>(({ title, description, iconElement: IconElement, ...props }, ref) => {
+  const [showArrow, setShowArrow] = React.useState(false)
 
-    return (
-      <Menu.Link
-        onSelect={(e) => contentEditable && e.preventDefault()}
-        asChild
+  return (
+    <Menu.Link onSelect={(e) => contentEditable && e.preventDefault()} asChild>
+      <Link
+        href="/"
+        ref={ref}
+        onMouseEnter={() => setShowArrow(true)}
+        onMouseLeave={() => setShowArrow(false)}
+        onFocus={() => setShowArrow(true)}
+        onBlur={() => setShowArrow(false)}
+        className="group -m-3 -mr-8 flex items-start gap-4 rounded-lg p-3 pr-8 [--avg-height:2.25rem]"
+        {...props}
       >
-        <Link
-          href="/"
-          ref={ref}
-          onMouseEnter={() => setShowArrow(true)}
-          onMouseLeave={() => setShowArrow(false)}
-          onFocus={() => setShowArrow(true)}
-          onBlur={() => setShowArrow(false)}
-          className="group -m-3 -mr-8 flex items-start gap-4 rounded-lg p-3 pr-8 [--avg-height:2.25rem]"
-          {...props}
-        >
-          <div className="flex h-[--avg-height] shrink-0 items-center justify-center">
-            {!!IconElement && (
-              <Icon
-                name={IconElement}
-                className="h-7 w-7 text-orange transition-colors duration-100 group-hover:text-orange-darker"
-              />
-            )}
+        <div className="flex h-[--avg-height] shrink-0 items-center justify-center">
+          {!!IconElement && (
+            <Icon
+              name={IconElement}
+              className="h-7 w-7 text-orange transition-colors duration-100 group-hover:text-orange-darker"
+            />
+          )}
+        </div>
+        <div className="flex min-h-[--avg-height] flex-col justify-center">
+          <div className="relative max-w-max text-sm/4 font-bold text-primary">
+            <span
+              contentEditable={contentEditable}
+              suppressContentEditableWarning={contentEditable}
+            >
+              {title}
+            </span>
+            {""}
+            <AnimatedArrowIcon show={showArrow} />
           </div>
-          <div className="flex min-h-[--avg-height] flex-col justify-center">
-            <div className="relative max-w-max text-sm/4 font-bold text-primary">
-              <span
-                contentEditable={contentEditable}
-                suppressContentEditableWarning={contentEditable}
-              >
-                {title}
-              </span>
-              {""}
-              <AnimatedArrowIcon show={showArrow} />
+          {!!description && (
+            <div
+              className="mt-1 line-clamp-1 text-sm/4 text-secondary transition-colors duration-100 group-hover:text-primary"
+              contentEditable={contentEditable}
+              suppressContentEditableWarning={contentEditable}
+            >
+              {description}
             </div>
-            {!!description && (
-              <div
-                className="mt-1 line-clamp-1 text-sm/4 text-secondary transition-colors duration-100 group-hover:text-primary"
-                contentEditable={contentEditable}
-                suppressContentEditableWarning={contentEditable}
-              >
-                {description}
-              </div>
-            )}
-          </div>
-        </Link>
-      </Menu.Link>
-    )
-  }
-)
+          )}
+        </div>
+      </Link>
+    </Menu.Link>
+  )
+})
 MenuLink.displayName = "MenuLink"
 
 const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
@@ -223,7 +215,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
 }
 
 export const menuDesktopTriggerStyle = cva(
-  "relative group/menu-trigger flex items-center gap-1.5 justify-center h-[--primary-header-height] font-bold -mx-[calc(var(--menu-gap)/2)] px-[calc(var(--menu-gap)/2)] focus-visible:bg-white/20 focus-visible:outline-none"
+  "group/menu-trigger relative mx-[calc(var(--menu-gap)/-2)] flex h-[--primary-header-height] items-center justify-center gap-1.5 px-[calc(var(--menu-gap)/2)] font-bold focus-visible:bg-white/20 focus-visible:outline-none"
 )
 
 export const MenuDesktop = () => {
@@ -236,9 +228,18 @@ export const MenuDesktop = () => {
     <Menu.Root className="z-10 flex max-w-max flex-1 items-center justify-center [&>[style='position:relative']]:[position:unset!important]">
       <Menu.List className="group flex flex-1 list-none items-center justify-center gap-[--menu-gap]">
         {primaryMenu?.map((menuItem, menuItemIndex) => {
+          const id = {
+            trigger: `MenuDesktop:Menu.Trigger.${menuItemIndex}`,
+            content: `MenuDesktop:Menu.Content.${menuItemIndex}`,
+          }
+
           return (
             <Menu.Item key={menuItemIndex}>
-              <Menu.Trigger className={menuDesktopTriggerStyle()}>
+              <Menu.Trigger
+                id={id.trigger}
+                aria-controls={id.content}
+                className={menuDesktopTriggerStyle()}
+              >
                 <span className="line-clamp-1 break-all">{menuItem.title}</span>
                 <Icon
                   name="arrowDown"
@@ -247,6 +248,7 @@ export const MenuDesktop = () => {
                 <div className="absolute inset-x-[calc(var(--menu-gap)/2)] bottom-3 h-[2px] rounded-full bg-white opacity-0 transition-opacity duration-300 group-hover/menu-trigger:opacity-25 group-focus/menu-trigger:opacity-25 group-data-[state=open]/menu-trigger:opacity-100" />
               </Menu.Trigger>
               <Menu.Content
+                id={id.content}
                 className={cn(
                   !!menuItem.attributionBannerElement
                     ? "pb-[calc(var(--page-inset-small)*2+theme('height.8'))]"
@@ -267,7 +269,7 @@ export const MenuDesktop = () => {
           className={cn(
             "peer relative z-[2] mx-auto h-[calc(var(--radix-navigation-menu-viewport-height)+var(--shadow-clip-padding))] w-full max-w-[--header-maxWidth] overflow-hidden transition-[height]",
             "data-[state=closed]:duration-200 data-[state=open]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-top-4 data-[state=open]:slide-in-from-top-4",
-            "will-change-contents",
+            "will-change-contents"
           )}
         />
         <div

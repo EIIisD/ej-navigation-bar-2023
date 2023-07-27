@@ -1,7 +1,7 @@
 import "@/styles/globals.css"
 
 import React from "react"
-import { Metadata } from "next"
+import { type Metadata } from "next"
 
 import { Footer } from "@/components/footer"
 import { NavigationBar } from "@/components/navigation-bar"
