@@ -15,11 +15,13 @@ export function disablePageScroll(disable: boolean) {
       // When the modal is shown, we want a fixed body
       page.style.position = "fixed"
       page.style.top = `-${window.scrollY}px`
+      page.style.insetInline = `0px`
     } else {
       // When the modal is hidden, we want to remain at the top of the scroll position
       const scrollY = page.style.top
       page.style.position = ""
       page.style.top = ""
+      page.style.insetInline = ""
       window.scrollTo(0, parseInt(scrollY ?? "0") * -1)
     }
   }

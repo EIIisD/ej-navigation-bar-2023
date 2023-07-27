@@ -146,7 +146,7 @@ export const NavigationBar = () => {
         {/* borders to differentiate the header from the page content and the theme-color area on mobile, we use divs so that they don't impact the variable-controlled header height */}
         {/* we hide this top border for the desktop header because the secondary nav is a solid orange and doesn't require differentiation from the theme-color */}
         <div className="absolute inset-x-0 top-0 h-[1px] bg-orange-light tablet-header-width:hidden" />
-        <div className="absolute inset-x-0 bottom-[-1px] h-[1px] bg-orange-light" />
+        <div className="absolute inset-x-0 bottom-0 h-[1px] bg-orange-light" />
       </header>
     </NavigationBarContext.Provider>
   )

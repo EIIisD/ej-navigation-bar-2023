@@ -62,10 +62,14 @@ const generateRandomDepartureDate = () => {
 const generatePassengers = (): Passenger[] => {
   const numberOfPassengers = Math.floor(Math.random() * 5) + 1
   const passengers: Passenger[] = []
+  const censorPassportNumber = true
+
   for (let i = 0; i < numberOfPassengers; i++) {
     passengers.push({
       name: faker.person.fullName(),
-      passportNumber: faker.random.alphaNumeric(9),
+      passportNumber: censorPassportNumber
+        ? `${faker.string.numeric(2)}***${faker.string.numeric(4)}`
+        : faker.string.numeric(9),
     })
   }
   return passengers
@@ -85,18 +89,25 @@ const generateTestBoardingPass = (): BoardingPass => {
 
   return {
     dateOfTravel: departureDate,
-    flightNumber: "FR 1234",
+    flightNumber: `EZY${faker.airline.flightNumber({ addLeadingZeros: true })}`,
     gateClosureTime: departureDate,
-    seatNumber: "1A",
-    reservationNumber: "ABC123",
-    checkInSequenceNumber: "1",
-    symbolForCheckedInLuggageBooked: true,
-    symbolForFastTrackSecurityAllowance: true,
-    symbolForFlexiFarePurchase: true,
+    seatNumber: [
+      faker.number.int(31),
+      faker.string.fromCharacters("ABCDEF"),
+    ].join(""),
+    reservationNumber: faker.string.alphanumeric({
+      length: 7,
+      casing: "upper",
+    }),
+    // Check with cat what the requirements for this are - length?
+    checkInSequenceNumber: `S${faker.string.numeric()}00`,
+    symbolForCheckedInLuggageBooked: faker.datatype.boolean(0.5),
+    symbolForFastTrackSecurityAllowance: faker.datatype.boolean(0.5),
+    symbolForFlexiFarePurchase: faker.datatype.boolean(0.5),
     customerEntitlements: {
-      specialAssistance: true,
-      largeCabinBag: true,
-      underSeatCabinBag: true,
+      specialAssistance: faker.datatype.boolean(0.25),
+      largeCabinBag: faker.datatype.boolean(0.25),
+      underSeatCabinBag: faker.datatype.boolean(0.5),
     },
     passengers: passengers,
     departureAirport: randomItem(airports),

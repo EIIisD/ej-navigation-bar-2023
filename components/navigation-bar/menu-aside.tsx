@@ -78,7 +78,7 @@ export const MenuAside = () => {
   }
 
   return (
-    <Dropdown.Root className="relative z-50 flex max-w-max flex-1 items-center justify-center">
+    <Dropdown.Root className="relative z-50 flex max-w-max flex-1 items-center justify-center mix-blend-lighten">
       <div className="mr-[calc(var(--page-inset-small)*-1)] flex h-[--primary-header-height] items-center justify-end gap-2 bg-gradient-to-r from-orange-light to-orange pl-[calc((var(--primary-header-height)/2)+var(--menu-gap))] pr-[--page-inset-small] [clip-path:polygon(calc(var(--primary-header-height)/2)_0,_100%_0,_100%_100%,_0%_100%)]">
         {navigationBarContext.isSignedIn ? (
           <>

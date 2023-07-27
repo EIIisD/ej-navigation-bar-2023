@@ -1,5 +1,6 @@
 const { boxShadow, fontFamily } = require("tailwindcss/defaultTheme")
 const colors = require("tailwindcss/colors")
+const plugin = require("tailwindcss/plugin")
 
 const reverseBoxShadowDirection = (str) => {
   const negateY = (str) => {
@@ -111,5 +112,8 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     require("tailwindcss-leading-trim"),
+    plugin(function ({ addVariant }) {
+      addVariant("screen", "@media screen")
+    }),
   ],
 }
