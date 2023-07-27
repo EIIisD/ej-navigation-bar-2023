@@ -41,6 +41,7 @@ export const NavigationBar = () => {
           ...item,
           isHidden: item.requireAuthentication ? !isSignedIn : undefined,
         }
+
         if (item.id === "language-select") {
           return {
             ...authenticatedItem,
@@ -105,8 +106,10 @@ export const NavigationBar = () => {
             const ItemRenderer = item.dialogElement
               ? item.dialogElement
               : React.Fragment
+
             const isLink = !item.dialogElement
             const ItemTag = isLink ? Link : "button"
+
             return (
               <React.Fragment key={item.title}>
                 <ItemRenderer>

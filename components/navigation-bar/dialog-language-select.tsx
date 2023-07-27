@@ -44,6 +44,7 @@ export const DialogLanguageSelect = ({
   children: React.ReactNode
 }) => {
   const navigationBarContext = useNavigationBarContext()
+
   const isOpen = navigationBarContext.openModals.includes(
     dialogLanguageSelectId
   )

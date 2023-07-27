@@ -30,6 +30,7 @@ export interface TextButtonProps
 const TextButton = React.forwardRef<HTMLButtonElement, TextButtonProps>(
   ({ className, variant, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+
     return (
       <Comp
         className={cn(textButtonVariants({ variant, className }))}
@@ -39,6 +40,7 @@ const TextButton = React.forwardRef<HTMLButtonElement, TextButtonProps>(
     )
   }
 )
+
 TextButton.displayName = "TextButton"
 
 export { TextButton, textButtonVariants }

@@ -90,10 +90,12 @@ const MenuLink = React.forwardRef<
     </Menu.Link>
   )
 })
+
 MenuLink.displayName = "MenuLink"
 
 const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
   const defaultItem = menuItem.items?.[0]
+
   const [activeItem, setActiveItem] = React.useState<string | undefined>(
     defaultItem?.title
   )
@@ -163,6 +165,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
       <div className="grid grid-cols-1 grid-rows-1 overflow-hidden">
         {menuItem?.items?.map((tab, index) => {
           const isActiveTab = tab.title === activeItem
+
           const isBeforeActiveTab =
             menuItem?.items &&
             index < menuItem?.items?.findIndex((i) => i.title === activeItem)
@@ -220,6 +223,7 @@ export const menuDesktopTriggerStyle = cva(
 
 export const MenuDesktop = () => {
   const navigationBarContext = useNavigationBarContext()
+
   const primaryMenu = navigationBarContext.menu.items?.filter(
     (i) => i.group === "Menu"
   )

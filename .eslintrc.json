@@ -14,6 +14,26 @@
     "plugin:@typescript-eslint/stylistic-type-checked"
   ],
   "rules": {
+    "padding-line-between-statements": [
+      "warn",
+      { "blankLine": "always", "prev": "*", "next": "block" },
+      { "blankLine": "always", "prev": "block", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "block-like" },
+      { "blankLine": "always", "prev": "block-like", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "return", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "multiline-const" },
+      { "blankLine": "always", "prev": "multiline-const", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "function" },
+      { "blankLine": "always", "prev": "function", "next": "*" }
+    ],
+    "@typescript-eslint/padding-line-between-statements": [
+      "warn",
+      { "blankLine": "always", "prev": "*", "next": "block" },
+      { "blankLine": "always", "prev": "block", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "block-like" },
+      { "blankLine": "always", "prev": "block-like", "next": "*" }
+    ],
     "@typescript-eslint/no-explicit-any": "off",
     "tailwindcss/no-custom-classname": "off",
     "@typescript-eslint/consistent-type-imports": [

@@ -47,6 +47,7 @@ const DialogBody = React.forwardRef<
     </DialogPrimitive.Overlay>
   </DialogPrimitive.Portal>
 ))
+
 DialogBody.displayName = DialogPrimitive.Content.displayName
 
 const DialogMain = ({
@@ -64,6 +65,7 @@ const DialogMain = ({
     {...props}
   />
 )
+
 DialogMain.displayName = "DialogScrollArea"
 
 const DialogFooter = ({
@@ -79,6 +81,7 @@ const DialogFooter = ({
     {...props}
   />
 )
+
 DialogFooter.displayName = "DialogFooter"
 
 const DialogTitle = DialogPrimitive.Title

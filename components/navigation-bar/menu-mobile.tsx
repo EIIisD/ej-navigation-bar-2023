@@ -59,16 +59,20 @@ export const menuMobileId = "menu-mobile"
 
 export const MenuMobile = () => {
   const navigationBarContext = useNavigationBarContext()
+
   const [activeMenuTitle, setActiveMenuTitle] = React.useState<string>(
     navigationBarContext.menu.title
   )
+
   const isOpen = navigationBarContext.openModals.includes(menuMobileId)
 
   const isBaseMenu = activeMenuTitle === navigationBarContext.menu.title
+
   const activeMenu = findInMenu(
     navigationBarContext.menu,
     (i) => i.title === activeMenuTitle
   )
+
   const activeMenuParent = findInMenu(
     navigationBarContext.menu,
     (i) => i.title === activeMenuTitle,
@@ -227,6 +231,7 @@ export const MenuMobile = () => {
                           ?.map((groupItem, groupItemIndex) => {
                             const isLastChild =
                               groupItemIndex === groupItems.length - 1 || false
+
                             const hasSubMenu =
                               groupItem.items && groupItem.items.length !== 0
 

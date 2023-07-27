@@ -40,22 +40,27 @@ export function findInMenu(
   ): Menu | null => {
     for (const item of currentMenu) {
       if (predicate(item)) return returnParent ? parentMenu : item
+
       if (item.items) {
         const found = traverse(item.items, item)
         if (found) return found
       }
     }
+
     return null
   }
+
   return traverse(targetMenu.items ?? [], targetMenu) ?? targetMenu
 }
 
 export function addToOpenModals(openModals: string[], id: string) {
   if (openModals.includes(id)) return openModals
+
   return [...openModals, id]
 }
 
 export function removeFromOpenModals(openModals: string[], id: string) {
   if (!openModals.includes(id)) return openModals
+
   return openModals.filter((item) => item !== id)
 }
