@@ -29,14 +29,28 @@ module.exports = {
       center: true,
       padding: "var(--page-inset)",
     },
+    fontFamily: {
+      sans: ["easyJet Rounded", ...fontFamily.sans],
+      display: ["easyJet Generation CY", ...fontFamily.sans],
+    },
+    fontMetrics: {
+      "easyJet Rounded": {
+        capHeight: 1434,
+        ascent: 1991,
+        descent: -661,
+        unitsPerEm: 2048,
+      },
+      "easyJet Generation CY": {
+        capHeight: 1346,
+        ascent: 1610,
+        descent: -564,
+        unitsPerEm: 1000,
+      },
+    },
     extend: {
       screens: {
         "desktop-header-width": "1280px",
         "tablet-header-width": "960px",
-      },
-      fontFamily: {
-        sans: ["easyJet Rounded", ...fontFamily.sans],
-        display: ["easyJet Generation CY", ...fontFamily.sans],
       },
       colors: {
         gray: colors.neutral,
@@ -90,8 +104,12 @@ module.exports = {
         standard: "cubic-bezier(0.4,0,0.2,1)",
         accelerate: "cubic-bezier(0.4,0,1,1)",
         decelerate: "cubic-bezier(0,0,0.2,1)",
+        arrow: "cubic-bezier(0.215, 0.61, 0.355, 1)",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwindcss-leading-trim"),
+  ],
 }

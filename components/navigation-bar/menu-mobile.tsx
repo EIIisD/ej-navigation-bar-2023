@@ -41,7 +41,7 @@ export const menuMobileItemStyle = cva(
       variant: {
         default: "py-4",
         attributionWidget: "-mt-6 pb-8",
-        title: "!gap-3 pb-8 pt-10 font-display text-[2.5rem]",
+        title: "!gap-3 pb-8 pt-10 font-display text-4xl",
         hiddenTitle: "py-6",
       },
       border: {

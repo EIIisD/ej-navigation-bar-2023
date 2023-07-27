@@ -58,22 +58,17 @@
   }
 
   body {
+    @apply font-sans text-base antialiased bg-white text-primary;
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    font-family: theme("fontFamily.sans");
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
-    background-color: theme("colors.white");
-    color: theme("colors.primary.DEFAULT");
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
   }
 
-  symbol,
-  svg:not(:root) {
+  :where(symbol, svg):not(:root, .overflow-hidden) {
     overflow: visible;
   }
 

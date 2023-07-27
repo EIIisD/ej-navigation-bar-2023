@@ -7,6 +7,7 @@ import * as MenuPrimitive from "@radix-ui/react-navigation-menu"
 import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
+import { AnimatedArrowIcon } from "@/components/navigation-bar/animated-arrow-icon"
 import { DialogSignIn } from "@/components/navigation-bar/dialog-sign-in"
 import { menuDesktopTriggerStyle } from "@/components/navigation-bar/menu-desktop"
 import {
@@ -32,6 +33,37 @@ const userNameExamples = {
   long: "Sivakrishnavenkata",
   normal: "Sivakrish",
 }
+
+export const DropdownLink = React.forwardRef<
+  HTMLButtonElement,
+  {
+    onClick?: () => void
+    children?: React.ReactNode
+    className?: string
+    show?: boolean
+  }
+>(({ children, ...props }, forwardedRef) => {
+  const [showArrow, setShowArrow] = React.useState(false)
+
+  return (
+    <button
+      ref={forwardedRef}
+      type="button"
+      onMouseEnter={() => setShowArrow(true)}
+      onMouseLeave={() => setShowArrow(false)}
+      onFocus={() => setShowArrow(true)}
+      onBlur={() => setShowArrow(false)}
+      {...props}
+    >
+      <div>
+        {children}
+        <AnimatedArrowIcon show={showArrow} />
+      </div>
+    </button>
+  )
+})
+
+DropdownLink.displayName = "DropdownLink"
 
 export const MenuAside = () => {
   const navigationBarContext = useNavigationBarContext()
@@ -112,15 +144,14 @@ export const MenuAside = () => {
                   <div className="flex flex-col overflow-hidden rounded-[inherit]">
                     {menuItems?.map((item, itemIndex) => (
                       <Dropdown.Link key={itemIndex} asChild>
-                        <button
-                          type="button"
+                        <DropdownLink
                           className={menuMobileItemStyle({
                             border:
                               itemIndex === menuItems.length - 1
                                 ? "none"
                                 : "default",
                             className:
-                              "min-w-[23ch] font-bold hover:bg-gray-50 transition-colors duration-100",
+                              "min-w-[23ch] text-sm font-bold hover:bg-gray-50 transition-colors duration-100",
                           })}
                           onClick={() => {
                             if (item.id === "sign-out") {
@@ -129,7 +160,7 @@ export const MenuAside = () => {
                           }}
                         >
                           {item.title}
-                        </button>
+                        </DropdownLink>
                       </Dropdown.Link>
                     ))}
                   </div>

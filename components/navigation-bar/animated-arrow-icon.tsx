@@ -1,45 +1,51 @@
 "use client"
 
 import React from "react"
-import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
-import { Icon } from "@/components/icon"
 
 export const AnimatedArrowIcon = React.forwardRef<
-  HTMLSpanElement,
+  SVGSVGElement,
   {
     className?: string
     show?: boolean
+    size?: "sm" | "base"
   }
->(({ className = null, show = false, ...props }, forwardedRef) => {
+>(({ className = null, show = false, size = "sm", ...props }, forwardedRef) => {
   return (
-    <span
+    <svg
       ref={forwardedRef}
+      viewBox="0 0 10 10"
+      data-show={show ? "false" : "true"}
       className={cn(
-        "absolute ml-[.375ch] inline-flex h-[1em] w-[1em] translate-y-[0.125ex] scale-90 items-center justify-center overflow-hidden",
+        "group absolute ml-[calc(var(--arrow-size)/2)] inline-block h-[--arrow-size] w-[--arrow-size] mt-[calc((var(--leading-offset)*-1)+(var(--arrow-size)/5))] overflow-hidden",
+        "data-[show=false]:opacity-100 data-[show=true]:opacity-0",
+        "transition-opacity ease-arrow",
+        size === "sm" && "[--arrow-size:10px]",
+        size === "base" && "[--arrow-size:12px]",
         className
       )}
+      stroke="none"
+      fill="none"
       {...props}
     >
-      <motion.div
-        variants={{
-          in: {
-            opacity: 1,
-            x: 0,
-          },
-          out: {
-            opacity: 0,
-            x: "-1em",
-          },
-        }}
-        initial={false}
-        animate={show ? "in" : "out"}
-        className="h-[1em] w-[1em]"
-      >
-        <Icon name="lucideArrowRight" className="h-[1em] w-[1em] stroke-[3]" />
-      </motion.div>
-    </span>
+      <g fillRule="evenodd">
+        <path
+          d="M1 5H7.5"
+          className="transition-opacity ease-arrow group-data-[show=false]:opacity-100 group-data-[show=true]:opacity-0"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="1.75px"
+        />
+        <path
+          d="M2 1.5L5.25 5L2 8.5"
+          className="transition-transform ease-arrow group-data-[show=false]:translate-x-[3px] group-data-[show=true]:translate-x-0"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="1.75px"
+        />
+      </g>
+    </svg>
   )
 })
 

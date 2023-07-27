@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div className="relative flex w-full items-center text-sm">
         <input
           className={cn(
-            "flex h-11 w-full rounded border-none bg-transparent px-5 py-2 text-[length:inherit] text-primary ring-1 ring-gray-300 placeholder:text-tertiary focus-visible:ring-gray-400",
+            "flex h-11 w-full rounded border-none bg-transparent px-5 py-2 text-primary ring-1 ring-gray-300 [font:inherit] placeholder:text-tertiary focus-visible:ring-gray-400",
             !!iconElement &&
               "pl-[calc(theme('spacing.4')+theme('spacing.4')+theme('spacing.3'))]",
             className

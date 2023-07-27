@@ -1,11 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/eslintrc",
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": true
-  },
-  "plugins": ["@typescript-eslint", "tailwindcss"],
   "extends": [
     "next/core-web-vitals",
     "prettier",
@@ -13,45 +7,113 @@
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked"
   ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser"
+    }
+  ],
+  "plugins": ["@typescript-eslint", "tailwindcss"],
+  "root": true,
   "rules": {
-    "padding-line-between-statements": [
-      "warn",
-      { "blankLine": "always", "prev": "*", "next": "block" },
-      { "blankLine": "always", "prev": "block", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "block-like" },
-      { "blankLine": "always", "prev": "block-like", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "return" },
-      { "blankLine": "always", "prev": "return", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "multiline-const" },
-      { "blankLine": "always", "prev": "multiline-const", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "function" },
-      { "blankLine": "always", "prev": "function", "next": "*" }
-    ],
-    "@typescript-eslint/padding-line-between-statements": [
-      "warn",
-      { "blankLine": "always", "prev": "*", "next": "block" },
-      { "blankLine": "always", "prev": "block", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "block-like" },
-      { "blankLine": "always", "prev": "block-like", "next": "*" }
-    ],
-    "@typescript-eslint/no-explicit-any": "off",
-    "tailwindcss/no-custom-classname": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
-        "prefer": "type-imports",
-        "fixStyle": "inline-type-imports"
+        "fixStyle": "inline-type-imports",
+        "prefer": "type-imports"
       }
     ],
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/padding-line-between-statements": [
+      "warn",
+      {
+        "blankLine": "always",
+        "next": "block",
+        "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": "block"
+      },
+      {
+        "blankLine": "always",
+        "next": "block-like",
+        "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": "block-like"
+      }
+    ],
+    "padding-line-between-statements": [
+      "warn",
+      {
+        "blankLine": "always",
+        "next": "block",
+        "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": "block"
+      },
+      {
+        "blankLine": "always",
+        "next": "block-like",
+        "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": "block-like"
+      },
+      {
+        "blankLine": "always",
+        "next": "return",
+        "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": "return"
+      },
+      {
+        "blankLine": "always",
+        "next": "multiline-const",
+        "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": "multiline-const"
+      },
+      {
+        "blankLine": "always",
+        "next": "function",
+        "prev": "*"
+      },
+      {
+        "blankLine": "always",
+        "next": "*",
+        "prev": "function"
+      }
+    ]
   },
   "settings": {
+    "next": {
+      "rootDir": ["./"]
+    },
     "tailwindcss": {
       "callees": ["cn", "cva"],
       "config": "tailwind.config.js"
-    },
-    "next": {
-      "rootDir": ["./"]
     }
   }
 }
