@@ -20,11 +20,7 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  content: [
-    "app/**/*.{ts,tsx}",
-    "components/**/*.{ts,tsx}",
-    "config/**/*.{ts,tsx}",
-  ],
+  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "config/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -49,6 +45,12 @@ module.exports = {
       },
     },
     extend: {
+      fontSize: {
+        "bp-sm": ["13px", "1"],
+        "bp-base": ["14px", "1"],
+        "bp-lg": ["16px", "1"],
+        "bp-xl": ["32px", "1"],
+      },
       screens: {
         "desktop-header-width": "1280px",
         "tablet-header-width": "960px",

@@ -58,19 +58,11 @@ const MenuLink = React.forwardRef<
         {...props}
       >
         <div className="flex h-[--avg-height] shrink-0 items-center justify-center">
-          {!!IconElement && (
-            <Icon
-              name={IconElement}
-              className="h-7 w-7 text-orange transition-colors duration-100 group-hover:text-orange-darker"
-            />
-          )}
+          {!!IconElement && <Icon name={IconElement} className="h-7 w-7 text-orange transition-colors duration-100 group-hover:text-orange-darker" />}
         </div>
         <div className="flex min-h-[--avg-height] flex-col justify-center">
           <div className="relative max-w-max text-sm leading-4 font-bold text-primary">
-            <span
-              contentEditable={contentEditable}
-              suppressContentEditableWarning={contentEditable}
-            >
+            <span contentEditable={contentEditable} suppressContentEditableWarning={contentEditable}>
               {title}
             </span>
             {""}
@@ -96,9 +88,7 @@ MenuLink.displayName = "MenuLink"
 const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
   const defaultItem = menuItem.items?.[0]
 
-  const [activeItem, setActiveItem] = React.useState<string | undefined>(
-    defaultItem?.title
-  )
+  const [activeItem, setActiveItem] = React.useState<string | undefined>(defaultItem?.title)
 
   return (
     <Tabs.Root
@@ -119,11 +109,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
             className="group relative flex items-center rounded-none border-b-[0.5px] text-orange transition-colors duration-200 last:border-none focus-visible:-outline-offset-1 data-[state=active]:text-primary"
           >
             {activeItem === tab.title && (
-              <motion.div
-                layoutId={menuItem.title}
-                transition={{ duration: 0.25 }}
-                className="absolute inset-0 bg-gray-400/5"
-              >
+              <motion.div layoutId={menuItem.title} transition={{ duration: 0.25 }} className="absolute inset-0 bg-gray-400/5">
                 <div className="h-full w-1 bg-orange" />
               </motion.div>
             )}
@@ -132,16 +118,10 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
                 <h3 className="flex items-start gap-2 text-lg leading-6">
                   {tab.iconElement === "facilitiesWheelchairOutlined" && (
                     <div className="flex h-6 items-center justify-center">
-                      <Icon
-                        name={tab.iconElement}
-                        className="h-5 w-5 shrink-0"
-                      />
+                      <Icon name={tab.iconElement} className="h-5 w-5 shrink-0" />
                     </div>
                   )}
-                  <span
-                    contentEditable={contentEditable}
-                    suppressContentEditableWarning={contentEditable}
-                  >
+                  <span contentEditable={contentEditable} suppressContentEditableWarning={contentEditable}>
                     {tab.title}
                   </span>
                 </h3>
@@ -166,9 +146,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
         {menuItem?.items?.map((tab, index) => {
           const isActiveTab = tab.title === activeItem
 
-          const isBeforeActiveTab =
-            menuItem?.items &&
-            index < menuItem?.items?.findIndex((i) => i.title === activeItem)
+          const isBeforeActiveTab = menuItem?.items && index < menuItem?.items?.findIndex((i) => i.title === activeItem)
 
           return (
             <Tabs.Content
@@ -194,13 +172,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
               animate={isActiveTab ? "visible" : "hidden"}
               tabIndex={isActiveTab ? undefined : -1}
             >
-              {tab?.items?.map((tabLink) => (
-                <MenuLink
-                  key={tabLink.title}
-                  tabIndex={isActiveTab ? undefined : -1}
-                  {...tabLink}
-                />
-              ))}
+              {tab?.items?.map((tabLink) => <MenuLink key={tabLink.title} tabIndex={isActiveTab ? undefined : -1} {...tabLink} />)}
             </Tabs.Content>
           )
         })}
@@ -209,9 +181,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
         {menuItem.widgetElement && <menuItem.widgetElement />}
       </div>
       <div className="absolute bottom-0 right-0 border-none px-[--page-inset] py-[--page-inset-small] text-primary">
-        {menuItem.attributionBannerElement && (
-          <menuItem.attributionBannerElement />
-        )}
+        {menuItem.attributionBannerElement && <menuItem.attributionBannerElement />}
       </div>
     </Tabs.Root>
   )
@@ -224,9 +194,7 @@ export const menuDesktopTriggerStyle = cva(
 export const MenuDesktop = () => {
   const navigationBarContext = useNavigationBarContext()
 
-  const primaryMenu = navigationBarContext.menu.items?.filter(
-    (i) => i.group === "Menu"
-  )
+  const primaryMenu = navigationBarContext.menu.items?.filter((i) => i.group === "Menu")
 
   return (
     <Menu.Root className="z-10 flex max-w-max flex-1 items-center justify-center [&>[style='position:relative']]:[position:unset!important]">
@@ -239,24 +207,15 @@ export const MenuDesktop = () => {
 
           return (
             <Menu.Item key={menuItemIndex}>
-              <Menu.Trigger
-                id={id.trigger}
-                aria-controls={id.content}
-                className={menuDesktopTriggerStyle()}
-              >
+              <Menu.Trigger id={id.trigger} aria-controls={id.content} className={menuDesktopTriggerStyle()}>
                 <span className="line-clamp-1 break-all">{menuItem.title}</span>
-                <Icon
-                  name="arrowDown"
-                  className="h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:-rotate-180"
-                />
+                <Icon name="arrowDown" className="h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:-rotate-180" />
                 <div className="absolute inset-x-[calc(var(--menu-gap)/2)] bottom-3 h-[2px] rounded-full bg-white opacity-0 transition-opacity duration-300 group-hover/menu-trigger:opacity-25 group-focus/menu-trigger:opacity-25 group-data-[state=open]/menu-trigger:opacity-100" />
               </Menu.Trigger>
               <Menu.Content
                 id={id.content}
                 className={cn(
-                  !!menuItem.attributionBannerElement
-                    ? "pb-[calc(var(--page-inset-small)*2+theme('height.8'))]"
-                    : "pb-[--page-inset-small]",
+                  !!menuItem.attributionBannerElement ? "pb-[calc(var(--page-inset-small)*2+theme('height.8'))]" : "pb-[--page-inset-small]",
                   "absolute inset-x-0 top-0 mx-auto w-full max-w-[--header-maxWidth] pt-[--page-inset-small]",
                   "data-[motion^=from-]:duration-300 data-[motion^=to-]:duration-200 data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52"
                 )}

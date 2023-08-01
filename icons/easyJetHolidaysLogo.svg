@@ -1,12 +1,6 @@
 <svg viewBox="0 0 204 52">
   <rect width="204" height="52" fill="#FA9A00"></rect>
-  <rect
-    x="6.10141"
-    y="0.0991898"
-    width="108.794"
-    height="49.8016"
-    fill="url(#pattern0)"
-  ></rect>
+  <rect x="6.10141" y="0.0991898" width="108.794" height="49.8016" fill="url(#pattern0)"></rect>
   <path
     fill-rule="evenodd"
     clip-rule="evenodd"
@@ -62,16 +56,8 @@
     fill="white"
   ></path>
   <defs>
-    <pattern
-      id="pattern0"
-      patternContentUnits="objectBoundingBox"
-      width="1"
-      height="1"
-    >
-      <use
-        xlink:href="#image0_1_2"
-        transform="matrix(0.00235849 0 0 0.00515226 0 -0.0306825)"
-      ></use>
+    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+      <use xlink:href="#image0_1_2" transform="matrix(0.00235849 0 0 0.00515226 0 -0.0306825)"></use>
     </pattern>
     <image
       id="image0_1_2"

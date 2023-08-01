@@ -2,10 +2,7 @@ import { toTitleCase } from "@artsy/to-title-case"
 
 import { languages } from "@/config/languages"
 import { IconName } from "@/components/icon"
-import {
-  BookingDotComAttributionBanner,
-  CarTrawlerAttributionBanner,
-} from "@/components/navigation-bar/attribution-banner"
+import { BookingDotComAttributionBanner, CarTrawlerAttributionBanner } from "@/components/navigation-bar/attribution-banner"
 import { DialogHelpCentre } from "@/components/navigation-bar/dialog-help-centre"
 import { DialogLanguageSelect } from "@/components/navigation-bar/dialog-language-select"
 import { FlightTracker } from "@/components/navigation-bar/flight-tracker"
@@ -616,9 +613,7 @@ export const menu: Menu = {
           iconElement: "flightTrackerSolid",
           groups: [{ title: "Flight information" }],
           group: "Flight info",
-          items: flightInfoItems.filter(({ group }) =>
-            group.includes("Flight information")
-          ),
+          items: flightInfoItems.filter(({ group }) => group.includes("Flight information")),
         },
         {
           title: "Fly with us",
@@ -626,9 +621,7 @@ export const menu: Menu = {
           iconElement: "flightsSolid",
           groups: [{ title: "Fly with us" }],
           group: "Flight info",
-          items: flightInfoItems.filter(({ group }) =>
-            group.includes("Fly with us")
-          ),
+          items: flightInfoItems.filter(({ group }) => group.includes("Fly with us")),
         },
         {
           title: "Your essentials",
@@ -636,9 +629,7 @@ export const menu: Menu = {
           iconElement: "luggageIconSolid",
           groups: [{ title: "Your essentials" }],
           group: "Flight info",
-          items: flightInfoItems.filter(({ group }) =>
-            group.includes("Your essentials")
-          ),
+          items: flightInfoItems.filter(({ group }) => group.includes("Your essentials")),
         },
         {
           title: "Special assistance",
@@ -651,9 +642,7 @@ export const menu: Menu = {
             },
           ],
           group: "Flight info",
-          items: flightInfoItems.filter(({ group }) =>
-            group.includes("Special assistance")
-          ),
+          items: flightInfoItems.filter(({ group }) => group.includes("Special assistance")),
         },
       ],
     },
@@ -669,9 +658,7 @@ export const menu: Menu = {
           iconElement: "informationSolid",
           groups: [{ title: "Why easyJet holidays?" }],
           group: "Holidays",
-          items: holidaysItems.filter(({ group }) =>
-            group.includes("Why easyJet holidays?")
-          ),
+          items: holidaysItems.filter(({ group }) => group.includes("Why easyJet holidays?")),
         },
         {
           title: "Holiday Types",
@@ -679,9 +666,7 @@ export const menu: Menu = {
           iconElement: "holidayAccomodationTypeOutlined",
           groups: [{ title: "Holiday Types" }],
           group: "Holidays",
-          items: holidaysItems.filter(({ group }) =>
-            group.includes("Holiday Types")
-          ),
+          items: holidaysItems.filter(({ group }) => group.includes("Holiday Types")),
         },
         {
           title: "Top Holiday Destinations",
@@ -689,9 +674,7 @@ export const menu: Menu = {
           iconElement: "locationPinWorldSolid",
           groups: [{ title: "Top Holiday Destinations" }],
           group: "Holidays",
-          items: holidaysItems.filter(({ group }) =>
-            group.includes("Top Holiday Destinations")
-          ),
+          items: holidaysItems.filter(({ group }) => group.includes("Top Holiday Destinations")),
         },
       ],
     },
@@ -709,9 +692,7 @@ export const menu: Menu = {
           groups: [{ title: "Car Rental" }],
           group: "Cars/Transfers",
           attributionBannerElement: CarTrawlerAttributionBanner,
-          items: carsTransfersItems.filter(({ group }) =>
-            group.includes("Car Rental")
-          ),
+          items: carsTransfersItems.filter(({ group }) => group.includes("Car Rental")),
         },
         {
           title: "Airport Transfers",
@@ -720,9 +701,7 @@ export const menu: Menu = {
           groups: [{ title: "Airport Transfers" }],
           group: "Cars/Transfers",
           attributionBannerElement: CarTrawlerAttributionBanner,
-          items: carsTransfersItems.filter(({ group }) =>
-            group.includes("Airport Transfers")
-          ),
+          items: carsTransfersItems.filter(({ group }) => group.includes("Airport Transfers")),
         },
         {
           title: "Parking",
@@ -731,9 +710,7 @@ export const menu: Menu = {
           groups: [{ title: "Parking" }],
           group: "Cars/Transfers",
           attributionBannerElement: CarTrawlerAttributionBanner,
-          items: carsTransfersItems.filter(({ group }) =>
-            group.includes("Parking")
-          ),
+          items: carsTransfersItems.filter(({ group }) => group.includes("Parking")),
         },
       ],
     },
@@ -749,9 +726,7 @@ export const menu: Menu = {
           iconElement: "groupBookingSolid",
           groups: [{ title: "Business by easyJet" }],
           group: "Business",
-          items: businessItems.filter(({ group }) =>
-            group.includes("Business by easyJet")
-          ),
+          items: businessItems.filter(({ group }) => group.includes("Business by easyJet")),
         },
         {
           title: "Everything you need",
@@ -759,9 +734,7 @@ export const menu: Menu = {
           iconElement: "listsFiltersFiltersSolid",
           groups: [{ title: "Everything you need" }],
           group: "Business",
-          items: businessItems.filter(({ group }) =>
-            group.includes("Everything you need")
-          ),
+          items: businessItems.filter(({ group }) => group.includes("Everything you need")),
         },
         {
           title: "Keep up to date",
@@ -769,9 +742,7 @@ export const menu: Menu = {
           iconElement: "mailSolid",
           groups: [{ title: "Keep up to date" }],
           group: "Business",
-          items: businessItems.filter(({ group }) =>
-            group.includes("Keep up to date")
-          ),
+          items: businessItems.filter(({ group }) => group.includes("Keep up to date")),
         },
       ],
     },
@@ -789,9 +760,7 @@ export const menu: Menu = {
           groups: [{ title: "Why book with us?" }],
           group: "Booking.com",
           attributionBannerElement: BookingDotComAttributionBanner,
-          items: bookingDotComItems.filter(({ group }) =>
-            group.includes("Why book with us")
-          ),
+          items: bookingDotComItems.filter(({ group }) => group.includes("Why book with us")),
         },
         {
           title: "Accommodation",
@@ -800,9 +769,7 @@ export const menu: Menu = {
           groups: [{ title: "Accommodation" }],
           group: "Booking.com",
           attributionBannerElement: BookingDotComAttributionBanner,
-          items: bookingDotComItems.filter(({ group }) =>
-            group.includes("Accommodation")
-          ),
+          items: bookingDotComItems.filter(({ group }) => group.includes("Accommodation")),
         },
         {
           title: "Top hotel destinations",
@@ -811,9 +778,7 @@ export const menu: Menu = {
           groups: [{ title: "Top hotel destinations" }],
           group: "Booking.com",
           attributionBannerElement: BookingDotComAttributionBanner,
-          items: bookingDotComItems.filter(({ group }) =>
-            group.includes("Top hotel destinations")
-          ),
+          items: bookingDotComItems.filter(({ group }) => group.includes("Top hotel destinations")),
         },
       ],
     },

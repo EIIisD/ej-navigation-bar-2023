@@ -8,29 +8,11 @@ import * as z from "zod"
 import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  Dialog,
-  DialogBody,
-  DialogClose,
-  DialogFooter,
-  DialogMain,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { TextButton } from "@/components/ui/text-button"
-import {
-  menuMobileItemStyle,
-  menuMobileListStyle,
-} from "@/components/navigation-bar/menu-mobile"
+import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
 const signInFormSchema = z.object({
@@ -54,26 +36,18 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
     },
   })
 
-  const onSubmit = signInForm.handleSubmit(
-    (data: z.infer<typeof signInFormSchema>) => {
-      console.log(data)
-      navigationBarContext.setIsSignedIn(true)
-      navigationBarContext.setOpenModals(
-        removeFromOpenModals(navigationBarContext.openModals, dialogSignInId)
-      )
-      signInForm.reset()
-    }
-  )
+  const onSubmit = signInForm.handleSubmit((data: z.infer<typeof signInFormSchema>) => {
+    console.log(data)
+    navigationBarContext.setIsSignedIn(true)
+    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogSignInId))
+    signInForm.reset()
+  })
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
-      navigationBarContext.setOpenModals(
-        addToOpenModals(navigationBarContext.openModals, dialogSignInId)
-      )
+      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, dialogSignInId))
     } else {
-      navigationBarContext.setOpenModals(
-        removeFromOpenModals(navigationBarContext.openModals, dialogSignInId)
-      )
+      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogSignInId))
     }
   }
 
@@ -97,34 +71,18 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
             }}
           >
             <DialogMain className={menuMobileListStyle()}>
-              <DialogTitle
-                className={menuMobileItemStyle({ variant: "title" })}
-              >
-                Sign in
-              </DialogTitle>
+              <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>Sign in</DialogTitle>
 
-              <p className={cn(menuMobileItemStyle(), "text-secondary")}>
-                Sign in to view and manage your account and bookings.
-              </p>
+              <p className={cn(menuMobileItemStyle(), "text-secondary")}>Sign in to view and manage your account and bookings.</p>
 
               <FormField
                 control={signInForm.control}
                 name="emailAddress"
                 render={({ field }) => (
-                  <FormItem
-                    className={cn(
-                      menuMobileItemStyle({ border: "none" }),
-                      "flex-col gap-0 space-y-2"
-                    )}
-                  >
+                  <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
                     <FormLabel>Email address</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        autoComplete="email"
-                        placeholder="name@mail.com"
-                        {...field}
-                      />
+                      <Input type="email" autoComplete="email" placeholder="name@mail.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -134,19 +92,10 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 control={signInForm.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem
-                    className={cn(
-                      menuMobileItemStyle({ border: "none" }),
-                      "flex-col gap-0 space-y-2"
-                    )}
-                  >
+                  <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        autoComplete="current-password"
-                        {...field}
-                      />
+                      <Input type="password" autoComplete="current-password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -156,24 +105,12 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 control={signInForm.control}
                 name="staySignedIn"
                 render={({ field }) => (
-                  <FormItem
-                    className={cn(
-                      menuMobileItemStyle({ border: "none" }),
-                      "flex-col gap-0 space-y-2"
-                    )}
-                  >
+                  <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
                     <div className="flex items-center gap-3">
                       <FormControl>
-                        <Checkbox
-                          id="staySignedIn"
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        <Checkbox id="staySignedIn" checked={field.value} onCheckedChange={field.onChange} />
                       </FormControl>
-                      <label
-                        htmlFor="staySignedIn"
-                        className="cursor-pointer text-secondary"
-                      >
+                      <label htmlFor="staySignedIn" className="cursor-pointer text-secondary">
                         Keep me signed in
                       </label>
                     </div>
@@ -182,10 +119,7 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 )}
               />
               <div className={menuMobileItemStyle()}>
-                <TextButton
-                  type="button"
-                  className="text-sm font-bold text-orange"
-                >
+                <TextButton type="button" className="text-sm font-bold text-orange">
                   Forgotten your details?
                 </TextButton>
               </div>

@@ -3,7 +3,10 @@ import { type SVGProps } from "react"
 import { type iconNames } from "@/config/icons.json"
 import { cn } from "@/lib/utils"
 
-export type IconName = keyof typeof iconNames
+type StringWithAutoComplete<T> = T | (string & Record<never, never>)
+type IconNames = keyof typeof iconNames
+
+export type IconName = StringWithAutoComplete<IconNames> | undefined
 
 export function Icon({
   name,
@@ -12,9 +15,12 @@ export function Icon({
 }: SVGProps<SVGSVGElement> & {
   name: IconName
 }) {
-  return (
-    <svg className={cn("h-full w-full", className)} {...props}>
-      <use href={`/icon.svg#${name}`} />
-    </svg>
-  )
+  if (name) {
+    return (
+      <svg className={cn("h-full w-full", className)} {...props}>
+        <use href={`/icon.svg#${name}`} />
+      </svg>
+    )
+  }
+  return null
 }

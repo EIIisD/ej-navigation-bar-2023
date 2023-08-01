@@ -6,14 +6,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
@@ -21,12 +14,8 @@ export const FlightTracker = () => {
   return (
     <div className="space-y-6 pr-[6px]">
       <div>
-        <div className="text-base font-bold text-primary">
-          {toTitleCase("Flight Tracker")}
-        </div>
-        <div className="mt-1 text-sm leading-4 text-secondary">
-          Check your flight status by:
-        </div>
+        <div className="text-base font-bold text-primary">{toTitleCase("Flight Tracker")}</div>
+        <div className="mt-1 text-sm leading-4 text-secondary">Check your flight status by:</div>
       </div>
       <Tabs defaultValue="flight" className="grid gap-6">
         <TabsList>
@@ -56,12 +45,10 @@ const StatusByFlightForm = () => {
     },
   })
 
-  const onSubmit = statusByFlightForm.handleSubmit(
-    (data: z.infer<typeof statusByFlightFormSchema>) => {
-      console.log(data)
-      statusByFlightForm.reset()
-    }
-  )
+  const onSubmit = statusByFlightForm.handleSubmit((data: z.infer<typeof statusByFlightFormSchema>) => {
+    console.log(data)
+    statusByFlightForm.reset()
+  })
 
   return (
     <Form {...statusByFlightForm}>
@@ -80,11 +67,7 @@ const StatusByFlightForm = () => {
             <FormItem className="space-y-2">
               <FormLabel>Flight number</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="1234"
-                  iconElement="searchAndMenuAirplaneModeAltSolid"
-                  {...field}
-                />
+                <Input placeholder="1234" iconElement="searchAndMenuAirplaneModeAltSolid" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,12 +95,10 @@ const StatusByRouteForm = () => {
     },
   })
 
-  const onSubmit = statusByRouteForm.handleSubmit(
-    (data: z.infer<typeof statusByRouteFormSchema>) => {
-      console.log(data)
-      statusByRouteForm.reset()
-    }
-  )
+  const onSubmit = statusByRouteForm.handleSubmit((data: z.infer<typeof statusByRouteFormSchema>) => {
+    console.log(data)
+    statusByRouteForm.reset()
+  })
 
   return (
     <Form {...statusByRouteForm}>
@@ -136,11 +117,7 @@ const StatusByRouteForm = () => {
             <FormItem className="space-y-2">
               <FormLabel>From</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="London Gatwick"
-                  iconElementAfter="menuBurger"
-                  {...field}
-                />
+                <Input placeholder="London Gatwick" iconElementAfter="menuBurger" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -153,11 +130,7 @@ const StatusByRouteForm = () => {
             <FormItem className="space-y-2">
               <FormLabel>To</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Amsterdam"
-                  iconElementAfter="menuBurger"
-                  {...field}
-                />
+                <Input placeholder="Amsterdam" iconElementAfter="menuBurger" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

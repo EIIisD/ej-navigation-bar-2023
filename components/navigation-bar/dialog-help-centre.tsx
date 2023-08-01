@@ -7,28 +7,10 @@ import * as z from "zod"
 
 import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogBody,
-  DialogClose,
-  DialogFooter,
-  DialogMain,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  menuMobileItemStyle,
-  menuMobileListStyle,
-} from "@/components/navigation-bar/menu-mobile"
+import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
 const topSearches = [
@@ -50,11 +32,7 @@ const helpCentreFormSchema = z.object({
 
 export const dialogHelpCentreId = "dialog-help-centre"
 
-export const DialogHelpCentre = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) => {
   const navigationBarContext = useNavigationBarContext()
   const isOpen = navigationBarContext.openModals.includes(dialogHelpCentreId)
 
@@ -65,31 +43,17 @@ export const DialogHelpCentre = ({
     },
   })
 
-  const onSubmit = helpCentreForm.handleSubmit(
-    (data: z.infer<typeof helpCentreFormSchema>) => {
-      console.log(data)
-      navigationBarContext.setOpenModals(
-        removeFromOpenModals(
-          navigationBarContext.openModals,
-          dialogHelpCentreId
-        )
-      )
-      helpCentreForm.reset()
-    }
-  )
+  const onSubmit = helpCentreForm.handleSubmit((data: z.infer<typeof helpCentreFormSchema>) => {
+    console.log(data)
+    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogHelpCentreId))
+    helpCentreForm.reset()
+  })
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
-      navigationBarContext.setOpenModals(
-        addToOpenModals(navigationBarContext.openModals, dialogHelpCentreId)
-      )
+      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, dialogHelpCentreId))
     } else {
-      navigationBarContext.setOpenModals(
-        removeFromOpenModals(
-          navigationBarContext.openModals,
-          dialogHelpCentreId
-        )
-      )
+      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogHelpCentreId))
     }
   }
 
@@ -113,56 +77,29 @@ export const DialogHelpCentre = ({
             }}
           >
             <DialogMain className={menuMobileListStyle()}>
-              <DialogTitle
-                className={menuMobileItemStyle({ variant: "title" })}
-              >
-                Help centre
-              </DialogTitle>
+              <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>Help centre</DialogTitle>
 
               <FormField
                 control={helpCentreForm.control}
                 name="searchQuery"
                 render={({ field }) => (
-                  <FormItem
-                    className={cn(
-                      menuMobileItemStyle({ border: "none" }),
-                      "flex-col gap-4"
-                    )}
-                  >
-                    <FormLabel className="text-base">
-                      What do you need help with?
-                    </FormLabel>
+                  <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-4")}>
+                    <FormLabel className="text-base">What do you need help with?</FormLabel>
                     <FormControl>
-                      <Input
-                        iconElement="searchAndMenuSearchOutlined"
-                        placeholder="Search FAQs"
-                        {...field}
-                      />
+                      <Input iconElement="searchAndMenuSearchOutlined" placeholder="Search FAQs" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <div
-                className={cn(
-                  menuMobileItemStyle({ border: "none" }),
-                  "flex-col gap-4 text-sm"
-                )}
-              >
-                <FormLabel className="font-normal text-secondary">
-                  Top results:
-                </FormLabel>
+              <div className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-4 text-sm")}>
+                <FormLabel className="font-normal text-secondary">Top results:</FormLabel>
 
                 <div className="flex flex-wrap gap-2">
                   {topSearches.map((value) => (
                     <DialogClose key={value} asChild>
-                      <Button
-                        type="submit"
-                        variant="outline"
-                        size="sm"
-                        className="rounded-full font-normal"
-                      >
+                      <Button type="submit" variant="outline" size="sm" className="rounded-full font-normal">
                         {value}
                       </Button>
                     </DialogClose>

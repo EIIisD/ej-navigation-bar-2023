@@ -10,20 +10,9 @@ import * as z from "zod"
 import { languages } from "@/config/languages"
 import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogBody,
-  DialogClose,
-  DialogFooter,
-  DialogMain,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField } from "@/components/ui/form"
-import {
-  menuMobileItemStyle,
-  menuMobileListStyle,
-} from "@/components/navigation-bar/menu-mobile"
+import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
 const RadioGroup = {
@@ -38,16 +27,10 @@ const languageSelectFormSchema = z.object({
 
 export const dialogLanguageSelectId = "dialog-language-select"
 
-export const DialogLanguageSelect = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }) => {
   const navigationBarContext = useNavigationBarContext()
 
-  const isOpen = navigationBarContext.openModals.includes(
-    dialogLanguageSelectId
-  )
+  const isOpen = navigationBarContext.openModals.includes(dialogLanguageSelectId)
 
   const languageSelectForm = useForm<z.infer<typeof languageSelectFormSchema>>({
     resolver: zodResolver(languageSelectFormSchema),
@@ -56,38 +39,24 @@ export const DialogLanguageSelect = ({
     },
   })
 
-  const onSubmit = languageSelectForm.handleSubmit(
-    (data: z.infer<typeof languageSelectFormSchema>) => {
-      console.log(data)
+  const onSubmit = languageSelectForm.handleSubmit((data: z.infer<typeof languageSelectFormSchema>) => {
+    console.log(data)
 
-      if (data.language) {
-        navigationBarContext.setLanguage(data.language)
-      }
-
-      navigationBarContext.setOpenModals(
-        removeFromOpenModals(
-          navigationBarContext.openModals,
-          dialogLanguageSelectId
-        )
-      )
-      languageSelectForm.reset()
-
-      return false
+    if (data.language) {
+      navigationBarContext.setLanguage(data.language)
     }
-  )
+
+    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogLanguageSelectId))
+    languageSelectForm.reset()
+
+    return false
+  })
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
-      navigationBarContext.setOpenModals(
-        addToOpenModals(navigationBarContext.openModals, dialogLanguageSelectId)
-      )
+      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, dialogLanguageSelectId))
     } else {
-      navigationBarContext.setOpenModals(
-        removeFromOpenModals(
-          navigationBarContext.openModals,
-          dialogLanguageSelectId
-        )
-      )
+      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogLanguageSelectId))
     }
   }
 
@@ -116,26 +85,15 @@ export const DialogLanguageSelect = ({
                 name="language"
                 render={({ field: { value: _, ...field } }) => (
                   <FormControl>
-                    <RadioGroup.Root
-                      defaultValue={navigationBarContext.language}
-                      className={menuMobileListStyle()}
-                      {...field}
-                    >
-                      <DialogTitle
-                        className={menuMobileItemStyle({ variant: "title" })}
-                      >
-                        Select Language
-                      </DialogTitle>
+                    <RadioGroup.Root defaultValue={navigationBarContext.language} className={menuMobileListStyle()} {...field}>
+                      <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>Select Language</DialogTitle>
                       {languages.map((option, optionIndex) => (
                         <RadioGroup.Item
                           key={option.value}
                           value={option.value}
                           className={cn(
                             menuMobileItemStyle({
-                              border:
-                                optionIndex === languages.length - 1 || false
-                                  ? "none"
-                                  : "default",
+                              border: optionIndex === languages.length - 1 || false ? "none" : "default",
                             }),
                             "group items-center gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
                           )}
@@ -155,9 +113,7 @@ export const DialogLanguageSelect = ({
                               className="h-7 w-9 rounded-lg border-[1.5px] border-primary bg-primary"
                             />
                           </div>
-                          <span className="text-base peer-data-[state=checked]:font-bold">
-                            {option.value}
-                          </span>
+                          <span className="text-base peer-data-[state=checked]:font-bold">{option.value}</span>
                         </RadioGroup.Item>
                       ))}
                     </RadioGroup.Root>

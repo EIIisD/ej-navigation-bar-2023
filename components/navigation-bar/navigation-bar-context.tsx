@@ -38,5 +38,4 @@ export const NavigationBarContext = React.createContext<NavigationBarContext>({
   setOpenModals: navigationBarContextDefs.setOpenModals,
 })
 
-export const useNavigationBarContext = () =>
-  React.useContext(NavigationBarContext)
+export const useNavigationBarContext = () => React.useContext(NavigationBarContext)

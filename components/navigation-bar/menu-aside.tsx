@@ -10,11 +10,7 @@ import { Icon } from "@/components/icon"
 import { AnimatedArrowIcon } from "@/components/navigation-bar/animated-arrow-icon"
 import { DialogSignIn } from "@/components/navigation-bar/dialog-sign-in"
 import { menuDesktopTriggerStyle } from "@/components/navigation-bar/menu-desktop"
-import {
-  MenuMobile,
-  menuMobileId,
-  menuMobileItemStyle,
-} from "@/components/navigation-bar/menu-mobile"
+import { MenuMobile, menuMobileId, menuMobileItemStyle } from "@/components/navigation-bar/menu-mobile"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
 const Dropdown = {
@@ -68,9 +64,7 @@ DropdownLink.displayName = "DropdownLink"
 export const MenuAside = () => {
   const navigationBarContext = useNavigationBarContext()
 
-  const menuItems = navigationBarContext.menu.items?.filter(
-    (item) => item.group === "Account" && item.isHidden === false
-  )
+  const menuItems = navigationBarContext.menu.items?.filter((item) => item.group === "Account" && item.isHidden === false)
 
   const id = {
     trigger: `MenuAside:Dropdown.Trigger.0`,
@@ -89,19 +83,9 @@ export const MenuAside = () => {
               size="sm"
               onClick={() => {
                 if (!navigationBarContext.openModals.includes(menuMobileId)) {
-                  navigationBarContext.setOpenModals(
-                    addToOpenModals(
-                      navigationBarContext.openModals,
-                      menuMobileId
-                    )
-                  )
+                  navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, menuMobileId))
                 } else {
-                  navigationBarContext.setOpenModals(
-                    removeFromOpenModals(
-                      navigationBarContext.openModals,
-                      menuMobileId
-                    )
-                  )
+                  navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, menuMobileId))
                 }
               }}
               className="desktop-header-width:hidden"
@@ -113,18 +97,9 @@ export const MenuAside = () => {
             {/* desktop only */}
             <Dropdown.List className="group flex flex-1 list-none items-center justify-center space-x-1 max-desktop-header-width:hidden">
               <Dropdown.Item>
-                <Dropdown.Trigger
-                  id={id.trigger}
-                  aria-controls={id.content}
-                  className={menuDesktopTriggerStyle()}
-                >
-                  <span className="max-w-[15ch] truncate break-all">
-                    {toTitleCase(`Hello ${userNameExamples.long}`)}
-                  </span>
-                  <Icon
-                    name="arrowDown"
-                    className="relative h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:rotate-180"
-                  />
+                <Dropdown.Trigger id={id.trigger} aria-controls={id.content} className={menuDesktopTriggerStyle()}>
+                  <span className="max-w-[15ch] truncate break-all">{toTitleCase(`Hello ${userNameExamples.long}`)}</span>
+                  <Icon name="arrowDown" className="relative h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:rotate-180" />
                   <div className="absolute inset-x-4 bottom-3 h-[2px] rounded-full bg-white opacity-0 transition-opacity duration-300 group-hover/menu-trigger:opacity-25 group-focus/menu-trigger:opacity-25 group-data-[state=open]/menu-trigger:opacity-100" />
                 </Dropdown.Trigger>
 
@@ -146,12 +121,8 @@ export const MenuAside = () => {
                       <Dropdown.Link key={itemIndex} asChild>
                         <DropdownLink
                           className={menuMobileItemStyle({
-                            border:
-                              itemIndex === menuItems.length - 1
-                                ? "none"
-                                : "default",
-                            className:
-                              "min-w-[23ch] text-sm font-bold hover:bg-gray-50 transition-colors duration-100",
+                            border: itemIndex === menuItems.length - 1 ? "none" : "default",
+                            className: "min-w-[23ch] text-sm font-bold hover:bg-gray-50 transition-colors duration-100",
                           })}
                           onClick={() => {
                             if (item.id === "sign-out") {

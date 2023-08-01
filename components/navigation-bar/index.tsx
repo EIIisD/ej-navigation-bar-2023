@@ -11,27 +11,16 @@ import { textButtonVariants } from "@/components/ui/text-button"
 import { Icon } from "@/components/icon"
 import { MenuAside } from "@/components/navigation-bar/menu-aside"
 import { MenuDesktop } from "@/components/navigation-bar/menu-desktop"
-import {
-  NavigationBarContext,
-  navigationBarContextDefs,
-} from "@/components/navigation-bar/navigation-bar-context"
+import { NavigationBarContext, navigationBarContextDefs } from "@/components/navigation-bar/navigation-bar-context"
 
 export const NavigationBar = () => {
-  const [language, setLanguage] = React.useState<
-    NavigationBarContext["language"]
-  >(navigationBarContextDefs.language)
+  const [language, setLanguage] = React.useState<NavigationBarContext["language"]>(navigationBarContextDefs.language)
 
-  const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(
-    navigationBarContextDefs.menu
-  )
+  const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(navigationBarContextDefs.menu)
 
-  const [isSignedIn, setIsSignedIn] = React.useState<
-    NavigationBarContext["isSignedIn"]
-  >(navigationBarContextDefs.isSignedIn)
+  const [isSignedIn, setIsSignedIn] = React.useState<NavigationBarContext["isSignedIn"]>(navigationBarContextDefs.isSignedIn)
 
-  const [openModals, setOpenModals] = React.useState<
-    NavigationBarContext["openModals"]
-  >(navigationBarContextDefs.openModals)
+  const [openModals, setOpenModals] = React.useState<NavigationBarContext["openModals"]>(navigationBarContextDefs.openModals)
 
   React.useEffect(() => {
     const updatedMenu: Menu = {
@@ -103,9 +92,7 @@ export const NavigationBar = () => {
         {/* the DOM order is reversed with css flex so that the primary menu is the first keyboard tab target */}
         <div className="mx-auto flex h-[--secondary-header-height] w-full max-w-[--header-maxWidth] items-center justify-end gap-3 border-b border-orange-light px-[--page-inset] max-tablet-header-width:hidden">
           {secondaryMenu?.map((item, index) => {
-            const ItemRenderer = item.dialogElement
-              ? item.dialogElement
-              : React.Fragment
+            const ItemRenderer = item.dialogElement ? item.dialogElement : React.Fragment
 
             const isLink = !item.dialogElement
             const ItemTag = isLink ? Link : "button"
@@ -135,9 +122,7 @@ export const NavigationBar = () => {
                   </ItemTag>
                 </ItemRenderer>
 
-                {index < secondaryMenu.length - 1 && (
-                  <span className="select-none text-orange-light">|</span>
-                )}
+                {index < secondaryMenu.length - 1 && <span className="select-none text-orange-light">|</span>}
               </React.Fragment>
             )
           })}

@@ -9,12 +9,7 @@ import { cva } from "class-variance-authority"
 import { AnimatePresence, motion } from "framer-motion"
 
 import { type Menu } from "@/config/menu"
-import {
-  addToOpenModals,
-  cn,
-  findInMenu,
-  removeFromOpenModals,
-} from "@/lib/utils"
+import { addToOpenModals, cn, findInMenu, removeFromOpenModals } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
@@ -30,59 +25,43 @@ const Menu = {
 
 const MotionLink = motion(Link)
 
-export const menuMobileListStyle = cva(
-  "flex h-full flex-col p-[calc(var(--page-inset)/2)] pb-24 text-primary"
-)
+export const menuMobileListStyle = cva("flex h-full flex-col p-[calc(var(--page-inset)/2)] pb-24 text-primary")
 
-export const menuMobileItemStyle = cva(
-  "flex items-start gap-[--page-inset] px-[calc(var(--page-inset)/2)]",
-  {
-    variants: {
-      variant: {
-        default: "py-4",
-        attributionWidget: "-mt-6 pb-8",
-        title: "!gap-3 pb-8 pt-10 font-display text-4xl",
-        hiddenTitle: "py-6",
-      },
-      border: {
-        default: "border-b-[0.5px]",
-        none: "",
-      },
+export const menuMobileItemStyle = cva("flex items-start gap-[--page-inset] px-[calc(var(--page-inset)/2)]", {
+  variants: {
+    variant: {
+      default: "py-4",
+      attributionWidget: "-mt-6 pb-8",
+      title: "!gap-3 pb-8 pt-10 font-display text-4xl",
+      hiddenTitle: "py-6",
     },
-    defaultVariants: {
-      variant: "default",
+    border: {
+      default: "border-b-[0.5px]",
+      none: "",
     },
-  }
-)
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+})
 
 export const menuMobileId = "menu-mobile"
 
 export const MenuMobile = () => {
   const navigationBarContext = useNavigationBarContext()
 
-  const [activeMenuTitle, setActiveMenuTitle] = React.useState<string>(
-    navigationBarContext.menu.title
-  )
+  const [activeMenuTitle, setActiveMenuTitle] = React.useState<string>(navigationBarContext.menu.title)
 
   const isOpen = navigationBarContext.openModals.includes(menuMobileId)
 
   const isBaseMenu = activeMenuTitle === navigationBarContext.menu.title
 
-  const activeMenu = findInMenu(
-    navigationBarContext.menu,
-    (i) => i.title === activeMenuTitle
-  )
+  const activeMenu = findInMenu(navigationBarContext.menu, (i) => i.title === activeMenuTitle)
 
-  const activeMenuParent = findInMenu(
-    navigationBarContext.menu,
-    (i) => i.title === activeMenuTitle,
-    true
-  )
+  const activeMenuParent = findInMenu(navigationBarContext.menu, (i) => i.title === activeMenuTitle, true)
 
   const handleClose = () => {
-    navigationBarContext.setOpenModals(
-      removeFromOpenModals(navigationBarContext.openModals, menuMobileId)
-    )
+    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, menuMobileId))
   }
 
   const handleNavigate = (menu: Menu) => {
@@ -93,13 +72,9 @@ export const MenuMobile = () => {
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
-      navigationBarContext.setOpenModals(
-        addToOpenModals(navigationBarContext.openModals, menuMobileId)
-      )
+      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, menuMobileId))
     } else {
-      navigationBarContext.setOpenModals(
-        removeFromOpenModals(navigationBarContext.openModals, menuMobileId)
-      )
+      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, menuMobileId))
     }
   }
 
@@ -177,9 +152,7 @@ export const MenuMobile = () => {
                       },
                     }
 
-                    const groupItems = activeMenu.items?.filter(
-                      (i) => i.group === group.title
-                    )
+                    const groupItems = activeMenu.items?.filter((i) => i.group === group.title)
 
                     return (
                       <React.Fragment key={`${groupIndex}-fragment`}>
@@ -191,9 +164,7 @@ export const MenuMobile = () => {
                               variant: "hiddenTitle",
                             })}
                           >
-                            <VisuallyHidden.Root>
-                              {group.title}
-                            </VisuallyHidden.Root>
+                            <VisuallyHidden.Root>{group.title}</VisuallyHidden.Root>
                           </motion.div>
                         )}
                         {group.hasVisibleLabel !== false && (
@@ -206,12 +177,7 @@ export const MenuMobile = () => {
                           >
                             <React.Fragment>
                               <span>{group.title}</span>
-                              {!!group.iconElement && (
-                                <Icon
-                                  name={group.iconElement}
-                                  className="h-[1em] w-[1em] text-secondary"
-                                />
-                              )}
+                              {!!group.iconElement && <Icon name={group.iconElement} className="h-[1em] w-[1em] text-secondary" />}
                             </React.Fragment>
                           </motion.h2>
                         )}
@@ -229,20 +195,15 @@ export const MenuMobile = () => {
                         {groupItems
                           ?.filter((i) => i.isHidden !== true)
                           ?.map((groupItem, groupItemIndex) => {
-                            const isLastChild =
-                              groupItemIndex === groupItems.length - 1 || false
+                            const isLastChild = groupItemIndex === groupItems.length - 1 || false
 
-                            const hasSubMenu =
-                              groupItem.items && groupItem.items.length !== 0
+                            const hasSubMenu = groupItem.items && groupItem.items.length !== 0
 
                             const itemContents = (
                               <>
                                 {!!groupItem.iconElement && (
                                   <div className="grid h-11 shrink-0 place-items-center">
-                                    <Icon
-                                      name={groupItem.iconElement}
-                                      className="h-7 w-7 shrink-0 text-orange"
-                                    />
+                                    <Icon name={groupItem.iconElement} className="h-7 w-7 shrink-0 text-orange" />
                                   </div>
                                 )}
                                 <div className="flex flex-1 items-center gap-[--page-inset] place-self-center">
@@ -251,9 +212,7 @@ export const MenuMobile = () => {
                                       className={cn(
                                         "line-clamp-1 flex items-center gap-3",
                                         groupIndex === 0 && "font-bold",
-                                        groupItem.description
-                                          ? "text-base"
-                                          : "text-lg"
+                                        groupItem.description ? "text-base" : "text-lg"
                                       )}
                                     >
                                       <span>{groupItem.title}</span>
@@ -274,32 +233,22 @@ export const MenuMobile = () => {
                                       )}
                                     </div>
                                     {!!groupItem.description && (
-                                      <div className="line-clamp-2 max-w-[28ch] text-sm text-secondary">
-                                        {groupItem.description}
-                                      </div>
+                                      <div className="line-clamp-2 max-w-[28ch] text-sm text-secondary">{groupItem.description}</div>
                                     )}
                                   </div>
                                 </div>
 
                                 <div
-                                  className={cn(
-                                    "grid h-11 w-[--primary-header-height] shrink-0 place-items-center",
-                                    !hasSubMenu && "w-0 opacity-0"
-                                  )}
+                                  className={cn("grid h-11 w-[--primary-header-height] shrink-0 place-items-center", !hasSubMenu && "w-0 opacity-0")}
                                 >
-                                  <Icon
-                                    name="chevronRight"
-                                    className="h-5 w-5 text-orange"
-                                  />
+                                  <Icon name="chevronRight" className="h-5 w-5 text-orange" />
                                 </div>
                               </>
                             )
 
                             if (!!groupItem.dialogElement) {
                               return (
-                                <groupItem.dialogElement
-                                  key={`${groupItemIndex}-item-with-dialog-wrapper`}
-                                >
+                                <groupItem.dialogElement key={`${groupItemIndex}-item-with-dialog-wrapper`}>
                                   <motion.button
                                     {...motionProps}
                                     key={`${groupItemIndex}-item-with-dialog`}
@@ -368,18 +317,12 @@ export const MenuMobile = () => {
                       >
                         {isBaseMenu ? (
                           <>
-                            <Icon
-                              name="crossSmall"
-                              className="-ml-1.5 h-5 w-5"
-                            />
+                            <Icon name="crossSmall" className="-ml-1.5 h-5 w-5" />
                             Close
                           </>
                         ) : (
                           <>
-                            <Icon
-                              name="arrowLeft"
-                              className="-ml-1.5 h-5 w-5"
-                            />
+                            <Icon name="arrowLeft" className="-ml-1.5 h-5 w-5" />
                             {activeMenuParent.title}
                           </>
                         )}

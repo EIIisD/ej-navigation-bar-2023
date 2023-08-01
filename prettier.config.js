@@ -3,6 +3,7 @@ module.exports = {
   endOfLine: "lf",
   semi: false,
   singleQuote: false,
+  printWidth: 150,
   tabWidth: 2,
   trailingComma: "es5",
   importOrder: [

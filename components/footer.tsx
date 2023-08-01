@@ -10,9 +10,7 @@ export const Footer = () => {
         <div className="grid grid-cols-2 gap-[--page-inset] md:grid-cols-4">
           {menuFooter.map((section) => (
             <ul key={section.title}>
-              <h2 className="mb-2 text-sm font-bold text-secondary">
-                {section.title}
-              </h2>
+              <h2 className="mb-2 text-sm font-bold text-secondary">{section.title}</h2>
               {section.items.map((item) => (
                 <li key={item}>
                   {item === "Manage Bookings" ? (

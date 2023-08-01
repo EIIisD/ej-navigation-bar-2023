@@ -49,9 +49,7 @@
 
   @screen tablet-header-width {
     :root {
-      --header-height: calc(
-        var(--secondary-header-height) + var(--primary-header-height)
-      );
+      --header-height: calc(var(--secondary-header-height) + var(--primary-header-height));
       --page-inset-large: theme("spacing.12");
       --page-inset: theme("spacing.9");
       --page-inset-small: theme("spacing.6");
@@ -103,18 +101,29 @@
 
 @layer components {
   .group\/pass {
-    --pass-border-color: theme("colors.orange.darker");
+    /* --pass-border-color: theme("colors.orange.darker");
     --pass-cutout-size: 24px;
-    --pass-cutout-margin: (var(--page-inset) + 1px);
+    --pass-cutout-margin: (var(--page-inset) + 1px); */
+
+    --border-width: 1.5px;
+    --margin: 10mm;
+    --spacing-sm: 3mm;
+    --spacing: 5mm;
+    --spacing-lg: 8mm;
+    --featured-icon-size: 8mm;
   }
-  .group\/pass:before {
-    @apply absolute inset-0 bg-[inherit] [mask:linear-gradient(to_bottom,rgb(0_0_0/0)_0%,rgb(0_0_0/1)_100%)] mix-blend-multiply opacity-10 content-[''];
+
+  .group\/pass * {
+    border-color: theme("colors.primary.DEFAULT");
   }
+
+  /* .group\/pass:before {
+    @apply absolute inset-0 bg-[inherit] [mask:linear-gradient(to_bottom,rgb(0_0_0/0)_0%,rgb(0_0_0/1)_100%)] mix-blend-multiply opacity-10 content-[''] pointer-events-none touch-none;
+  } */
 
   .boarding-pass-mask {
     --r: 40px;
-    --mask: radial-gradient(var(--r) at var(--r) 50%, #0000 98%, #000)
-      calc(var(--r) * -1);
+    --mask: radial-gradient(var(--r) at var(--r) 50%, #0000 98%, #000) calc(var(--r) * -1);
     -webkit-mask: var(--mask);
     mask: var(--mask);
   }

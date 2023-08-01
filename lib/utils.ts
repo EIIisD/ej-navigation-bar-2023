@@ -31,15 +31,8 @@ export function wait(ms = 1000) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export function findInMenu(
-  targetMenu: Menu,
-  predicate: (item: Menu) => boolean,
-  returnParent = false
-) {
-  const traverse = (
-    currentMenu: Menu[],
-    parentMenu: Menu | null
-  ): Menu | null => {
+export function findInMenu(targetMenu: Menu, predicate: (item: Menu) => boolean, returnParent = false) {
+  const traverse = (currentMenu: Menu[], parentMenu: Menu | null): Menu | null => {
     for (const item of currentMenu) {
       if (predicate(item)) return returnParent ? parentMenu : item
 
