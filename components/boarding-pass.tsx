@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button"
 import { BarCode } from "@/components/barcode"
 import { Icon, IconName } from "@/components/icon"
 
-const useBorders = false
+const useBorders = true
+const useContainers = true
 
 interface IBoardingPassProps {
   bp: IBoardingPass
@@ -127,7 +128,7 @@ const Ticket = ({ bp }: IBoardingPassProps) => {
   } = bp
 
   return (
-    <div className="flex gap-[--spacing] gap-x-[--spacing-lg] p-[--spacing] border-[length:--border-width] rounded-xl">
+    <div className={cn("flex gap-[--spacing] gap-x-[--spacing-lg]", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
       {/* variable width column */}
       <div className="flex flex-col gap-x-[--spacing-lg] items-start justify-between">
         {/* easyJet logo + title */}
@@ -299,8 +300,8 @@ const Info = ({ bp }: IBoardingPassProps) => {
     development: { showAirportSpecificInformation },
   } = bp
   return (
-    <div className="grid grid-cols-2 border-[length:--border-width] rounded-xl row-span-2">
-      <div className="flex flex-col gap-[--spacing] p-[--spacing]">
+    <div className={cn("grid grid-cols-2 row-span-2", useContainers && "border-[length:--border-width] rounded-xl")}>
+      <div className={cn("flex flex-col gap-[--spacing] pr-[--spacing]", useContainers && "p-[--spacing]")}>
         <div className="font-bold text-bp-lg">Luggage and Bags</div>
         <div className="flex flex-col gap-[--spacing]">
           {(hasSpeedyBoarding || hasLargeCabinBag) && (
@@ -342,7 +343,7 @@ const Info = ({ bp }: IBoardingPassProps) => {
           </InfoSection>
         </div>
       </div>
-      <div className="flex flex-col gap-[--spacing] p-[--spacing] border-l-[length:--border-width]">
+      <div className={cn("flex flex-col gap-[--spacing] border-l-[length:--border-width] pl-[--spacing]", useContainers && "p-[--spacing]")}>
         <div className="font-bold text-bp-lg">Departures</div>
         <div className="flex flex-col gap-[--spacing]">
           {showAirportSpecificInformation && (
@@ -379,20 +380,20 @@ const Info = ({ bp }: IBoardingPassProps) => {
 const Ads = ({ bp }: IBoardingPassProps) => {
   return (
     <div className="grid grid-cols-3 gap-[--spacing-lg]">
-      <div className="flex flex-col gap-2 p-[--spacing] border-[length:--border-width] rounded-xl text-bp-sm">
+      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
         <div className="font-bold text-bp-base">Flight Tracker</div>
         <p>3 easy steps to check your flight status:</p>
-        <ol className="list-decimal list-inside space-y-2">
+        {/* <ol className="list-decimal list-inside space-y-2">
           <li className="list-item">Go to the Flight Tracker on our mobile app or at easyJet.com</li>
           <li className="list-item">Search for your flight by route or flight number</li>
           <li className="list-item">Click to get live updates real-time on the move</li>
-        </ol>
+        </ol> */}
       </div>
-      <div className="flex flex-col gap-2 p-[--spacing] border-[length:--border-width] rounded-xl text-bp-sm">
+      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
         <div className="font-bold text-bp-base">Go Hands Free</div>
         {/* <p className="[font-size:0.75em]">£7 | 8€ | CHF9</p> */}
         <p>Per person each way</p>
-        <p>Simply drop your cabin bag at Bag Drop, cruise through the airport hassle free and leave the overhead locker rush behind.</p>
+        {/* <p>Simply drop your cabin bag at Bag Drop, cruise through the airport hassle free and leave the overhead locker rush behind.</p> */}
         {/* <p className="[font-size:0.5em]">
           Only one cabin bag per person [maximum size 56 x 45 x 25cm including handles and wheels to the easyJet Plus Bag Drop. Bags larger than this
           will incur the relevant hold bag fee. Customers can remove a small item (45x36x20cm) from their cabin bag and take it on board with them. A
@@ -400,10 +401,10 @@ const Ads = ({ bp }: IBoardingPassProps) => {
           CHF20.
         </p> */}
       </div>
-      <div className="flex flex-col gap-2 p-[--spacing] border-[length:--border-width] rounded-xl text-bp-sm">
+      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
         <div className="font-bold text-bp-base">Tackling Our Carbon Emissions</div>
         <p>We're the first major airline to offset the carbon emissions from the fuel used for every single flight.</p>
-        <p>Visit easyJet.com/sustainability to find out more.</p>
+        {/* <p>Visit easyJet.com/sustainability to find out more.</p> */}
       </div>
     </div>
   )
@@ -425,20 +426,20 @@ export const BoardingPass = ({ bp: defaultBp }: IBoardingPassProps) => {
     }
   }, [])
 
-  return (
-    <div className="group/pass text-bp-base relative grid grid-rows-4 grid-cols-1 screen:p-[--margin] gap-[calc(var(--margin)*2)] print:h-[calc(100vh-var(--margin))] mx-auto print:w-[calc(100vw-var(--margin))]">
-      <div className="absolute inset-y-0 print:-inset-y-[--margin] print:inset-x-0 screen:inset-x-[--margin] flex flex-col justify-between pointer-events-none touch-none">
-        <div className="border-t border-dashed opacity-0" />
-        <div className="border-t border-dashed opacity-100" />
-        <div className="border-t border-dashed opacity-0" />
-        <div className="border-t border-dashed opacity-100" />
-        <div className="border-t border-dashed opacity-0" />
-      </div>
-      <Ticket bp={bp} />
-      <Info bp={bp} />
-      <Ads bp={bp} />
-    </div>
-  )
+  // return (
+  //   <div className="group/pass text-bp-base relative grid grid-rows-4 grid-cols-1 screen:p-[--margin] gap-[calc(var(--margin)*2)] print:h-[calc(100vh-var(--margin))] mx-auto print:w-[calc(100vw-var(--margin))]">
+  //     <div className="absolute inset-y-0 print:-inset-y-[--margin] print:inset-x-0 screen:inset-x-[--margin] flex flex-col justify-between pointer-events-none touch-none">
+  //       <div className="border-t border-dashed opacity-0" />
+  //       <div className="border-t border-dashed opacity-100" />
+  //       <div className="border-t border-dashed opacity-0" />
+  //       <div className="border-t border-dashed opacity-100" />
+  //       <div className="border-t border-dashed opacity-0" />
+  //     </div>
+  //     <Ticket bp={bp} />
+  //     <Info bp={bp} />
+  //     <Ads bp={bp} />
+  //   </div>
+  // )
   return (
     <div className="group/pass text-bp-base relative grid grid-rows-4 grid-cols-1 p-[--margin] gap-[calc(var(--margin)*2)] max-h-[297mm] max-w-[210mm] w-full h-[297mm] overflow-hidden mx-auto">
       <div className="absolute inset-y-0 inset-x-[--margin] flex flex-col justify-between pointer-events-none touch-none">
