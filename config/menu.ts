@@ -1,7 +1,7 @@
 import { toTitleCase } from "@artsy/to-title-case"
 
 import { languages } from "@/config/languages"
-import { IconName } from "@/components/icon"
+import { type IconName } from "@/components/icon"
 import { BookingDotComAttributionBanner, CarTrawlerAttributionBanner } from "@/components/navigation-bar/attribution-banner"
 import { DialogHelpCentre } from "@/components/navigation-bar/dialog-help-centre"
 import { DialogLanguageSelect } from "@/components/navigation-bar/dialog-language-select"

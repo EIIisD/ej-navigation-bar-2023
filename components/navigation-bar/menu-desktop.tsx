@@ -61,16 +61,16 @@ const MenuLink = React.forwardRef<
           {!!IconElement && <Icon name={IconElement} className="h-7 w-7 text-orange transition-colors duration-100 group-hover:text-orange-darker" />}
         </div>
         <div className="flex min-h-[--avg-height] flex-col justify-center">
-          <div className="relative max-w-max font-bold text-primary text-sm leading-4">
+          <div className="relative max-w-max text-sm/4 font-bold text-primary">
             <span contentEditable={contentEditable} suppressContentEditableWarning={contentEditable}>
               {title}
             </span>
             {""}
-            <AnimatedArrowIcon show={showArrow} />
+            <AnimatedArrowIcon show={showArrow} leading="4" />
           </div>
           {!!description && (
             <div
-              className="mt-1 line-clamp-1 text-secondary transition-colors duration-100 text-sm leading-4 group-hover:text-primary"
+              className="mt-1 line-clamp-1 text-sm/4 text-secondary transition-colors duration-100 group-hover:text-primary"
               contentEditable={contentEditable}
               suppressContentEditableWarning={contentEditable}
             >
@@ -115,7 +115,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
             )}
             <div className="relative ml-1 flex w-full items-start gap-3 px-[--page-inset] py-[--page-inset-small]">
               <div className="flex-auto">
-                <h3 className="flex items-start gap-2 text-lg leading-6">
+                <h3 className="flex items-start gap-2 text-lg/6">
                   {tab.iconElement === "facilitiesWheelchairOutlined" && (
                     <div className="flex h-6 items-center justify-center">
                       <Icon name={tab.iconElement} className="h-5 w-5 shrink-0" />
@@ -127,7 +127,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
                 </h3>
                 {!!tab.description && (
                   <p
-                    className="mt-2 line-clamp-2 text-secondary text-sm"
+                    className="mt-2 line-clamp-2 text-sm text-secondary"
                     contentEditable={contentEditable}
                     suppressContentEditableWarning={contentEditable}
                   >

@@ -31,9 +31,9 @@ const buttonVariants = cva(
           "text-orange [--button-bg-hover:theme(colors.orange.DEFAULT)] [--button-bg:theme(colors.white)] [--button-border:none] after:shadow-none",
       },
       size: {
-        sm: "text-sm leading-6 [--button-padding-x:theme(spacing.4)] [--button-padding-y:theme(spacing.1)]",
-        default: "text-sm leading-6 [--button-padding-x:theme(spacing.6)] [--button-padding-y:theme(spacing.2)]",
-        lg: "text-base leading-6 [--button-padding-x:theme(spacing.8)] [--button-padding-y:theme(spacing.3)]",
+        sm: "text-sm/6 [--button-padding-x:theme(spacing.4)] [--button-padding-y:theme(spacing.1)]",
+        default: "text-sm/6 [--button-padding-x:theme(spacing.6)] [--button-padding-y:theme(spacing.2)]",
+        lg: "text-base/6 [--button-padding-x:theme(spacing.8)] [--button-padding-y:theme(spacing.3)]",
       },
       variant: {
         default: "rounded px-[calc(var(--button-padding-x)-1px)] py-[calc(var(--button-padding-y)-1px)]",

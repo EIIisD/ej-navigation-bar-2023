@@ -1,4 +1,4 @@
-export type Airport = {
+export interface Airport {
   name: string
   canonicalUrlToken: string
   code: string
