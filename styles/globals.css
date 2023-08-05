@@ -64,7 +64,7 @@
   }
 
   body {
-    @apply font-sans text-base antialiased bg-white text-primary;
+    @apply bg-white text-primary antialiased font-sans text-base;
     display: flex;
     flex-direction: column;
     min-height: 100%;
@@ -100,6 +100,7 @@
 
 @layer components {
   .group\/pass {
+    container-type: inline-size;
     /* --pass-border-color: theme("colors.orange.darker");
     --pass-cutout-size: 24px;
     --pass-cutout-margin: (var(--page-inset) + 1px); */
