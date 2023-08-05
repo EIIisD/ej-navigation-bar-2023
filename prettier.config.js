@@ -6,6 +6,7 @@ module.exports = {
   printWidth: 150,
   tabWidth: 2,
   trailingComma: "es5",
+  tailwindFunctions: ["clsx", "cva", "cn"],
   importOrder: [
     "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",
@@ -24,7 +25,7 @@ module.exports = {
     "^[./]",
   ],
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
-  plugins: ["@ianvs/prettier-plugin-sort-imports"],
+  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
   overrides: [
     {
       files: "*.svg",

@@ -10,17 +10,17 @@ export const Footer = () => {
         <div className="grid grid-cols-2 gap-[--page-inset] md:grid-cols-4">
           {menuFooter.map((section) => (
             <ul key={section.title}>
-              <h2 className="mb-2 text-sm font-bold text-secondary">{section.title}</h2>
+              <h2 className="mb-2 font-bold text-secondary text-sm">{section.title}</h2>
               {section.items.map((item) => (
                 <li key={item}>
                   {item === "Manage Bookings" ? (
                     <Link href="/boarding-pass">
-                      <TextButton className="-m-1 p-1 text-sm text-secondary w-full justify-start whitespace-normal">
+                      <TextButton className="-m-1 w-full justify-start whitespace-normal p-1 text-secondary text-sm">
                         <div className="line-clamp-1 break-all">{item}</div>
                       </TextButton>
                     </Link>
                   ) : (
-                    <TextButton className="-m-1 p-1 text-sm text-secondary w-full justify-start whitespace-normal">
+                    <TextButton className="-m-1 w-full justify-start whitespace-normal p-1 text-secondary text-sm">
                       <div className="line-clamp-1 break-all">{item}</div>
                     </TextButton>
                   )}

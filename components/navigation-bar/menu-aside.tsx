@@ -79,7 +79,7 @@ export const MenuAside = () => {
             {/* mobile only */}
             <Button
               type="button"
-              variant="outline"
+              mode="outline"
               size="sm"
               onClick={() => {
                 if (!navigationBarContext.openModals.includes(menuMobileId)) {
@@ -122,7 +122,7 @@ export const MenuAside = () => {
                         <DropdownLink
                           className={menuMobileItemStyle({
                             border: itemIndex === menuItems.length - 1 ? "none" : "default",
-                            className: "min-w-[23ch] text-sm font-bold hover:bg-gray-50 transition-colors duration-100",
+                            className: "min-w-[23ch] font-bold transition-colors duration-100 text-sm hover:bg-gray-50",
                           })}
                           onClick={() => {
                             if (item.id === "sign-out") {
@@ -141,7 +141,7 @@ export const MenuAside = () => {
           </>
         ) : (
           <DialogSignIn>
-            <Button type="button" variant="outline" size="sm">
+            <Button type="button" mode="outline" size="sm">
               <Icon name="usersOutlined" className="-ml-1 h-4 w-4" />
               <span>{toTitleCase(`Sign in`)}</span>
             </Button>
@@ -156,7 +156,7 @@ export const MenuAside = () => {
       <div className="absolute right-0 top-full z-50 flex justify-center">
         <Dropdown.Viewport
           className={cn(
-            "origin-top-center group peer relative mt-1 h-[var(--radix-navigation-menu-viewport-height)] w-full",
+            "group peer relative mt-1 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-top",
             "data-[state=open]:duration-200 data-[state=open]:ease-out data-[state=open]:animate-in",
             "data-[state=closed]:duration-75 data-[state=closed]:ease-in data-[state=closed]:animate-out"
           )}

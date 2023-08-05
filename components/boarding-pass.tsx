@@ -1,17 +1,14 @@
 "use client"
 
 import React from "react"
-import Image from "next/image"
-import { cva } from "class-variance-authority"
 
 import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { BarCode } from "@/components/barcode"
-import { Icon, IconName } from "@/components/icon"
+import { Icon, type IconName } from "@/components/icon"
 
-const useBorders = true
-const useContainers = true
+const useBorders = false
+const useContainers = false
 
 interface IBoardingPassProps {
   bp: IBoardingPass
@@ -35,11 +32,11 @@ const TNums: React.FC<{
         isNaN(Number(char)) ? (
           <div key={`${char}-${index}`}>{char}</div>
         ) : char === " " ? (
-          <div key={`${char}-${index}`} className="inline-block w-[0.375ch] max-w-[0.375ch] min-w-[0.375ch] text-center">
+          <div key={`${char}-${index}`} className="inline-block w-[0.375ch] min-w-[0.375ch] max-w-[0.375ch] text-center">
             {char}
           </div>
         ) : (
-          <div key={`${char}-${index}`} className="inline-block w-[1ch] max-w-[1ch] min-w-[1ch] text-center">
+          <div key={`${char}-${index}`} className="inline-block w-[1ch] min-w-[1ch] max-w-[1ch] text-center">
             {char}
           </div>
         )
@@ -50,22 +47,22 @@ const TNums: React.FC<{
 
 const FlightConnectionIcon = () => {
   return (
-    <div className="flex items-center justify-center gap-[8px] [--dot-gap:4px] [--dot-size:3px] [--departs-dot-size:6px] [--arrives-dot-size:6px]">
+    <div className="flex items-center justify-center gap-[8px] [--arrives-dot-size:6px] [--departs-dot-size:6px] [--dot-gap:4px] [--dot-size:3px]">
       <div className="flex items-center gap-[--dot-gap]">
         <div
-          className={cn("rounded-full h-[--departs-dot-size] w-[--departs-dot-size]", useBorders ? "border-[length:--border-width]" : "bg-primary")}
+          className={cn("h-[--departs-dot-size] w-[--departs-dot-size] rounded-full", useBorders ? "border-[length:--border-width]" : "bg-primary")}
         />
-        <div className="rounded-full h-[--dot-size] w-[--dot-size] bg-primary" />
-        <div className="rounded-full h-[--dot-size] w-[--dot-size] bg-primary" />
-        <div className="rounded-full h-[--dot-size] w-[--dot-size] bg-primary" />
+        <div className="h-[--dot-size] w-[--dot-size] rounded-full bg-primary" />
+        <div className="h-[--dot-size] w-[--dot-size] rounded-full bg-primary" />
+        <div className="h-[--dot-size] w-[--dot-size] rounded-full bg-primary" />
       </div>
       <Icon name="searchAndMenuAirplaneModeAltSolid" className="h-8 w-8" />
       <div className="flex items-center gap-[--dot-gap]">
-        <div className="rounded-full h-[--dot-size] w-[--dot-size] bg-primary" />
-        <div className="rounded-full h-[--dot-size] w-[--dot-size] bg-primary" />
-        <div className="rounded-full h-[--dot-size] w-[--dot-size] bg-primary" />
+        <div className="h-[--dot-size] w-[--dot-size] rounded-full bg-primary" />
+        <div className="h-[--dot-size] w-[--dot-size] rounded-full bg-primary" />
+        <div className="h-[--dot-size] w-[--dot-size] rounded-full bg-primary" />
         <div
-          className={cn("rounded-full h-[--arrives-dot-size] w-[--arrives-dot-size]", useBorders ? "border-[length:--border-width]" : "bg-primary")}
+          className={cn("h-[--arrives-dot-size] w-[--arrives-dot-size] rounded-full", useBorders ? "border-[length:--border-width]" : "bg-primary")}
         />
       </div>
     </div>
@@ -97,13 +94,13 @@ const FeaturedIcon = ({ className, icon, ...props }: { className?: string; icon:
   return (
     <div
       className={cn(
-        "flex items-center shrink-0 justify-center h-[--featured-icon-size] w-[--featured-icon-size] rounded-lg",
+        "flex h-[--featured-icon-size] w-[--featured-icon-size] shrink-0 items-center justify-center rounded-md",
         useBorders ? "border-[length:--border-width] text-primary" : "bg-primary text-white",
         className
       )}
       {...props}
     >
-      <Icon name={icon} className={cn(useBorders ? "w-[80%] h-[80%]" : "w-[66.6%] h-[66.6%]")} />
+      <Icon name={icon} className={cn(useBorders ? "h-[80%] w-[80%]" : "h-[66.6%] w-[66.6%]")} />
     </div>
   )
 }
@@ -128,24 +125,24 @@ const Ticket = ({ bp }: IBoardingPassProps) => {
   } = bp
 
   return (
-    <div className={cn("flex gap-[--spacing] gap-x-[--spacing-lg]", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
+    <div className={cn("flex gap-[--spacing] gap-x-[--spacing-lg]", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
       {/* variable width column */}
-      <div className="flex flex-col gap-x-[--spacing-lg] items-start justify-between">
+      <div className="grid grid-cols-1 grid-rows-3 items-start justify-between gap-x-[--spacing-lg]">
         {/* easyJet logo + title */}
-        <div className="flex items-start justify-start gap-[--spacing-sm] w-full">
-          <div className="h-[theme('fontSize.bp-lg')] max-h-[theme('fontSize.bp-lg')] w-contents flex items-center justify-start">
-            <Icon name="easyJetLogo" className="h-[5mm] relative top-[0%] w-auto [aspect-ratio:91/22]" />
+        <div className="flex w-full items-start justify-start gap-[--spacing-sm]">
+          <div className="flex h-[theme('fontSize.bp-lg')] max-h-[theme('fontSize.bp-lg')] items-center justify-start">
+            <Icon name="easyJetLogo" className="relative top-[0%] h-[5mm] w-auto [aspect-ratio:91/22]" />
           </div>
 
           {/* <div className="font-bold text-bp-sm px-[9px] py-[3.5px] bg-primary rounded-full text-white">Boarding Pass</div> */}
-          <div className="font-bold text-bp-lg text-primary">Boarding Pass</div>
+          <div className="font-bold text-primary text-bp-lg">Boarding Pass</div>
         </div>
 
         {/* departure airport + arrival airport */}
-        <div className="flex items-end justify-between gap-[--page-inset] w-full">
+        <div className="flex w-full items-end justify-between gap-[--page-inset]">
           <Data>
             <DataLabel className="max-w-[unset]">{departureAirport.name}</DataLabel>
-            <DataValue icon={undefined} className="text-bp-xl font-light">
+            <DataValue icon={undefined} className="font-light text-bp-xl">
               {departureAirport.code}
             </DataValue>
           </Data>
@@ -154,22 +151,22 @@ const Ticket = ({ bp }: IBoardingPassProps) => {
 
           <Data align="right">
             <DataLabel className="max-w-[unset]">{arrivalAirport.name}</DataLabel>
-            <DataValue icon={undefined} className="text-bp-xl font-light">
+            <DataValue icon={undefined} className="font-light text-bp-xl">
               {arrivalAirport.code}
             </DataValue>
           </Data>
         </div>
 
         {/* passenger information + seat number */}
-        <div className="flex items-end gap-[--spacing] gap-x-[--spacing-lg] justify-between w-full">
+        <div className="flex w-full items-end justify-between gap-[--spacing] gap-x-[--spacing-lg] self-end">
           <Data>
             <DataLabel>Passenger{infantPassenger && " + Infant"}</DataLabel>
             <DataValue icon="promoFilterIconsExploreOnFootAltSolid">
-              <TNums text={passenger.passportNumber} /> / {passenger.firstName} {passenger.lastName}
+              <TNums text={passenger.documentID} /> / {passenger.firstName} {passenger.lastName}
             </DataValue>
             {infantPassenger && (
               <DataValue icon="infantSolid">
-                <TNums text={infantPassenger.passportNumber} /> / {infantPassenger.firstName} {infantPassenger.lastName}
+                <TNums text={infantPassenger.documentID} /> / {infantPassenger.firstName} {infantPassenger.lastName}
               </DataValue>
             )}
           </Data>
@@ -184,7 +181,7 @@ const Ticket = ({ bp }: IBoardingPassProps) => {
       </div>
 
       {/* constant width column */}
-      <div className="flex flex-col flex-auto gap-[--spacing] gap-x-[--spacing-lg] items-end justify-between">
+      <div className="flex flex-auto flex-col items-end justify-between gap-[--spacing] gap-x-[--spacing-lg]">
         {/* date + flight number */}
         <div className="flex items-start gap-[--spacing] gap-x-[--spacing-lg]">
           <Data align="right">
@@ -258,7 +255,7 @@ const Ticket = ({ bp }: IBoardingPassProps) => {
         <BarCode className="h-full w-10 bg-white" />
 
         {/* reservation number + customer entitlements code + check-in sequence number */}
-        <div className="flex items-center gap-x-[--spacing-sm] justify-between [writing-mode:vertical-rl] -rotate-180 text-bp-sm">
+        <div className="flex -rotate-180 items-center justify-between gap-x-[--spacing-sm] text-bp-sm [writing-mode:vertical-rl]">
           <TNums text={reservationNumber} />
           <div className="flex items-center justify-end gap-x-[--spacing-sm]">
             <TNums text={customerEntitlementsCode} />
@@ -286,7 +283,7 @@ const InfoSection = ({
     <div className={cn("flex items-start justify-start gap-[--spacing-sm]", className)} {...props}>
       <FeaturedIcon icon={icon} />
       <div className="flex flex-col gap-1">
-        {title && <div className="font-bold text-bp-sm leading-none trim-start">{title}</div>}
+        {title && <div className="font-bold trim-start text-bp-sm leading-none">{title}</div>}
         <div className="flex flex-col gap-1 text-bp-sm leading-normal">{children}</div>
       </div>
     </div>
@@ -299,20 +296,21 @@ const Info = ({ bp }: IBoardingPassProps) => {
     extras: { seatType, hasSpecialAssistance, hasHoldBag, hasLargeCabinBag, hasSpeedyBoarding },
     development: { showAirportSpecificInformation },
   } = bp
+
   return (
-    <div className={cn("grid grid-cols-2 row-span-2", useContainers && "border-[length:--border-width] rounded-xl")}>
+    <div className={cn("row-span-2 grid grid-cols-2", useContainers && "rounded-xl border-[length:--border-width]")}>
       <div className={cn("flex flex-col gap-[--spacing] pr-[--spacing]", useContainers && "p-[--spacing]")}>
         <div className="font-bold text-bp-lg">Luggage and Bags</div>
         <div className="flex flex-col gap-[--spacing]">
           {(hasSpeedyBoarding || hasLargeCabinBag) && (
             <div
               className={cn(
-                "flex items-center justify-between gap-[--spacing-sm] px-4 h-[--featured-icon-size] rounded-full text-bp-sm",
+                "flex h-[--featured-icon-size] items-center justify-between gap-[--spacing-sm] rounded-md px-3 text-bp-sm",
                 useBorders ? "border-[length:--border-width] text-primary" : "bg-primary text-white"
               )}
             >
-              <p className="[font-size:0.85em]">Use easyJet Plus Bag Drop</p>
-              <p className="[font-size:0.75em] leading-none uppercase font-bold">Speedy Boarding</p>
+              <p className="font-bold [font-size:0.85em]">Use easyJet Plus Bag Drop</p>
+              <p className="font-bold uppercase leading-none [font-size:0.75em]">Speedy Boarding</p>
             </div>
           )}
           {hasSpecialAssistance && (
@@ -333,12 +331,10 @@ const Info = ({ bp }: IBoardingPassProps) => {
               wheels).
             </p>
             {hasLargeCabinBag && (
-              <>
-                <p>
-                  You can also bring on board ONE large cabin bag, which must fit in the overhead locker. Max 56 x 45 x 25cm (including any handles or
-                  wheels). If there's no room, your large cabin bag will be placed in the hold for free.
-                </p>
-              </>
+              <p>
+                You can also bring on board ONE large cabin bag, which must fit in the overhead locker. Max 56 x 45 x 25cm (including any handles or
+                wheels). If there's no room, your large cabin bag will be placed in the hold for free.
+              </p>
             )}
           </InfoSection>
         </div>
@@ -380,19 +376,19 @@ const Info = ({ bp }: IBoardingPassProps) => {
 const Ads = ({ bp }: IBoardingPassProps) => {
   return (
     <div className="grid grid-cols-3 gap-[--spacing-lg]">
-      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
+      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
         <div className="font-bold text-bp-base">Flight Tracker</div>
-        <p>3 easy steps to check your flight status:</p>
+        {/* <p>3 easy steps to check your flight status:</p> */}
         {/* <ol className="list-decimal list-inside space-y-2">
           <li className="list-item">Go to the Flight Tracker on our mobile app or at easyJet.com</li>
           <li className="list-item">Search for your flight by route or flight number</li>
           <li className="list-item">Click to get live updates real-time on the move</li>
         </ol> */}
       </div>
-      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
+      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
         <div className="font-bold text-bp-base">Go Hands Free</div>
         {/* <p className="[font-size:0.75em]">£7 | 8€ | CHF9</p> */}
-        <p>Per person each way</p>
+        {/* <p>Per person each way</p> */}
         {/* <p>Simply drop your cabin bag at Bag Drop, cruise through the airport hassle free and leave the overhead locker rush behind.</p> */}
         {/* <p className="[font-size:0.5em]">
           Only one cabin bag per person [maximum size 56 x 45 x 25cm including handles and wheels to the easyJet Plus Bag Drop. Bags larger than this
@@ -401,9 +397,9 @@ const Ads = ({ bp }: IBoardingPassProps) => {
           CHF20.
         </p> */}
       </div>
-      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "p-[--spacing] border-[length:--border-width] rounded-xl")}>
+      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
         <div className="font-bold text-bp-base">Tackling Our Carbon Emissions</div>
-        <p>We're the first major airline to offset the carbon emissions from the fuel used for every single flight.</p>
+        {/* <p>We're the first major airline to offset the carbon emissions from the fuel used for every single flight.</p> */}
         {/* <p>Visit easyJet.com/sustainability to find out more.</p> */}
       </div>
     </div>
@@ -421,6 +417,7 @@ export const BoardingPass = ({ bp: defaultBp }: IBoardingPassProps) => {
     }
 
     window.addEventListener("keydown", handleKeyDown)
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
@@ -441,8 +438,8 @@ export const BoardingPass = ({ bp: defaultBp }: IBoardingPassProps) => {
   //   </div>
   // )
   return (
-    <div className="group/pass text-bp-base relative grid grid-rows-4 grid-cols-1 p-[--margin] gap-[calc(var(--margin)*2)] max-h-[297mm] max-w-[210mm] w-full h-[297mm] overflow-hidden mx-auto">
-      <div className="absolute inset-y-0 inset-x-[--margin] flex flex-col justify-between pointer-events-none touch-none">
+    <div className="group/pass relative mx-auto grid h-[297mm] max-h-[297mm] w-full max-w-[210mm] grid-cols-1 grid-rows-4 gap-[calc(var(--margin)*2)] overflow-hidden p-[--margin] text-bp-base">
+      <div className="pointer-events-none absolute inset-x-[--margin] inset-y-0 flex touch-none flex-col justify-between">
         <div className="border-t border-dashed opacity-0" />
         <div className="border-t border-dashed opacity-100" />
         <div className="border-t border-dashed opacity-0" />

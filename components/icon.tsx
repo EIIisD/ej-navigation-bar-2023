@@ -22,5 +22,6 @@ export function Icon({
       </svg>
     )
   }
+
   return null
 }

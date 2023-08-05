@@ -16,6 +16,7 @@
   "plugins": ["@typescript-eslint", "tailwindcss"],
   "root": true,
   "rules": {
+    "react/no-unescaped-entities": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
@@ -106,6 +107,9 @@
         "prev": "function"
       }
     ]
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
   },
   "settings": {
     "next": {

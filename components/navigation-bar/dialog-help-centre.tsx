@@ -99,7 +99,7 @@ export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) =>
                 <div className="flex flex-wrap gap-2">
                   {topSearches.map((value) => (
                     <DialogClose key={value} asChild>
-                      <Button type="submit" variant="outline" size="sm" className="rounded-full font-normal">
+                      <Button type="submit" mode="outline" size="sm" className="rounded-full font-normal">
                         {value}
                       </Button>
                     </DialogClose>
@@ -109,7 +109,7 @@ export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) =>
             </DialogMain>
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button type="button" mode="outline">
                   Cancel
                 </Button>
               </DialogClose>

@@ -96,7 +96,7 @@ FormControl.displayName = "FormControl"
 const FormDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => {
   const { formDescriptionId } = useFormField()
 
-  return <p ref={ref} id={formDescriptionId} className={cn("text-sm text-gray-500", className)} {...props} />
+  return <p ref={ref} id={formDescriptionId} className={cn("text-gray-500 text-sm", className)} {...props} />
 })
 
 FormDescription.displayName = "FormDescription"
@@ -110,7 +110,7 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
   }
 
   return (
-    <p ref={ref} id={formMessageId} className={cn("text-sm font-medium text-red-500", className)} {...props}>
+    <p ref={ref} id={formMessageId} className={cn("font-medium text-red-500 text-sm", className)} {...props}>
       {body}
     </p>
   )

@@ -14,7 +14,7 @@ export default function IndexPage() {
     <>
       {/* remove page inset when done testing (the pdf already gets a margin) */}
       {/* <section className="flex-auto bg-white screen:max-w-[--page-maxWidth] p-[--page-inset] screen:mx-auto screen:w-full"> */}
-      <section className="flex-auto bg-white screen:max-w-[--page-maxWidth] screen:mx-auto screen:w-full">
+      <section className="flex-auto bg-white screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
         <BoardingPass bp={bp} />
       </section>
     </>

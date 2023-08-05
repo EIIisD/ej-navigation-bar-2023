@@ -61,7 +61,7 @@ const MenuLink = React.forwardRef<
           {!!IconElement && <Icon name={IconElement} className="h-7 w-7 text-orange transition-colors duration-100 group-hover:text-orange-darker" />}
         </div>
         <div className="flex min-h-[--avg-height] flex-col justify-center">
-          <div className="relative max-w-max text-sm leading-4 font-bold text-primary">
+          <div className="relative max-w-max font-bold text-primary text-sm leading-4">
             <span contentEditable={contentEditable} suppressContentEditableWarning={contentEditable}>
               {title}
             </span>
@@ -70,7 +70,7 @@ const MenuLink = React.forwardRef<
           </div>
           {!!description && (
             <div
-              className="mt-1 line-clamp-1 text-sm leading-4 text-secondary transition-colors duration-100 group-hover:text-primary"
+              className="mt-1 line-clamp-1 text-secondary transition-colors duration-100 text-sm leading-4 group-hover:text-primary"
               contentEditable={contentEditable}
               suppressContentEditableWarning={contentEditable}
             >
@@ -127,7 +127,7 @@ const ControlledTabs = ({ menuItem }: { menuItem: Menu }) => {
                 </h3>
                 {!!tab.description && (
                   <p
-                    className="mt-2 line-clamp-2 text-sm text-secondary"
+                    className="mt-2 line-clamp-2 text-secondary text-sm"
                     contentEditable={contentEditable}
                     suppressContentEditableWarning={contentEditable}
                   >

@@ -23,12 +23,12 @@ export const MarketingArea = () => {
           <Image src="/media/hero-3.jpg" width={2755 * 0.1} height={3415 * 0.1} alt="" className="h-full w-full object-cover" />
         </div>
         <div>
-          <h3 className="relative max-w-max text-base font-bold text-primary">
+          <h3 className="relative max-w-max font-bold text-primary text-base">
             Deals of the Week
             <AnimatedArrowIcon show={showArrow} size="base" />
             <div className="absolute inset-0" />
           </h3>
-          <div className="mt-1 text-sm text-secondary">Grab yourself a great deal and choose a perfect getaway.</div>
+          <div className="mt-1 text-secondary text-sm">Grab yourself a great deal and choose a perfect getaway.</div>
         </div>
       </button>
     </div>

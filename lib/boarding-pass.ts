@@ -5,10 +5,6 @@ import { format, sub } from "date-fns"
 import { airports, type Airport } from "@/config/airports"
 
 const useRandomLocale = true
-const censorPassportNumber = true
-// const censorCharacter = "***"
-// const censorCharacter = "…"
-const censorCharacter = "*"
 const scenario = [
   {
     name: "worst",
@@ -33,7 +29,7 @@ export interface IPassenger {
   title: string
   firstName: string
   lastName: string
-  passportNumber: string
+  documentID: string
 }
 
 export interface IBoardingPass {
@@ -49,6 +45,7 @@ export interface IBoardingPass {
     hasLargeCabinBag: boolean
     hasHoldBag: boolean
     hasSpeedyBoarding: boolean
+    hasFoodAndDrinkVoucher: boolean
   }
   checkedInLuggageBooked: boolean
   fastTrackSecurityAllowance: boolean
@@ -74,11 +71,23 @@ export const generateBoardingPass = (): IBoardingPass => {
     // we can use this array to select names of a given length, though gender becomes an issue
     // console.log(faker.definitions.person.male_first_name)
 
+    const censorDocumentID = (documentID: string): string => {
+      const censorCharacter = "*"
+      const firstCharacter = documentID.slice(0, 1)
+      const lastFourCharacters = documentID.slice(-4)
+      const censoredCharacters = documentID.slice(1, 2).replace(/./g, censorCharacter)
+
+      return [firstCharacter, censoredCharacters, lastFourCharacters].join("").toUpperCase()
+    }
+
     return {
       title: faker.person.prefix(gender),
       firstName: faker.person.firstName(gender),
       lastName: faker.person.lastName(gender),
-      passportNumber: censorPassportNumber ? `${faker.string.numeric(2)}${censorCharacter}${faker.string.numeric(4)}` : faker.string.numeric(9),
+      documentID: faker.helpers.arrayElement([
+        `${censorDocumentID(faker.string.numeric({ length: { min: 6, max: 12 } }))} (P)`,
+        `${censorDocumentID(faker.string.alphanumeric({ length: { min: 9, max: 15 } }))} (I)`,
+      ]),
     }
   }
 
@@ -107,7 +116,7 @@ export const generateBoardingPass = (): IBoardingPass => {
   )
 
   return {
-    dateOfTravel: format(departureDate, "dd MMM"),
+    dateOfTravel: format(departureDate, "dd MMM yy"),
     flightNumber: `EZY${faker.airline.flightNumber({ addLeadingZeros: true })}`,
     gateClosureTime: format(sub(departureDate, { minutes: 30 }), "HH:mm a"),
     seatNumber: [
@@ -125,6 +134,7 @@ export const generateBoardingPass = (): IBoardingPass => {
       hasLargeCabinBag: faker.datatype.boolean(scenario.likely),
       hasHoldBag: faker.datatype.boolean(scenario.unlikely),
       hasSpeedyBoarding: faker.datatype.boolean(scenario.likely),
+      hasFoodAndDrinkVoucher: faker.datatype.boolean(scenario.likely),
     },
     checkedInLuggageBooked: true,
     fastTrackSecurityAllowance: faker.datatype.boolean(scenario.likely),

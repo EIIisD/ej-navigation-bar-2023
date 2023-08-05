@@ -123,7 +123,7 @@ export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }
             </DialogMain>
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button type="button" mode="outline">
                   Cancel
                 </Button>
               </DialogClose>

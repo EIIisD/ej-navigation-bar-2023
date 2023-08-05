@@ -17,8 +17,8 @@ export default function IndexPage() {
       <main className="mx-auto max-w-[--page-maxWidth] flex-auto bg-white p-[--page-inset]">
         <div className="grid gap-[--page-inset]">
           <div className="grid gap-4 py-3">
-            <h1 className="font-display text-4xl text-primary">easyJet Menu Demo</h1>
-            <p className="text-base text-secondary">
+            <h1 className="text-primary font-display text-4xl">easyJet Menu Demo</h1>
+            <p className="text-secondary text-base">
               This is a private demo of a new design for the easyJet.com main menu and is for research and testing purposes only. Please be advised
               that this is not the actual easyJet website, if you are looking for the actual easyJet website please visit easyJet.com.
             </p>

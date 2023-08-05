@@ -14,8 +14,8 @@ export const FlightTracker = () => {
   return (
     <div className="space-y-6 pr-[6px]">
       <div>
-        <div className="text-base font-bold text-primary">{toTitleCase("Flight Tracker")}</div>
-        <div className="mt-1 text-sm leading-4 text-secondary">Check your flight status by:</div>
+        <div className="font-bold text-primary text-base">{toTitleCase("Flight Tracker")}</div>
+        <div className="mt-1 text-secondary text-sm leading-4">Check your flight status by:</div>
       </div>
       <Tabs defaultValue="flight" className="grid gap-6">
         <TabsList>

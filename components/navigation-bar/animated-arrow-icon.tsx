@@ -18,7 +18,7 @@ export const AnimatedArrowIcon = React.forwardRef<
       viewBox="0 0 10 10"
       data-show={show ? "false" : "true"}
       className={cn(
-        "group absolute ml-[calc(var(--arrow-size)/2)] inline-block h-[--arrow-size] w-[--arrow-size] mt-[calc((var(--leading-offset)*-1)+(var(--arrow-size)/5))] overflow-hidden",
+        "group absolute ml-[calc(var(--arrow-size)/2)] mt-[calc((var(--leading-offset)*-1)+(var(--arrow-size)/5))] inline-block h-[--arrow-size] w-[--arrow-size] overflow-hidden",
         "data-[show=false]:opacity-100 data-[show=true]:opacity-0",
         "transition-opacity ease-arrow",
         size === "sm" && "[--arrow-size:10px]",

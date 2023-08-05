@@ -81,7 +81,6 @@
   :focus {
     outline: 1px solid invert;
     outline-offset: 4px;
-    z-index: 50;
   }
 
   :focus:not(:focus-visible) {

@@ -8,31 +8,42 @@ import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
   cn(
-    "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded font-bold shadow-[inset_0_1.5px_0_theme('colors.white/0.1')]",
-    // Adds a dynamic contrast ring around the button
-    "before:absolute before:inset-0 before:rounded-[inherit] before:mix-blend-multiply before:shadow-sm before:ring-1 before:ring-[var(--contrast-outline-color,transparent)]",
-    // Adds a background overlay to the button contents on hover
-    "after:hover:absolute after:hover:inset-0 after:hover:rounded-[inherit] after:hover:bg-[var(--hover-bg-overlay,transparent)]"
+    // Base sizing/layout
+    "relative isolate inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold",
+    // Inner highlight shadow + outer drop shadow
+    "after:shadow-[shadow:inset_0_1px_theme(colors.white/15%),theme(boxShadow.DEFAULT)]",
+    // Invisible border for high-contrast mode compatibility
+    "border border-transparent",
+    // Optical border, implemented as background layer to avoid corner artifacts
+    "before:absolute before:-inset-px before:-z-10 before:rounded-[inherit] before:bg-[--button-border]",
+    // Button background, implemented as foreground layer to stack on top of pseudo-border layer
+    "after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.DEFAULT)-1px)] after:bg-[--button-bg] [&.rounded-full]:after:rounded-[calc(theme(borderRadius.full)-1px)]",
+    // White overlay on hover
+    "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme(colors.white))_10%)]"
   ),
   {
     variants: {
-      variant: {
-        default: "bg-orange text-white [--contrast-outline-color:theme('colors.orange.darker/0.9')] [--hover-bg-overlay:theme('colors.white/0.1')]",
+      mode: {
+        default: "text-white [--button-bg:theme(colors.orange.DEFAULT)] [--button-border:theme(colors.orange.dark/90%)]",
         outline:
-          "bg-white text-orange [--contrast-outline-color:theme('colors.orange.DEFAULT')] [--hover-bg-overlay:theme('colors.orange.DEFAULT/0.05')]",
+          "text-orange [--button-bg-hover:theme(colors.orange.DEFAULT)] [--button-bg:theme(colors.white)] [--button-border:theme(colors.orange.DEFAULT)]",
         ghost:
-          "bg-white text-orange shadow-none [--hover-bg-overlay:theme('colors.orange.DEFAULT/0.05')] [--contrast-outline-color:theme('colors.white')] before:mix-blend-normal before:shadow-none",
+          "text-orange [--button-bg-hover:theme(colors.orange.DEFAULT)] [--button-bg:theme(colors.white)] [--button-border:none] after:shadow-none",
       },
       size: {
-        sm: "h-8 px-4 text-sm",
-        default: "h-10 px-6 text-sm",
-        lg: "h-12 px-8 text-base",
-        icon: "h-10 w-10 rounded-full",
+        sm: "text-sm leading-6 [--button-padding-x:theme(spacing.4)] [--button-padding-y:theme(spacing.1)]",
+        default: "text-sm leading-6 [--button-padding-x:theme(spacing.6)] [--button-padding-y:theme(spacing.2)]",
+        lg: "text-base leading-6 [--button-padding-x:theme(spacing.8)] [--button-padding-y:theme(spacing.3)]",
+      },
+      variant: {
+        default: "rounded px-[calc(var(--button-padding-x)-1px)] py-[calc(var(--button-padding-y)-1px)]",
+        icon: "aspect-square h-[max-content] rounded-full py-[calc(var(--button-padding-y)-1px)]",
       },
     },
     defaultVariants: {
-      variant: "default",
+      mode: "default",
       size: "default",
+      variant: "default",
     },
   }
 )
@@ -69,10 +80,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   asChild?: boolean
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, variant, size, asChild = false, ...props }, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, mode, size, variant, asChild = false, ...props }, ref) => {
   const Comp = asChild ? Slot : "button"
 
-  return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+  return <Comp className={cn(buttonVariants({ mode, size, variant, className }))} ref={ref} {...props} />
 })
 
 Button.displayName = "Button"
