@@ -5,7 +5,7 @@ export interface Airport {
   country: string
   countryCode: string
   airportGroupCode: string
-  terminal: string
+  terminal: string | null
 }
 
 export const airports: Airport[] = [
@@ -16,7 +16,7 @@ export const airports: Airport[] = [
     country: "Albania",
     countryCode: "AL",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "T1",
   },
   {
     name: "Graz",
@@ -25,7 +25,7 @@ export const airports: Airport[] = [
     country: "Austria",
     countryCode: "AT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Innsbruck",
@@ -34,7 +34,7 @@ export const airports: Airport[] = [
     country: "Austria",
     countryCode: "AT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Klagenfurt",
@@ -43,7 +43,7 @@ export const airports: Airport[] = [
     country: "Austria",
     countryCode: "AT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Salzburg",
@@ -52,7 +52,7 @@ export const airports: Airport[] = [
     country: "Austria",
     countryCode: "AT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Vienna",
@@ -61,7 +61,7 @@ export const airports: Airport[] = [
     country: "Austria",
     countryCode: "AT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Brussels Intl",
@@ -70,7 +70,7 @@ export const airports: Airport[] = [
     country: "Belgium",
     countryCode: "BE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Burgas",
@@ -79,7 +79,7 @@ export const airports: Airport[] = [
     country: "Bulgaria",
     countryCode: "BG",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Sofia",
@@ -88,7 +88,7 @@ export const airports: Airport[] = [
     country: "Bulgaria",
     countryCode: "BG",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Varna",
@@ -97,7 +97,7 @@ export const airports: Airport[] = [
     country: "Bulgaria",
     countryCode: "BG",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Dubrovnik",
@@ -106,7 +106,7 @@ export const airports: Airport[] = [
     country: "Croatia",
     countryCode: "HR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Rijeka",
@@ -115,7 +115,7 @@ export const airports: Airport[] = [
     country: "Croatia",
     countryCode: "HR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Pula",
@@ -124,7 +124,7 @@ export const airports: Airport[] = [
     country: "Croatia",
     countryCode: "HR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Split",
@@ -133,7 +133,7 @@ export const airports: Airport[] = [
     country: "Croatia",
     countryCode: "HR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Zadar",
@@ -142,7 +142,7 @@ export const airports: Airport[] = [
     country: "Croatia",
     countryCode: "HR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Cyprus Larnaca",
@@ -151,7 +151,7 @@ export const airports: Airport[] = [
     country: "Cyprus",
     countryCode: "CY",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Cyprus Paphos",
@@ -160,7 +160,7 @@ export const airports: Airport[] = [
     country: "Cyprus",
     countryCode: "CY",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Prague",
@@ -169,7 +169,7 @@ export const airports: Airport[] = [
     country: "Czech Republic",
     countryCode: "CZ",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Aarhus",
@@ -178,7 +178,7 @@ export const airports: Airport[] = [
     country: "Denmark",
     countryCode: "DK",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Copenhagen",
@@ -187,7 +187,7 @@ export const airports: Airport[] = [
     country: "Denmark",
     countryCode: "DK",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Marsa Alam",
@@ -196,7 +196,7 @@ export const airports: Airport[] = [
     country: "Egypt",
     countryCode: "EG",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Hurghada",
@@ -205,7 +205,7 @@ export const airports: Airport[] = [
     country: "Egypt",
     countryCode: "EG",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Sharm El Sheikh",
@@ -214,7 +214,7 @@ export const airports: Airport[] = [
     country: "Egypt",
     countryCode: "EG",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Tallinn",
@@ -223,7 +223,7 @@ export const airports: Airport[] = [
     country: "Estonia",
     countryCode: "EE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Helsinki",
@@ -232,7 +232,7 @@ export const airports: Airport[] = [
     country: "Finland",
     countryCode: "FI",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Kittila",
@@ -241,7 +241,7 @@ export const airports: Airport[] = [
     country: "Finland",
     countryCode: "FI",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Rovaniemi",
@@ -250,7 +250,7 @@ export const airports: Airport[] = [
     country: "Finland",
     countryCode: "FI",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Biarritz",
@@ -259,7 +259,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "Billi",
   },
   {
     name: "Bordeaux",
@@ -268,7 +268,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Brest Brittany",
@@ -277,7 +277,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Grenoble",
@@ -286,7 +286,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "La Rochelle",
@@ -295,7 +295,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Lille",
@@ -304,7 +304,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Rennes",
@@ -313,7 +313,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Limoges",
@@ -322,7 +322,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Lyon",
@@ -331,7 +331,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Marseille Provence",
@@ -340,7 +340,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "MP2",
   },
   {
     name: "Montpellier",
@@ -349,7 +349,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Nantes",
@@ -358,7 +358,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Nice",
@@ -367,7 +367,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Pau Pyrénées",
@@ -376,7 +376,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Tarbes-Lourdes–Pyrénées",
@@ -385,7 +385,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Toulon-Hyères",
@@ -394,7 +394,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Toulouse",
@@ -403,7 +403,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Ajaccio, Corsica",
@@ -412,7 +412,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "*CO",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Bastia, Corsica",
@@ -421,7 +421,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "*CO",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Calvi, Corsica",
@@ -430,7 +430,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "*CO",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Figari, Corsica",
@@ -439,7 +439,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "*CO",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Paris Beauvais",
@@ -448,7 +448,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "*PA",
-    terminal: "",
+    terminal: "Ouest",
   },
   {
     name: "Paris Charles de Gaulle",
@@ -457,7 +457,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "*PA",
-    terminal: "",
+    terminal: "2A",
   },
   {
     name: "Paris Orly",
@@ -466,7 +466,7 @@ export const airports: Airport[] = [
     country: "France",
     countryCode: "FR",
     airportGroupCode: "*PA",
-    terminal: "",
+    terminal: "Ouest",
   },
   {
     name: "Berlin Brandenburg",
@@ -475,7 +475,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Cologne Bonn",
@@ -484,7 +484,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Dortmund",
@@ -493,7 +493,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Dresden",
@@ -502,7 +502,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Frankfurt International",
@@ -511,7 +511,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Dusseldorf",
@@ -520,7 +520,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Hamburg",
@@ -529,7 +529,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Munich",
@@ -538,7 +538,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Friedrichshafen",
@@ -547,7 +547,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Stuttgart",
@@ -556,7 +556,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Sylt",
@@ -565,7 +565,7 @@ export const airports: Airport[] = [
     country: "Germany",
     countryCode: "DE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Gibraltar",
@@ -574,7 +574,7 @@ export const airports: Airport[] = [
     country: "Gibraltar",
     countryCode: "Gibraltar",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Athens",
@@ -583,7 +583,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Corfu",
@@ -592,7 +592,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Kalamata",
@@ -601,7 +601,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Kefalonia",
@@ -610,7 +610,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Kos",
@@ -619,7 +619,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Mykonos",
@@ -628,7 +628,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Preveza",
@@ -637,7 +637,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Rhodes",
@@ -646,7 +646,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Santorini",
@@ -655,7 +655,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Skiathos",
@@ -664,7 +664,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Thessaloniki",
@@ -673,7 +673,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Volos",
@@ -682,7 +682,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Zante Zakynthos",
@@ -691,7 +691,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Crete Chania",
@@ -700,7 +700,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "*CR",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Crete Heraklion",
@@ -709,7 +709,7 @@ export const airports: Airport[] = [
     country: "Greece",
     countryCode: "GR",
     airportGroupCode: "*CR",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Budapest",
@@ -718,7 +718,7 @@ export const airports: Airport[] = [
     country: "Hungary",
     countryCode: "HU",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2A",
   },
   {
     name: "Reykjavik Keflavik",
@@ -727,7 +727,7 @@ export const airports: Airport[] = [
     country: "Iceland",
     countryCode: "IS",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Tel Aviv",
@@ -736,7 +736,7 @@ export const airports: Airport[] = [
     country: "Israel",
     countryCode: "IL",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "3",
   },
   {
     name: "Rome Fiumicino",
@@ -745,7 +745,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Ancona",
@@ -754,7 +754,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Bari",
@@ -763,7 +763,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Genoa",
@@ -772,7 +772,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Bologna",
@@ -781,7 +781,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Brindisi",
@@ -790,7 +790,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Lamezia",
@@ -799,7 +799,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Naples",
@@ -808,7 +808,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Pisa (Tuscany)",
@@ -817,7 +817,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Turin",
@@ -826,7 +826,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Venice Marco Polo",
@@ -835,7 +835,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Verona",
@@ -844,7 +844,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Sardinia Alghero",
@@ -853,7 +853,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*SD",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Sardinia Cagliari",
@@ -862,7 +862,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*SD",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Sardinia Olbia",
@@ -871,7 +871,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*SD",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Milan Bergamo",
@@ -880,7 +880,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*MI",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Milan Malpensa",
@@ -889,7 +889,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*MI",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Milan Linate",
@@ -898,7 +898,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*MI",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Lampedusa",
@@ -907,7 +907,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*SY",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Sicily Catania",
@@ -916,7 +916,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*SY",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Sicily Comiso",
@@ -925,7 +925,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*SY",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Sicily Palermo",
@@ -934,7 +934,7 @@ export const airports: Airport[] = [
     country: "Italy",
     countryCode: "IT",
     airportGroupCode: "*SY",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Aqaba",
@@ -943,7 +943,7 @@ export const airports: Airport[] = [
     country: "Jordan",
     countryCode: "JO",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Pristina",
@@ -952,7 +952,7 @@ export const airports: Airport[] = [
     country: "Kosovo",
     countryCode: "XK",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Luxembourg",
@@ -961,7 +961,7 @@ export const airports: Airport[] = [
     country: "Luxembourg",
     countryCode: "LU",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Malta",
@@ -970,7 +970,7 @@ export const airports: Airport[] = [
     country: "Malta",
     countryCode: "MT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Agadir",
@@ -979,7 +979,7 @@ export const airports: Airport[] = [
     country: "Morocco",
     countryCode: "MA",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Essaouira",
@@ -988,7 +988,7 @@ export const airports: Airport[] = [
     country: "Morocco",
     countryCode: "MA",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Marrakech",
@@ -997,7 +997,7 @@ export const airports: Airport[] = [
     country: "Morocco",
     countryCode: "MA",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Tangier",
@@ -1006,7 +1006,7 @@ export const airports: Airport[] = [
     country: "Morocco",
     countryCode: "MA",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Tivat",
@@ -1015,7 +1015,7 @@ export const airports: Airport[] = [
     country: "Montenegro",
     countryCode: "ME",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Amsterdam",
@@ -1024,7 +1024,7 @@ export const airports: Airport[] = [
     country: "Netherlands",
     countryCode: "NL",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Skopje",
@@ -1033,7 +1033,7 @@ export const airports: Airport[] = [
     country: "North Macedonia",
     countryCode: "MK",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Oslo",
@@ -1042,7 +1042,7 @@ export const airports: Airport[] = [
     country: "Norway",
     countryCode: "NO",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "Gdansk",
@@ -1051,7 +1051,7 @@ export const airports: Airport[] = [
     country: "Poland",
     countryCode: "PL",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Krakow",
@@ -1060,7 +1060,7 @@ export const airports: Airport[] = [
     country: "Poland",
     countryCode: "PL",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Lublin",
@@ -1069,7 +1069,7 @@ export const airports: Airport[] = [
     country: "Poland",
     countryCode: "PL",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Warsaw",
@@ -1078,7 +1078,7 @@ export const airports: Airport[] = [
     country: "Poland",
     countryCode: "PL",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Faro",
@@ -1087,7 +1087,7 @@ export const airports: Airport[] = [
     country: "Portugal",
     countryCode: "PT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Lisbon",
@@ -1096,7 +1096,7 @@ export const airports: Airport[] = [
     country: "Portugal",
     countryCode: "PT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Madeira Funchal",
@@ -1105,7 +1105,7 @@ export const airports: Airport[] = [
     country: "Portugal",
     countryCode: "PT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Porto",
@@ -1114,7 +1114,7 @@ export const airports: Airport[] = [
     country: "Portugal",
     countryCode: "PT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Porto Santo",
@@ -1123,7 +1123,7 @@ export const airports: Airport[] = [
     country: "Portugal",
     countryCode: "PT",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Bucharest (Otopeni)",
@@ -1132,7 +1132,7 @@ export const airports: Airport[] = [
     country: "Romania",
     countryCode: "RO",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Belgrade",
@@ -1141,7 +1141,7 @@ export const airports: Airport[] = [
     country: "Serbia",
     countryCode: "RS",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Ljubljana",
@@ -1150,7 +1150,7 @@ export const airports: Airport[] = [
     country: "Slovenia",
     countryCode: "SI",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Jerez de la Frontera",
@@ -1159,7 +1159,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Alicante",
@@ -1168,7 +1168,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Almeria",
@@ -1177,7 +1177,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Barcelona",
@@ -1186,7 +1186,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Bilbao",
@@ -1195,7 +1195,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Ibiza",
@@ -1204,7 +1204,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "La Coruña",
@@ -1213,7 +1213,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Madrid",
@@ -1222,7 +1222,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "4",
   },
   {
     name: "Majorca Palma",
@@ -1231,7 +1231,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Granada",
@@ -1240,7 +1240,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Malaga",
@@ -1249,7 +1249,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "3",
   },
   {
     name: "Menorca Mahon",
@@ -1258,7 +1258,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Murcia Intl",
@@ -1267,7 +1267,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Reus",
@@ -1276,7 +1276,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Santiago de Compostela",
@@ -1285,7 +1285,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Seville",
@@ -1294,7 +1294,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Valencia",
@@ -1303,7 +1303,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Santa Cruz de la Palma",
@@ -1312,7 +1312,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "*CN",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Fuerteventura",
@@ -1321,7 +1321,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "*CN",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Gran Canaria",
@@ -1330,7 +1330,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "*CN",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Lanzarote",
@@ -1339,7 +1339,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "*CN",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Tenerife South",
@@ -1348,7 +1348,7 @@ export const airports: Airport[] = [
     country: "Spain",
     countryCode: "ES",
     airportGroupCode: "*CN",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Are Ostersund",
@@ -1357,7 +1357,7 @@ export const airports: Airport[] = [
     country: "Sweden",
     countryCode: "SE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Gothenburg",
@@ -1366,7 +1366,7 @@ export const airports: Airport[] = [
     country: "Sweden",
     countryCode: "SE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Stockholm Arlanda",
@@ -1375,7 +1375,7 @@ export const airports: Airport[] = [
     country: "Sweden",
     countryCode: "SE",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "5",
   },
   {
     name: "Basel",
@@ -1384,7 +1384,7 @@ export const airports: Airport[] = [
     country: "Switzerland",
     countryCode: "CH",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "A",
   },
   {
     name: "Geneva",
@@ -1393,7 +1393,7 @@ export const airports: Airport[] = [
     country: "Switzerland",
     countryCode: "CH",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Zurich",
@@ -1402,7 +1402,7 @@ export const airports: Airport[] = [
     country: "Switzerland",
     countryCode: "CH",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Enfidha - Hammamet",
@@ -1411,7 +1411,7 @@ export const airports: Airport[] = [
     country: "Tunisia",
     countryCode: "TN",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Antalya",
@@ -1420,7 +1420,7 @@ export const airports: Airport[] = [
     country: "Turkey",
     countryCode: "TR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Bodrum",
@@ -1429,7 +1429,7 @@ export const airports: Airport[] = [
     country: "Turkey",
     countryCode: "TR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Dalaman",
@@ -1438,7 +1438,7 @@ export const airports: Airport[] = [
     country: "Turkey",
     countryCode: "TR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "D",
   },
   {
     name: "Istanbul",
@@ -1447,7 +1447,7 @@ export const airports: Airport[] = [
     country: "Turkey",
     countryCode: "TR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "I",
   },
   {
     name: "Izmir",
@@ -1456,7 +1456,7 @@ export const airports: Airport[] = [
     country: "Turkey",
     countryCode: "TR",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Aberdeen",
@@ -1465,7 +1465,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Birmingham",
@@ -1474,7 +1474,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Bournemouth",
@@ -1483,7 +1483,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Bristol",
@@ -1492,7 +1492,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "East Midlands",
@@ -1501,7 +1501,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Inverness",
@@ -1510,7 +1510,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Isle of Man",
@@ -1519,7 +1519,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Jersey",
@@ -1528,7 +1528,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Leeds Bradford",
@@ -1537,7 +1537,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Liverpool",
@@ -1546,7 +1546,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Manchester",
@@ -1555,7 +1555,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Newcastle",
@@ -1564,7 +1564,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Newquay",
@@ -1573,7 +1573,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Southampton",
@@ -1582,7 +1582,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "Edinburgh",
@@ -1591,7 +1591,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*SC",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Glasgow",
@@ -1600,7 +1600,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*SC",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Belfast City (George Best)",
@@ -1609,7 +1609,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*BE",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "Belfast Intl",
@@ -1618,7 +1618,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*BE",
-    terminal: "",
+    terminal: "2",
   },
   {
     name: "London Gatwick",
@@ -1627,7 +1627,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*LO",
-    terminal: "",
+    terminal: "S",
   },
   {
     name: "London Luton",
@@ -1636,7 +1636,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*LO",
-    terminal: "",
+    terminal: "1",
   },
   {
     name: "London Southend",
@@ -1645,7 +1645,7 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*LO",
-    terminal: "",
+    terminal: null,
   },
   {
     name: "London Stansted",
@@ -1654,6 +1654,6 @@ export const airports: Airport[] = [
     country: "United Kingdom",
     countryCode: "GB",
     airportGroupCode: "*LO",
-    terminal: "",
+    terminal: null,
   },
 ]

@@ -1,7 +1,6 @@
 @font-face {
   font-family: "easyJet Rounded";
   font-weight: 400;
-  font-display: block;
   font-style: normal;
   src: url("/fonts/easyjet_rounded_book.ttf") format("truetype");
 }
@@ -9,7 +8,6 @@
 @font-face {
   font-family: "easyJet Rounded";
   font-weight: 600;
-  font-display: block;
   font-style: normal;
   src: url("/fonts/easyjet_rounded_demi.ttf") format("truetype");
 }
@@ -17,7 +15,6 @@
 @font-face {
   font-family: "easyJet Rounded";
   font-weight: 300;
-  font-display: block;
   font-style: normal;
   src: url("/fonts/easyjet_rounded_light.ttf") format("truetype");
 }
@@ -25,10 +22,15 @@
 @font-face {
   font-family: "easyJet Generation CY";
   font-weight: 400;
-  font-display: block;
   font-style: normal;
   src: url("/fonts/easyjet_generation_cy.ttf") format("truetype");
 }
+
+/* @page {
+  size: A4 portrait;
+  margin-top: theme("spacing.print-bleed");
+  margin-bottom: theme("spacing.print-bleed");
+} */
 
 @tailwind base;
 @tailwind components;
@@ -46,6 +48,11 @@
     --page-inset: theme("spacing.6");
     --page-inset-small: theme("spacing.3");
 
+    --clip-angle: 7/8;
+    --clip-angle-section: polygon(0 0, 100% 0%, 100% calc(100% * var(--clip-angle)), 0% 100%);
+    --clip-angle-box: polygon(0 0, 100% 0%, 100% calc(100% * var(--clip-angle)), 0% 100%);
+    --clip-angle-box-right: polygon(0 0, 100% 0%, calc(100% * var(--clip-angle)) 100%, 0% 100%);
+
     /* calculated via https://seek-oss.github.io/capsize/ */
     --font-offset-start: 0.12451171875em;
     --font-offset-end: 0.17529296875em;
@@ -54,6 +61,7 @@
 
   @screen tablet-header-width {
     :root {
+      --clip-angle: 3/4;
       --header-height: calc(var(--secondary-header-height) + var(--primary-header-height));
       --page-inset-large: theme("spacing.12");
       --page-inset: theme("spacing.9");
@@ -93,8 +101,8 @@
   }
 
   @media (hover: none) {
-    :focus-visible {
-      @apply ring-0 ring-offset-0;
+    :focus {
+      outline: none;
     }
   }
 
@@ -104,16 +112,18 @@
 }
 
 @layer components {
-  .group\/pass {
+  .\@container\/pass {
     --border-width: 2px;
+    --featured-icon-size: theme("spacing.10-cqi");
     --margin: 10mm;
+
+    /* unused */
     --spacing-sm: 3mm;
     --spacing: 5mm;
     --spacing-lg: 8mm;
-    --featured-icon-size: 8mm;
   }
 
-  .group\/pass * {
+  .\@container\/pass * {
     border-color: theme("colors.primary.DEFAULT");
   }
 

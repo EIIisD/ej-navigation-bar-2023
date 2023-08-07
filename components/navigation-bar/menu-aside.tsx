@@ -122,7 +122,7 @@ export const MenuAside = () => {
                         <DropdownLink
                           className={menuMobileItemStyle({
                             border: itemIndex === menuItems.length - 1 ? "none" : "default",
-                            className: "min-w-[23ch] font-bold transition-colors duration-100 text-sm hover:bg-gray-50",
+                            className: "min-w-[23ch] text-sm font-bold transition-colors duration-100 hover:bg-gray-50",
                           })}
                           onClick={() => {
                             if (item.id === "sign-out") {

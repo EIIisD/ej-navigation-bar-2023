@@ -11,7 +11,10 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, R
   ({ className, ...props }, ref) => (
     <TabsPrimitive.List
       ref={ref}
-      className={cn("inline-flex h-10 items-center justify-center rounded-lg bg-gray-100 p-1 text-secondary", className)}
+      className={cn(
+        "relative isolate flex h-12 items-center justify-start gap-6 after:absolute after:inset-x-0 after:bottom-0 after:h-[1px] after:bg-gray-200",
+        className
+      )}
       {...props}
     />
   )
@@ -24,7 +27,8 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigg
     <TabsPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex w-full items-center justify-center whitespace-nowrap rounded px-5 py-1.5 text-sm font-bold text-orange transition-all data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm",
+        "relative z-10 inline-flex h-12 items-center justify-center whitespace-nowrap px-1 text-base/none font-bold text-orange transition-all data-[state=active]:text-primary",
+        "after:absolute after:inset-x-0 after:bottom-0 after:h-[4px] data-[state=active]:after:bg-orange data-[state=inactive]:hover:after:bg-gray-200",
         className
       )}
       {...props}
@@ -35,7 +39,13 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigg
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 const TabsContent = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Content>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>>(
-  ({ className, ...props }, ref) => <TabsPrimitive.Content ref={ref} className={cn("", className)} {...props} />
+  ({ className, ...props }, ref) => (
+    <TabsPrimitive.Content
+      ref={ref}
+      className={cn("screen:pb-[calc(var(--page-inset-large)*2)] screen:pt-[--page-inset-large]", className)}
+      {...props}
+    />
+  )
 )
 
 TabsContent.displayName = TabsPrimitive.Content.displayName

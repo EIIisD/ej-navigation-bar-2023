@@ -233,7 +233,7 @@ export const MenuMobile = () => {
                                       )}
                                     </div>
                                     {!!groupItem.description && (
-                                      <div className="line-clamp-2 max-w-[28ch] text-secondary text-sm">{groupItem.description}</div>
+                                      <div className="line-clamp-2 max-w-[28ch] text-sm text-secondary">{groupItem.description}</div>
                                     )}
                                   </div>
                                 </div>
@@ -307,7 +307,7 @@ export const MenuMobile = () => {
                     <Menu.Close asChild>
                       <Button
                         type="button"
-                        className="rounded-full font-bold shadow-lg text-base"
+                        className="rounded-full text-base font-bold shadow-lg"
                         onClick={(e) => {
                           if (!isBaseMenu) {
                             e.preventDefault()

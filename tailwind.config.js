@@ -14,6 +14,11 @@ const reverseBoxShadowDirection = (str) => {
   return str.split(",").map(negateY).join(",")
 }
 
+const cqi = (value) => {
+  const scale = 1.675
+  return `${value * scale}cqw`
+}
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   future: {
@@ -22,19 +27,71 @@ module.exports = {
   content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", ".ladle/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        "desktop-header-width": "1280px",
+        "tablet-header-width": "960px",
+      },
       fontFamily: {
         sans: ["easyJet Rounded", ...fontFamily.sans],
         display: ["easyJet Generation CY", ...fontFamily.sans],
       },
       fontSize: {
-        "bp-sm": ["13px", "1"],
-        "bp-base": ["14px", "1"],
-        "bp-lg": ["16px", "1"],
-        "bp-xl": ["32px", "1"],
+        "xs-cqi": [cqi(0.75), cqi(1)],
+        "sm-cqi": [cqi(0.875), cqi(1.25)],
+        "base-cqi": [cqi(1), cqi(1.5)],
+        "lg-cqi": [cqi(1.125), cqi(1.75)],
+        "xl-cqi": [cqi(1.25), cqi(1.75)],
+        "2xl-cqi": [cqi(1.5), cqi(2)],
+        "3xl-cqi": [cqi(1.875), cqi(2.25)],
+        "4xl-cqi": [cqi(2.25), cqi(2.5)],
+        "5xl-cqi": [cqi(3), "1"],
       },
-      screens: {
-        "desktop-header-width": "1280px",
-        "tablet-header-width": "960px",
+      spacing: {
+        "print-bleed": "20mm",
+        "0-cqi": cqi(0),
+        "0.5-cqi": cqi(0.125),
+        "1-cqi": cqi(0.25),
+        "1.5-cqi": cqi(0.375),
+        "2-cqi": cqi(0.5),
+        "2.5-cqi": cqi(0.625),
+        "3-cqi": cqi(0.75),
+        "3.5-cqi": cqi(0.875),
+        "4-cqi": cqi(1),
+        "5-cqi": cqi(1.25),
+        "6-cqi": cqi(1.5),
+        "7-cqi": cqi(1.75),
+        "8-cqi": cqi(2),
+        "9-cqi": cqi(2.25),
+        "10-cqi": cqi(2.5),
+        "11-cqi": cqi(2.75),
+        "12-cqi": cqi(3),
+        "14-cqi": cqi(3.5),
+        "16-cqi": cqi(4),
+        "20-cqi": cqi(5),
+        "24-cqi": cqi(6),
+        "28-cqi": cqi(7),
+        "32-cqi": cqi(8),
+        "36-cqi": cqi(9),
+        "40-cqi": cqi(10),
+        "44-cqi": cqi(11),
+        "48-cqi": cqi(12),
+        "52-cqi": cqi(13),
+        "56-cqi": cqi(14),
+        "60-cqi": cqi(15),
+        "64-cqi": cqi(16),
+        "72-cqi": cqi(18),
+        "80-cqi": cqi(20),
+        "96-cqi": cqi(24),
+      },
+      lineHeight: {
+        "3-cqi": cqi(0.75),
+        "4-cqi": cqi(1),
+        "5-cqi": cqi(1.25),
+        "6-cqi": cqi(1.5),
+        "7-cqi": cqi(1.75),
+        "8-cqi": cqi(2),
+        "9-cqi": cqi(2.25),
+        "10-cqi": cqi(2.5),
       },
       colors: {
         gray: colors.neutral,
@@ -67,6 +124,13 @@ module.exports = {
       }),
       borderRadius: {
         DEFAULT: "3.5px",
+        cqi: cqi(0.21875),
+        "sm-cqi": cqi(0.125),
+        "md-cqi": cqi(0.375),
+        "lg-cqi": cqi(0.5),
+        "xl-cqi": cqi(0.75),
+        "2xl-cqi": cqi(1),
+        "3xl-cqi": cqi(1.5),
       },
       transitionTimingFunction: {
         "dev-test-transition": "cubic-bezier(1.000,0.000,0.995,-0.050)",

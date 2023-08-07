@@ -119,7 +119,7 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 )}
               />
               <div className={menuMobileItemStyle()}>
-                <TextButton type="button" className="font-bold text-orange text-sm">
+                <TextButton type="button" className="text-sm font-bold text-orange">
                   Forgotten your details?
                 </TextButton>
               </div>

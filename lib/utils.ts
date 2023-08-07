@@ -1,7 +1,53 @@
 import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { extendTailwindMerge } from "tailwind-merge"
 
 import { type Menu } from "@/config/menu"
+
+const twMerge = extendTailwindMerge({
+  theme: {
+    fontSize: ["xs-cqi", "sm-cqi", "base-cqi", "lg-cqi", "xl-cqi", "2xl-cqi", "3xl-cqi", "4xl-cqi", "5xl-cqi"],
+    colors: ["orange", "orange-light", "orange-dark", "orange-darker", "primary", "secondary", "tertiary"],
+    boxShadow: ["up", "sm-up", "md-up", "lg-up", "xl-up", "2xl-up"],
+    spacing: [
+      "0-cqi",
+      "0.5-cqi",
+      "1-cqi",
+      "1.5-cqi",
+      "2-cqi",
+      "2.5-cqi",
+      "3-cqi",
+      "3.5-cqi",
+      "4-cqi",
+      "5-cqi",
+      "6-cqi",
+      "7-cqi",
+      "8-cqi",
+      "9-cqi",
+      "10-cqi",
+      "11-cqi",
+      "12-cqi",
+      "14-cqi",
+      "16-cqi",
+      "20-cqi",
+      "24-cqi",
+      "28-cqi",
+      "32-cqi",
+      "36-cqi",
+      "40-cqi",
+      "44-cqi",
+      "48-cqi",
+      "52-cqi",
+      "56-cqi",
+      "60-cqi",
+      "64-cqi",
+      "72-cqi",
+      "80-cqi",
+      "96-cqi",
+    ],
+    lineHeight: ["3-cqi", "4-cqi", "5-cqi", "6-cqi", "7-cqi", "8-cqi", "9-cqi", "10-cqi"],
+    borderRadius: ["cqi", "sm-cqi", "md-cqi", "lg-cqi", "xl-cqi", "2xl-cqi", "3xl-cqi"],
+  },
+})
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

@@ -102,6 +102,8 @@
     "luggageBagsBackpackSolid": true,
     "luggageBagsAdditionalWeightSolid": true,
     "luggageBagsAdditionalWeightOutlined": true,
+    "lucideSun": true,
+    "lucideMoon": true,
     "lucideArrowRight": true,
     "lockWideSolid": true,
     "lockWideOutlined": true,

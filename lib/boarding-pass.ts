@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
-import { format, sub } from "date-fns"
+import { endOfDay, format, isWithinInterval, setHours, startOfDay, sub } from "date-fns"
 
 import { airports, type Airport } from "@/config/airports"
 
@@ -33,9 +33,11 @@ export interface IPassenger {
 }
 
 export interface IBoardingPass {
-  dateOfTravel: string
+  dateOfTravel: {
+    value: Date
+    formattedValue: string
+  }
   flightNumber: string
-  gateClosureTime: string
   seatNumber: string
   reservationNumber: string
   checkInSequenceNumber: string
@@ -46,18 +48,23 @@ export interface IBoardingPass {
     hasHoldBag: boolean
     hasSpeedyBoarding: boolean
     hasFoodAndDrinkVoucher: boolean
+    hasFastTrackSecurityAllowance: boolean
+    hasFlexiFare: boolean
   }
-  checkedInLuggageBooked: boolean
-  fastTrackSecurityAllowance: boolean
-  flexiFarePurchase: boolean
   customerEntitlementsCode: "SA" | "S1" | "S2" | ""
   passenger: IPassenger
   infantPassenger: IPassenger | false
   departureAirport: Airport
   arrivalAirport: Airport
-  scheduledTimeOfDeparture: string
-  development: {
-    showAirportSpecificInformation: boolean
+  gateClosureTime: {
+    value: Date
+    formattedValue: string
+    isBetween6AMand6PM: boolean
+  }
+  scheduledTimeOfDeparture: {
+    value: Date
+    formattedValue: string
+    isBetween6AMand6PM: boolean
   }
 }
 
@@ -86,19 +93,21 @@ export const generateBoardingPass = (): IBoardingPass => {
       lastName: faker.person.lastName(gender),
       documentID: faker.helpers.arrayElement([
         `${censorDocumentID(faker.string.numeric({ length: { min: 6, max: 12 } }))} (P)`,
+        `${censorDocumentID(faker.string.numeric({ length: { min: 6, max: 12 } }))} (G)`,
         `${censorDocumentID(faker.string.alphanumeric({ length: { min: 9, max: 15 } }))} (I)`,
+        `${censorDocumentID(faker.string.alphanumeric({ length: { min: 9, max: 15 } }))} (R)`,
       ]),
     }
   }
 
-  const generateTerminal = (): string => {
-    const terminal = faker.string.fromCharacters("ABCDEF")
-    const gate = faker.number.int({ min: scenario.name === "worst" ? 10 : 1, max: scenario.name === "best" ? 9 : 24 })
-    return [terminal, gate].join("")
-  }
+  // const generateTerminal = (): string => {
+  //   const terminal = faker.string.fromCharacters("ABCDEF")
+  //   const gate = faker.number.int({ min: scenario.name === "worst" ? 10 : 1, max: scenario.name === "best" ? 9 : 24 })
+  //   return [terminal, gate].join("")
+  // }
 
   const passenger = generatePassenger()
-  const departureDate = faker.date.soon()
+  const departureDate = faker.date.soon({ days: 8 })
   const departureAirport = faker.helpers.arrayElement(
     scenario.name === "worst"
       ? airports.filter((airport) => airport.name.length > 20)
@@ -115,10 +124,19 @@ export const generateBoardingPass = (): IBoardingPass => {
       : airportsWithoutDepartureAirport
   )
 
+  const isBetween6AMand6PM = (date: Date) => {
+    const lowerBound = setHours(startOfDay(date), 6) // set start to 6:00 AM of current day
+    const upperBound = setHours(endOfDay(date), 18) // set end to 6:00 PM of current day
+
+    return isWithinInterval(date, { start: lowerBound, end: upperBound })
+  }
+
   return {
-    dateOfTravel: format(departureDate, "dd MMM yy"),
+    dateOfTravel: {
+      value: departureDate,
+      formattedValue: format(departureDate, "dd MMM yy"),
+    },
     flightNumber: `EZY${faker.airline.flightNumber({ addLeadingZeros: true })}`,
-    gateClosureTime: format(sub(departureDate, { minutes: 30 }), "HH:mm a"),
     seatNumber: [
       faker.number.int({ min: scenario.name === "worst" ? 10 : 1, max: scenario.name === "best" ? 9 : 31 }),
       faker.string.fromCharacters("ABCDEF"),
@@ -135,24 +153,29 @@ export const generateBoardingPass = (): IBoardingPass => {
       hasHoldBag: faker.datatype.boolean(scenario.unlikely),
       hasSpeedyBoarding: faker.datatype.boolean(scenario.likely),
       hasFoodAndDrinkVoucher: faker.datatype.boolean(scenario.likely),
+      hasFastTrackSecurityAllowance: faker.datatype.boolean(scenario.likely),
+      hasFlexiFare: faker.datatype.boolean(scenario.likely),
     },
-    checkedInLuggageBooked: true,
-    fastTrackSecurityAllowance: faker.datatype.boolean(scenario.likely),
-    flexiFarePurchase: faker.datatype.boolean(scenario.likely),
     customerEntitlementsCode: faker.helpers.arrayElement(["SA", "S1", "S2", ""]),
     passenger: passenger,
     infantPassenger: faker.datatype.boolean(scenario.unlikely) ? { ...generatePassenger(), lastName: passenger.lastName } : false,
     departureAirport: {
       ...departureAirport,
-      terminal: generateTerminal(),
+      terminal: departureAirport.terminal,
     },
     arrivalAirport: {
       ...arrivalAirport,
-      terminal: generateTerminal(),
+      terminal: arrivalAirport.terminal,
     },
-    scheduledTimeOfDeparture: format(departureDate, "HH:mm a"),
-    development: {
-      showAirportSpecificInformation: faker.datatype.boolean(scenario.unlikely),
+    gateClosureTime: {
+      value: sub(departureDate, { minutes: 30 }),
+      formattedValue: format(sub(departureDate, { minutes: 30 }), "HH:mm a"),
+      isBetween6AMand6PM: isBetween6AMand6PM(sub(departureDate, { minutes: 30 })),
+    },
+    scheduledTimeOfDeparture: {
+      value: departureDate,
+      formattedValue: format(departureDate, "HH:mm a"),
+      isBetween6AMand6PM: isBetween6AMand6PM(departureDate),
     },
   }
 }

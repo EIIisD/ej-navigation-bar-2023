@@ -19,28 +19,23 @@ export const AnimatedArrowIcon = React.forwardRef<SVGSVGElement, AnimatedArrowIc
         data-show={show ? "false" : "true"}
         className={cn(
           {
-            "3": "[--lineHeight:theme('lineHeight.3')]",
-            "4": "[--lineHeight:theme('lineHeight.4')]",
-            "5": "[--lineHeight:theme('lineHeight.5')]",
-            "6": "[--lineHeight:theme('lineHeight.6')]",
-            "7": "[--lineHeight:theme('lineHeight.7')]",
-            "8": "[--lineHeight:theme('lineHeight.8')]",
-            "9": "[--lineHeight:theme('lineHeight.9')]",
-            "10": "[--lineHeight:theme('lineHeight.10')]",
+            "3": "[--lineHeight:theme('lineHeight[3]')]",
+            "4": "[--lineHeight:theme('lineHeight[4]')]",
+            "5": "[--lineHeight:theme('lineHeight[5]')]",
+            "6": "[--lineHeight:theme('lineHeight[6]')]",
+            "7": "[--lineHeight:theme('lineHeight[7]')]",
+            "8": "[--lineHeight:theme('lineHeight[8]')]",
+            "9": "[--lineHeight:theme('lineHeight[9]')]",
+            "10": "[--lineHeight:theme('lineHeight[1]'')]",
           }[leading],
-          "[--arrow-size:1.25ex]",
           "[--arrow-lineHeight-offset:calc((var(--lineHeight)-1em)/2)]",
           "[--arrow-offset-start:calc(var(--arrow-lineHeight-offset)+var(--font-offset-start))]",
           "[--arrow-offset-end:calc(var(--arrow-lineHeight-offset)+var(--font-offset-end))]",
           "[--arrow-capHeight:calc(var(--lineHeight)-var(--arrow-offset-start)-var(--arrow-offset-end))]",
-          "mt-[--arrow-offset-start] translate-y-[5%]",
-          "group/arrow absolute ml-[calc(var(--arrow-size)/2)] inline-block h-[--arrow-capHeight] w-[--arrow-size] overflow-hidden",
-          "data-[show=false]:opacity-100 data-[show=true]:opacity-0",
-          "transition-opacity ease-arrow-in-out",
+          "group/arrow absolute ml-[0.65ch] mt-[--arrow-offset-start] inline-block h-[--arrow-capHeight] w-[--arrow-capHeight] overflow-hidden fill-none stroke-none",
+          "transition-opacity ease-arrow-in-out data-[show=false]:opacity-100 data-[show=true]:opacity-0",
           className
         )}
-        stroke="none"
-        fill="none"
         {...props}
       >
         <g fillRule="evenodd">

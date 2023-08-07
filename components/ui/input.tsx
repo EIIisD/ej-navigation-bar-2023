@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, iconE
       <input
         className={cn(
           "flex h-11 w-full rounded border-none bg-transparent px-5 py-2 text-primary ring-1 ring-gray-300 [font:inherit] placeholder:text-tertiary focus-visible:ring-gray-400",
-          !!iconElement && "pl-[calc(theme('spacing.4')+theme('spacing.4')+theme('spacing.3'))]",
+          !!iconElement && "pl-[calc(theme('spacing.4')*2+theme('spacing.3'))]",
           className
         )}
         ref={ref}

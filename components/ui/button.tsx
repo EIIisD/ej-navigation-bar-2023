@@ -11,29 +11,29 @@ const buttonVariants = cva(
     // Base sizing/layout
     "relative isolate inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold",
     // Inner highlight shadow + outer drop shadow
-    "after:shadow-[shadow:inset_0_1px_theme(colors.white/15%),theme(boxShadow.DEFAULT)]",
+    "after:shadow-[shadow:inset_0_1px_theme('colors.white/15%'),theme('boxShadow.DEFAULT')]",
     // Invisible border for high-contrast mode compatibility
     "border border-transparent",
     // Optical border, implemented as background layer to avoid corner artifacts
     "before:absolute before:-inset-px before:-z-10 before:rounded-[inherit] before:bg-[--button-border]",
     // Button background, implemented as foreground layer to stack on top of pseudo-border layer
-    "after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.DEFAULT)-1px)] after:bg-[--button-bg] [&.rounded-full]:after:rounded-[calc(theme(borderRadius.full)-1px)]",
+    "after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme('borderRadius.DEFAULT')-1px)] after:bg-[--button-bg] [&.rounded-full]:after:rounded-[calc(theme('borderRadius.full')-1px)]",
     // White overlay on hover
-    "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme(colors.white))_10%)]"
+    "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme('colors.white'))_10%)]"
   ),
   {
     variants: {
       mode: {
-        default: "text-white [--button-bg:theme(colors.orange.DEFAULT)] [--button-border:theme(colors.orange.dark/90%)]",
+        default: "text-white [--button-bg:theme('colors.orange.DEFAULT')] [--button-border:theme('colors.orange.dark/90%')]",
         outline:
-          "text-orange [--button-bg-hover:theme(colors.orange.DEFAULT)] [--button-bg:theme(colors.white)] [--button-border:theme(colors.orange.DEFAULT)]",
+          "text-orange [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-bg:theme('colors.white')] [--button-border:theme('colors.orange.DEFAULT')]",
         ghost:
-          "text-orange [--button-bg-hover:theme(colors.orange.DEFAULT)] [--button-bg:theme(colors.white)] [--button-border:none] after:shadow-none",
+          "text-orange [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-bg:theme('colors.white')] [--button-border:none] after:shadow-none",
       },
       size: {
-        sm: "text-sm/6 [--button-padding-x:theme(spacing.4)] [--button-padding-y:theme(spacing.1)]",
-        default: "text-sm/6 [--button-padding-x:theme(spacing.6)] [--button-padding-y:theme(spacing.2)]",
-        lg: "text-base/6 [--button-padding-x:theme(spacing.8)] [--button-padding-y:theme(spacing.3)]",
+        sm: "text-sm/6 [--button-padding-x:theme('spacing.4')] [--button-padding-y:theme('spacing.1')]",
+        default: "text-sm/6 [--button-padding-x:theme('spacing.6')] [--button-padding-y:theme('spacing.2')]",
+        lg: "text-base/6 [--button-padding-x:theme('spacing.8')] [--button-padding-y:theme('spacing.3')]",
       },
       variant: {
         default: "rounded px-[calc(var(--button-padding-x)-1px)] py-[calc(var(--button-padding-y)-1px)]",
