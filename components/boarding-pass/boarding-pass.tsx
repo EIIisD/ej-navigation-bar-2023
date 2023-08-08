@@ -233,7 +233,11 @@ const Grid: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ child
   )
 }
 
-export const Ticket = ({ bp }: IBoardingPassProps) => {
+export interface TicketProps {
+  bp: IBoardingPass
+}
+
+export const Ticket = ({ bp }: TicketProps) => {
   const {
     dateOfTravel,
     flightNumber,
@@ -251,135 +255,133 @@ export const Ticket = ({ bp }: IBoardingPassProps) => {
   } = bp
 
   return (
-    <div
-      className={cn(
-        "flex gap-x-10-cqi gap-y-8-cqi rounded-xl border p-8-cqi text-base-cqi",
-        useContainers && "rounded-xl-cqi border-[length:--border-width] p-8-cqi"
-      )}
-    >
-      {/* variable width column */}
-      <Grid className="grid-cols-1 grid-rows-3 items-start justify-between gap-x-10-cqi gap-y-8-cqi">
-        {/* easyJet logo + title */}
-        <div className="flex w-full items-center justify-start gap-4-cqi">
-          <Icon name="easyJetLogo" className="relative h-7-cqi w-auto [aspect-ratio:91/22]" />
-          <div className="rounded-full bg-primary px-3-cqi py-1.5-cqi text-sm-cqi/none font-bold text-white">Boarding Pass</div>
-          {/* <div className="text-lg-cqi/none font-bold text-primary">Boarding Pass</div> */}
-        </div>
-
-        {/* departure airport + arrival airport */}
-        <Grid className="grid-cols-[minmax(0,max-content)_minmax(0,1fr)_minmax(0,max-content)] gap-x-6-cqi gap-y-1-cqi">
-          <DataLabel align="left" className="max-w-[unset] [grid-area:1/1]">
-            {departureAirport.name}
-          </DataLabel>
-          <DataValue align="left" className="text-4xl-cqi font-light [grid-area:2/1]">
-            {departureAirport.code}
-          </DataValue>
-          <DataValue align="left" className="[grid-area:3/1]">
-            {departureAirport.terminal && `Terminal ${departureAirport.terminal}`}
-          </DataValue>
-          <div className="flex items-center justify-center gap-2-cqi [grid-area:span_3/2]">
-            <div className="flex items-center gap-1-cqi">
-              <div className="h-1.5-cqi w-1.5-cqi rounded-full bg-primary" />
-              <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
-              <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
-              <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
-            </div>
-            <Icon name="searchAndMenuAirplaneModeAltSolid" className="h-8-cqi w-8-cqi" />
-            <div className="flex items-center gap-1-cqi">
-              <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
-              <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
-              <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
-              <div className="h-1.5-cqi w-1.5-cqi rounded-full bg-primary" />
-            </div>
+    <div className="flex overflow-hidden rounded-xl bg-white text-base-cqi shadow-xl ring-1 ring-black/5">
+      <div className="h-[inherit] w-[4px] bg-orange" />
+      <div className="flex w-full gap-x-10-cqi gap-y-8-cqi p-8-cqi">
+        {/* variable width column */}
+        <Grid className="grid-cols-1 grid-rows-3 items-start justify-between gap-x-10-cqi gap-y-8-cqi">
+          {/* easyJet logo + title */}
+          <div className="flex w-full items-center justify-start gap-4-cqi">
+            <Icon name="easyJetLogo" className="relative h-7-cqi w-auto [aspect-ratio:91/22]" />
+            <div className="rounded-full bg-primary px-3-cqi py-1.5-cqi text-sm-cqi/none font-bold text-white">Boarding Pass</div>
+            {/* <div className="text-lg-cqi/none font-bold text-primary">Boarding Pass</div> */}
           </div>
-          <DataLabel align="right" className="max-w-[unset] [grid-area:1/3]">
-            {arrivalAirport.name}
-          </DataLabel>
-          <DataValue align="right" className="text-4xl-cqi font-light [grid-area:2/3]">
-            {arrivalAirport.code}
-          </DataValue>
-          <DataValue align="right" className="[grid-area:3/3]">
-            {arrivalAirport.terminal && `Terminal ${arrivalAirport.terminal}`}
-          </DataValue>
-        </Grid>
 
-        {/* passenger information + seat number */}
-        <div className="flex w-full items-end justify-between gap-8-cqi gap-x-10-cqi self-end">
-          <Data>
-            <DataLabel>Passenger{infantPassenger && " + Infant"}</DataLabel>
-            <DataValue>
-              <TNums content={passenger.documentID} /> / {passenger.firstName} {passenger.lastName}
+          {/* departure airport + arrival airport */}
+          <Grid className="grid-cols-[minmax(0,max-content)_minmax(0,1fr)_minmax(0,max-content)] gap-x-6-cqi gap-y-1-cqi">
+            <DataLabel align="left" className="max-w-[unset] [grid-area:1/1]">
+              {departureAirport.name}
+            </DataLabel>
+            <DataValue align="left" className="text-4xl-cqi font-light [grid-area:2/1]">
+              {departureAirport.code}
             </DataValue>
-            {infantPassenger && (
+            <DataValue align="left" className="[grid-area:3/1]">
+              {departureAirport.terminal && `Terminal ${departureAirport.terminal}`}
+            </DataValue>
+            <div className="flex items-center justify-center gap-2-cqi [grid-area:span_3/2]">
+              <div className="flex items-center gap-1-cqi">
+                <div className="h-1.5-cqi w-1.5-cqi rounded-full bg-primary" />
+                <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
+                <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
+                <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
+              </div>
+              <Icon name="searchAndMenuAirplaneModeAltSolid" className="h-8-cqi w-8-cqi" />
+              <div className="flex items-center gap-1-cqi">
+                <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
+                <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
+                <div className="h-1-cqi w-1-cqi rounded-full bg-primary" />
+                <div className="h-1.5-cqi w-1.5-cqi rounded-full bg-primary" />
+              </div>
+            </div>
+            <DataLabel align="right" className="max-w-[unset] [grid-area:1/3]">
+              {arrivalAirport.name}
+            </DataLabel>
+            <DataValue align="right" className="text-4xl-cqi font-light [grid-area:2/3]">
+              {arrivalAirport.code}
+            </DataValue>
+            <DataValue align="right" className="[grid-area:3/3]">
+              {arrivalAirport.terminal && `Terminal ${arrivalAirport.terminal}`}
+            </DataValue>
+          </Grid>
+
+          {/* passenger information + seat number */}
+          <div className="flex w-full items-end justify-between gap-8-cqi gap-x-10-cqi self-end">
+            <Data>
+              <DataLabel>Passenger{infantPassenger && " + Infant"}</DataLabel>
               <DataValue>
-                <TNums content={infantPassenger.documentID} /> / {infantPassenger.firstName} {infantPassenger.lastName}
+                <TNums content={passenger.documentID} /> / {passenger.firstName} {passenger.lastName}
               </DataValue>
-            )}
-          </Data>
+              {infantPassenger && (
+                <DataValue>
+                  <TNums content={infantPassenger.documentID} /> / {infantPassenger.firstName} {infantPassenger.lastName}
+                </DataValue>
+              )}
+            </Data>
 
-          <Data align="right">
-            <DataLabel>Seat</DataLabel>
-            <DataValue icon={iconFromSeat(seatNumber)}>
-              <TNums content={seatNumber} />
-            </DataValue>
-          </Data>
-        </div>
-      </Grid>
-
-      {/* constant width column */}
-      <div className="flex flex-auto flex-col items-end justify-between gap-8-cqi gap-x-10-cqi">
-        {/* date + flight number */}
-        <Grid className="grid-cols-2 gap-8-cqi gap-x-10-cqi">
-          <Data align="right">
-            <DataLabel>Date</DataLabel>
-            <DataValue icon="calendarDateRangeSolid">
-              <TNums content={dateOfTravel.formattedValue} />
-            </DataValue>
-          </Data>
-          <Data align="right">
-            <DataLabel>Flight</DataLabel>
-            <DataValue icon="flightsSolid">
-              <TNums content={flightNumber} />
-            </DataValue>
-          </Data>
-          <Data align="right">
-            <DataLabel>Gate Closes</DataLabel>
-            <DataValue icon={gateClosureTime.isBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
-              <TNums content={gateClosureTime.formattedValue} />
-            </DataValue>
-          </Data>
-          <Data align="right">
-            <DataLabel>Takes Off</DataLabel>
-            <DataValue icon={scheduledTimeOfDeparture.isBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
-              <TNums content={scheduledTimeOfDeparture.formattedValue} />
-            </DataValue>
-          </Data>
+            <Data align="right">
+              <DataLabel>Seat</DataLabel>
+              <DataValue icon={iconFromSeat(seatNumber)}>
+                <TNums content={seatNumber} />
+              </DataValue>
+            </Data>
+          </div>
         </Grid>
 
-        {/* extras */}
-        {(extras.hasFastTrackSecurityAllowance || extras.hasSpeedyBoarding || extras.hasFoodAndDrinkVoucher) && (
-          <Data align="right">
-            <DataLabel>Extras</DataLabel>
-            {extras.hasFoodAndDrinkVoucher && <DataValue icon="facilitiesFoodAndDrinkSolid">Food & Drink Voucher</DataValue>}
-            {extras.hasFastTrackSecurityAllowance && <DataValue icon="servicesIconFastTrackOutlined">Fast Track Security</DataValue>}
-            {extras.hasFlexiFare && <DataValue icon="calendarFlexiFlightsSolid">Flexi Fare</DataValue>}
-          </Data>
-        )}
-      </div>
+        {/* constant width column */}
+        <div className="flex flex-auto flex-col items-end justify-between gap-8-cqi gap-x-10-cqi">
+          {/* date + flight number */}
+          <Grid className="grid-cols-2 gap-8-cqi gap-x-10-cqi">
+            <Data align="right">
+              <DataLabel>Date</DataLabel>
+              <DataValue icon="calendarDateRangeSolid">
+                <TNums content={dateOfTravel.formattedValue} />
+              </DataValue>
+            </Data>
+            <Data align="right">
+              <DataLabel>Flight</DataLabel>
+              <DataValue icon="flightsSolid">
+                <TNums content={flightNumber} />
+              </DataValue>
+            </Data>
+            <Data align="right">
+              <DataLabel>Gate Closes</DataLabel>
+              <DataValue icon={gateClosureTime.isBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
+                <TNums content={gateClosureTime.formattedValue} />
+              </DataValue>
+            </Data>
+            <Data align="right">
+              <DataLabel>Takes Off</DataLabel>
+              <DataValue icon={scheduledTimeOfDeparture.isBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
+                <TNums content={scheduledTimeOfDeparture.formattedValue} />
+              </DataValue>
+            </Data>
+          </Grid>
 
-      {/* constant width barcode column */}
-      <div className="flex gap-1-cqi">
-        {/* barcode */}
-        <div className="relative after:absolute after:inset-0 after:border-2 after:border-primary">
-          <BarCode className="h-full w-10-cqi bg-white invert" />
+          {/* extras */}
+          {(extras.hasFoodAndDrinkVoucher || extras.hasFastTrackSecurityAllowance || extras.hasFlexiFare) && (
+            <Data align="right">
+              <DataLabel>Extras</DataLabel>
+              {extras.hasFoodAndDrinkVoucher && <DataValue icon="facilitiesFoodAndDrinkSolid">Food & Drink Voucher</DataValue>}
+              {extras.hasFastTrackSecurityAllowance && <DataValue icon="servicesIconFastTrackOutlined">Fast Track Security</DataValue>}
+              {extras.hasFlexiFare && <DataValue icon="calendarFlexiFlightsSolid">Flexi Fare</DataValue>}
+            </Data>
+          )}
         </div>
 
-        {/* reservation number + customer entitlements code + check-in sequence number */}
-        <div className="flex -rotate-180 items-center justify-between gap-x-4-cqi text-sm-cqi tracking-wide [writing-mode:vertical-rl]">
-          <TNums content={reservationNumber} />
-          <div className="flex items-center justify-end gap-x-4-cqi">
-            <TNums content={customerEntitlementsCode} />
-            <TNums content={checkInSequenceNumber} />
+        {/* constant width barcode column */}
+        <div className="flex gap-1-cqi">
+          {/* barcode */}
+          <div className="relative after:absolute after:inset-0 after:border-2 after:border-primary">
+            <BarCode className="h-full w-10-cqi bg-white invert" />
+          </div>
+
+          {/* reservation number + customer entitlements code + check-in sequence number */}
+          <div className="flex -rotate-180 items-center justify-between gap-x-4-cqi text-sm-cqi tracking-wide [writing-mode:vertical-rl]">
+            <TNums content={reservationNumber} />
+            <div className="flex items-center justify-end gap-x-4-cqi">
+              <TNums content={customerEntitlementsCode} />
+              <TNums content={checkInSequenceNumber} />
+            </div>
           </div>
         </div>
       </div>
@@ -409,15 +411,18 @@ const InfoSection = ({ className, children, title, icon, ...props }: InfoSection
 const Info = ({ bp }: IBoardingPassProps) => {
   const {
     departureAirport,
-    extras: { seatType, hasSpecialAssistance, hasHoldBag, hasLargeCabinBag, hasSpeedyBoarding },
+    extras: { seatType, hasSpecialAssistance, hasSpeedyBoarding },
+    bagsAndHoldLuggage: { cabinBagSmall, cabinBagLarge, holdBag15KG, holdBag23KG, holdBag32KG, pram, sportsEquipment },
   } = bp
+
+  const hasHoldLuggage = holdBag15KG || holdBag23KG || holdBag32KG || pram || sportsEquipment
 
   return (
     <div className={cn("row-span-2 grid grid-cols-2", useContainers && "rounded-xl border-[length:--border-width]")}>
       <div className={cn("flex flex-col gap-[--spacing] pr-[--spacing]", useContainers && "p-[--spacing]")}>
         <div className="text-bp-lg font-bold">Luggage and Bags</div>
         <div className="flex flex-col gap-[--spacing]">
-          {(hasSpeedyBoarding || hasLargeCabinBag) && (
+          {(hasSpeedyBoarding || cabinBagLarge) && (
             <div
               className={cn(
                 "text-bp-sm flex h-[--featured-icon-size] items-center justify-between gap-[--spacing-sm] rounded-md px-3",
@@ -435,7 +440,7 @@ const Info = ({ bp }: IBoardingPassProps) => {
               </p>
             </InfoSection>
           )}
-          {!hasHoldBag && (
+          {!hasHoldLuggage && (
             <InfoSection icon="luggageBagsAdditionalWeightOutlined">
               <p>You have no hold luggage. Please check your cabin bag fits into the bag gauge and go directly to the departure gate.</p>
             </InfoSection>
@@ -445,7 +450,7 @@ const Info = ({ bp }: IBoardingPassProps) => {
               You can bring on board ONE small cabin bag, which must fit under the seat in front of you. Max 45 x 36 x 20cm (including any handles or
               wheels).
             </p>
-            {hasLargeCabinBag && (
+            {cabinBagLarge && (
               <p>
                 You can also bring on board ONE large cabin bag, which must fit in the overhead locker. Max 56 x 45 x 25cm (including any handles or
                 wheels). If there's no room, your large cabin bag will be placed in the hold for free.

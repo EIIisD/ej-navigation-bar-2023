@@ -87,17 +87,6 @@ export const Leadings: Story = () => {
         <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="9" className="text-3xl/9 font-bold" />
         <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="10" className="text-4xl/10 font-bold" />
       </section>
-      <section>
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="3" className="text-xs/3" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="4" className="text-xs/4" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="5" className="text-sm/5" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="6" className="text-base/6" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="7" className="text-lg/7" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="8" className="text-xl/8" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="8" className="text-2xl/8" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="9" className="text-3xl/9" />
-        <AnimatedArrowIconController toggleArrowVisibility={toggleArrowVisibility} leading="10" className="text-4xl/10" />
-      </section>
     </>
   )
 }

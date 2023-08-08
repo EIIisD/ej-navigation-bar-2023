@@ -6,18 +6,35 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+export const buttonEffects = cn(
+  "relative isolate",
+  // Inner highlight shadow + outer drop shadow
+  "shadow",
+  // "after:shadow-[shadow:inset_0_1px_theme('colors.white/15%'),theme('boxShadow.DEFAULT')]",
+  // Invisible border for high-contrast mode compatibility
+  // "border border-transparent",
+  // Optical border, implemented as background layer to avoid corner artifacts
+  "before:absolute before:-inset-px before:-z-10 before:rounded-[--rounded] before:bg-[--button-border]",
+  // Button background, implemented as foreground layer to stack on top of pseudo-border layer
+  "after:absolute after:inset-0 after:-z-10 after:rounded-[calc(var(--rounded)-1px)] after:bg-[--button-bg]"
+  // White overlay on hover
+  // "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme('colors.white'))_10%)]"
+)
+
 const buttonVariants = cva(
   cn(
     // Base sizing/layout
-    "relative isolate inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold",
+    // Effects
+    "relative isolate",
     // Inner highlight shadow + outer drop shadow
     "after:shadow-[shadow:inset_0_1px_theme('colors.white/15%'),theme('boxShadow.DEFAULT')]",
     // Invisible border for high-contrast mode compatibility
     "border border-transparent",
     // Optical border, implemented as background layer to avoid corner artifacts
-    "before:absolute before:-inset-px before:-z-10 before:rounded-[inherit] before:bg-[--button-border]",
+    "before:absolute before:-inset-px before:-z-10 before:rounded-[--rounded] before:bg-[--button-border]",
     // Button background, implemented as foreground layer to stack on top of pseudo-border layer
-    "after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme('borderRadius.DEFAULT')-1px)] after:bg-[--button-bg] [&.rounded-full]:after:rounded-[calc(theme('borderRadius.full')-1px)]",
+    "after:absolute after:inset-0 after:-z-10 after:rounded-[calc(var(--rounded)-1px)] after:bg-[--button-bg]",
     // White overlay on hover
     "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme('colors.white'))_10%)]"
   ),

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
-import { endOfDay, format, isWithinInterval, setHours, startOfDay, sub } from "date-fns"
+import { add, endOfDay, format, isWithinInterval, setHours, startOfDay, sub } from "date-fns"
 
 import { airports, type Airport } from "@/config/airports"
 
@@ -37,6 +37,9 @@ export interface IBoardingPass {
     value: Date
     formattedValue: string
   }
+  dateOfArrival: {
+    value: Date
+  }
   flightNumber: string
   seatNumber: string
   reservationNumber: string
@@ -44,12 +47,19 @@ export interface IBoardingPass {
   extras: {
     seatType: "upfront" | "extraLegroom" | "standard"
     hasSpecialAssistance: boolean
-    hasLargeCabinBag: boolean
-    hasHoldBag: boolean
     hasSpeedyBoarding: boolean
     hasFoodAndDrinkVoucher: boolean
     hasFastTrackSecurityAllowance: boolean
     hasFlexiFare: boolean
+  }
+  bagsAndHoldLuggage: {
+    cabinBagSmall: boolean
+    cabinBagLarge: boolean
+    holdBag15KG: boolean
+    holdBag23KG: boolean
+    holdBag32KG: boolean
+    pram: boolean
+    sportsEquipment: boolean
   }
   customerEntitlementsCode: "SA" | "S1" | "S2" | ""
   passenger: IPassenger
@@ -115,7 +125,7 @@ export const generateBoardingPass = (): IBoardingPass => {
       ? airports.filter((airport) => airport.name.length < 5)
       : airports
   )
-  const airportsWithoutDepartureAirport = airports.filter((airport) => airport.code !== departureAirport.code)
+  const airportsWithoutDepartureAirport = airports.filter((airport) => airport.code !== departureAirport.code && airport.countryCode !== "GB")
   const arrivalAirport = faker.helpers.arrayElement(
     scenario.name === "worst"
       ? airportsWithoutDepartureAirport.filter((airport) => airport.name.length > 20)
@@ -136,6 +146,9 @@ export const generateBoardingPass = (): IBoardingPass => {
       value: departureDate,
       formattedValue: format(departureDate, "dd MMM yy"),
     },
+    dateOfArrival: {
+      value: add(departureDate, { hours: faker.number.int({ min: 1, max: 9 }), minutes: faker.number.int({ min: 1, max: 4 }) * 15 }),
+    },
     flightNumber: `EZY${faker.airline.flightNumber({ addLeadingZeros: true })}`,
     seatNumber: [
       faker.number.int({ min: scenario.name === "worst" ? 10 : 1, max: scenario.name === "best" ? 9 : 31 }),
@@ -149,12 +162,19 @@ export const generateBoardingPass = (): IBoardingPass => {
     extras: {
       seatType: randomItemFromArray(["upfront", "extraLegroom", "standard"]),
       hasSpecialAssistance: faker.datatype.boolean(scenario.unlikely),
-      hasLargeCabinBag: faker.datatype.boolean(scenario.likely),
-      hasHoldBag: faker.datatype.boolean(scenario.unlikely),
       hasSpeedyBoarding: faker.datatype.boolean(scenario.likely),
       hasFoodAndDrinkVoucher: faker.datatype.boolean(scenario.likely),
       hasFastTrackSecurityAllowance: faker.datatype.boolean(scenario.likely),
       hasFlexiFare: faker.datatype.boolean(scenario.likely),
+    },
+    bagsAndHoldLuggage: {
+      cabinBagSmall: faker.datatype.boolean(scenario.unlikely),
+      cabinBagLarge: faker.datatype.boolean(scenario.unlikely),
+      holdBag15KG: faker.datatype.boolean(scenario.unlikely),
+      holdBag23KG: faker.datatype.boolean(scenario.unlikely),
+      holdBag32KG: faker.datatype.boolean(scenario.unlikely),
+      pram: faker.datatype.boolean(scenario.unlikely),
+      sportsEquipment: faker.datatype.boolean(scenario.unlikely),
     },
     customerEntitlementsCode: faker.helpers.arrayElement(["SA", "S1", "S2", ""]),
     passenger: passenger,

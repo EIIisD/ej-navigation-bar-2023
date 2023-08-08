@@ -26,7 +26,7 @@ export const AnimatedArrowIcon = React.forwardRef<SVGSVGElement, AnimatedArrowIc
             "7": "[--lineHeight:theme('lineHeight[7]')]",
             "8": "[--lineHeight:theme('lineHeight[8]')]",
             "9": "[--lineHeight:theme('lineHeight[9]')]",
-            "10": "[--lineHeight:theme('lineHeight[1]'')]",
+            "10": "[--lineHeight:theme('lineHeight[10]')]",
           }[leading],
           "[--arrow-lineHeight-offset:calc((var(--lineHeight)-1em)/2)]",
           "[--arrow-offset-start:calc(var(--arrow-lineHeight-offset)+var(--font-offset-start))]",

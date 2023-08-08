@@ -23,7 +23,7 @@
   font-family: "easyJet Generation CY";
   font-weight: 400;
   font-style: normal;
-  src: url("/fonts/easyjet_generation_cy.ttf") format("truetype");
+  src: url("/fonts/easyjet_generation_headline_new.otf") format("opentype");
 }
 
 /* @page {
@@ -50,6 +50,7 @@
 
     --clip-angle: 7/8;
     --clip-angle-section: polygon(0 0, 100% 0%, 100% calc(100% * var(--clip-angle)), 0% 100%);
+    --clip-angle-section-sub: polygon(0 0, 100% 0%, 100% 100%, 0% calc(100% * var(--clip-angle)));
     --clip-angle-box: polygon(0 0, 100% 0%, 100% calc(100% * var(--clip-angle)), 0% 100%);
     --clip-angle-box-right: polygon(0 0, 100% 0%, calc(100% * var(--clip-angle)) 100%, 0% 100%);
 
@@ -123,10 +124,6 @@
     --spacing-lg: 8mm;
   }
 
-  .\@container\/pass * {
-    border-color: theme("colors.primary.DEFAULT");
-  }
-
   /* --pass-border-color: theme("colors.orange.darker");
   --pass-cutout-size: 24px;
   --pass-cutout-margin: (var(--page-inset) + 1px); */
@@ -149,5 +146,30 @@
 
   .scrollbar-none::-webkit-scrollbar {
     display: none;
+  }
+
+  .rounded {
+    --rounded: theme("borderRadius.DEFAULT");
+  }
+  .rounded-sm {
+    --rounded: theme("borderRadius.sm");
+  }
+  .rounded-md {
+    --rounded: theme("borderRadius.md");
+  }
+  .rounded-lg {
+    --rounded: theme("borderRadius.lg");
+  }
+  .rounded-xl {
+    --rounded: theme("borderRadius.xl");
+  }
+  .rounded-2xl {
+    --rounded: theme("borderRadius.2xl");
+  }
+  .rounded-3xl {
+    --rounded: theme("borderRadius.3xl");
+  }
+  .rounded-full {
+    --rounded: theme("borderRadius.full");
   }
 }
