@@ -137,8 +137,8 @@ import { TNums } from "@/components/tnums"
 //   )
 // }
 
-const useBorders = false
-const useContainers = false
+// const useBorders = false
+// const useContainers = false
 
 interface IBoardingPassProps {
   bp: IBoardingPass
@@ -208,20 +208,20 @@ const DataValue = ({
   )
 }
 
-const FeaturedIcon = ({ className, icon, ...props }: { className?: string; icon: IconName }) => {
-  return (
-    <div
-      className={cn(
-        "flex h-[--featured-icon-size] w-[--featured-icon-size] shrink-0 items-center justify-center rounded-md-cqi",
-        useBorders ? "border-[length:--border-width] text-primary" : "bg-primary text-white",
-        className
-      )}
-      {...props}
-    >
-      <Icon name={icon} className={cn(useBorders ? "h-[80%] w-[80%]" : "h-[66.6%] w-[66.6%]")} />
-    </div>
-  )
-}
+// const FeaturedIcon = ({ className, icon, ...props }: { className?: string; icon: IconName }) => {
+//   return (
+//     <div
+//       className={cn(
+//         "flex h-[--featured-icon-size] w-[--featured-icon-size] shrink-0 items-center justify-center rounded-md-cqi",
+//         useBorders ? "border-[length:--border-width] text-primary" : "bg-primary text-white",
+//         className
+//       )}
+//       {...props}
+//     >
+//       <Icon name={icon} className={cn(useBorders ? "h-[80%] w-[80%]" : "h-[66.6%] w-[66.6%]")} />
+//     </div>
+//   )
+// }
 
 const Grid: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ children, className, ...props }) => {
   return (
@@ -387,139 +387,139 @@ export const Ticket = ({ bp }: TicketProps) => {
   )
 }
 
-interface InfoSectionProps {
-  className?: string
-  title?: string
-  icon?: IconName
-  children: React.ReactNode
-}
+// interface InfoSectionProps {
+//   className?: string
+//   title?: string
+//   icon?: IconName
+//   children: React.ReactNode
+// }
 
-const InfoSection = ({ className, children, title, icon, ...props }: InfoSectionProps) => {
-  return (
-    <div className={cn("flex items-start justify-start gap-[--spacing-sm]", className)} {...props}>
-      <FeaturedIcon icon={icon} />
-      <div className="flex flex-col gap-1">
-        {title && <div className="text-bp-sm/none font-bold">{title}</div>}
-        <div className="text-bp-sm/normal flex flex-col gap-1">{children}</div>
-      </div>
-    </div>
-  )
-}
+// const InfoSection = ({ className, children, title, icon, ...props }: InfoSectionProps) => {
+//   return (
+//     <div className={cn("flex items-start justify-start gap-[--spacing-sm]", className)} {...props}>
+//       <FeaturedIcon icon={icon} />
+//       <div className="flex flex-col gap-1">
+//         {title && <div className="text-bp-sm/none font-bold">{title}</div>}
+//         <div className="text-bp-sm/normal flex flex-col gap-1">{children}</div>
+//       </div>
+//     </div>
+//   )
+// }
 
-const Info = ({ bp }: IBoardingPassProps) => {
-  const {
-    departureAirport,
-    extras: { seatType, hasSpecialAssistance, hasSpeedyBoarding },
-    bagsAndHoldLuggage: { cabinBagSmall, cabinBagLarge, holdBag15KG, holdBag23KG, holdBag32KG, pram, sportsEquipment },
-  } = bp
+// const Info = ({ bp }: IBoardingPassProps) => {
+//   const {
+//     departureAirport,
+//     extras: { seatType, hasSpecialAssistance, hasSpeedyBoarding },
+//     bagsAndHoldLuggage: { cabinBagSmall, cabinBagLarge, holdBag15KG, holdBag23KG, holdBag32KG, pram, sportsEquipment },
+//   } = bp
 
-  const hasHoldLuggage = holdBag15KG || holdBag23KG || holdBag32KG || pram || sportsEquipment
+//   const hasHoldLuggage = holdBag15KG || holdBag23KG || holdBag32KG || pram || sportsEquipment
 
-  return (
-    <div className={cn("row-span-2 grid grid-cols-2", useContainers && "rounded-xl border-[length:--border-width]")}>
-      <div className={cn("flex flex-col gap-[--spacing] pr-[--spacing]", useContainers && "p-[--spacing]")}>
-        <div className="text-bp-lg font-bold">Luggage and Bags</div>
-        <div className="flex flex-col gap-[--spacing]">
-          {(hasSpeedyBoarding || cabinBagLarge) && (
-            <div
-              className={cn(
-                "text-bp-sm flex h-[--featured-icon-size] items-center justify-between gap-[--spacing-sm] rounded-md px-3",
-                useBorders ? "border-[length:--border-width] text-primary" : "bg-primary text-white"
-              )}
-            >
-              <p className="text-[0.85em] font-bold">Use easyJet Plus Bag Drop</p>
-              <p className="text-[0.75em]/none font-bold uppercase">Speedy Boarding</p>
-            </div>
-          )}
-          {hasSpecialAssistance && (
-            <InfoSection icon="facilitiesWheelchairOutlined">
-              <p>
-                Please contact a member of staff in the bag drop area who will assist you. Please try to arrive at least 2 hours before your flight.
-              </p>
-            </InfoSection>
-          )}
-          {!hasHoldLuggage && (
-            <InfoSection icon="luggageBagsAdditionalWeightOutlined">
-              <p>You have no hold luggage. Please check your cabin bag fits into the bag gauge and go directly to the departure gate.</p>
-            </InfoSection>
-          )}
-          <InfoSection icon="luggageBagsCabinBagOutlined">
-            <p>
-              You can bring on board ONE small cabin bag, which must fit under the seat in front of you. Max 45 x 36 x 20cm (including any handles or
-              wheels).
-            </p>
-            {cabinBagLarge && (
-              <p>
-                You can also bring on board ONE large cabin bag, which must fit in the overhead locker. Max 56 x 45 x 25cm (including any handles or
-                wheels). If there's no room, your large cabin bag will be placed in the hold for free.
-              </p>
-            )}
-          </InfoSection>
-        </div>
-      </div>
-      <div className={cn("flex flex-col gap-[--spacing] border-l-[length:--border-width] pl-[--spacing]", useContainers && "p-[--spacing]")}>
-        <div className="text-bp-lg font-bold">Departures</div>
-        <div className="flex flex-col gap-[--spacing]">
-          {false && (
-            <InfoSection title="Important Information" icon="warningOutlined">
-              <p>
-                Customers travelling from this airport will need to have an airport printed boarding card which can be collected from our bag drop
-                desk. Allow extra time to collect your boarding card and get through the airport.
-              </p>
-            </InfoSection>
-          )}
-          <InfoSection icon="copyDocumentOutlined">
-            <p>Photo ID is compulsory on all flights, please have it ready.</p>
-          </InfoSection>
-          {hasSpeedyBoarding && (
-            <InfoSection icon="servicesIconFastTrackOutlined">
-              <p>
-                You can use fast track security lanes at this airport.{" "}
-                {false && <>Security control gates are automatically timed to close 30 minutes before your departure.</>}
-              </p>
-            </InfoSection>
-          )}
-          <InfoSection icon="timeOutlined">
-            <p>Allow plenty of time to get through security and to your gate. {!false && <>Gates close 30 minutes before departure.</>}</p>
-          </InfoSection>
-        </div>
-      </div>
-    </div>
-  )
-}
+//   return (
+//     <div className={cn("row-span-2 grid grid-cols-2", useContainers && "rounded-xl border-[length:--border-width]")}>
+//       <div className={cn("flex flex-col gap-[--spacing] pr-[--spacing]", useContainers && "p-[--spacing]")}>
+//         <div className="text-bp-lg font-bold">Luggage and Bags</div>
+//         <div className="flex flex-col gap-[--spacing]">
+//           {(hasSpeedyBoarding || cabinBagLarge) && (
+//             <div
+//               className={cn(
+//                 "text-bp-sm flex h-[--featured-icon-size] items-center justify-between gap-[--spacing-sm] rounded-md px-3",
+//                 useBorders ? "border-[length:--border-width] text-primary" : "bg-primary text-white"
+//               )}
+//             >
+//               <p className="text-[0.85em] font-bold">Use easyJet Plus Bag Drop</p>
+//               <p className="text-[0.75em]/none font-bold uppercase">Speedy Boarding</p>
+//             </div>
+//           )}
+//           {hasSpecialAssistance && (
+//             <InfoSection icon="facilitiesWheelchairOutlined">
+//               <p>
+//                 Please contact a member of staff in the bag drop area who will assist you. Please try to arrive at least 2 hours before your flight.
+//               </p>
+//             </InfoSection>
+//           )}
+//           {!hasHoldLuggage && (
+//             <InfoSection icon="luggageBagsAdditionalWeightOutlined">
+//               <p>You have no hold luggage. Please check your cabin bag fits into the bag gauge and go directly to the departure gate.</p>
+//             </InfoSection>
+//           )}
+//           <InfoSection icon="luggageBagsCabinBagOutlined">
+//             <p>
+//               You can bring on board ONE small cabin bag, which must fit under the seat in front of you. Max 45 x 36 x 20cm (including any handles or
+//               wheels).
+//             </p>
+//             {cabinBagLarge && (
+//               <p>
+//                 You can also bring on board ONE large cabin bag, which must fit in the overhead locker. Max 56 x 45 x 25cm (including any handles or
+//                 wheels). If there's no room, your large cabin bag will be placed in the hold for free.
+//               </p>
+//             )}
+//           </InfoSection>
+//         </div>
+//       </div>
+//       <div className={cn("flex flex-col gap-[--spacing] border-l-[length:--border-width] pl-[--spacing]", useContainers && "p-[--spacing]")}>
+//         <div className="text-bp-lg font-bold">Departures</div>
+//         <div className="flex flex-col gap-[--spacing]">
+//           {false && (
+//             <InfoSection title="Important Information" icon="warningOutlined">
+//               <p>
+//                 Customers travelling from this airport will need to have an airport printed boarding card which can be collected from our bag drop
+//                 desk. Allow extra time to collect your boarding card and get through the airport.
+//               </p>
+//             </InfoSection>
+//           )}
+//           <InfoSection icon="copyDocumentOutlined">
+//             <p>Photo ID is compulsory on all flights, please have it ready.</p>
+//           </InfoSection>
+//           {hasSpeedyBoarding && (
+//             <InfoSection icon="servicesIconFastTrackOutlined">
+//               <p>
+//                 You can use fast track security lanes at this airport.{" "}
+//                 {false && <>Security control gates are automatically timed to close 30 minutes before your departure.</>}
+//               </p>
+//             </InfoSection>
+//           )}
+//           <InfoSection icon="timeOutlined">
+//             <p>Allow plenty of time to get through security and to your gate. {!false && <>Gates close 30 minutes before departure.</>}</p>
+//           </InfoSection>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 
-const Ads = ({ bp }: IBoardingPassProps) => {
-  return (
-    <div className="grid grid-cols-3 gap-[--spacing-lg]">
-      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
-        <div className="text-bp-base font-bold">Flight Tracker</div>
-        {/* <p>3 easy steps to check your flight status:</p> */}
-        {/* <ol className="list-decimal list-inside space-y-2">
-          <li className="list-item">Go to the Flight Tracker on our mobile app or at easyJet.com</li>
-          <li className="list-item">Search for your flight by route or flight number</li>
-          <li className="list-item">Click to get live updates real-time on the move</li>
-        </ol> */}
-      </div>
-      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
-        <div className="text-bp-base font-bold">Go Hands Free</div>
-        {/* <p className="text-[0.75em]">£7 | 8€ | CHF9</p> */}
-        {/* <p>Per person each way</p> */}
-        {/* <p>Simply drop your cabin bag at Bag Drop, cruise through the airport hassle free and leave the overhead locker rush behind.</p> */}
-        {/* <p className="text-[0.5em]">
-          Only one cabin bag per person [maximum size 56 x 45 x 25cm including handles and wheels to the easyJet Plus Bag Drop. Bags larger than this
-          will incur the relevant hold bag fee. Customers can remove a small item (45x36x20cm) from their cabin bag and take it on board with them. A
-          family bundle consists of one cabin bag per person (max number of passengers for the group bundle is 5 on a single booking) £16 | 20€ |
-          CHF20.
-        </p> */}
-      </div>
-      <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
-        <div className="text-bp-base font-bold">Tackling Our Carbon Emissions</div>
-        {/* <p>We're the first major airline to offset the carbon emissions from the fuel used for every single flight.</p> */}
-        {/* <p>Visit easyJet.com/sustainability to find out more.</p> */}
-      </div>
-    </div>
-  )
-}
+// const Ads = ({ bp }: IBoardingPassProps) => {
+//   return (
+//     <div className="grid grid-cols-3 gap-[--spacing-lg]">
+//       <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
+//         <div className="text-bp-base font-bold">Flight Tracker</div>
+//         {/* <p>3 easy steps to check your flight status:</p> */}
+//         {/* <ol className="list-decimal list-inside space-y-2">
+//           <li className="list-item">Go to the Flight Tracker on our mobile app or at easyJet.com</li>
+//           <li className="list-item">Search for your flight by route or flight number</li>
+//           <li className="list-item">Click to get live updates real-time on the move</li>
+//         </ol> */}
+//       </div>
+//       <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
+//         <div className="text-bp-base font-bold">Go Hands Free</div>
+//         {/* <p className="text-[0.75em]">£7 | 8€ | CHF9</p> */}
+//         {/* <p>Per person each way</p> */}
+//         {/* <p>Simply drop your cabin bag at Bag Drop, cruise through the airport hassle free and leave the overhead locker rush behind.</p> */}
+//         {/* <p className="text-[0.5em]">
+//           Only one cabin bag per person [maximum size 56 x 45 x 25cm including handles and wheels to the easyJet Plus Bag Drop. Bags larger than this
+//           will incur the relevant hold bag fee. Customers can remove a small item (45x36x20cm) from their cabin bag and take it on board with them. A
+//           family bundle consists of one cabin bag per person (max number of passengers for the group bundle is 5 on a single booking) £16 | 20€ |
+//           CHF20.
+//         </p> */}
+//       </div>
+//       <div className={cn("flex flex-col gap-2 text-xs", useContainers && "rounded-xl border-[length:--border-width] p-[--spacing]")}>
+//         <div className="text-bp-base font-bold">Tackling Our Carbon Emissions</div>
+//         {/* <p>We're the first major airline to offset the carbon emissions from the fuel used for every single flight.</p> */}
+//         {/* <p>Visit easyJet.com/sustainability to find out more.</p> */}
+//       </div>
+//     </div>
+//   )
+// }
 
 export const BoardingPass = ({ bp }: IBoardingPassProps) => {
   // so this has 2 (3?) different layouts

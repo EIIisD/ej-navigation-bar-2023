@@ -2,14 +2,12 @@
 
 import React, { type CSSProperties } from "react"
 import Image from "next/image"
-import { add, differenceInDays, differenceInHours, differenceInMinutes, format, sub } from "date-fns"
+import { differenceInDays, differenceInHours, format } from "date-fns"
 
 import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
 import { cn } from "@/lib/utils"
-import { Button, buttonEffects } from "@/components/ui/button"
+import { buttonEffects } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
-import { BoardingPass } from "@/components/boarding-pass/boarding-pass"
-import { Timeline } from "@/components/boarding-pass/timeline"
 import { Icon, type IconName } from "@/components/icon"
 import { TNums } from "@/components/tnums"
 
