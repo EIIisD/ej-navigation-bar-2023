@@ -1,11 +1,9 @@
 "use client"
 
-import React, { type CSSProperties } from "react"
-import Image from "next/image"
+import React from "react"
 
-import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
+import { type IBoardingPass } from "@/lib/boarding-pass"
 import { cn } from "@/lib/utils"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
 import { BarCode } from "@/components/barcode"
 import { Icon, type IconName } from "@/components/icon"
 import { TNums } from "@/components/tnums"
