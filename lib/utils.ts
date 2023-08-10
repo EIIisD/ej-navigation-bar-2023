@@ -105,3 +105,12 @@ export function removeFromOpenModals(openModals: string[], id: string) {
 
   return openModals.filter((item) => item !== id)
 }
+
+export const arrayElement = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
+
+export const is = (probability: number): boolean => {
+  if (probability <= 0) return false
+  if (probability >= 1) return true
+
+  return Math.random() < probability
+}

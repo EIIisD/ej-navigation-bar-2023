@@ -3,6 +3,7 @@ import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
 import { add, endOfDay, format, isWithinInterval, setHours, startOfDay, sub } from "date-fns"
 
 import { airports, type Airport } from "@/config/airports"
+import { arrayElement } from "@/lib/utils"
 
 const useRandomLocale = true
 const scenario = [
@@ -22,8 +23,6 @@ const scenario = [
     likely: 0.5,
   },
 ][2]
-
-const randomItemFromArray = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
 
 export interface IPassenger {
   title: string
@@ -79,11 +78,11 @@ export interface IBoardingPass {
 }
 
 export const generateBoardingPass = (): IBoardingPass => {
-  const locale = useRandomLocale ? randomItemFromArray([de, el, es, fr, he, hu, nl, pl, tr]) : en
+  const locale = useRandomLocale ? arrayElement([de, el, es, fr, he, hu, nl, pl, tr]) : en
   const faker = new Faker({ locale })
 
   const generatePassenger = (): IPassenger => {
-    const gender = faker.helpers.arrayElement(["male", "female", undefined]) as "male" | "female" | undefined
+    const gender = arrayElement(["male", "female", undefined]) as "male" | "female" | undefined
 
     // we can use this array to select names of a given length, though gender becomes an issue
     // console.log(faker.definitions.person.male_first_name)
@@ -101,7 +100,7 @@ export const generateBoardingPass = (): IBoardingPass => {
       title: faker.person.prefix(gender),
       firstName: faker.person.firstName(gender),
       lastName: faker.person.lastName(gender),
-      documentID: faker.helpers.arrayElement([
+      documentID: arrayElement([
         `${censorDocumentID(faker.string.numeric({ length: { min: 6, max: 12 } }))} (P)`,
         `${censorDocumentID(faker.string.numeric({ length: { min: 6, max: 12 } }))} (G)`,
         `${censorDocumentID(faker.string.alphanumeric({ length: { min: 9, max: 15 } }))} (I)`,
@@ -118,7 +117,7 @@ export const generateBoardingPass = (): IBoardingPass => {
 
   const passenger = generatePassenger()
   const departureDate = faker.date.soon({ days: 8 })
-  const departureAirport = faker.helpers.arrayElement(
+  const departureAirport = arrayElement(
     scenario.name === "worst"
       ? airports.filter((airport) => airport.name.length > 20)
       : scenario.name === "best"
@@ -126,7 +125,7 @@ export const generateBoardingPass = (): IBoardingPass => {
       : airports
   )
   const airportsWithoutDepartureAirport = airports.filter((airport) => airport.code !== departureAirport.code && airport.countryCode !== "GB")
-  const arrivalAirport = faker.helpers.arrayElement(
+  const arrivalAirport = arrayElement(
     scenario.name === "worst"
       ? airportsWithoutDepartureAirport.filter((airport) => airport.name.length > 20)
       : scenario.name === "best"
@@ -160,7 +159,7 @@ export const generateBoardingPass = (): IBoardingPass => {
     }),
     checkInSequenceNumber: `S${faker.number.int({ min: 1, max: 9 })}00`,
     extras: {
-      seatType: randomItemFromArray(["upfront", "extraLegroom", "standard"]),
+      seatType: arrayElement(["upfront", "extraLegroom", "standard"]),
       hasSpecialAssistance: faker.datatype.boolean(scenario.unlikely),
       hasSpeedyBoarding: faker.datatype.boolean(scenario.likely),
       hasFoodAndDrinkVoucher: faker.datatype.boolean(scenario.likely),
@@ -176,7 +175,7 @@ export const generateBoardingPass = (): IBoardingPass => {
       pram: faker.datatype.boolean(scenario.unlikely),
       sportsEquipment: faker.datatype.boolean(scenario.unlikely),
     },
-    customerEntitlementsCode: faker.helpers.arrayElement(["SA", "S1", "S2", ""]),
+    customerEntitlementsCode: arrayElement(["SA", "S1", "S2", ""]),
     passenger: passenger,
     infantPassenger: faker.datatype.boolean(scenario.unlikely) ? { ...generatePassenger(), lastName: passenger.lastName } : false,
     departureAirport: {

@@ -16,6 +16,8 @@ export const Provider: GlobalProvider = ({ children, globalState, storyMeta }) =
       {storyMeta?.withShade && <div className="absolute inset-0 bg-gray-100" />}
       {storyMeta?.pageWidth ? (
         <div className="isolate mx-auto w-full max-w-[--page-maxWidth]">{children}</div>
+      ) : storyMeta?.fullWidth ? (
+        <div className="isolate mx-auto w-full">{children}</div>
       ) : (
         <div className="isolate flex flex-col items-center justify-center gap-12 py-12 [&>section]:flex [&>section]:flex-col [&>section]:items-center [&>section]:justify-center [&>section]:gap-3">
           {children}
