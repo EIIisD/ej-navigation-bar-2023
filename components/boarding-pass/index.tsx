@@ -1,16 +1,11 @@
 "use client"
 
 import React, { type CSSProperties } from "react"
-import Image from "next/image"
-import { differenceInDays, differenceInHours, format } from "date-fns"
 
 import { createBooking } from "@/config/booking"
 import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
-import { cn } from "@/lib/utils"
-import { buttonEffects } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
-import { Icon, type IconName } from "@/components/icon"
-import { TNums } from "@/components/tnums"
+import { Icon } from "@/components/icon"
 
 export const BoardingPassWithHelpers = ({ bp: defaultBp }: { bp: IBoardingPass }) => {
   const [bp, setBp] = React.useState<IBoardingPass>(defaultBp)
