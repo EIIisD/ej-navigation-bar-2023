@@ -5,13 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
+import { useModalState } from "@/lib/use-modal-state"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
-import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
 const topSearches = [
   "Disruption Help Hub",
@@ -33,8 +33,7 @@ const helpCentreFormSchema = z.object({
 export const dialogHelpCentreId = "dialog-help-centre"
 
 export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) => {
-  const navigationBarContext = useNavigationBarContext()
-  const isOpen = navigationBarContext.openModals.includes(dialogHelpCentreId)
+  const [dialog] = useModalState(dialogHelpCentreId)
 
   const helpCentreForm = useForm<z.infer<typeof helpCentreFormSchema>>({
     resolver: zodResolver(helpCentreFormSchema),
@@ -45,21 +44,13 @@ export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) =>
 
   const onSubmit = helpCentreForm.handleSubmit((data: z.infer<typeof helpCentreFormSchema>) => {
     console.log(data)
-    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogHelpCentreId))
+    dialog.close()
     helpCentreForm.reset()
   })
 
-  const handleOpenChange = (openState: boolean) => {
-    if (openState === true) {
-      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, dialogHelpCentreId))
-    } else {
-      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogHelpCentreId))
-    }
-  }
-
   return (
     <Form {...helpCentreForm}>
-      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <Dialog {...dialog.register}>
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogBody asChild>
           <form

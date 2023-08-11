@@ -5,7 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
+import { useModalState } from "@/lib/use-modal-state"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -25,7 +26,7 @@ export const dialogSignInId = "dialog-sign-in"
 
 export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
   const navigationBarContext = useNavigationBarContext()
-  const isOpen = navigationBarContext.openModals.includes(dialogSignInId)
+  const [dialog] = useModalState(dialogSignInId)
 
   const signInForm = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
@@ -39,21 +40,13 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
   const onSubmit = signInForm.handleSubmit((data: z.infer<typeof signInFormSchema>) => {
     console.log(data)
     navigationBarContext.setIsSignedIn(true)
-    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogSignInId))
+    dialog.close()
     signInForm.reset()
   })
 
-  const handleOpenChange = (openState: boolean) => {
-    if (openState === true) {
-      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, dialogSignInId))
-    } else {
-      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogSignInId))
-    }
-  }
-
   return (
     <Form {...signInForm}>
-      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <Dialog {...dialog.register}>
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogBody asChild>
           <form

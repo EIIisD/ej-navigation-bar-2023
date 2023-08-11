@@ -1,4 +1,3 @@
-import { type ReadonlyURLSearchParams } from "next/navigation"
 import { clsx, type ClassValue } from "clsx"
 import { extendTailwindMerge } from "tailwind-merge"
 
@@ -89,8 +88,6 @@ const findInMenu = (targetMenu: Menu, predicate: (item: Menu) => boolean, return
   return traverse(targetMenu.items ?? [], targetMenu) ?? targetMenu
 }
 
-const addToOpenModals = (openModals: string[], id: string) => (openModals.includes(id) ? openModals : [...openModals, id])
-const removeFromOpenModals = (openModals: string[], id: string) => (openModals.includes(id) ? openModals.filter((item) => item !== id) : openModals)
 const arrayElement = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
 
 const is = (probability: number): boolean => {
@@ -100,39 +97,4 @@ const is = (probability: number): boolean => {
   return Math.random() < probability
 }
 
-type SearchParamOperation = (searchParams: URLSearchParams, key: string) => void
-
-const createSearchParams = (searchParams: ReadonlyURLSearchParams): URLSearchParams => new URLSearchParams(searchParams.toString())
-const returnSearchParams = (searchParams: URLSearchParams): string => "?" + (searchParams.toString() || "")
-
-const createSearchParamOperation = (searchParamOperation: SearchParamOperation) => {
-  return (searchParams: ReadonlyURLSearchParams, key: string): string => {
-    const newSearchParams = createSearchParams(searchParams)
-    searchParamOperation(newSearchParams, key)
-
-    return returnSearchParams(newSearchParams)
-  }
-}
-
-const param = {
-  append: createSearchParamOperation((searchParams, key) => !searchParams.has(key) && searchParams.append(key, "1")),
-  remove: createSearchParamOperation((searchParams, key) => searchParams.delete(key)),
-  toggle: createSearchParamOperation((searchParams, key) => (searchParams.has(key) ? searchParams.delete(key) : searchParams.append(key, "1"))),
-}
-
-export {
-  twMerge,
-  cn,
-  disablePageScroll,
-  wait,
-  findInMenu,
-  addToOpenModals,
-  removeFromOpenModals,
-  arrayElement,
-  is,
-  createSearchParams,
-  returnSearchParams,
-  createSearchParamOperation,
-  param,
-}
-export type { SearchParamOperation }
+export { twMerge, cn, disablePageScroll, wait, findInMenu, arrayElement, is }

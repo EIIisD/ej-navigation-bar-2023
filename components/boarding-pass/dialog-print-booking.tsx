@@ -1,12 +1,12 @@
 "use client"
 
 import React from "react"
-import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { cn, param } from "@/lib/utils"
+import { useModalState } from "@/lib/use-modal-state"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -24,17 +24,7 @@ const printBookingFormSchema = z.object({
 export const dialogPrintBookingId = "dialog-print-booking"
 
 export const DialogPrintBooking = ({ children }: { children?: React.ReactNode }) => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [isOpen, setIsOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    router.replace(param.append(searchParams, dialogPrintBookingId))
-  }, [])
-
-  React.useEffect(() => {
-    setIsOpen(!!searchParams.get(dialogPrintBookingId))
-  }, [searchParams])
+  const [dialog] = useModalState(dialogPrintBookingId, true)
 
   const printBookingForm = useForm<z.infer<typeof printBookingFormSchema>>({
     resolver: zodResolver(printBookingFormSchema),
@@ -47,21 +37,13 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
 
   const onSubmit = printBookingForm.handleSubmit((data: z.infer<typeof printBookingFormSchema>) => {
     console.log(data)
-    router.replace(param.remove(searchParams, dialogPrintBookingId))
+    dialog.close()
     printBookingForm.reset()
   })
 
-  const handleOpenChange = (openState: boolean) => {
-    if (openState === true) {
-      router.replace(param.append(searchParams, dialogPrintBookingId))
-    } else {
-      router.replace(param.remove(searchParams, dialogPrintBookingId))
-    }
-  }
-
   return (
     <Form {...printBookingForm}>
-      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <Dialog {...dialog.register}>
         {children && <DialogTrigger asChild>{children}</DialogTrigger>}
         <DialogBody asChild>
           <form

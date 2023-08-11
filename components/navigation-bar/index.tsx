@@ -6,7 +6,7 @@ import Link from "next/link"
 
 import { languages } from "@/config/languages"
 import { type Menu } from "@/config/menu"
-import { cn, disablePageScroll } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import { textButtonVariants } from "@/components/ui/text-button"
 import { Icon } from "@/components/icon"
 import { MenuAside } from "@/components/navigation-bar/menu-aside"
@@ -19,8 +19,6 @@ export const NavigationBar = () => {
   const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(navigationBarContextDefs.menu)
 
   const [isSignedIn, setIsSignedIn] = React.useState<NavigationBarContext["isSignedIn"]>(navigationBarContextDefs.isSignedIn)
-
-  const [openModals, setOpenModals] = React.useState<NavigationBarContext["openModals"]>(navigationBarContextDefs.openModals)
 
   React.useEffect(() => {
     const updatedMenu: Menu = {
@@ -47,9 +45,6 @@ export const NavigationBar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn, language])
 
-  if (openModals.length === 0) disablePageScroll(false)
-  else disablePageScroll(true)
-
   const secondaryMenu = menu?.items?.filter((i) => {
     return !i.requireAuthentication && i.group === "Account"
   })
@@ -63,8 +58,6 @@ export const NavigationBar = () => {
         setMenu,
         isSignedIn,
         setIsSignedIn,
-        openModals,
-        setOpenModals,
       }}
     >
       <header className="sticky top-0 z-20 flex w-full flex-col-reverse bg-orange text-white shadow-xl [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]">
@@ -117,6 +110,7 @@ export const NavigationBar = () => {
                         width={36}
                         height={28}
                         className="h-[1rem] w-auto shrink-0 overflow-hidden rounded-[4px] border-[1.5px] border-white bg-white"
+                        priority
                       />
                     )}
                   </ItemTag>

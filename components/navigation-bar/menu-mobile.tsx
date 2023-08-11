@@ -9,7 +9,8 @@ import { cva } from "class-variance-authority"
 import { AnimatePresence, motion } from "framer-motion"
 
 import { type Menu } from "@/config/menu"
-import { addToOpenModals, cn, findInMenu, removeFromOpenModals } from "@/lib/utils"
+import { useModalState } from "@/lib/use-modal-state"
+import { cn, findInMenu } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
@@ -49,20 +50,12 @@ export const menuMobileId = "menu-mobile"
 
 export const MenuMobile = () => {
   const navigationBarContext = useNavigationBarContext()
-
+  const [menu] = useModalState(menuMobileId)
   const [activeMenuTitle, setActiveMenuTitle] = React.useState<string>(navigationBarContext.menu.title)
 
-  const isOpen = navigationBarContext.openModals.includes(menuMobileId)
-
   const isBaseMenu = activeMenuTitle === navigationBarContext.menu.title
-
   const activeMenu = findInMenu(navigationBarContext.menu, (i) => i.title === activeMenuTitle)
-
   const activeMenuParent = findInMenu(navigationBarContext.menu, (i) => i.title === activeMenuTitle, true)
-
-  const handleClose = () => {
-    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, menuMobileId))
-  }
 
   const handleNavigate = (menu: Menu) => {
     const message = `You successfully clicked "${menu.title}". Please keep in mind that this page is not currently in the demo.`
@@ -70,21 +63,13 @@ export const MenuMobile = () => {
     else alert(message)
   }
 
-  const handleOpenChange = (openState: boolean) => {
-    if (openState === true) {
-      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, menuMobileId))
-    } else {
-      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, menuMobileId))
-    }
-  }
-
   return (
-    <Menu.Root open={isOpen} onOpenChange={handleOpenChange} modal={false}>
+    <Menu.Root {...menu.register} modal={false}>
       <Menu.Trigger asChild>
         <button
           type="button"
           className="group/menu-icon relative grid h-[--primary-header-height] w-[--primary-header-height] shrink-0 place-items-center focus-visible:bg-white/20"
-          data-state={isOpen ? "open" : "closed"}
+          data-state={menu.isOpen ? "open" : "closed"}
         >
           <div className="grid w-6 grid-rows-3 gap-[0.3125rem] [&>*]:col-span-full [&>*]:h-[0.15625rem] [&>*]:rounded-full [&>*]:bg-current [&>*]:transition-all [&>*]:duration-200">
             <div className="row-[1] group-data-[state=open]/menu-icon:translate-y-3 group-data-[state=open]/menu-icon:scale-0 group-data-[state=open]/menu-icon:opacity-0" />
@@ -97,7 +82,7 @@ export const MenuMobile = () => {
       <Menu.Portal forceMount>
         <React.Fragment key="portal-child-fragment">
           <AnimatePresence>
-            {isOpen && (
+            {menu.isOpen && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{
@@ -283,7 +268,7 @@ export const MenuMobile = () => {
                                 onClick={() => {
                                   if (groupItem.id === "sign-out") {
                                     navigationBarContext.setIsSignedIn(false)
-                                    handleClose()
+                                    menu.close()
                                   } else {
                                     handleNavigate(groupItem)
                                   }

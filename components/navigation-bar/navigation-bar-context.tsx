@@ -12,8 +12,6 @@ export interface NavigationBarContext {
   setMenu: (a: Menu) => void
   isSignedIn: boolean
   setIsSignedIn: (a: boolean) => void
-  openModals: string[]
-  setOpenModals: (a: string[]) => void
 }
 
 export const navigationBarContextDefs = {
@@ -23,8 +21,6 @@ export const navigationBarContextDefs = {
   setMenu: () => null,
   isSignedIn: false,
   setIsSignedIn: () => null,
-  openModals: [],
-  setOpenModals: () => null,
 }
 
 export const NavigationBarContext = React.createContext<NavigationBarContext>({
@@ -34,8 +30,6 @@ export const NavigationBarContext = React.createContext<NavigationBarContext>({
   setMenu: navigationBarContextDefs.setMenu,
   isSignedIn: navigationBarContextDefs.isSignedIn,
   setIsSignedIn: navigationBarContextDefs.setIsSignedIn,
-  openModals: navigationBarContextDefs.openModals,
-  setOpenModals: navigationBarContextDefs.setOpenModals,
 })
 
 export const useNavigationBarContext = () => React.useContext(NavigationBarContext)

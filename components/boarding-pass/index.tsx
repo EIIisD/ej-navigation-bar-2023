@@ -4,7 +4,7 @@ import React, { type CSSProperties } from "react"
 import Image from "next/image"
 import { differenceInDays, differenceInHours, format } from "date-fns"
 
-import { createBooking } from "@/config/create-booking"
+import { createBooking } from "@/config/booking"
 import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
 import { cn } from "@/lib/utils"
 import { buttonEffects } from "@/components/ui/button"

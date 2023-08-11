@@ -8,7 +8,8 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { languages } from "@/config/languages"
-import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
+import { useModalState } from "@/lib/use-modal-state"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField } from "@/components/ui/form"
@@ -29,8 +30,7 @@ export const dialogLanguageSelectId = "dialog-language-select"
 
 export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }) => {
   const navigationBarContext = useNavigationBarContext()
-
-  const isOpen = navigationBarContext.openModals.includes(dialogLanguageSelectId)
+  const [dialog] = useModalState(dialogLanguageSelectId)
 
   const languageSelectForm = useForm<z.infer<typeof languageSelectFormSchema>>({
     resolver: zodResolver(languageSelectFormSchema),
@@ -46,23 +46,15 @@ export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }
       navigationBarContext.setLanguage(data.language)
     }
 
-    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogLanguageSelectId))
+    dialog.close()
     languageSelectForm.reset()
 
     return false
   })
 
-  const handleOpenChange = (openState: boolean) => {
-    if (openState === true) {
-      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, dialogLanguageSelectId))
-    } else {
-      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogLanguageSelectId))
-    }
-  }
-
   return (
     <Form {...languageSelectForm}>
-      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <Dialog {...dialog.register}>
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogBody asChild>
           <form

@@ -4,7 +4,8 @@ import React from "react"
 import { toTitleCase } from "@artsy/to-title-case"
 import * as MenuPrimitive from "@radix-ui/react-navigation-menu"
 
-import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
+import { useModalState } from "@/lib/use-modal-state"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
 import { AnimatedArrowIcon } from "@/components/navigation-bar/animated-arrow-icon"
@@ -63,6 +64,7 @@ DropdownLink.displayName = "DropdownLink"
 
 export const MenuAside = () => {
   const navigationBarContext = useNavigationBarContext()
+  const [menu] = useModalState(menuMobileId)
 
   const menuItems = navigationBarContext.menu.items?.filter((item) => item.group === "Account" && item.isHidden === false)
 
@@ -77,10 +79,10 @@ export const MenuAside = () => {
               mode="outline"
               size="sm"
               onClick={() => {
-                if (!navigationBarContext.openModals.includes(menuMobileId)) {
-                  navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, menuMobileId))
+                if (!menu.isOpen) {
+                  menu.open()
                 } else {
-                  navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, menuMobileId))
+                  menu.close()
                 }
               }}
               className="desktop-header-width:hidden"
