@@ -57,18 +57,11 @@ export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) =>
     }
   }
 
-  const id = {
-    trigger: `DialogHelpCentre:Dialog.Trigger.0`,
-    content: `DialogHelpCentre:Dialog.Content.0`,
-  }
-
   return (
     <Form {...helpCentreForm}>
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        <DialogTrigger id={id.trigger} aria-controls={id.content} asChild>
-          {children}
-        </DialogTrigger>
-        <DialogBody id={id.content} asChild>
+        <DialogTrigger asChild>{children}</DialogTrigger>
+        <DialogBody asChild>
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -99,7 +92,7 @@ export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) =>
                 <div className="flex flex-wrap gap-2">
                   {topSearches.map((value) => (
                     <DialogClose key={value} asChild>
-                      <Button type="submit" mode="default" size="sm" className="rounded-full">
+                      <Button type="submit" mode="outline" size="sm" className="rounded-full">
                         {value}
                       </Button>
                     </DialogClose>

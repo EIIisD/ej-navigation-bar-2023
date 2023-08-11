@@ -60,18 +60,11 @@ export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }
     }
   }
 
-  const id = {
-    trigger: `DialogLanguageSelect:Dialog.Trigger.0`,
-    content: `DialogLanguageSelect:Dialog.Content.0`,
-  }
-
   return (
     <Form {...languageSelectForm}>
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        <DialogTrigger id={id.trigger} aria-controls={id.content} asChild>
-          {children}
-        </DialogTrigger>
-        <DialogBody id={id.content} asChild>
+        <DialogTrigger asChild>{children}</DialogTrigger>
+        <DialogBody asChild>
           <form
             onSubmit={(e) => {
               e.preventDefault()

@@ -78,14 +78,9 @@ export const MenuMobile = () => {
     }
   }
 
-  const id = {
-    trigger: `MenuMobile:Menu.Trigger.0`,
-    content: `MenuMobile:Menu.Content.0`,
-  }
-
   return (
     <Menu.Root open={isOpen} onOpenChange={handleOpenChange} modal={false}>
-      <Menu.Trigger id={id.trigger} aria-controls={id.content} asChild>
+      <Menu.Trigger asChild>
         <button
           type="button"
           className="group/menu-icon relative grid h-[--primary-header-height] w-[--primary-header-height] shrink-0 place-items-center focus-visible:bg-white/20"
@@ -115,7 +110,6 @@ export const MenuMobile = () => {
               >
                 <Menu.Content
                   key={`${activeMenuTitle}-${navigationBarContext.language}`}
-                  id={id.content}
                   onInteractOutside={(e) => e.preventDefault()}
                   initial="hidden"
                   animate="visible"

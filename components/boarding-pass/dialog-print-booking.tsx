@@ -1,11 +1,12 @@
 "use client"
 
 import React from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { addToOpenModals, cn, removeFromOpenModals } from "@/lib/utils"
+import { cn, param } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -13,22 +14,30 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { TextButton } from "@/components/ui/text-button"
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
-import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
-const signInFormSchema = z.object({
+const printBookingFormSchema = z.object({
   emailAddress: z.string().email(),
   password: z.string(),
   staySignedIn: z.boolean(),
 })
 
-export const dialogSignInId = "dialog-sign-in"
+export const dialogPrintBookingId = "dialog-print-booking"
 
-export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
-  const navigationBarContext = useNavigationBarContext()
-  const isOpen = navigationBarContext.openModals.includes(dialogSignInId)
+export const DialogPrintBooking = ({ children }: { children?: React.ReactNode }) => {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [isOpen, setIsOpen] = React.useState(false)
 
-  const signInForm = useForm<z.infer<typeof signInFormSchema>>({
-    resolver: zodResolver(signInFormSchema),
+  React.useEffect(() => {
+    router.replace(param.append(searchParams, dialogPrintBookingId))
+  }, [])
+
+  React.useEffect(() => {
+    setIsOpen(!!searchParams.get(dialogPrintBookingId))
+  }, [searchParams])
+
+  const printBookingForm = useForm<z.infer<typeof printBookingFormSchema>>({
+    resolver: zodResolver(printBookingFormSchema),
     defaultValues: {
       emailAddress: "",
       password: "",
@@ -36,25 +45,24 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
     },
   })
 
-  const onSubmit = signInForm.handleSubmit((data: z.infer<typeof signInFormSchema>) => {
+  const onSubmit = printBookingForm.handleSubmit((data: z.infer<typeof printBookingFormSchema>) => {
     console.log(data)
-    navigationBarContext.setIsSignedIn(true)
-    navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogSignInId))
-    signInForm.reset()
+    router.replace(param.remove(searchParams, dialogPrintBookingId))
+    printBookingForm.reset()
   })
 
   const handleOpenChange = (openState: boolean) => {
     if (openState === true) {
-      navigationBarContext.setOpenModals(addToOpenModals(navigationBarContext.openModals, dialogSignInId))
+      router.replace(param.append(searchParams, dialogPrintBookingId))
     } else {
-      navigationBarContext.setOpenModals(removeFromOpenModals(navigationBarContext.openModals, dialogSignInId))
+      router.replace(param.remove(searchParams, dialogPrintBookingId))
     }
   }
 
   return (
-    <Form {...signInForm}>
+    <Form {...printBookingForm}>
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        <DialogTrigger asChild>{children}</DialogTrigger>
+        {children && <DialogTrigger asChild>{children}</DialogTrigger>}
         <DialogBody asChild>
           <form
             onSubmit={(e) => {
@@ -69,7 +77,7 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
               <p className={cn(menuMobileItemStyle(), "text-secondary")}>Sign in to view and manage your account and bookings.</p>
 
               <FormField
-                control={signInForm.control}
+                control={printBookingForm.control}
                 name="emailAddress"
                 render={({ field }) => (
                   <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
@@ -82,7 +90,7 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 )}
               />
               <FormField
-                control={signInForm.control}
+                control={printBookingForm.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
@@ -95,7 +103,7 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 )}
               />
               <FormField
-                control={signInForm.control}
+                control={printBookingForm.control}
                 name="staySignedIn"
                 render={({ field }) => (
                   <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>

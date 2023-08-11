@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
-    scrollRestoration: true,
+    // scrollRestoration: true,
   },
   images: {
     domains: ["www.easyjet.com"],

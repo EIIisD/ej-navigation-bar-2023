@@ -200,20 +200,14 @@ export const MenuDesktop = () => {
     <Menu.Root className="z-10 flex max-w-max flex-1 items-center justify-center [&>[style='position:relative']]:[position:unset!important]">
       <Menu.List className="group flex flex-1 list-none items-center justify-center gap-[--menu-gap]">
         {primaryMenu?.map((menuItem, menuItemIndex) => {
-          const id = {
-            trigger: `MenuDesktop:Menu.Trigger.${menuItemIndex}`,
-            content: `MenuDesktop:Menu.Content.${menuItemIndex}`,
-          }
-
           return (
             <Menu.Item key={menuItemIndex}>
-              <Menu.Trigger id={id.trigger} aria-controls={id.content} className={menuDesktopTriggerStyle()}>
+              <Menu.Trigger className={menuDesktopTriggerStyle()}>
                 <span className="line-clamp-1 break-all">{menuItem.title}</span>
                 <Icon name="arrowDown" className="h-4 w-4 transition duration-200 group-data-[state=open]/menu-trigger:-rotate-180" />
                 <div className="absolute inset-x-[calc(var(--menu-gap)/2)] bottom-3 h-[2px] rounded-full bg-white opacity-0 transition-opacity duration-300 group-hover/menu-trigger:opacity-25 group-focus/menu-trigger:opacity-25 group-data-[state=open]/menu-trigger:opacity-100" />
               </Menu.Trigger>
               <Menu.Content
-                id={id.content}
                 className={cn(
                   !!menuItem.attributionBannerElement ? "pb-[calc(var(--page-inset-small)*2+theme('height.8'))]" : "pb-[--page-inset-small]",
                   "absolute inset-x-0 top-0 mx-auto w-full max-w-[--header-maxWidth] pt-[--page-inset-small]",
