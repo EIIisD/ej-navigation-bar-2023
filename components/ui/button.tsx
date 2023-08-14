@@ -36,7 +36,9 @@ const buttonVariants = cva(
     // Button background, implemented as foreground layer to stack on top of pseudo-border layer
     "after:absolute after:inset-0 after:-z-10 after:rounded-[calc(var(--rounded)-1px)] after:bg-[--button-bg]",
     // White overlay on hover
-    "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme('colors.white'))_10%)]"
+    "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme('colors.white'))_10%)]",
+    // Disabled
+    "disabled:pointer-events-none disabled:opacity-50 disabled:saturate-0"
   ),
   {
     variants: {

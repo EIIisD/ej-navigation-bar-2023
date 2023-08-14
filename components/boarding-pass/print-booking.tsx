@@ -1,15 +1,34 @@
 "use client"
 
 import React, { type CSSProperties } from "react"
+import { format } from "date-fns"
 
-import { createBooking } from "@/config/booking"
+import { createBooking, Flight } from "@/config/booking"
 import { arrayElements } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
-import { Icon } from "@/components/icon"
+import { Icon, type IconName } from "@/components/icon"
 
 export const PrintBooking = () => {
-  const printBookingContext = usePrintBookingContext()
+  const {
+    booking: { outboundFlight: flight, ...booking },
+    selectedPassengers,
+    ...printBookingContext
+  } = usePrintBookingContext()
+
+  const journey = [
+    {
+      type: "Departing",
+      title: `${flight.departureAirport.code}-${flight.arrivalAirport.code} ${format(flight.departureDate, "dd MMM")}`,
+      airport: flight.departureAirport,
+    },
+    {
+      type: "Arriving",
+      title: `${flight.arrivalAirport.code}-${flight.departureAirport.code} ${format(flight.departureDate, "dd MMM")}`,
+      airport: flight.arrivalAirport,
+    },
+  ].filter(Boolean)
+
   const [devMode, setDevMode] = React.useState<boolean>(false)
   const [pageMode, setPageMode] = React.useState<boolean>(false)
 
@@ -32,10 +51,9 @@ export const PrintBooking = () => {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [printBookingContext, devMode, pageMode])
 
-  return <pre>{JSON.stringify(printBookingContext.selectedPassengers, null, 2)}</pre>
-
   return (
-    <div
+    <section
+      className="flex-auto bg-white screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]"
       style={
         {
           "--dev-1": devMode ? "lch(95 20 .2turn)" : undefined,
@@ -43,71 +61,42 @@ export const PrintBooking = () => {
         } as CSSProperties
       }
     >
-      <section className="flex-auto bg-white screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
-        <Tabs defaultValue="1" className="mx-auto max-w-[--page-maxWidth] flex-auto bg-white p-[--page-inset]">
-          <TabsList className="print:hidden">
-            <TabsTrigger value="1">
-              <Icon name="mobilePrinterMobileBookingOutlined" className="mr-2.5 h-7 w-7" />
-              Boarding Pass
-            </TabsTrigger>
-            <TabsTrigger value="2">
-              <Icon name="luggageIconSolid" className="mr-2.5 h-7 w-7" />
-              Your Luggage
-            </TabsTrigger>
-            <TabsTrigger value="3">
-              <Icon name="servicesIconAirportLoungeSolid" className="mr-2.5 h-7 w-7" />
-              Your Seats
-            </TabsTrigger>
-            {/* <TabsTrigger value="4">Airport Guide</TabsTrigger> */}
-            <TabsTrigger className="ml-auto" value="4">
-              <Icon name="withSuitcaseSolid" className="mr-2.5 h-7 w-7" />
-              Airport Guide
-              {/* <Button size="sm" asChild>
-                <div>Airport Guide</div>
-              </Button> */}
-            </TabsTrigger>
+      <div className="mx-auto max-w-[--page-maxWidth] flex-auto bg-white p-[--page-inset]">
+        <div className="space-y-2 py-[--page-inset-large]">
+          <h1 className="font-display text-5xl text-primary">Your boarding passes</h1>
+          <p className="text-base text-secondary">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, debitis! Beatae, maiores dolorem. Ipsum dolor facere, quia, eos nisi
+            exercitationem aspernatur quasi, dolore fugit natus minima officiis aperiam voluptate dicta!
+          </p>
+        </div>
+        <Tabs defaultValue="0">
+          <TabsList>
+            {journey.map(({ type, title }, index) => (
+              <TabsTrigger key={title} value={index.toString()}>
+                <Icon
+                  name={
+                    {
+                      Departing: "flightTakeoffSolid" as IconName,
+                      Arriving: "flightLandSolid" as IconName,
+                    }[type]
+                  }
+                  className="mr-2.5 h-6 w-6"
+                />
+                {title}
+              </TabsTrigger>
+            ))}
           </TabsList>
-          <TabsContent value="1">
-            <div className="grid gap-16 py-8 pb-24">
-              <div className="grid h-[50vh] w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300">
-                <h1 className="font-bold text-blue-400">Boarding Pass</h1>
+          {journey.map(({ type, title, airport }, index) => (
+            <TabsContent key={title} value={index.toString()}>
+              <div className="grid gap-16 py-8 pb-24">
+                <div className="grid h-[50vh] w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300">
+                  <h1 className="font-bold text-blue-400">Boarding Pass</h1>
+                </div>
               </div>
-              {/* <div className="grid gap-6">
-              <h1 className="font-display text-5xl text-primary">Your Boarding Pass</h1>
-              <BoardingPass bp={bp} />
-            </div>
-            <div className="grid gap-6">
-              <h1 className="font-display text-5xl text-primary">Flight Schedule</h1>
-              <Timeline bp={bp} />
-            </div> */}
-            </div>
-          </TabsContent>
-          <TabsContent value="2">
-            <div className="grid gap-16 py-8 pb-24">
-              <div className="grid h-[50vh] w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300">
-                <h1 className="font-bold text-blue-400">Your Luggage</h1>
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="3">
-            <div className="grid gap-16 py-8 pb-24">
-              <div className="grid h-[50vh] w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300">
-                <h1 className="font-bold text-blue-400">Your Seats</h1>
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="4">
-            <div className="grid gap-16 py-8 pb-24">
-              <div className="grid h-[50vh] w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300">
-                <h1 className="font-bold text-blue-400">Airport Guide</h1>
-              </div>
-            </div>
-          </TabsContent>
-          {/* <TabsContent value="4">
-            <div>Airport Guide</div>
-          </TabsContent> */}
+            </TabsContent>
+          ))}
         </Tabs>
-      </section>
-    </div>
+      </div>
+    </section>
   )
 }

@@ -2,6 +2,7 @@ import { type Metadata } from "next"
 
 import { DialogPrintBooking } from "@/components/boarding-pass/dialog-print-booking"
 import { PrintBooking } from "@/components/boarding-pass/print-booking"
+import { PrintBookingContextProvider } from "@/components/boarding-pass/print-booking-context-provider"
 
 export const metadata: Metadata = {
   title: "Your boarding passes",
@@ -9,10 +10,9 @@ export const metadata: Metadata = {
 
 export default function IndexPage() {
   return (
-    <>
-      <DialogPrintBooking>
-        <PrintBooking />
-      </DialogPrintBooking>
-    </>
+    <PrintBookingContextProvider>
+      <DialogPrintBooking />
+      <PrintBooking />
+    </PrintBookingContextProvider>
   )
 }

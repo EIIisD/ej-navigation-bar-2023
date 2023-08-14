@@ -418,7 +418,7 @@ export const createBooking = () => {
   outboundFlight.extras.sportsEquipment = sportsEquipment
   if (returnFlight) returnFlight.extras.sportsEquipment = sportsEquipment
 
-  return {
+  const booking = {
     hasEasyJetPlus,
     bookingFareType,
     bookingBundle,
@@ -426,6 +426,8 @@ export const createBooking = () => {
     outboundFlight,
     returnFlight,
   }
+
+  return booking
 }
 
 export type Booking = ReturnType<typeof createBooking>
