@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
+import { customAlphabet } from "nanoid"
 import { extendTailwindMerge } from "tailwind-merge"
 
 import { type Menu } from "@/config/menu"
@@ -50,6 +51,8 @@ const twMerge = extendTailwindMerge({
 })
 
 const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
+
+export const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 7)
 
 const disablePageScroll = (disable: boolean) => {
   if (typeof window === "object") {
@@ -108,3 +111,12 @@ const is = (probability: number): boolean => {
 }
 
 export { twMerge, cn, disablePageScroll, wait, findInMenu, arrayElement, arrayElements, is }
+
+export const keyBy = <T extends object, K extends keyof T>(array: T[], key: K) => {
+  return array.reduce(
+    (accumulator, current) => {
+      return { ...accumulator, [current[key]]: current }
+    },
+    {} as Record<T[K], T>
+  )
+}

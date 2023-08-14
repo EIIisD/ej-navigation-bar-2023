@@ -14,6 +14,7 @@ import { cn, findInMenu } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
+import { useSiteContext } from "@/components/site-context"
 
 const Menu = {
   Root: DialogPrimitive.Root,
@@ -49,6 +50,7 @@ export const menuMobileItemStyle = cva("flex items-start gap-[--page-inset] px-[
 export const menuMobileId = "menu-mobile"
 
 export const MenuMobile = () => {
+  const siteContext = useSiteContext()
   const navigationBarContext = useNavigationBarContext()
   const [menu] = useModalState(menuMobileId)
   const [activeMenuTitle, setActiveMenuTitle] = React.useState<string>(navigationBarContext.menu.title)
@@ -94,7 +96,7 @@ export const MenuMobile = () => {
                 className="fixed inset-0 top-[--header-height] z-30 bg-white"
               >
                 <Menu.Content
-                  key={`${activeMenuTitle}-${navigationBarContext.language}`}
+                  key={`${activeMenuTitle}-${siteContext.language}`}
                   onInteractOutside={(e) => e.preventDefault()}
                   initial="hidden"
                   animate="visible"

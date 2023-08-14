@@ -1,9 +1,9 @@
 "use client"
 
-import React, { type CSSProperties } from "react"
 import { format } from "date-fns"
 
-import { createBooking, Flight } from "@/config/booking"
+import { createBooking } from "@/config/booking"
+import useWindowKeyDown from "@/lib/use-window-keydown"
 import { arrayElements } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
@@ -15,6 +15,15 @@ export const PrintBooking = () => {
     selectedPassengers,
     ...printBookingContext
   } = usePrintBookingContext()
+
+  useWindowKeyDown(({ key, shiftKey, metaKey }) => {
+    if (key === "r" && !shiftKey && !metaKey) {
+      const newBooking = createBooking()
+      printBookingContext.setBooking(newBooking)
+      printBookingContext.setSelectedPassengers(arrayElements(newBooking.passengers))
+      console.log(newBooking)
+    }
+  })
 
   const journey = [
     {
@@ -29,39 +38,9 @@ export const PrintBooking = () => {
     },
   ].filter(Boolean)
 
-  const [devMode, setDevMode] = React.useState<boolean>(false)
-  const [pageMode, setPageMode] = React.useState<boolean>(false)
-
-  React.useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "b") {
-        const newBooking = createBooking()
-        printBookingContext.setBooking(newBooking)
-        printBookingContext.setSelectedPassengers(arrayElements(newBooking.passengers))
-        console.log(newBooking)
-      } else if (event.key === "d") {
-        setDevMode(!devMode)
-      } else if (event.key === "f") {
-        setPageMode(!pageMode)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [printBookingContext, devMode, pageMode])
-
   return (
-    <section
-      className="flex-auto bg-white screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]"
-      style={
-        {
-          "--dev-1": devMode ? "lch(95 20 .2turn)" : undefined,
-          "--dev-2": devMode ? "lch(95 20 .6turn)" : undefined,
-        } as CSSProperties
-      }
-    >
-      <div className="mx-auto max-w-[--page-maxWidth] flex-auto bg-white p-[--page-inset]">
+    <section className="flex-auto screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
+      <div className="mx-auto max-w-[--page-maxWidth] flex-auto p-[--page-inset]">
         <div className="space-y-2 py-[--page-inset-large]">
           <h1 className="font-display text-5xl text-primary">Your boarding passes</h1>
           <p className="text-base text-secondary">
@@ -74,12 +53,7 @@ export const PrintBooking = () => {
             {journey.map(({ type, title }, index) => (
               <TabsTrigger key={title} value={index.toString()}>
                 <Icon
-                  name={
-                    {
-                      Departing: "flightTakeoffSolid" as IconName,
-                      Arriving: "flightLandSolid" as IconName,
-                    }[type]
-                  }
+                  name={{ Departing: "flightTakeoffSolid" as IconName, Arriving: "flightLandSolid" as IconName }[type]}
                   className="mr-2.5 h-6 w-6"
                 />
                 {title}
@@ -88,10 +62,15 @@ export const PrintBooking = () => {
           </TabsList>
           {journey.map(({ type, title, airport }, index) => (
             <TabsContent key={title} value={index.toString()}>
-              <div className="grid gap-16 py-8 pb-24">
-                <div className="grid h-[50vh] w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300">
-                  <h1 className="font-bold text-blue-400">Boarding Pass</h1>
-                </div>
+              <div className="grid gap-8 py-8 pb-24">
+                {selectedPassengers.map((passenger) => (
+                  <div className="grid h-80 w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300" key={passenger.id}>
+                    <div className="font-bold text-blue-400">Boarding pass:</div>
+                    <div className="font-bold text-blue-400">
+                      {passenger.firstName} {passenger.lastName}
+                    </div>
+                  </div>
+                ))}
               </div>
             </TabsContent>
           ))}

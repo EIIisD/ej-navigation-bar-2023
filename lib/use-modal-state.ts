@@ -1,43 +1,23 @@
 import React from "react"
-import { useRouter, useSearchParams, type ReadonlyURLSearchParams } from "next/navigation"
+import { useUrlSearchParams } from "use-url-search-params"
 
 import { disablePageScroll } from "@/lib/utils"
 
 const modalParamValue = "modal"
 
-const createSearchParams = (searchParams: ReadonlyURLSearchParams): URLSearchParams => new URLSearchParams(searchParams.toString())
-const returnSearchParams = (searchParams: URLSearchParams): string => "?" + (searchParams.toString() || "")
-
-const createSearchParamOperation = (searchParamOperation: (searchParams: URLSearchParams, key: string) => void) => {
-  return (searchParams: ReadonlyURLSearchParams, key: string): string => {
-    const newSearchParams = createSearchParams(searchParams)
-    searchParamOperation(newSearchParams, key)
-
-    return returnSearchParams(newSearchParams)
-  }
-}
-
-const param = {
-  append: createSearchParamOperation((searchParams, key) => !searchParams.has(key) && searchParams.append(key, modalParamValue)),
-  remove: createSearchParamOperation((searchParams, key) => searchParams.delete(key)),
-  toggle: createSearchParamOperation((searchParams, key) =>
-    searchParams.has(key) ? searchParams.delete(key) : searchParams.append(key, modalParamValue)
-  ),
-}
-
 export const useModalState = (modalId: string, defaultOpen?: boolean) => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const [params, setParams] = useUrlSearchParams()
   const [isOpen, setIsOpen] = React.useState(false)
 
   const open = () => {
     disablePageScroll(true)
-    router.replace(param.append(searchParams, modalId))
+    setParams({ [modalId]: modalParamValue })
   }
 
   const close = () => {
-    const openModals = Array.from(searchParams.entries()).filter(([, value]) => value === modalParamValue)
-    router.replace(param.remove(searchParams, modalId))
+    const entries = Object.entries(params)
+    const openModals = Array.from(entries).filter(([, value]) => value === modalParamValue)
+    setParams({ [modalId]: undefined })
     if (openModals.length === 1) disablePageScroll(false)
   }
 
@@ -47,8 +27,14 @@ export const useModalState = (modalId: string, defaultOpen?: boolean) => {
   }, [defaultOpen])
 
   React.useEffect(() => {
-    setIsOpen(Boolean(searchParams.get(modalId)))
-  }, [modalId, searchParams])
+    setIsOpen(
+      Boolean(
+        Object.entries(params).find(([key, value]) => {
+          return key === modalId && value === modalParamValue
+        })
+      )
+    )
+  }, [modalId, params])
 
   const register = {
     open: isOpen,
@@ -65,10 +51,5 @@ export const useModalState = (modalId: string, defaultOpen?: boolean) => {
     register,
   }
 
-  const page = {
-    searchParams,
-    router,
-  }
-
-  return [modal, page] as const
+  return [modal, params] as const
 }

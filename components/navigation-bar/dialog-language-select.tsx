@@ -2,19 +2,20 @@
 
 import React from "react"
 import Image from "next/image"
+import Router, { useRouter } from "next/router"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
 import { useForm } from "react-hook-form"
+import { useUrlSearchParams } from "use-url-search-params"
 import * as z from "zod"
 
-import { languages } from "@/config/languages"
+import { languages, languagesMap } from "@/config/languages"
 import { useModalState } from "@/lib/use-modal-state"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField } from "@/components/ui/form"
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
-import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
 
 const RadioGroup = {
   Root: RadioGroupPrimitive.Root,
@@ -29,13 +30,15 @@ const languageSelectFormSchema = z.object({
 export const dialogLanguageSelectId = "dialog-language-select"
 
 export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }) => {
-  const navigationBarContext = useNavigationBarContext()
   const [dialog] = useModalState(dialogLanguageSelectId)
+  const [params, setParams] = useUrlSearchParams(undefined, undefined, true)
+
+  const currentLanguage = params.language?.toString() ?? languagesMap.en_US.locale
 
   const languageSelectForm = useForm<z.infer<typeof languageSelectFormSchema>>({
     resolver: zodResolver(languageSelectFormSchema),
     defaultValues: {
-      language: navigationBarContext.language,
+      language: currentLanguage,
     },
   })
 
@@ -43,11 +46,11 @@ export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }
     console.log(data)
 
     if (data.language) {
-      navigationBarContext.setLanguage(data.language)
+      setParams({ language: data.language })
     }
 
     dialog.close()
-    languageSelectForm.reset()
+    window.location.reload()
 
     return false
   })
@@ -70,12 +73,12 @@ export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }
                 name="language"
                 render={({ field: { value: _, ...field } }) => (
                   <FormControl>
-                    <RadioGroup.Root defaultValue={navigationBarContext.language} className={menuMobileListStyle()} {...field}>
+                    <RadioGroup.Root defaultValue={currentLanguage} className={menuMobileListStyle()} {...field}>
                       <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>Select Language</DialogTitle>
                       {languages.map((option, optionIndex) => (
                         <RadioGroup.Item
                           key={option.value}
-                          value={option.value}
+                          value={option.locale}
                           className={cn(
                             menuMobileItemStyle({
                               border: optionIndex === languages.length - 1 || false ? "none" : "default",

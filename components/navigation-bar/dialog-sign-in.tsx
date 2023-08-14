@@ -41,7 +41,6 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
     console.log(data)
     navigationBarContext.setIsSignedIn(true)
     dialog.close()
-    signInForm.reset()
   })
 
   return (

@@ -1,22 +1,17 @@
 "use client"
 
-import React from "react"
+import React, { type Dispatch, type SetStateAction } from "react"
 
-import { languages } from "@/config/languages"
 import { menu, type Menu } from "@/config/menu"
 
 export interface NavigationBarContext {
-  language: string
-  setLanguage: (a: string) => void
   menu: Menu
-  setMenu: (a: Menu) => void
+  setMenu: Dispatch<SetStateAction<NavigationBarContext["menu"]>>
   isSignedIn: boolean
-  setIsSignedIn: (a: boolean) => void
+  setIsSignedIn: Dispatch<SetStateAction<NavigationBarContext["isSignedIn"]>>
 }
 
 export const navigationBarContextDefs = {
-  language: languages[0].value,
-  setLanguage: () => null,
   menu: menu,
   setMenu: () => null,
   isSignedIn: false,
@@ -24,8 +19,6 @@ export const navigationBarContextDefs = {
 }
 
 export const NavigationBarContext = React.createContext<NavigationBarContext>({
-  language: navigationBarContextDefs.language,
-  setLanguage: navigationBarContextDefs.setLanguage,
   menu: navigationBarContextDefs.menu,
   setMenu: navigationBarContextDefs.setMenu,
   isSignedIn: navigationBarContextDefs.isSignedIn,

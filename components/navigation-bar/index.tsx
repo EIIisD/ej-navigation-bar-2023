@@ -3,9 +3,10 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useParams, usePathname, useSearchParams } from "next/navigation"
+import { useUrlSearchParams } from "use-url-search-params"
 
-import { languages } from "@/config/languages"
+import { languagesMap } from "@/config/languages"
 import { type Menu } from "@/config/menu"
 import { cn } from "@/lib/utils"
 import { textButtonVariants } from "@/components/ui/text-button"
@@ -15,15 +16,17 @@ import { MenuDesktop } from "@/components/navigation-bar/menu-desktop"
 import { NavigationBarContext, navigationBarContextDefs } from "@/components/navigation-bar/navigation-bar-context"
 
 export const NavigationBar = () => {
-  const [language, setLanguage] = React.useState<NavigationBarContext["language"]>(navigationBarContextDefs.language)
-
-  const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(navigationBarContextDefs.menu)
-
-  const [isSignedIn, setIsSignedIn] = React.useState<NavigationBarContext["isSignedIn"]>(navigationBarContextDefs.isSignedIn)
   const pathname = usePathname()
-  console.log(pathname)
+  const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(navigationBarContextDefs.menu)
+  const [isSignedIn, setIsSignedIn] = React.useState<NavigationBarContext["isSignedIn"]>(navigationBarContextDefs.isSignedIn)
+  const [params] = useUrlSearchParams()
+
+  const secondaryMenu = menu?.items?.filter((i) => !i.requireAuthentication && i.group === "Account")
 
   React.useEffect(() => {
+    console.count("useEffect")
+    const currentLanguage = params.language?.toString() ?? languagesMap.en_US.locale
+
     const updatedMenu: Menu = {
       ...menu,
       items: menu?.items?.map((item) => {
@@ -35,8 +38,8 @@ export const NavigationBar = () => {
         if (item.id === "language-select") {
           return {
             ...authenticatedItem,
-            title: language,
-            flag: languages.find(({ value }) => value === language)?.flag,
+            title: languagesMap?.[currentLanguage]?.value,
+            flag: languagesMap?.[currentLanguage]?.flag,
           }
         } else {
           return authenticatedItem
@@ -46,17 +49,11 @@ export const NavigationBar = () => {
 
     setMenu(updatedMenu)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSignedIn, language])
-
-  const secondaryMenu = menu?.items?.filter((i) => {
-    return !i.requireAuthentication && i.group === "Account"
-  })
+  }, [isSignedIn, params])
 
   return (
     <NavigationBarContext.Provider
       value={{
-        language,
-        setLanguage,
         menu,
         setMenu,
         isSignedIn,

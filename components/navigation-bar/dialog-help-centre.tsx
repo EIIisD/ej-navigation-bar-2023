@@ -45,7 +45,6 @@ export const DialogHelpCentre = ({ children }: { children: React.ReactNode }) =>
   const onSubmit = helpCentreForm.handleSubmit((data: z.infer<typeof helpCentreFormSchema>) => {
     console.log(data)
     dialog.close()
-    helpCentreForm.reset()
   })
 
   return (

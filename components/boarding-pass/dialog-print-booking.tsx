@@ -90,13 +90,13 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
 
               {booking.passengers.map((passenger, passengerIndex) => (
                 <FormField
-                  key={passenger.id}
+                  key={passenger.uid}
                   control={printBookingForm.control}
                   name="passengers"
                   render={({ field }) => {
                     return (
                       <FormItem
-                        key={passenger.id}
+                        key={passenger.uid}
                         className={cn(
                           menuMobileItemStyle({
                             border: passengerIndex === booking.passengers.length - 1 || false ? "none" : "default",

@@ -3,8 +3,10 @@ import "@/styles/globals.css"
 import React from "react"
 import { type Metadata } from "next"
 
+import { DevelopmentEffects } from "@/components/development-effects"
 import { Footer } from "@/components/footer"
 import { NavigationBar } from "@/components/navigation-bar"
+import { SiteContextProvider } from "@/components/site-context"
 
 export const metadata: Metadata = {
   title: {
@@ -34,9 +36,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en" suppressHydrationWarning>
         <head />
         <body>
-          <NavigationBar />
-          {children}
-          <Footer />
+          <SiteContextProvider>
+            <NavigationBar />
+            {children}
+            <Footer />
+            <DevelopmentEffects />
+          </SiteContextProvider>
         </body>
       </html>
     </>

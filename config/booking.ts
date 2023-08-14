@@ -2,7 +2,8 @@ import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
 import { add } from "date-fns"
 
 import { airports, type Airport } from "@/config/airports"
-import { arrayElement, is } from "@/lib/utils"
+import { languages, languagesMap } from "@/config/languages"
+import { arrayElement, is, nanoid } from "@/lib/utils"
 
 const scenarios = [
   {
@@ -38,6 +39,7 @@ const scenarios = [
 export const scenario = scenarios[0]
 
 export interface Passenger {
+  uid: string
   id: string
   gender: "female" | "male"
   title: string
@@ -84,18 +86,33 @@ export interface Flight {
 export const createBooking = () => {
   const locales = []
 
-  is(scenario.always) && locales.push(de) /* Germany */
-  is(scenario.unlikely) && locales.push(el) /* Greece */
-  is(scenario.always) && locales.push(es) /* Spain */
-  is(scenario.always) && locales.push(fr) /* France */
-  is(scenario.unlikely) && locales.push(he) /* Israel */
-  is(scenario.always) && locales.push(hu) /* Hungary */
-  is(scenario.always) && locales.push(nl) /* Netherlands */
-  is(scenario.always) && locales.push(pl) /* Poland */
-  is(scenario.unlikely) && locales.push(tr) /* Turkey */
-  is(scenario.always) && locales.push(en) /* US/UK/etc */
+  const allLocals = {
+    de: { language: languagesMap.de_DE, locale: de },
+    el: { language: languagesMap.el_GR, locale: el },
+    es: { language: languagesMap.es_ES, locale: es },
+    fr: { language: languagesMap.fr_FR, locale: fr },
+    he: { language: languagesMap.he_IL, locale: he },
+    hu: { language: languagesMap.hu_HU, locale: hu },
+    nl: { language: languagesMap.nl_NL, locale: nl },
+    pl: { language: languagesMap.pl_PL, locale: pl },
+    tr: { language: languagesMap.tr_TR, locale: tr },
+    en: { language: languagesMap.en_US, locale: en },
+  }
 
-  const faker = new Faker({ locale: arrayElement(locales) })
+  is(scenario.always) && locales.push(allLocals.de) /* Germany */
+  is(scenario.unlikely) && locales.push(allLocals.el) /* Greece */
+  is(scenario.always) && locales.push(allLocals.es) /* Spain */
+  is(scenario.always) && locales.push(allLocals.fr) /* France */
+  is(scenario.unlikely / 5) && locales.push(allLocals.he) /* Israel */
+  is(scenario.always) && locales.push(allLocals.hu) /* Hungary */
+  is(scenario.always) && locales.push(allLocals.nl) /* Netherlands */
+  is(scenario.always) && locales.push(allLocals.pl) /* Poland */
+  is(scenario.unlikely) && locales.push(allLocals.tr) /* Turkey */
+  is(scenario.always) && locales.push(allLocals.en) /* US/UK/etc */
+
+  const selectedLocale = arrayElement(locales)
+
+  const faker = new Faker({ locale: selectedLocale.locale })
 
   const hasEasyJetPlus = is(scenario.unlikely)
 
@@ -211,6 +228,7 @@ export const createBooking = () => {
       const passengerLastName = faker.person.lastName(passengerGender as "female" | "male" | undefined)
 
       const passenger: Passenger = {
+        uid: nanoid(),
         id: createId(),
         gender: passengerGender,
         title: passengerTitle,
@@ -425,6 +443,7 @@ export const createBooking = () => {
     passengers,
     outboundFlight,
     returnFlight,
+    language: selectedLocale.language,
   }
 
   return booking
