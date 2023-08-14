@@ -116,7 +116,7 @@
       "rootDir": ["./"]
     },
     "tailwindcss": {
-      "callees": ["cn", "cva"],
+      "callees": ["clsx", "cva", "cn"],
       "config": "tailwind.config.js"
     }
   }

@@ -90,6 +90,16 @@ const findInMenu = (targetMenu: Menu, predicate: (item: Menu) => boolean, return
 
 const arrayElement = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
 
+const arrayElements = <T>(array: T[], count?: number): T[] => {
+  const result = []
+
+  for (let i = 0; i < (count ?? Math.ceil(Math.random() * array.length)); i++) {
+    result.push(arrayElement(array))
+  }
+
+  return result
+}
+
 const is = (probability: number): boolean => {
   if (probability <= 0) return false
   if (probability >= 1) return true
@@ -97,4 +107,4 @@ const is = (probability: number): boolean => {
   return Math.random() < probability
 }
 
-export { twMerge, cn, disablePageScroll, wait, findInMenu, arrayElement, is }
+export { twMerge, cn, disablePageScroll, wait, findInMenu, arrayElement, arrayElements, is }

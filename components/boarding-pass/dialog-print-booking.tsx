@@ -9,115 +9,165 @@ import { useModalState } from "@/lib/use-modal-state"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { TextButton } from "@/components/ui/text-button"
+import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle } from "@/components/ui/dialog"
+import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form"
+import { Switch } from "@/components/ui/switch"
+import { PrintBookingContext, printBookingContextDefs } from "@/components/boarding-pass/print-booking-context"
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
+import { TNums } from "@/components/tnums"
 
 const printBookingFormSchema = z.object({
-  emailAddress: z.string().email(),
-  password: z.string(),
-  staySignedIn: z.boolean(),
+  passengers: z.array(z.string()),
 })
 
 export const dialogPrintBookingId = "dialog-print-booking"
 
-export const DialogPrintBooking = ({ children }: { children?: React.ReactNode }) => {
+export const DialogPrintBooking = ({ children }: { children: React.ReactNode }) => {
+  const [booking, setBooking] = React.useState<PrintBookingContext["booking"]>(printBookingContextDefs.booking)
+
+  const [selectedPassengers, setSelectedPassengers] = React.useState<PrintBookingContext["selectedPassengers"]>(
+    printBookingContextDefs.selectedPassengers
+  )
+
   const [dialog] = useModalState(dialogPrintBookingId, true)
 
   const printBookingForm = useForm<z.infer<typeof printBookingFormSchema>>({
     resolver: zodResolver(printBookingFormSchema),
     defaultValues: {
-      emailAddress: "",
-      password: "",
-      staySignedIn: false,
+      passengers: booking.passengers.map((passenger) => passenger.id),
     },
   })
 
   const onSubmit = printBookingForm.handleSubmit((data: z.infer<typeof printBookingFormSchema>) => {
     console.log(data)
+
+    setSelectedPassengers(
+      booking.passengers.filter((passenger) => {
+        return data.passengers.includes(passenger.id)
+      })
+    )
+
     dialog.close()
     printBookingForm.reset()
   })
 
+  React.useEffect(() => {
+    if (booking.passengers.length === 1) {
+      setSelectedPassengers(booking.passengers)
+    }
+  }, [booking.passengers])
+
+  const selectedPassengersCount = printBookingForm.watch("passengers").length
+
   return (
-    <Form {...printBookingForm}>
-      <Dialog {...dialog.register}>
-        {children && <DialogTrigger asChild>{children}</DialogTrigger>}
-        <DialogBody asChild>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
+    <PrintBookingContext.Provider
+      value={{
+        booking,
+        setBooking,
+        selectedPassengers,
+        setSelectedPassengers,
+      }}
+    >
+      {booking.passengers.length === 1 ? (
+        children
+      ) : (
+        <Form {...printBookingForm}>
+          <Dialog {...dialog.register}>
+            {children}
+            <DialogBody asChild>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
 
-              return void onSubmit()
-            }}
-          >
-            <DialogMain className={menuMobileListStyle()}>
-              <DialogTitle className={menuMobileItemStyle({ variant: "title" })}>Sign in</DialogTitle>
+                  return void onSubmit()
+                }}
+              >
+                <DialogMain className={menuMobileListStyle()}>
+                  <DialogTitle className={cn(menuMobileItemStyle({ variant: "title" }), "items-baseline justify-between")}>
+                    <span>Select Passengers</span>
 
-              <p className={cn(menuMobileItemStyle(), "text-secondary")}>Sign in to view and manage your account and bookings.</p>
-
-              <FormField
-                control={printBookingForm.control}
-                name="emailAddress"
-                render={({ field }) => (
-                  <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
-                    <FormLabel>Email address</FormLabel>
-                    <FormControl>
-                      <Input type="email" autoComplete="email" placeholder="name@mail.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={printBookingForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" autoComplete="current-password" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={printBookingForm.control}
-                name="staySignedIn"
-                render={({ field }) => (
-                  <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
-                    <div className="flex items-center gap-3">
-                      <FormControl>
-                        <Checkbox id="staySignedIn" checked={field.value} onCheckedChange={field.onChange} />
-                      </FormControl>
-                      <label htmlFor="staySignedIn" className="cursor-pointer text-secondary">
-                        Keep me signed in
-                      </label>
+                    <div className={cn("mb-2 justify-end font-sans")}>
+                      <div className="relative flex items-center gap-3">
+                        <FormLabel htmlFor="select-all-passengers" className="text-base/5 font-normal">
+                          <span>{selectedPassengersCount === booking.passengers.length ? "Deselect all" : "Select all"}</span>
+                          <div className="absolute inset-0" />
+                        </FormLabel>
+                        <Switch
+                          id="select-all-passengers"
+                          checked={selectedPassengersCount === booking.passengers.length}
+                          onCheckedChange={(checked) => {
+                            return checked
+                              ? printBookingForm.setValue(
+                                  "passengers",
+                                  booking.passengers.map((passenger) => passenger.id)
+                                )
+                              : printBookingForm.setValue("passengers", [])
+                          }}
+                        />
+                      </div>
                     </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className={menuMobileItemStyle()}>
-                <TextButton type="button" className="text-sm font-bold text-orange">
-                  Forgotten your details?
-                </TextButton>
-              </div>
-            </DialogMain>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button type="button" mode="outline">
-                  Cancel
-                </Button>
-              </DialogClose>
-              <Button type="submit">Sign in</Button>
-            </DialogFooter>
-          </form>
-        </DialogBody>
-      </Dialog>
-    </Form>
+                  </DialogTitle>
+
+                  {booking.passengers.map((passenger, passengerIndex) => (
+                    <FormField
+                      key={passenger.id}
+                      control={printBookingForm.control}
+                      name="passengers"
+                      render={({ field }) => {
+                        return (
+                          <FormItem
+                            key={passenger.id}
+                            className={cn(
+                              menuMobileItemStyle({
+                                border: passengerIndex === booking.passengers.length - 1 || false ? "none" : "default",
+                              }),
+                              "group relative items-start gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
+                            )}
+                          >
+                            <Checkbox
+                              checked={field.value?.includes(passenger.id)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([...field.value, passenger.id])
+                                  : field.onChange(field.value?.filter((value) => value !== passenger.id))
+                              }}
+                            />
+                            <FormLabel className="w-full text-base/5 font-normal peer-data-[state=checked]:font-bold">
+                              <div className="flex w-full items-baseline justify-between gap-[--page-inset-small]">
+                                <span>
+                                  {passenger.firstName} {passenger.lastName} {passenger.infant && " + Infant"}
+                                </span>{" "}
+                                <TNums className="font-normal" content={passenger.id} />
+                              </div>
+                              {passenger.infant && (
+                                <div className="mt-0.5 flex w-full items-baseline justify-between gap-[--page-inset-small] text-sm font-normal text-secondary">
+                                  <span>
+                                    {passenger.infant.firstName} {passenger.infant.lastName}
+                                  </span>{" "}
+                                  <TNums content={passenger.infant.id} />
+                                </div>
+                              )}
+                              <div className="absolute inset-0" />
+                            </FormLabel>
+                          </FormItem>
+                        )
+                      }}
+                    />
+                  ))}
+                </DialogMain>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button type="button" mode="outline">
+                      Cancel
+                    </Button>
+                  </DialogClose>
+                  <Button type="submit">Continue</Button>
+                </DialogFooter>
+              </form>
+            </DialogBody>
+          </Dialog>
+        </Form>
+      )}
+    </PrintBookingContext.Provider>
   )
 }

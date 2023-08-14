@@ -41,7 +41,6 @@ export interface Passenger {
   id: string
   gender: "female" | "male"
   title: string
-  fullName: string
   firstName: string
   lastName: string
   type: "Adult" | "Infant"
@@ -210,13 +209,11 @@ export const createBooking = () => {
       const passengerTitle = faker.person.prefix(passengerGender as "female" | "male" | undefined)
       const passengerFirstName = faker.person.firstName(passengerGender as "female" | "male" | undefined)
       const passengerLastName = faker.person.lastName(passengerGender as "female" | "male" | undefined)
-      const passengerFullName = `${passengerFirstName} ${passengerLastName}`
 
       const passenger: Passenger = {
         id: createId(),
         gender: passengerGender,
         title: passengerTitle,
-        fullName: passengerFullName,
         firstName: passengerFirstName,
         lastName: passengerLastName,
         type: "Adult",
@@ -273,7 +270,7 @@ export const createBooking = () => {
       }
     })
 
-    return allPassengers
+    return allPassengers.sort((a, b) => (a.lastName > b.lastName ? 1 : -1))
   }
 
   const passengers = createPassengers()
@@ -425,6 +422,7 @@ export const createBooking = () => {
     hasEasyJetPlus,
     bookingFareType,
     bookingBundle,
+    passengers,
     outboundFlight,
     returnFlight,
   }
