@@ -4,6 +4,7 @@ import { format } from "date-fns"
 
 import { createBooking } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
+import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { Icon, type IconName } from "@/components/icon"
@@ -40,12 +41,23 @@ export const PrintBooking = () => {
   return (
     <section className="flex-auto screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
       <div className="mx-auto max-w-[--page-maxWidth] flex-auto p-[--page-inset]">
-        <div className="space-y-2 py-[--page-inset-large]">
+        <div className="py-[--page-inset-large]">
           <h1 className="font-display text-5xl text-primary">Your boarding passes</h1>
-          <p className="text-base text-secondary">
+          <p className="mt-4 max-w-prose text-base text-secondary">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, debitis! Beatae, maiores dolorem. Ipsum dolor facere, quia, eos nisi
             exercitationem aspernatur quasi, dolore fugit natus minima officiis aperiam voluptate dicta!
           </p>
+          <div className="mt-6 flex items-center gap-2">
+            <Button className="gap-3">
+              <Icon name="mobilePrinterPrinterSolid" className="-ml-1 h-5 w-5" />
+              Print all
+            </Button>
+            <Button className="gap-3">
+              <Icon name="externalDownloadOutlined" className="-ml-1 h-5 w-5" />
+              Download all
+            </Button>
+            <Button mode="outline">Airport Guide</Button>
+          </div>
         </div>
         <Tabs defaultValue="0">
           <TabsList>

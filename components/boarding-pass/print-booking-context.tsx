@@ -340,7 +340,7 @@ const genericBooking = {
       hasMealDeal: true,
     },
   },
-  language: languagesMap.en_US,
+  language: languagesMap.es_ES,
 }
 
 export const printBookingContextDefs = {
