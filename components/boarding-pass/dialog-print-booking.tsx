@@ -16,48 +16,34 @@ import { PrintBookingContext, printBookingContextDefs } from "@/components/board
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
 import { TNums } from "@/components/tnums"
 
-const printBookingFormSchema = z.object({
-  passengers: z.array(z.string()),
-})
+const printBookingFormSchema = z.object({ passengers: z.array(z.string()) })
 
 export const dialogPrintBookingId = "dialog-print-booking"
 
 export const DialogPrintBooking = ({ children }: { children: React.ReactNode }) => {
+  const [dialog] = useModalState(dialogPrintBookingId, true)
   const [booking, setBooking] = React.useState<PrintBookingContext["booking"]>(printBookingContextDefs.booking)
+
+  const skipPassengerSelection = printBookingContextDefs.booking.passengers.length === 1 || true
 
   const [selectedPassengers, setSelectedPassengers] = React.useState<PrintBookingContext["selectedPassengers"]>(
     printBookingContextDefs.selectedPassengers
   )
 
-  const [dialog] = useModalState(dialogPrintBookingId, true)
-
   const printBookingForm = useForm<z.infer<typeof printBookingFormSchema>>({
     resolver: zodResolver(printBookingFormSchema),
-    defaultValues: {
-      passengers: booking.passengers.map((passenger) => passenger.id),
-    },
+    defaultValues: { passengers: booking.passengers.map((passenger) => passenger.id) },
   })
 
   const onSubmit = printBookingForm.handleSubmit((data: z.infer<typeof printBookingFormSchema>) => {
-    console.log(data)
-
-    setSelectedPassengers(
-      booking.passengers.filter((passenger) => {
-        return data.passengers.includes(passenger.id)
-      })
-    )
-
+    setSelectedPassengers(booking.passengers.filter((passenger) => data.passengers.includes(passenger.id)))
     dialog.close()
-    printBookingForm.reset()
   })
 
   React.useEffect(() => {
-    if (booking.passengers.length === 1) {
-      setSelectedPassengers(booking.passengers)
-    }
-  }, [booking.passengers])
-
-  const selectedPassengersCount = printBookingForm.watch("passengers").length
+    setSelectedPassengers(booking.passengers)
+    if (skipPassengerSelection) dialog.close()
+  }, [booking.passengers, skipPassengerSelection, dialog])
 
   return (
     <PrintBookingContext.Provider
@@ -68,7 +54,7 @@ export const DialogPrintBooking = ({ children }: { children: React.ReactNode }) 
         setSelectedPassengers,
       }}
     >
-      {booking.passengers.length === 1 ? (
+      {skipPassengerSelection ? (
         children
       ) : (
         <Form {...printBookingForm}>
@@ -89,12 +75,12 @@ export const DialogPrintBooking = ({ children }: { children: React.ReactNode }) 
                     <div className={cn("mb-2 justify-end font-sans")}>
                       <div className="relative flex items-center gap-3">
                         <FormLabel htmlFor="select-all-passengers" className="text-base/5 font-normal">
-                          <span>{selectedPassengersCount === booking.passengers.length ? "Deselect all" : "Select all"}</span>
+                          <span>{printBookingForm.watch("passengers").length === booking.passengers.length ? "Deselect all" : "Select all"}</span>
                           <div className="absolute inset-0" />
                         </FormLabel>
                         <Switch
                           id="select-all-passengers"
-                          checked={selectedPassengersCount === booking.passengers.length}
+                          checked={printBookingForm.watch("passengers").length === booking.passengers.length}
                           onCheckedChange={(checked) => {
                             return checked
                               ? printBookingForm.setValue(
