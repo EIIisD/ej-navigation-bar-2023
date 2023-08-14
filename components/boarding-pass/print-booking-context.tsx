@@ -1,6 +1,8 @@
 "use client"
 
 import React, { type Dispatch, type SetStateAction } from "react"
+import { useRouter } from "next/navigation"
+import { useUrlSearchParams } from "use-url-search-params"
 
 import { type Booking, type Passenger } from "@/config/booking"
 import { languagesMap } from "@/config/languages"
@@ -358,11 +360,20 @@ export const PrintBookingContext = React.createContext<PrintBookingContext>({
 export const usePrintBookingContext = () => React.useContext(PrintBookingContext)
 
 export const PrintBookingContextProvider: React.FC<React.PropsWithChildren> = (props) => {
+  const router = useRouter()
+  const { 1: setParams } = useUrlSearchParams()
   const [booking, setBooking] = React.useState<PrintBookingContext["booking"]>(printBookingContextDefs.booking)
 
   const [selectedPassengers, setSelectedPassengers] = React.useState<PrintBookingContext["selectedPassengers"]>(
     printBookingContextDefs.selectedPassengers
   )
+
+  React.useEffect(() => {
+    const bookingLanguage = booking.language
+    setParams({ language: bookingLanguage.locale })
+    router.replace(window.location.href)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [booking])
 
   return (
     <PrintBookingContext.Provider

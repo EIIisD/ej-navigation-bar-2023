@@ -2,7 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
-import Router, { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
 import { useForm } from "react-hook-form"
@@ -31,7 +31,8 @@ export const dialogLanguageSelectId = "dialog-language-select"
 
 export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }) => {
   const [dialog] = useModalState(dialogLanguageSelectId)
-  const [params, setParams] = useUrlSearchParams(undefined, undefined, true)
+  const [params, setParams] = useUrlSearchParams(undefined, undefined, false)
+  const router = useRouter()
 
   const currentLanguage = params.language?.toString() ?? languagesMap.en_US.locale
 
@@ -44,13 +45,13 @@ export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }
 
   const onSubmit = languageSelectForm.handleSubmit((data: z.infer<typeof languageSelectFormSchema>) => {
     console.log(data)
+    dialog.close()
 
     if (data.language) {
       setParams({ language: data.language })
     }
 
-    dialog.close()
-    window.location.reload()
+    router.replace(window.location.href)
 
     return false
   })

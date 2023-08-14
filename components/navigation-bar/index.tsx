@@ -3,7 +3,7 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useParams, usePathname, useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import { useUrlSearchParams } from "use-url-search-params"
 
 import { languagesMap } from "@/config/languages"
@@ -20,11 +20,11 @@ export const NavigationBar = () => {
   const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(navigationBarContextDefs.menu)
   const [isSignedIn, setIsSignedIn] = React.useState<NavigationBarContext["isSignedIn"]>(navigationBarContextDefs.isSignedIn)
   const [params] = useUrlSearchParams()
+  const searchParams = useSearchParams()
 
   const secondaryMenu = menu?.items?.filter((i) => !i.requireAuthentication && i.group === "Account")
 
   React.useEffect(() => {
-    console.count("useEffect")
     const currentLanguage = params.language?.toString() ?? languagesMap.en_US.locale
 
     const updatedMenu: Menu = {
@@ -49,7 +49,7 @@ export const NavigationBar = () => {
 
     setMenu(updatedMenu)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSignedIn, params])
+  }, [isSignedIn, searchParams])
 
   return (
     <NavigationBarContext.Provider

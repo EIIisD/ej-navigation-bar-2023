@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
-import { printBookingContextDefs, usePrintBookingContext, type PrintBookingContext } from "@/components/boarding-pass/print-booking-context"
+import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
 import { TNums } from "@/components/tnums"
 
@@ -28,7 +28,7 @@ export const dialogPrintBookingId = "dialog-print-booking"
 export const DialogPrintBooking = ({ children }: { children?: React.ReactNode }) => {
   const [dialog] = useModalState(dialogPrintBookingId, true)
 
-  const { booking, selectedPassengers, setBooking, setSelectedPassengers } = usePrintBookingContext()
+  const { booking, setSelectedPassengers } = usePrintBookingContext()
 
   // const skipPassengerSelection = printBookingContextDefs.booking.passengers.length === 1
 

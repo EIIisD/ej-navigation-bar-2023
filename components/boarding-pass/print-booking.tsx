@@ -4,7 +4,6 @@ import { format } from "date-fns"
 
 import { createBooking } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
-import { arrayElements } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { Icon, type IconName } from "@/components/icon"
@@ -20,7 +19,7 @@ export const PrintBooking = () => {
     if (key === "r" && !shiftKey && !metaKey) {
       const newBooking = createBooking()
       printBookingContext.setBooking(newBooking)
-      printBookingContext.setSelectedPassengers(arrayElements(newBooking.passengers))
+      printBookingContext.setSelectedPassengers(newBooking.passengers)
       console.log(newBooking)
     }
   })
@@ -37,6 +36,8 @@ export const PrintBooking = () => {
       airport: flight.arrivalAirport,
     },
   ].filter(Boolean)
+
+  console.log(selectedPassengers)
 
   return (
     <section className="flex-auto screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
@@ -64,7 +65,7 @@ export const PrintBooking = () => {
             <TabsContent key={title} value={index.toString()}>
               <div className="grid gap-8 py-8 pb-24">
                 {selectedPassengers.map((passenger) => (
-                  <div className="grid h-80 w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300" key={passenger.id}>
+                  <div className="grid h-80 w-full place-content-center rounded-3xl border-2 border-dashed border-blue-300" key={passenger.uid}>
                     <div className="font-bold text-blue-400">Boarding pass:</div>
                     <div className="font-bold text-blue-400">
                       {passenger.firstName} {passenger.lastName}
