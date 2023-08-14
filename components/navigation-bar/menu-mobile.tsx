@@ -7,14 +7,15 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { cva } from "class-variance-authority"
 import { AnimatePresence, motion } from "framer-motion"
+import { useUrlSearchParams } from "use-url-search-params"
 
+import { languagesMap } from "@/config/languages"
 import { type Menu } from "@/config/menu"
 import { useModalState } from "@/lib/use-modal-state"
 import { cn, findInMenu } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/icon"
 import { useNavigationBarContext } from "@/components/navigation-bar/navigation-bar-context"
-import { useSiteContext } from "@/components/site-context"
 
 const Menu = {
   Root: DialogPrimitive.Root,
@@ -50,10 +51,10 @@ export const menuMobileItemStyle = cva("flex items-start gap-[--page-inset] px-[
 export const menuMobileId = "menu-mobile"
 
 export const MenuMobile = () => {
-  const siteContext = useSiteContext()
   const navigationBarContext = useNavigationBarContext()
   const [menu] = useModalState(menuMobileId)
   const [activeMenuTitle, setActiveMenuTitle] = React.useState<string>(navigationBarContext.menu.title)
+  const [params] = useUrlSearchParams()
 
   const isBaseMenu = activeMenuTitle === navigationBarContext.menu.title
   const activeMenu = findInMenu(navigationBarContext.menu, (i) => i.title === activeMenuTitle)
@@ -96,7 +97,7 @@ export const MenuMobile = () => {
                 className="fixed inset-0 top-[--header-height] z-30 bg-white"
               >
                 <Menu.Content
-                  key={`${activeMenuTitle}-${siteContext.language}`}
+                  key={`${activeMenuTitle}-${params.language?.toString() ?? languagesMap.en_US.locale}`}
                   onInteractOutside={(e) => e.preventDefault()}
                   initial="hidden"
                   animate="visible"
