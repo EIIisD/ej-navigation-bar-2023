@@ -37,8 +37,6 @@ export const PrintBooking = () => {
     },
   ].filter(Boolean)
 
-  console.log(selectedPassengers)
-
   return (
     <section className="flex-auto screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
       <div className="mx-auto max-w-[--page-maxWidth] flex-auto p-[--page-inset]">
