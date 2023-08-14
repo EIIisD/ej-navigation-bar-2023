@@ -3,20 +3,16 @@
 import React, { type CSSProperties } from "react"
 
 import { createBooking } from "@/config/booking"
-import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
 import { Icon } from "@/components/icon"
 
-export const BoardingPassWithHelpers = ({ bp: defaultBp }: { bp: IBoardingPass }) => {
-  const [bp, setBp] = React.useState<IBoardingPass>(defaultBp)
+export const BoardingPassWithHelpers = () => {
   const [devMode, setDevMode] = React.useState<boolean>(false)
   const [pageMode, setPageMode] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "r") {
-        setBp(generateBoardingPass())
-      } else if (event.key === "d") {
+      if (event.key === "d") {
         setDevMode(!devMode)
       } else if (event.key === "f") {
         setPageMode(!pageMode)

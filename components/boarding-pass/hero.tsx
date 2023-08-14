@@ -2,7 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
-import { differenceInDays, differenceInHours, differenceInMinutes, format, sub } from "date-fns"
+import { differenceInDays, differenceInHours, format } from "date-fns"
 
 import { type IBoardingPass } from "@/lib/boarding-pass"
 import { cn } from "@/lib/utils"

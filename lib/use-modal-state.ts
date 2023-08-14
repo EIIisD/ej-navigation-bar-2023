@@ -43,11 +43,12 @@ export const useModalState = (modalId: string, defaultOpen?: boolean) => {
 
   React.useEffect(() => {
     if (defaultOpen) open()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultOpen])
 
   React.useEffect(() => {
     setIsOpen(Boolean(searchParams.get(modalId)))
-  }, [searchParams])
+  }, [modalId, searchParams])
 
   const register = {
     open: isOpen,
