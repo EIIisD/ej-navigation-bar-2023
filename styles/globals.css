@@ -41,6 +41,7 @@
     --page-maxWidth: theme("screens.tablet-header-width");
     --header-maxWidth: theme("screens.desktop-header-width");
     --dialog-maxWidth: theme("maxWidth.xl");
+    --tertiary-header-height: 40px;
     --secondary-header-height: 40px;
     --primary-header-height: 56px;
     --header-height: var(--primary-header-height);
@@ -60,10 +61,14 @@
     --font-adjust: 1.4281729428172942;
   }
 
+  :root:has([data-tertiary-header="hidden"]) {
+    --tertiary-header-height: 0px;
+  }
+
   @screen tablet-header-width {
     :root {
       --clip-angle: 3/4;
-      --header-height: calc(var(--secondary-header-height) + var(--primary-header-height));
+      --header-height: calc(var(--tertiary-header-height) + var(--secondary-header-height) + var(--primary-header-height));
       --page-inset-large: theme("spacing.12");
       --page-inset: theme("spacing.9");
       --page-inset-small: theme("spacing.6");
