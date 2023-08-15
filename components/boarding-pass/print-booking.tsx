@@ -59,7 +59,7 @@ export const PrintBooking = () => {
     <section className="flex-auto screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
       <div className="mx-auto max-w-[--page-maxWidth] flex-auto p-[--page-inset]">
         <div className="py-[--page-inset-large]">
-          <h1 className="font-display text-5xl text-primary">Your boarding passes</h1>
+          <h1 className="font-display text-6xl text-primary">Your boarding passes</h1>
           <p className="mt-4 max-w-prose text-base text-secondary">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, debitis! Beatae, maiores dolorem. Ipsum dolor facere, quia, eos nisi
             exercitationem aspernatur quasi, dolore fugit natus minima officiis aperiam voluptate dicta!
@@ -76,7 +76,7 @@ export const PrintBooking = () => {
             <Button mode="outline">Airport Guide</Button>
           </div>
         </div>
-        <Tabs defaultValue="0">
+        <Tabs defaultValue="0" className="mt-[--page-inset]">
           <div className="sticky top-[--header-height] z-10 -mx-4 -mt-4 bg-white/90 px-4 pt-4 backdrop-blur-md">
             <TabsList>
               {journey.map(({ type, title }, index) => (
