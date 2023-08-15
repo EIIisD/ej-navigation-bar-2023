@@ -436,6 +436,8 @@ export const createBooking = () => {
   outboundFlight.extras.sportsEquipment = sportsEquipment
   if (returnFlight) returnFlight.extras.sportsEquipment = sportsEquipment
 
+  const advertisements = arrayElement([["1"], ["1", "2", "3"]])
+
   const booking = {
     hasEasyJetPlus,
     bookingFareType,
@@ -444,6 +446,7 @@ export const createBooking = () => {
     outboundFlight,
     returnFlight,
     language: selectedLocale.language,
+    advertisements,
   }
 
   return booking

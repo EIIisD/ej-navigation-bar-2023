@@ -341,6 +341,7 @@ const genericBooking = {
     },
   },
   language: languagesMap.es_ES,
+  advertisements: ["1", "2", "3"],
 }
 
 export const printBookingContextDefs = {
