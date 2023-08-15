@@ -60,7 +60,7 @@ export const NavigationBar = () => {
         setIsSignedIn,
       }}
     >
-      <div className="sticky top-0 z-20 flex w-full flex-col shadow-xl shadow-gray-950/10 [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]">
+      <div className="sticky top-0 z-20 flex w-full flex-col shadow-xl shadow-gray-950/[6%] [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]">
         <header className="relative z-10 flex flex-col-reverse bg-orange text-white">
           {/* primary menu */}
           {/* the DOM order is reversed with css flex so that the primary menu is the first keyboard tab target */}
