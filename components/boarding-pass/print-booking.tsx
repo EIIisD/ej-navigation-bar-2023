@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Advert3Cols from "@/public/media/advert-3-cols.jpg"
-import { format } from "date-fns"
 
 import { createBooking, formatFlightTitle, formatPassengerTitle } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
@@ -12,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Placeholder } from "@/components/ui/placeholder"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-large"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
-import { Icon, type IconName } from "@/components/icon"
+import { Icon } from "@/components/icon"
 
 const Section: React.FC<React.PropsWithChildren<{ title?: string; description?: string; className?: string; containerClassName?: string }>> = ({
   title,
