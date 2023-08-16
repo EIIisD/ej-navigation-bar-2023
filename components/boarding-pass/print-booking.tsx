@@ -35,6 +35,7 @@ export const PrintBooking = () => {
       const newBooking = createBooking()
       printBookingContext.setBooking(newBooking)
       printBookingContext.setSelectedPassengers(newBooking.passengers)
+      printBookingContext.setSelectedFlights(newBooking.flights)
       console.log(newBooking)
     }
   })
