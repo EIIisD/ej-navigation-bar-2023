@@ -2,7 +2,7 @@ import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
 import { add, format } from "date-fns"
 
 import { airports, type Airport } from "@/config/airports"
-import { languages, languagesMap } from "@/config/languages"
+import { languagesMap } from "@/config/languages"
 import { arrayElement, is, nanoid } from "@/lib/utils"
 
 const scenarios = [

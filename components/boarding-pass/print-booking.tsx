@@ -22,16 +22,13 @@ const Section: React.FC<React.PropsWithChildren<{ title?: string; description?: 
 }) => (
   <div className={cn("grid gap-6 border-b pb-12 last:border-none last:pb-0", className)}>
     {title && <div className="font-display text-4xl text-primary">{title}</div>}
-    <p className="text-base text-secondary">
-      {description ??
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea officia quis minus. Corrupti autem delectus earum molestiae qui. Numquam reiciendis ex molestias placeat vero hic aperiam corporis. Molestias, at cupiditate."}
-    </p>
+    {description && <div className="text-base text-secondary">{description}</div>}
     <div className={containerClassName}>{children}</div>
   </div>
 )
 
 export const PrintBooking = () => {
-  const { booking, selectedPassengers, selectedFlights, ...printBookingContext } = usePrintBookingContext()
+  const { selectedPassengers, selectedFlights, ...printBookingContext } = usePrintBookingContext()
 
   useWindowKeyDown(({ key, shiftKey, metaKey }) => {
     if (key === "r" && !shiftKey && !metaKey) {
@@ -80,7 +77,10 @@ export const PrintBooking = () => {
           {selectedFlights.map((flight, index) => (
             <TabsContent key={index} value={index.toString()} className="-mx-4 px-4">
               <div className="grid gap-12 pb-24 pt-8">
-                <Section title={selectedPassengers.length > 1 ? "Your boarding cards" : "Your boarding card"}>
+                <Section
+                  title={selectedPassengers.length > 1 ? "Your boarding cards" : "Your boarding card"}
+                  description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea officia quis minus. Corrupti autem delectus earum molestiae qui. Numquam reiciendis ex molestias placeat vero hic aperiam corporis. Molestias, at cupiditate."
+                >
                   {selectedPassengers.length > 1 ? (
                     <Accordion type="single" collapsible defaultValue={selectedPassengers[0].uid}>
                       {selectedPassengers.map((passenger) => (
@@ -110,6 +110,7 @@ export const PrintBooking = () => {
                 </Section>
                 <Section
                   title={selectedPassengers.length > 1 ? "Your shared luggage" : "Your luggage"}
+                  description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea officia quis minus. Corrupti autem delectus earum molestiae qui. Numquam reiciendis ex molestias placeat vero hic aperiam corporis. Molestias, at cupiditate."
                   containerClassName="grid grid-cols-[repeat(auto-fit,minmax(min(theme('height.56'),100%),1fr))] gap-4"
                 >
                   {flight.extras.hasSmallCabinBag && (
@@ -137,7 +138,10 @@ export const PrintBooking = () => {
                       </Placeholder>
                     ))}
                 </Section>
-                <Section title="Your extras">
+                <Section
+                  title="Your extras"
+                  description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea officia quis minus. Corrupti autem delectus earum molestiae qui. Numquam reiciendis ex molestias placeat vero hic aperiam corporis. Molestias, at cupiditate."
+                >
                   <Placeholder size="72">Extras</Placeholder>
                 </Section>
                 <Section>
