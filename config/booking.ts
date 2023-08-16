@@ -1,5 +1,5 @@
 import { de, el, en, es, Faker, fr, he, hu, nl, pl, tr } from "@faker-js/faker"
-import { add } from "date-fns"
+import { add, format } from "date-fns"
 
 import { airports, type Airport } from "@/config/airports"
 import { languages, languagesMap } from "@/config/languages"
@@ -38,6 +38,13 @@ const scenarios = [
 
 export const scenario = scenarios[0]
 
+export const formatFlightTitle = (flight: Flight) =>
+  `${flight.departureAirport.code}-${flight.arrivalAirport.code} ${format(flight.departureDate, "dd MMM")}`
+
+export const formatPassengerTitle = (passenger: Passenger) => `${passenger.firstName} ${passenger.lastName} ${passenger.infant && " + Infant"}`
+
+export const formatInfantPassengerTitle = (infant: Passenger) => `${infant.firstName} ${infant.lastName}`
+
 export interface Passenger {
   uid: string
   id: string
@@ -74,6 +81,7 @@ export interface Extras {
 }
 
 export interface Flight {
+  uid: string
   departureDate: Date
   departureAirport: Airport
   arrivalDate: Date
@@ -111,33 +119,42 @@ export const createBooking = () => {
   is(scenario.always) && locales.push(allLocals.en) /* US/UK/etc */
 
   const selectedLocale = arrayElement(locales)
+  const language = selectedLocale.language
 
   const faker = new Faker({ locale: selectedLocale.locale })
 
   const hasEasyJetPlus = is(scenario.unlikely)
 
   const createFlights = () => {
-    const createFlight = (): Flight => {
-      const availableDepartureAirports = airports.filter((airport) => !!airport)
-      const flightDepartureDate = faker.date.soon({ days: 8 })
-      const flightDepartureAirport = arrayElement(availableDepartureAirports)
+    interface FlightDetails {
+      departureDate: Date
+      departureAirport: (typeof airports)[number]
+      arrivalDate: Date
+      arrivalAirport: (typeof airports)[number]
+    }
+
+    const createFlight = (previousFlight?: FlightDetails): Flight => {
+      const departureDate = previousFlight ? add(previousFlight.arrivalDate, { hours: 24 }) : faker.date.soon({ days: 8 })
+      const availableDepartureAirports = airports.filter((airport) => !previousFlight || airport.code !== previousFlight.arrivalAirport.code)
+      const departureAirport = arrayElement(availableDepartureAirports)
 
       const arrivalDateModifier = {
         hours: faker.number.int({ min: 1, max: 9 }),
         minutes: faker.number.int({ min: 1, max: 4 }) * 15,
       }
 
-      const availableArrivalAirports = airports.filter((airport) => airport.code !== flightDepartureAirport.code)
-      const flightArrivalDate = add(flightDepartureDate, arrivalDateModifier)
-      const flightArrivalAirport = arrayElement(availableArrivalAirports)
+      const availableArrivalAirports = airports.filter((airport) => airport.code !== departureAirport.code)
+      const arrivalDate = add(departureDate, arrivalDateModifier)
+      const arrivalAirport = arrayElement(availableArrivalAirports)
 
       const flightNumber = `EZY${faker.airline.flightNumber({ addLeadingZeros: true })}`
 
       return {
-        departureDate: flightDepartureDate,
-        departureAirport: flightDepartureAirport,
-        arrivalDate: flightArrivalDate,
-        arrivalAirport: flightArrivalAirport,
+        uid: nanoid(),
+        departureDate,
+        departureAirport,
+        arrivalDate,
+        arrivalAirport,
         number: flightNumber,
         passengers: [],
         extras: {
@@ -153,47 +170,42 @@ export const createBooking = () => {
       }
     }
 
-    const createReturnFlight = (originalFlight: Flight): Flight => {
-      const returnDepartureDate = add(originalFlight.arrivalDate, {
-        days: faker.number.int({ min: 1, max: 3 }),
-        hours: faker.number.int({ min: 1, max: 9 }),
-        minutes: faker.number.int({ min: 1, max: 4 }) * 15,
-      })
+    const createJourney = (): Flight[] => {
+      const flights: Flight[] = []
+      const outboundFlight = createFlight()
+      flights.push(outboundFlight)
 
-      const returnFlightNumber = `EZY${faker.airline.flightNumber({ addLeadingZeros: true })}`
+      const numConnectingFlights = is(scenario.unlikely) ? faker.number.int({ min: 0, max: 2 }) : 0
 
-      return {
-        departureDate: returnDepartureDate,
-        departureAirport: originalFlight.arrivalAirport,
-        arrivalDate: add(returnDepartureDate, {
-          hours: faker.number.int({ min: 1, max: 9 }),
-          minutes: faker.number.int({ min: 1, max: 4 }) * 15,
-        }),
-        arrivalAirport: originalFlight.departureAirport,
-        number: returnFlightNumber,
-        passengers: [],
-        extras: {
-          hasSmallCabinBag: false,
-          hasLargeCabinBag: false,
-          holdBags: [],
-          sportsEquipment: [],
-          hasSpeedyBoarding: false,
-          hasEasyJetPlusBagDrop: false,
-          hasFastTrackSecurity: false,
-          hasMealDeal: false,
-        },
+      for (let i = 0; i < numConnectingFlights; i++) {
+        const connectingFlight = createFlight({
+          departureDate: flights[i].arrivalDate,
+          departureAirport: flights[i].arrivalAirport,
+          arrivalDate: flights[i].arrivalDate,
+          arrivalAirport: flights[i].arrivalAirport,
+        })
+
+        flights.push(connectingFlight)
       }
+
+      if (is(scenario.likely)) {
+        const returnFlight = createFlight({
+          departureDate: flights[flights.length - 1].arrivalDate,
+          departureAirport: flights[flights.length - 1].arrivalAirport,
+          arrivalDate: flights[flights.length - 1].arrivalDate,
+          arrivalAirport: flights[flights.length - 1].arrivalAirport,
+        })
+
+        flights.push(returnFlight)
+      }
+
+      return flights
     }
 
-    const outboundFlight = createFlight()
-
-    return {
-      outboundFlight,
-      returnFlight: !is(scenario.unlikely) ? createReturnFlight(outboundFlight) : undefined,
-    }
+    return createJourney()
   }
 
-  const { outboundFlight, returnFlight } = createFlights()
+  const flights = createFlights()
 
   const createPassengers = () => {
     const createPassenger = () => {
@@ -292,8 +304,7 @@ export const createBooking = () => {
   }
 
   const passengers = createPassengers()
-  outboundFlight.passengers = passengers
-  if (returnFlight) returnFlight.passengers = passengers
+  flights.forEach((_, index) => (flights[index].passengers = passengers))
 
   const bookingFareType = arrayElement(passengers.length <= 8 ? ["Standard", "FLEXI"] : ["Standard"])
   const bookingBundle = bookingFareType !== "FLEXI" ? arrayElement(["Standard", "Standard Plus", "Essentials"]) : undefined
@@ -345,8 +356,7 @@ export const createBooking = () => {
   }
 
   const extras = createExtras()
-  outboundFlight.extras = extras
-  if (returnFlight) returnFlight.extras = extras
+  flights.forEach((_, index) => (flights[index].extras = extras))
 
   const createSeatSelection = (passenger: Passenger) => {
     const hasInfant = !!passenger.infant
@@ -371,21 +381,9 @@ export const createBooking = () => {
     }
   }
 
-  outboundFlight.passengers.forEach((passenger, passengerIndex) => {
-    outboundFlight.passengers[passengerIndex] = {
-      ...passenger,
-      ...createSeatSelection(passenger),
-    }
-  })
-
-  if (returnFlight) {
-    returnFlight.passengers.forEach((passenger, passengerIndex) => {
-      returnFlight.passengers[passengerIndex] = {
-        ...passenger,
-        ...createSeatSelection(passenger),
-      }
-    })
-  }
+  flights.forEach(
+    (flight, index) => (flights[index].passengers = flight.passengers.map((passenger) => ({ ...passenger, ...createSeatSelection(passenger) })))
+  )
 
   const createHoldBags = (flight: Flight) => {
     const maximumAmountOfHoldBags = 3
@@ -407,9 +405,8 @@ export const createBooking = () => {
     return currentHoldBags
   }
 
-  const holdBags = createHoldBags(outboundFlight)
-  outboundFlight.extras.holdBags = holdBags
-  if (returnFlight) returnFlight.extras.holdBags = holdBags
+  const holdBags = createHoldBags(flights[0])
+  flights.forEach((_, index) => (flights[index].extras.holdBags = holdBags))
 
   const createSportsEquipment = (flight: Flight) => {
     const maximumAmountOfSportsEquipment = 1
@@ -432,21 +429,16 @@ export const createBooking = () => {
     return currentSportsEquipment
   }
 
-  const sportsEquipment = createSportsEquipment(outboundFlight)
-  outboundFlight.extras.sportsEquipment = sportsEquipment
-  if (returnFlight) returnFlight.extras.sportsEquipment = sportsEquipment
-
-  const advertisements = arrayElement([["1"], ["1", "2", "3"]])
+  const sportsEquipment = createSportsEquipment(flights[0])
+  flights.forEach((_, index) => (flights[index].extras.sportsEquipment = sportsEquipment))
 
   const booking = {
     hasEasyJetPlus,
     bookingFareType,
     bookingBundle,
     passengers,
-    outboundFlight,
-    returnFlight,
-    language: selectedLocale.language,
-    advertisements,
+    flights,
+    language,
   }
 
   return booking

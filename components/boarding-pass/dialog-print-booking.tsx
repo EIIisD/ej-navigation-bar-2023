@@ -2,9 +2,11 @@
 
 import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { format } from "date-fns"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { formatFlightTitle, formatInfantPassengerTitle, formatPassengerTitle } from "@/config/booking"
 import { useModalState } from "@/lib/use-modal-state"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -17,6 +19,10 @@ import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigatio
 import { TNums } from "@/components/tnums"
 
 const printBookingFormSchema = z.object({
+  flights: z.array(z.string()).refine((flights) => flights.length > 0, {
+    message: "At least one flight must be selected",
+    path: ["flights"],
+  }),
   passengers: z.array(z.string()).refine((passengers) => passengers.length > 0, {
     message: "At least one passenger must be selected",
     path: ["passengers"],
@@ -30,25 +36,18 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
 
   const { booking, setSelectedPassengers } = usePrintBookingContext()
 
-  // const skipPassengerSelection = printBookingContextDefs.booking.passengers.length === 1
-
   const printBookingForm = useForm<z.infer<typeof printBookingFormSchema>>({
     resolver: zodResolver(printBookingFormSchema),
-    defaultValues: { passengers: booking.passengers.map((passenger) => passenger.id) },
+    defaultValues: {
+      flights: booking.flights.map((flight) => flight.uid),
+      passengers: booking.passengers.map((passenger) => passenger.uid),
+    },
   })
 
   const onSubmit = printBookingForm.handleSubmit((data: z.infer<typeof printBookingFormSchema>) => {
-    setSelectedPassengers(booking.passengers.filter((passenger) => data.passengers.includes(passenger.id)))
+    setSelectedPassengers(booking.passengers.filter((passenger) => data.passengers.includes(passenger.uid)))
     dialog.close()
   })
-
-  // React.useEffect(() => {
-  //   if (skipPassengerSelection) {
-  //     setSelectedPassengers(booking.passengers)
-  //     dialog.close()
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [booking.passengers, skipPassengerSelection])
 
   return (
     <Form {...printBookingForm}>
@@ -63,6 +62,65 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
             }}
           >
             <DialogMain className={menuMobileListStyle()}>
+              <DialogTitle className={cn(menuMobileItemStyle({ variant: "title" }), "items-baseline justify-between")}>
+                <span>Select Flights</span>
+
+                <div className={cn("mb-2 justify-end font-sans")}>
+                  <div className="relative flex items-center gap-3">
+                    <FormLabel htmlFor="select-all-flights" className="text-base/5 font-normal">
+                      <span>{printBookingForm.watch("flights").length === booking.flights.length ? "Deselect all" : "Select all"}</span>
+                      <div className="absolute inset-0" />
+                    </FormLabel>
+                    <Switch
+                      id="select-all-flights"
+                      checked={printBookingForm.watch("flights").length === booking.flights.length}
+                      onCheckedChange={(checked) => {
+                        return checked
+                          ? printBookingForm.setValue(
+                              "flights",
+                              booking.flights.map((flight) => flight.uid)
+                            )
+                          : printBookingForm.setValue("flights", [])
+                      }}
+                    />
+                  </div>
+                </div>
+              </DialogTitle>
+
+              {booking.flights.map((flight, flightIndex) => (
+                <FormField
+                  key={flight.uid}
+                  control={printBookingForm.control}
+                  name="flights"
+                  render={({ field }) => {
+                    return (
+                      <FormItem
+                        key={flight.uid}
+                        className={cn(
+                          menuMobileItemStyle({
+                            border: flightIndex === booking.flights.length - 1 || false ? "none" : "default",
+                          }),
+                          "group relative items-start gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
+                        )}
+                      >
+                        <Checkbox
+                          checked={field.value?.includes(flight.uid)}
+                          onCheckedChange={(checked) => {
+                            return checked
+                              ? field.onChange([...field.value, flight.uid])
+                              : field.onChange(field.value?.filter((value) => value !== flight.uid))
+                          }}
+                        />
+                        <FormLabel className="w-full text-base/5 font-normal peer-data-[state=checked]:font-bold">
+                          <div className="flex w-full items-baseline justify-between gap-[--page-inset-small]">{formatFlightTitle(flight)}</div>
+                          <div className="absolute inset-0" />
+                        </FormLabel>
+                      </FormItem>
+                    )
+                  }}
+                />
+              ))}
+
               <DialogTitle className={cn(menuMobileItemStyle({ variant: "title" }), "items-baseline justify-between")}>
                 <span>Select Passengers</span>
 
@@ -79,7 +137,7 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                         return checked
                           ? printBookingForm.setValue(
                               "passengers",
-                              booking.passengers.map((passenger) => passenger.id)
+                              booking.passengers.map((passenger) => passenger.uid)
                             )
                           : printBookingForm.setValue("passengers", [])
                       }}
@@ -105,26 +163,20 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                         )}
                       >
                         <Checkbox
-                          checked={field.value?.includes(passenger.id)}
+                          checked={field.value?.includes(passenger.uid)}
                           onCheckedChange={(checked) => {
                             return checked
-                              ? field.onChange([...field.value, passenger.id])
-                              : field.onChange(field.value?.filter((value) => value !== passenger.id))
+                              ? field.onChange([...field.value, passenger.uid])
+                              : field.onChange(field.value?.filter((value) => value !== passenger.uid))
                           }}
                         />
                         <FormLabel className="w-full text-base/5 font-normal peer-data-[state=checked]:font-bold">
                           <div className="flex w-full items-baseline justify-between gap-[--page-inset-small]">
-                            <span>
-                              {passenger.firstName} {passenger.lastName} {passenger.infant && " + Infant"}
-                            </span>{" "}
-                            <TNums className="font-normal" content={passenger.id} />
+                            {formatPassengerTitle(passenger)} <TNums className="font-normal" content={passenger.id} />
                           </div>
                           {passenger.infant && (
                             <div className="mt-0.5 flex w-full items-baseline justify-between gap-[--page-inset-small] text-sm font-normal text-secondary">
-                              <span>
-                                {passenger.infant.firstName} {passenger.infant.lastName}
-                              </span>{" "}
-                              <TNums content={passenger.infant.id} />
+                              {formatInfantPassengerTitle(passenger.infant)} <TNums content={passenger.infant.id} />
                             </div>
                           )}
                           <div className="absolute inset-0" />

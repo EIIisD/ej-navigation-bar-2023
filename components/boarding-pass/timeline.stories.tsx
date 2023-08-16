@@ -2,7 +2,7 @@ import React from "react"
 import { type Story, type StoryDefault } from "@ladle/react"
 
 import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
-import { Timeline, type TimelineProps } from "@/components/boarding-pass/timeline"
+import { Timeline, type TimelineProps } from "@/components/navigation-bar/timeline"
 
 export default {
   meta: { withBg: false, withShade: true },
