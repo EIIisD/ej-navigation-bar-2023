@@ -4,14 +4,7 @@ import React, { type Dispatch, type SetStateAction } from "react"
 import { useRouter } from "next/navigation"
 import { useUrlSearchParams } from "use-url-search-params"
 
-import { type Booking, type Passenger } from "@/config/booking"
-
-export interface PrintBookingContext {
-  booking: Booking
-  setBooking: Dispatch<SetStateAction<PrintBookingContext["booking"]>>
-  selectedPassengers: Passenger[]
-  setSelectedPassengers: Dispatch<SetStateAction<PrintBookingContext["selectedPassengers"]>>
-}
+import { type Booking, type Flight, type Passenger } from "@/config/booking"
 
 const genericBooking = {
   hasEasyJetPlus: false,
@@ -628,11 +621,22 @@ const genericBooking = {
   },
 }
 
+export interface PrintBookingContext {
+  booking: Booking
+  setBooking: Dispatch<SetStateAction<PrintBookingContext["booking"]>>
+  selectedPassengers: Passenger[]
+  setSelectedPassengers: Dispatch<SetStateAction<PrintBookingContext["selectedPassengers"]>>
+  selectedFlights: Flight[]
+  setSelectedFlights: Dispatch<SetStateAction<PrintBookingContext["selectedFlights"]>>
+}
+
 export const printBookingContextDefs = {
   booking: genericBooking,
   setBooking: () => null,
   selectedPassengers: genericBooking.passengers,
   setSelectedPassengers: () => null,
+  selectedFlights: genericBooking.flights,
+  setSelectedFlights: () => null,
 }
 
 export const PrintBookingContext = React.createContext<PrintBookingContext>({
@@ -640,6 +644,8 @@ export const PrintBookingContext = React.createContext<PrintBookingContext>({
   setBooking: printBookingContextDefs.setBooking,
   selectedPassengers: printBookingContextDefs.selectedPassengers,
   setSelectedPassengers: printBookingContextDefs.setSelectedPassengers,
+  selectedFlights: printBookingContextDefs.selectedFlights,
+  setSelectedFlights: printBookingContextDefs.setSelectedFlights,
 })
 
 export const usePrintBookingContext = () => React.useContext(PrintBookingContext)
@@ -652,6 +658,8 @@ export const PrintBookingContextProvider: React.FC<React.PropsWithChildren> = (p
   const [selectedPassengers, setSelectedPassengers] = React.useState<PrintBookingContext["selectedPassengers"]>(
     printBookingContextDefs.selectedPassengers
   )
+
+  const [selectedFlights, setSelectedFlights] = React.useState<PrintBookingContext["selectedFlights"]>(printBookingContextDefs.selectedFlights)
 
   React.useEffect(() => {
     const bookingLanguage = booking.language
@@ -667,6 +675,8 @@ export const PrintBookingContextProvider: React.FC<React.PropsWithChildren> = (p
         setBooking,
         selectedPassengers,
         setSelectedPassengers,
+        selectedFlights,
+        setSelectedFlights,
       }}
       {...props}
     />

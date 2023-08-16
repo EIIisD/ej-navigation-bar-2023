@@ -33,7 +33,7 @@ export const dialogPrintBookingId = "dialog-print-booking"
 export const DialogPrintBooking = ({ children }: { children?: React.ReactNode }) => {
   const [dialog] = useModalState(dialogPrintBookingId, true)
 
-  const { booking, setSelectedPassengers } = usePrintBookingContext()
+  const { booking, setSelectedPassengers, setSelectedFlights } = usePrintBookingContext()
 
   const printBookingForm = useForm<z.infer<typeof printBookingFormSchema>>({
     resolver: zodResolver(printBookingFormSchema),
@@ -45,6 +45,7 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
 
   const onSubmit = printBookingForm.handleSubmit((data: z.infer<typeof printBookingFormSchema>) => {
     setSelectedPassengers(booking.passengers.filter((passenger) => data.passengers.includes(passenger.uid)))
+    setSelectedFlights(booking.flights.filter((flight) => data.flights.includes(flight.uid)))
     dialog.close()
   })
 

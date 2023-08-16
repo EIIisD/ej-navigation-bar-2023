@@ -31,7 +31,7 @@ const Section: React.FC<React.PropsWithChildren<{ title?: string; description?: 
 )
 
 export const PrintBooking = () => {
-  const { booking, selectedPassengers, ...printBookingContext } = usePrintBookingContext()
+  const { booking, selectedPassengers, selectedFlights, ...printBookingContext } = usePrintBookingContext()
 
   useWindowKeyDown(({ key, shiftKey, metaKey }) => {
     if (key === "r" && !shiftKey && !metaKey) {
@@ -66,7 +66,7 @@ export const PrintBooking = () => {
         <Tabs defaultValue="0" className="mt-[--page-inset]">
           <div className="sticky top-[--header-height] z-10 -mx-4 -mt-4 bg-white/90 px-4 pt-4 backdrop-blur-md">
             <TabsList>
-              {booking.flights.map((flight, index) => (
+              {selectedFlights.map((flight, index) => (
                 <TabsTrigger key={index} value={index.toString()} className="text-base">
                   {/* <Icon
                     name={{ Departing: "flightTakeoffSolid" as IconName, Arriving: "flightLandSolid" as IconName }[type]}
@@ -77,7 +77,7 @@ export const PrintBooking = () => {
               ))}
             </TabsList>
           </div>
-          {booking.flights.map((flight, index) => (
+          {selectedFlights.map((flight, index) => (
             <TabsContent key={index} value={index.toString()} className="-mx-4 px-4">
               <div className="grid gap-12 pb-24 pt-8">
                 <Section title={selectedPassengers.length > 1 ? "Your boarding cards" : "Your boarding card"}>
