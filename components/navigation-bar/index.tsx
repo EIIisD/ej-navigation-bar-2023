@@ -70,7 +70,7 @@ export const NavigationBar = () => {
                 href="/"
                 className="-mx-4 flex h-[--primary-header-height] max-w-max items-center gap-2 px-4 focus-visible:bg-white/20 focus-visible:outline-none"
               >
-                <Icon name="easyJetLogo" className="w-24 [aspect-ratio:91/22]" />
+                <Icon name="easyJetLogo" className="w-28 [aspect-ratio:91/22]" />
               </Link>
 
               {/* desktop-only */}
@@ -94,15 +94,7 @@ export const NavigationBar = () => {
               return (
                 <React.Fragment key={item.title}>
                   <ItemRenderer>
-                    <ItemTag
-                      href="/"
-                      className={cn(
-                        textButtonVariants({
-                          variant: "bold",
-                        }),
-                        "-mx-3 h-[--secondary-header-height] px-3 text-sm"
-                      )}
-                    >
+                    <ItemTag href="/" className={cn(textButtonVariants({}), "-mx-3 h-[--secondary-header-height] px-3 text-sm")}>
                       <span>{item.title}</span>
                       {!!item.flag && (
                         <Image
