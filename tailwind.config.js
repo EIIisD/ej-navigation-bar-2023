@@ -94,7 +94,7 @@ module.exports = {
         "10-cqi": cqi(2.5),
       },
       colors: {
-        gray: colors.neutral,
+        gray: colors.gray,
         orange: {
           light: "#FE8C00",
           DEFAULT: "#FF6600",
@@ -102,13 +102,13 @@ module.exports = {
           darker: "#E64100",
         },
         primary: {
-          DEFAULT: colors.neutral[950],
+          DEFAULT: colors.gray[950],
         },
         secondary: {
-          DEFAULT: colors.neutral[500],
+          DEFAULT: colors.gray[500],
         },
         tertiary: {
-          DEFAULT: colors.neutral[400],
+          DEFAULT: colors.gray[400],
         },
       },
       boxShadow: {
@@ -158,6 +158,7 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/container-queries"),
+    require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
     plugin(function ({ addVariant }) {
       addVariant("screen", "@media screen")

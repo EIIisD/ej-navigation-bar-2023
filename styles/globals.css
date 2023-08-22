@@ -98,8 +98,9 @@
   }
 
   :focus {
-    outline: 1px solid invert;
-    outline-offset: 4px;
+    /* outline: 1px solid invert;
+    outline-offset: 4px; */
+    outline: none;
   }
 
   :focus:not(:focus-visible) {

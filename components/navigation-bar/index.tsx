@@ -60,7 +60,7 @@ export const NavigationBar = () => {
         setIsSignedIn,
       }}
     >
-      <div className="sticky top-0 z-20 flex w-full flex-col shadow-xl shadow-gray-950/[6%] [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]">
+      <div className="sticky top-0 z-20 flex w-full flex-col shadow-md shadow-gray-950/[6%] [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]">
         <header className="relative z-10 flex flex-col-reverse bg-orange text-white">
           {/* primary menu */}
           {/* the DOM order is reversed with css flex so that the primary menu is the first keyboard tab target */}
@@ -70,7 +70,7 @@ export const NavigationBar = () => {
                 href="/"
                 className="-mx-4 flex h-[--primary-header-height] max-w-max items-center gap-2 px-4 focus-visible:bg-white/20 focus-visible:outline-none"
               >
-                <Icon name="easyJetLogo" className="w-28 [aspect-ratio:91/22]" />
+                <Icon name="easyJetLogo" className="w-[min(theme('width.28'),25cqw)] [aspect-ratio:91/22]" />
               </Link>
 
               {/* desktop-only */}
@@ -123,7 +123,7 @@ export const NavigationBar = () => {
 
         {/* breadcrumbs bar */}
         <section
-          className="flex h-[--tertiary-header-height] w-full items-center justify-center bg-gray-100 text-sm text-primary data-[tertiary-header=hidden]:hidden"
+          className="flex h-[--tertiary-header-height] w-full items-center justify-center bg-white text-sm text-primary data-[tertiary-header=hidden]:hidden"
           data-tertiary-header={pathname === "/" ? "hidden" : "visible"}
         >
           <div className="mx-auto flex w-full max-w-[--header-maxWidth] items-center justify-between px-[--page-inset]">

@@ -62,24 +62,25 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, R
 
             tabsListRef.current = el
           }}
-          className={cn(
-            "scrollbar-none relative isolate flex h-12 items-center justify-start gap-4 overflow-x-auto pr-[--fade-width] [--fade-width:100px] [mask-image:linear-gradient(to_right,black_calc(100%-var(--fade-width)),transparent)]",
-            className
-          )}
+          className={cn("scrollbar-none relative isolate flex h-12 items-center justify-start gap-6 overflow-x-auto", className)}
           {...props}
         />
 
         <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gray-200" />
 
         {isOverflowing && (
-          <div className="absolute left-0 top-0 flex h-12 items-center">
+          <div
+            className={cn(
+              "absolute left-0 top-0 flex h-12 w-12 items-center justify-start opacity-0 transition-opacity duration-300 hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100",
+              !showBackButton && "pointer-events-none touch-none !opacity-0"
+            )}
+          >
+            <div className="pointer-events-none absolute inset-0 -right-24 bottom-[1px] touch-none bg-gradient-to-r from-white/100 via-white/80 to-white/0" />
             <Button
+              unstyled
               variant="icon"
               mode="default"
-              className={cn(
-                "h-9 w-9 opacity-0 shadow-lg transition-opacity hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100",
-                !showBackButton && "!opacity-0"
-              )}
+              className={cn("relative flex h-12 w-12 items-center justify-center text-orange")}
               onClick={() => tabsListRef.current?.scrollBy({ left: -100, behavior: "smooth" })}
             >
               <Icon name="arrowLeft" className="h-6 w-6" />
@@ -87,14 +88,18 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, R
           </div>
         )}
         {isOverflowing && (
-          <div className="absolute right-0 top-0 flex h-12 items-center">
+          <div
+            className={cn(
+              "absolute right-0 top-0 flex h-12 w-12 items-center justify-end opacity-0 transition-opacity duration-300 hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100",
+              !showForwardButton && "pointer-events-none touch-none !opacity-0"
+            )}
+          >
+            <div className="pointer-events-none absolute inset-0 -left-24 bottom-[1px] touch-none bg-gradient-to-l from-white/100 via-white/80 to-white/0" />
             <Button
+              unstyled
               variant="icon"
               mode="default"
-              className={cn(
-                "h-9 w-9 opacity-0 shadow-lg transition-opacity hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100",
-                !showForwardButton && "!opacity-0"
-              )}
+              className={cn("relative flex h-12 w-12 items-center justify-center text-orange")}
               onClick={() => tabsListRef.current?.scrollBy({ left: 100, behavior: "smooth" })}
             >
               <Icon name="arrowRight" className="h-6 w-6" />
@@ -113,8 +118,8 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigg
     <TabsPrimitive.Trigger
       ref={ref}
       className={cn(
-        "relative z-10 inline-flex h-12 items-center justify-center whitespace-nowrap px-1 text-base/none font-bold text-orange transition-all data-[state=active]:text-primary",
-        "after:absolute after:inset-x-0 after:bottom-0 after:h-[4px] data-[state=active]:after:bg-orange data-[state=inactive]:hover:after:bg-gray-200",
+        "relative z-10 inline-flex h-12 items-center justify-center whitespace-nowrap px-0.5 text-base/none font-bold text-orange transition-all hover:text-orange-darker data-[state=active]:text-primary",
+        "after:absolute after:inset-x-0 after:bottom-0 after:h-[4px] after:transition-colors data-[state=active]:after:bg-orange data-[state=inactive]:hover:after:bg-gray-200",
         className
       )}
       {...props}
@@ -125,7 +130,7 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigg
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 const TabsContent = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Content>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>>(
-  ({ className, ...props }, ref) => <TabsPrimitive.Content ref={ref} className={cn("mt-4", className)} {...props} />
+  ({ className, ...props }, ref) => <TabsPrimitive.Content ref={ref} className={cn("mt-[--page-inset-small]", className)} {...props} />
 )
 
 TabsContent.displayName = TabsPrimitive.Content.displayName

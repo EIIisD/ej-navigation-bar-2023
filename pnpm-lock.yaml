@@ -17,6 +17,7 @@ specifiers:
   '@radix-ui/react-switch': 1.0.3
   '@radix-ui/react-tabs': 1.0.4
   '@tailwindcss/container-queries': 0.1.1
+  '@tailwindcss/typography': 0.5.9
   '@types/eslint': 8.44.2
   '@types/node': 20.4.8
   '@types/prettier': 3.0.0
@@ -68,6 +69,7 @@ dependencies:
   '@radix-ui/react-switch': 1.0.3_xpd4i4jltyyc37a5w5matammca
   '@radix-ui/react-tabs': 1.0.4_xpd4i4jltyyc37a5w5matammca
   '@tailwindcss/container-queries': 0.1.1_tailwindcss@3.3.3
+  '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.3
   '@types/eslint': 8.44.2
   '@types/node': 20.4.8
   '@types/prettier': 3.0.0
@@ -1815,6 +1817,18 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.2.0'
     dependencies:
+      tailwindcss: 3.3.3
+    dev: false
+
+  /@tailwindcss/typography/0.5.9_tailwindcss@3.3.3:
+    resolution: {integrity: sha512-t8Sg3DyynFysV9f4JDOVISGsjazNb48AeIYQwcL+Bsq5uf4RYL75C1giZ43KISjeDGBaTN3Kxh7Xj/vRSMJUUg==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
       tailwindcss: 3.3.3
     dev: false
 
@@ -4197,12 +4211,20 @@ packages:
       p-locate: 5.0.0
     dev: false
 
+  /lodash.castarray/4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+    dev: false
+
   /lodash.deburr/4.1.0:
     resolution: {integrity: sha512-m/M1U1f3ddMCs6Hq2tAsYThTBDaAKFDX3dwDo97GEYzamXi9SqUpjWi/Rrj/gf3X2n8ktwgZrlP1z6E3v/IExQ==}
     dev: false
 
   /lodash.isnumber/3.0.3:
     resolution: {integrity: sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw==}
+    dev: false
+
+  /lodash.isplainobject/4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: false
 
   /lodash.merge/4.6.2:
@@ -5257,6 +5279,14 @@ packages:
     dependencies:
       postcss: 8.4.27
       postcss-selector-parser: 6.0.13
+    dev: false
+
+  /postcss-selector-parser/6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
     dev: false
 
   /postcss-selector-parser/6.0.13:

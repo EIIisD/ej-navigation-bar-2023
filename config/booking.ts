@@ -39,9 +39,9 @@ const scenarios = [
 export const scenario = scenarios[0]
 
 export const formatFlightTitle = (flight: Flight) =>
-  `${flight.departureAirport.code}-${flight.arrivalAirport.code} ${format(flight.departureDate, "dd MMM")}`
+  `${flight.departureAirport.code}-${flight.arrivalAirport.code} - ${format(flight.departureDate, "do MMM")}`
 
-export const formatPassengerTitle = (passenger: Passenger) => `${passenger.firstName} ${passenger.lastName} ${passenger.infant && " + Infant"}`
+export const formatPassengerTitle = (passenger: Passenger) => `${passenger.firstName} ${passenger.lastName} ${passenger.infant ? " + Infant" : ""}`
 
 export const formatInfantPassengerTitle = (infant: Passenger) => `${infant.firstName} ${infant.lastName}`
 
@@ -56,24 +56,21 @@ export interface Passenger {
   selectedSeat: string
   selectedSeatType: "Extra Legroom" | "Up Front" | "Standard"
   infant?: Passenger
+  hasSmallCabinBag: boolean
+  hasLargeCabinBag: boolean
 }
 
-export interface HoldBag {
+export interface Luggage {
   name: string
-  weight: number
-  amount: number
-}
-
-export interface SportsEquipment {
-  name: string
+  weight?: number
   amount: number
 }
 
 export interface Extras {
   hasSmallCabinBag: boolean
   hasLargeCabinBag: boolean
-  holdBags: HoldBag[]
-  sportsEquipment: SportsEquipment[]
+  holdBags: Luggage[]
+  sportsEquipment: Luggage[]
   hasSpeedyBoarding: boolean
   hasEasyJetPlusBagDrop: boolean
   hasFastTrackSecurity: boolean
@@ -208,7 +205,7 @@ export const createBooking = () => {
   const flights = createFlights()
 
   const createPassengers = () => {
-    const createPassenger = () => {
+    const createPassenger = (type: "Infant" | "Adult") => {
       const censorId = (passengerId: string): string => {
         const documentCensorCharacter = "*"
         const documentFirstCharacter = passengerId.slice(0, 1)
@@ -246,9 +243,11 @@ export const createBooking = () => {
         title: passengerTitle,
         firstName: passengerFirstName,
         lastName: passengerLastName,
-        type: "Adult",
+        type,
         selectedSeat: "1A",
         selectedSeatType: "Standard",
+        hasSmallCabinBag: type !== "Infant",
+        hasLargeCabinBag: false,
       }
 
       return passenger
@@ -287,12 +286,9 @@ export const createBooking = () => {
       ),
     })
 
-    const infantPassengers: Passenger[] = Array.from({ length: amountOfInfantPassengers }, () => ({
-      ...createPassenger(),
-      type: "Infant",
-    }))
+    const infantPassengers: Passenger[] = Array.from({ length: amountOfInfantPassengers }, () => createPassenger("Infant"))
 
-    const allPassengers: Passenger[] = Array.from({ length: amountOfAdultPassengers }, () => createPassenger()).map((passenger, index) => {
+    const allPassengers: Passenger[] = Array.from({ length: amountOfAdultPassengers }, () => createPassenger("Adult")).map((passenger, index) => {
       if (infantPassengers[index]) {
         return { ...passenger, infant: { ...infantPassengers[index], lastName: passenger.lastName } }
       } else {
@@ -306,26 +302,35 @@ export const createBooking = () => {
   const passengers = createPassengers()
   flights.forEach((_, index) => (flights[index].passengers = passengers))
 
-  const bookingFareType = arrayElement(passengers.length <= 8 ? ["Standard", "FLEXI"] : ["Standard"])
+  const bookingFareOptions = is(scenario.unlikely) ? ["Standard", "FLEXI"] : ["Standard"]
+  const bookingFareType = arrayElement(passengers.length <= 8 ? bookingFareOptions : ["Standard"])
   const bookingBundle = bookingFareType !== "FLEXI" ? arrayElement(["Standard", "Standard Plus", "Essentials"]) : undefined
+
+  flights.forEach((_, index) => {
+    flights[index].passengers = flights[index].passengers.map((passenger) => ({
+      ...passenger,
+      hasSmallCabinBag: is(scenario.always),
+      hasLargeCabinBag: bookingFareType === "FLEXI" || bookingBundle === "Standard Plus" || is(scenario.unlikely),
+    }))
+  })
 
   const createExtras = () => {
     const hasSmallCabinBag = is(scenario.always)
     const hasLargeCabinBag = bookingFareType === "FLEXI" || bookingBundle === "Standard Plus"
 
-    const holdBags: HoldBag[] = [
-      { name: "15kg Hold Bag", weight: 15, amount: 0 },
+    const holdBags: Luggage[] = [
+      { name: "Hold Bag", weight: 15, amount: 0 },
       {
-        name: "23kg Hold Bag",
+        name: "Hold Bag",
         weight: 23,
         amount: bookingFareType === "FLEXI" || bookingBundle === "Essentials" ? 1 : is(scenario.unlikely) ? 1 : 0,
       },
-      { name: "26kg Hold Bag", weight: 26, amount: 0 },
-      { name: "29kg Hold Bag", weight: 29, amount: 0 },
-      { name: "32kg Hold Bag", weight: 32, amount: 0 },
+      { name: "Hold Bag", weight: 26, amount: 0 },
+      { name: "Hold Bag", weight: 29, amount: 0 },
+      { name: "Hold Bag", weight: 32, amount: 0 },
     ]
 
-    const sportsEquipment: SportsEquipment[] = [
+    const sportsEquipment: Luggage[] = [
       { name: "Bicycle", amount: 0 },
       { name: "Canoe", amount: 0 },
       { name: "Sporting firearm", amount: 0 },

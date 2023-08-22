@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils"
 
 const placeholderVariants = cva(
   cn(
-    "grid place-content-center rounded-3xl text-base font-bold",
+    "grid place-content-center rounded-xl text-base font-bold",
     // "border-2 border-dashed border-blue-300 text-blue-400",
-    "bg-blue-50 text-blue-500"
+    "bg-gray-50 text-blue-500"
   ),
   {
     variants: {

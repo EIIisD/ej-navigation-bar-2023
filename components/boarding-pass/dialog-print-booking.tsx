@@ -115,7 +115,7 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                         <FormLabel className="w-full text-base/5 font-normal peer-data-[state=checked]:font-bold">
                           <div className="flex w-full items-baseline justify-between gap-[--page-inset-small]">
                             {flight.departureAirport.name} to {flight.arrivalAirport.name}
-                            <TNums content={format(flight.departureDate, "dd MMM")} className="font-normal" />
+                            <TNums content={format(flight.departureDate, "do MMM")} className="font-normal" />
                           </div>
                           <div className="mt-0.5 flex w-full items-baseline justify-between gap-[--page-inset-small] text-sm font-normal text-secondary">
                             {flight.departureAirport.code}-{flight.arrivalAirport.code}

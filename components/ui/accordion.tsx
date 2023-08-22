@@ -11,7 +11,7 @@ const Accordion = AccordionPrimitive.Root
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => <AccordionPrimitive.Item ref={ref} className={cn("mt-2 first:mt-0", className)} {...props} />)
+>(({ className, ...props }, ref) => <AccordionPrimitive.Item ref={ref} className={cn("border-t first:border-none", className)} {...props} />)
 
 AccordionItem.displayName = "AccordionItem"
 
@@ -22,15 +22,11 @@ const AccordionTrigger = React.forwardRef<
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
-      className={cn(
-        // "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
-        "group flex flex-1 items-center justify-between rounded-full bg-blue-50 px-7 py-4 font-bold text-blue-500 transition-all",
-        className
-      )}
+      className={cn("group flex flex-1 items-center justify-between px-[--page-inset-small] py-4 transition-all", className)}
       {...props}
     >
       {children}
-      <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+      <ChevronDown className="h-6 w-6 shrink-0 text-orange transition-transform duration-200 group-data-[state=open]:rotate-180" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ))
@@ -43,13 +39,10 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className={cn(
-      "overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-      className
-    )}
+    className={cn("overflow-hidden transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down", className)}
     {...props}
   >
-    <div className="pb-6 pt-2">{children}</div>
+    <div className="px-[--page-inset-small] pb-6 pt-2">{children}</div>
   </AccordionPrimitive.Content>
 ))
 
