@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-l
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { Icon, type IconName } from "@/components/icon"
 
-const cardStyles = "bg-white shadow rounded-2xl outline outline-1 outline-black/5"
+const cardStyles = "bg-white shadow rounded-lg outline outline-1 outline-black/5"
 
 export const Notice: React.FC<React.PropsWithChildren<{ title: string; icon: IconName; className?: string }>> = ({
   title,
@@ -117,7 +117,7 @@ export const PrintBooking = () => {
         <div className="mt-5 grid gap-[--page-inset-large] py-20">
           <div>
             <h1 className="font-display text-5xl/none text-primary">Your boarding passes</h1>
-            <p className="mt-3 max-w-prose text-base text-primary">
+            <p className="mt-3 max-w-prose text-base text-secondary">
               Review and print your boarding passes. Make sure to check all the details carefully before proceeding. If you encounter any issues,
               please contact our support team.
             </p>
@@ -129,7 +129,7 @@ export const PrintBooking = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="0" className="bg-gray-100">
+      <Tabs defaultValue="0" className="bg-gray-100/75">
         <div className="sticky top-0 z-10 bg-white backdrop-blur-md">
           <TabsList className="mx-auto max-w-[--page-maxWidth] px-[--page-inset]">
             {flights.map((flight, index) => (
@@ -146,7 +146,7 @@ export const PrintBooking = () => {
 
         {flights.map((flight, index) => (
           <TabsContent key={index} value={index.toString()}>
-            <div className="mx-auto grid min-h-[40vh] max-w-[--page-maxWidth] gap-4 px-[--page-inset] py-4 pb-16">
+            <div className="mx-auto grid min-h-[40vh] max-w-[--page-maxWidth] gap-3 px-[--page-inset] py-6 pb-16">
               <div className="max-sm:hidden">
                 <div className="mb-4 text-lg font-bold text-primary">Your selected flight</div>
                 <div className={cn("overflow-hidden", cardStyles)}>
@@ -162,8 +162,8 @@ export const PrintBooking = () => {
                       </div>
                       <div className="text-base text-secondary">{flight.departureAirport.country}</div>
                       <div className="mt-3 flex items-center gap-2">
-                        <Badge>{format(flight.departureDate, "h:mm a")}</Badge>
-                        {flight.departureAirport.terminal && <Badge>{flight.departureAirport.terminal}</Badge>}
+                        <Badge variant="secondary">{format(flight.departureDate, "h:mm a")}</Badge>
+                        {flight.departureAirport.terminal && <Badge variant="secondary">{flight.departureAirport.terminal}</Badge>}
                       </div>
                     </div>
                     <div className="mx-4 flex h-8 items-center justify-center gap-3">
@@ -179,8 +179,8 @@ export const PrintBooking = () => {
                       </div>
                       <div className="text-base text-secondary">{flight.arrivalAirport.country}</div>
                       <div className="mt-3 flex items-center gap-2">
-                        <Badge>{format(flight.arrivalDate, "h:mm a")}</Badge>
-                        {flight.arrivalAirport.terminal && <Badge>{flight.arrivalAirport.terminal}</Badge>}
+                        <Badge variant="secondary">{format(flight.arrivalDate, "h:mm a")}</Badge>
+                        {flight.arrivalAirport.terminal && <Badge variant="secondary">{flight.arrivalAirport.terminal}</Badge>}
                       </div>
                     </div>
                   </div>
@@ -207,7 +207,7 @@ export const PrintBooking = () => {
                           </Placeholder>
                           <div className="grid grid-cols-2 gap-4">
                             {passenger.hasSmallCabinBag ? (
-                              <div className="flex flex-col overflow-hidden rounded-xl border">
+                              <div className="flex flex-col overflow-hidden rounded-2xl border">
                                 <header className="flex items-center gap-4 border-b p-4">
                                   <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange text-white">
                                     <Icon name="smallCabinBag" className="h-12 w-12" />
@@ -243,7 +243,7 @@ export const PrintBooking = () => {
                               <Placeholder className="!h-auto" />
                             )}
                             {passenger.hasLargeCabinBag ? (
-                              <div className="flex flex-col overflow-hidden rounded-xl border">
+                              <div className="flex flex-col overflow-hidden rounded-2xl border">
                                 <header className="flex items-center gap-4 border-b p-4">
                                   <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange text-white">
                                     <Icon name="largeCabinBag" className="h-12 w-12" />
@@ -301,7 +301,7 @@ export const PrintBooking = () => {
                       ).map((item, itemIndex) => {
                         if (item.name !== "Empty") {
                           return (
-                            <div key={itemIndex} className="flex flex-col overflow-hidden rounded-xl border">
+                            <div key={itemIndex} className="flex flex-col overflow-hidden rounded-2xl border">
                               <header className="flex items-center gap-4 border-b p-4">
                                 <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange text-white">
                                   {item.name === "Hold Bag" ? (
@@ -370,7 +370,10 @@ export const PrintBooking = () => {
               <div className="max-sm:hidden">
                 {/* <div className="mb-4 mt-8 text-lg font-bold text-primary">Advertisements</div> */}
                 <div className={cn(cardStyles, "p-[--page-inset-small]")}>
-                  <Image src={Advert3Cols} alt="Advertisement" className="w-full" />
+                  <Placeholder size="72" className="border border-blue-200">
+                    Adverts
+                  </Placeholder>
+                  {/* <Image src={Advert3Cols} alt="Advertisement" className="w-full" /> */}
                 </div>
               </div>
             </div>

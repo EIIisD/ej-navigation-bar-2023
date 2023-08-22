@@ -62,7 +62,7 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, R
 
             tabsListRef.current = el
           }}
-          className={cn("scrollbar-none relative isolate flex h-12 items-center justify-start gap-6 overflow-x-auto", className)}
+          className={cn("scrollbar-none relative isolate flex h-12 items-center justify-start gap-8 overflow-x-auto", className)}
           {...props}
         />
 
