@@ -23,7 +23,7 @@ const DialogBody = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Cont
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay
         className={cn(
-          "fixed inset-0 z-50 flex items-end justify-center bg-black/25 px-[--page-inset-small] py-[--header-height] backdrop-blur-sm tablet-header-width:items-center",
+          "fixed inset-0 z-50 flex items-end justify-center bg-gray-600/50 px-[--page-inset-small] py-[--header-height] backdrop-blur-sm tablet-header-width:items-center",
           "data-[state=open]:fade-in-0",
           "data-[state=closed]:fade-out-0",
           sharedAnimation
@@ -51,7 +51,11 @@ DialogBody.displayName = DialogPrimitive.Content.displayName
 
 const DialogMain = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("flex-1 overflow-y-scroll", useExperimentalStyling ? "[mask-image:linear-gradient(black_80%,transparent)]" : "", className)}
+    className={cn(
+      "flex-1 overflow-y-scroll",
+      useExperimentalStyling ? "scrollbar-none [mask-image:linear-gradient(black_80%,transparent)]" : "",
+      className
+    )}
     {...props}
   />
 )

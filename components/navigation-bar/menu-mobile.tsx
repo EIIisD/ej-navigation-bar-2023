@@ -35,7 +35,7 @@ export const menuMobileItemStyle = cva("flex items-start gap-[--page-inset] px-[
     variant: {
       default: "py-4",
       attributionWidget: "-mt-6 pb-8",
-      title: "!gap-3 pb-8 pt-10 font-display text-4xl",
+      title: "!gap-3 pb-8 pt-10 font-display text-5xl",
       hiddenTitle: "py-6",
     },
     border: {

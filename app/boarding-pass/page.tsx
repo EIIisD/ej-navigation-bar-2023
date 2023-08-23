@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function IndexPage() {
   return (
     <PrintBookingContextProvider>
-      <DialogPrintBooking />
+      {/* <DialogPrintBooking /> */}
       <PrintBooking />
     </PrintBookingContextProvider>
   )

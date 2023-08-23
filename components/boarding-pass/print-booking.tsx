@@ -85,11 +85,11 @@ export const PrintBooking = () => {
         <div className="mx-auto flex max-w-[--page-maxWidth] flex-auto items-center justify-between px-[--page-inset]">
           <div className="flex items-center">
             <div className="mr-6 text-base font-bold">Your selection</div>
-            <div className="mr-2 flex items-center gap-2 rounded-lg bg-gray-100 py-1.5 pl-3.5 pr-4">
-              <Badge>{selectedFlights.length}</Badge> Flights
+            <div className="mr-2 flex items-center gap-2 rounded-lg bg-gray-100 px-3.5 py-1.5">
+              <Icon name="flightTakeoffSolid" className="h-5 w-5" /> Flights <Badge>{selectedFlights.length}</Badge>
             </div>
-            <div className="mr-6 flex items-center gap-2 rounded-lg bg-gray-100 py-1.5 pl-3.5 pr-4">
-              <Badge>{selectedPassengers.length}</Badge> Passengers
+            <div className="mr-6 flex items-center gap-2 rounded-lg bg-gray-100 px-3.5 py-1.5">
+              <Icon name="adultWithBabySolid" className="h-5 w-5" /> Passengers <Badge>{selectedPassengers.length}</Badge>
             </div>
             {/* <Link className="flex items-center gap-2 text-sm font-bold">
               Edit
@@ -116,12 +116,13 @@ export const PrintBooking = () => {
       <div className="mx-auto max-w-[--page-maxWidth] flex-auto px-[--page-inset]">
         <div className="mt-5 grid gap-[--page-inset-large] py-20">
           <div>
-            <h1 className="font-display text-5xl/none text-primary">Your boarding passes</h1>
-            <p className="mt-3 max-w-prose text-base text-secondary">
+            {/* <p className="font-bold">Get ready for takeoff</p> */}
+            <h1 className="mt-1.5 font-display text-7xl/none text-primary">Your boarding passes</h1>
+            <p className="mt-6 max-w-prose text-base text-secondary">
               Review and print your boarding passes. Make sure to check all the details carefully before proceeding. If you encounter any issues,
               please contact our support team.
             </p>
-            <Link className="mt-5 gap-2 font-bold">
+            <Link className="mt-4 gap-2 font-bold">
               How to use an Airport
               <Icon name="lucideArrowRight" className="h-4 w-4" />
             </Link>
@@ -134,10 +135,10 @@ export const PrintBooking = () => {
           <TabsList className="mx-auto max-w-[--page-maxWidth] px-[--page-inset]">
             {flights.map((flight, index) => (
               <TabsTrigger key={index} value={index.toString()} className="text-xl">
-                <span>{flight.departureAirport.code}</span>
+                <span>{flight.departureAirport.name}</span>
                 {/* <Icon name="arrowRight" className="mx-[1px] h-4 w-4 translate-y-[-5%] opacity-25" /> */}
-                <span className="mx-1 opacity-25">/</span>
-                <span>{flight.arrivalAirport.code}</span>
+                {/* <span className="mx-1 opacity-25">/</span> */}
+                {/* <span>{flight.arrivalAirport.code}</span> */}
                 {/* <span className="ml-1.5">{format(flight.departureDate, "do MMM")}</span> */}
               </TabsTrigger>
             ))}

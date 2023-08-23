@@ -13,7 +13,7 @@ export const TNums: React.FC<{ content: string | number; numsOnly?: boolean; cla
             key={`${char}-${index}`}
             className={cn(
               "inline-block text-center",
-              char === " " ? "w-[0.4ch] min-w-[0.4ch] max-w-[0.4ch]" : isNumber(char) || !numsOnly ? "w-[1.04ch] min-w-[1.04ch] max-w-[1.04ch]" : ""
+              char === " " ? "w-[0.4ch] min-w-[0.4ch] max-w-[0.4ch]" : isNumber(char) || !numsOnly ? "w-[1ch] min-w-[1ch] max-w-[1ch]" : ""
             )}
           >
             {char}

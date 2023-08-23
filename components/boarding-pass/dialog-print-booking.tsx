@@ -9,6 +9,7 @@ import * as z from "zod"
 import { formatFlightTitle, formatInfantPassengerTitle, formatPassengerTitle } from "@/config/booking"
 import { useModalState } from "@/lib/use-modal-state"
 import { cn } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -64,9 +65,13 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
           >
             <DialogMain className={menuMobileListStyle()}>
               <DialogTitle className={cn(menuMobileItemStyle({ variant: "title" }), "items-baseline justify-between")}>
+                <span>Your boarding passes</span>
+              </DialogTitle>
+
+              <DialogTitle className={cn(menuMobileItemStyle({ variant: "default" }), "items-baseline justify-between border-b text-base font-bold")}>
                 <span>Select Flights</span>
 
-                <div className={cn("mb-2 justify-end font-sans")}>
+                <div className={cn("justify-end")}>
                   <div className="relative flex items-center gap-3">
                     <FormLabel htmlFor="select-all-flights" className="text-base/5 font-normal">
                       <span>{printBookingForm.watch("flights").length === booking.flights.length ? "Deselect all" : "Select all"}</span>
@@ -101,7 +106,7 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                           menuMobileItemStyle({
                             border: flightIndex === booking.flights.length - 1 || false ? "none" : "default",
                           }),
-                          "group relative items-start gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
+                          "group relative items-start gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50/50 [&:has([checked])]:bg-gray-50"
                         )}
                       >
                         <Checkbox
@@ -112,13 +117,13 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                               : field.onChange(field.value?.filter((value) => value !== flight.uid))
                           }}
                         />
-                        <FormLabel className="w-full text-base/5 font-normal peer-data-[state=checked]:font-bold">
+                        <FormLabel className="w-full text-base/5 font-normal">
                           <div className="flex w-full items-baseline justify-between gap-[--page-inset-small]">
                             {flight.departureAirport.name} to {flight.arrivalAirport.name}
-                            <TNums content={format(flight.departureDate, "do MMM")} className="font-normal" />
+                            <Badge variant="secondary">{flight.number}</Badge>
                           </div>
                           <div className="mt-0.5 flex w-full items-baseline justify-between gap-[--page-inset-small] text-sm font-normal text-secondary">
-                            {flight.departureAirport.code}-{flight.arrivalAirport.code}
+                            {format(flight.departureDate, "EEEE, do MMMM yyyy")}
                           </div>
                           <div className="absolute inset-0" />
                         </FormLabel>
@@ -128,10 +133,15 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                 />
               ))}
 
-              <DialogTitle className={cn(menuMobileItemStyle({ variant: "title" }), "items-baseline justify-between")}>
+              <DialogTitle
+                className={cn(
+                  menuMobileItemStyle({ variant: "default" }),
+                  "mt-[--page-inset] items-baseline justify-between border-b text-base font-bold"
+                )}
+              >
                 <span>Select Passengers</span>
 
-                <div className={cn("mb-2 justify-end font-sans")}>
+                <div className={cn("justify-end")}>
                   <div className="relative flex items-center gap-3">
                     <FormLabel htmlFor="select-all-passengers" className="text-base/5 font-normal">
                       <span>{printBookingForm.watch("passengers").length === booking.passengers.length ? "Deselect all" : "Select all"}</span>
@@ -166,7 +176,7 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                           menuMobileItemStyle({
                             border: passengerIndex === booking.passengers.length - 1 || false ? "none" : "default",
                           }),
-                          "group relative items-start gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50"
+                          "group relative items-start gap-[--page-inset-small] transition-colors duration-100 hover:bg-gray-50/50 [&:has([checked])]:bg-gray-50"
                         )}
                       >
                         <Checkbox
@@ -177,13 +187,15 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                               : field.onChange(field.value?.filter((value) => value !== passenger.uid))
                           }}
                         />
-                        <FormLabel className="w-full text-base/5 font-normal peer-data-[state=checked]:font-bold">
+                        <FormLabel className="w-full text-base/5 font-normal">
                           <div className="flex w-full items-baseline justify-between gap-[--page-inset-small]">
-                            {formatPassengerTitle(passenger)} <TNums className="font-normal" content={passenger.id} />
+                            {passenger.firstName} {passenger.lastName}
+                            <Badge variant="secondary">{passenger.id}</Badge>
                           </div>
                           {passenger.infant && (
                             <div className="mt-0.5 flex w-full items-baseline justify-between gap-[--page-inset-small] text-sm font-normal text-secondary">
-                              {formatInfantPassengerTitle(passenger.infant)} <TNums content={passenger.infant.id} />
+                              {formatInfantPassengerTitle(passenger.infant)} (infant)
+                              {/* <TNums content={passenger.infant.id} /> */}
                             </div>
                           )}
                           <div className="absolute inset-0" />
