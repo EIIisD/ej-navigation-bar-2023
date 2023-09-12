@@ -6,6 +6,7 @@ import { type Metadata } from "next"
 import { DevelopmentEffects } from "@/components/development-effects"
 import { Footer } from "@/components/footer"
 import { NavigationBar } from "@/components/navigation-bar"
+import { SubNavigationBar } from "@/components/sub-navigation-bar"
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <head />
         <body>
           <NavigationBar />
+          <SubNavigationBar />
           {children}
           <Footer />
           <DevelopmentEffects />

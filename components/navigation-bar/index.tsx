@@ -3,7 +3,7 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useUrlSearchParams } from "use-url-search-params"
 
 import { languagesMap } from "@/config/languages"
@@ -15,8 +15,9 @@ import { MenuAside } from "@/components/navigation-bar/menu-aside"
 import { MenuDesktop } from "@/components/navigation-bar/menu-desktop"
 import { NavigationBarContext, navigationBarContextDefs } from "@/components/navigation-bar/navigation-bar-context"
 
+type Visibility = "hidden" | "visible"
+
 export const NavigationBar = () => {
-  const pathname = usePathname()
   const [menu, setMenu] = React.useState<NavigationBarContext["menu"]>(navigationBarContextDefs.menu)
   const [isSignedIn, setIsSignedIn] = React.useState<NavigationBarContext["isSignedIn"]>(navigationBarContextDefs.isSignedIn)
   const [params] = useUrlSearchParams()
@@ -60,11 +61,20 @@ export const NavigationBar = () => {
         setIsSignedIn,
       }}
     >
-      <div className="sticky top-0 z-20 flex w-full flex-col shadow-md shadow-gray-950/[6%] [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]">
-        <header className="relative z-10 flex flex-col-reverse bg-orange text-white">
+      <header
+        className={cn(
+          "sticky top-0 z-20 flex w-full flex-col [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]",
+          // hide the header entirely if it has no visible contents
+          "[&:not(:has([data-primary-header=visible],[data-secondary-header=visible],[data-tertiary-header=visible]))]:hidden"
+        )}
+      >
+        <div className="relative z-10 flex flex-col-reverse bg-orange text-white">
           {/* primary menu */}
           {/* the DOM order is reversed with css flex so that the primary menu is the first keyboard tab target */}
-          <div className="mx-auto flex h-[--primary-header-height] w-full max-w-[--header-maxWidth] items-center gap-[--menu-gap] px-[--page-inset]">
+          <div
+            className="mx-auto flex h-[--primary-header-height] w-full max-w-[--header-maxWidth] items-center gap-[--menu-gap] px-[--page-inset] data-[primary-header=hidden]:hidden"
+            data-primary-header={"visible" satisfies Visibility}
+          >
             <div className="flex flex-1 items-center gap-[calc(var(--menu-gap)*2)]">
               <Link
                 href="/"
@@ -84,7 +94,10 @@ export const NavigationBar = () => {
 
           {/* secondary menu */}
           {/* the DOM order is reversed with css flex so that the primary menu is the first keyboard tab target */}
-          <div className="mx-auto flex h-[--secondary-header-height] w-full max-w-[--header-maxWidth] items-center justify-end gap-3 border-b border-orange-light px-[--page-inset] max-tablet-header-width:hidden">
+          <div
+            className="mx-auto flex h-[--secondary-header-height] w-full max-w-[--header-maxWidth] items-center justify-end gap-3 border-b border-orange-light px-[--page-inset] data-[secondary-header=hidden]:hidden max-tablet-header-width:hidden"
+            data-secondary-header={"visible" satisfies Visibility}
+          >
             {secondaryMenu?.map((item, index) => {
               const ItemRenderer = item.dialogElement ? item.dialogElement : React.Fragment
 
@@ -119,10 +132,10 @@ export const NavigationBar = () => {
           {/* we hide this top border for the desktop header because the secondary nav is a solid orange and doesn't require differentiation from the theme-color */}
           <div className="absolute inset-x-0 top-0 h-[1px] bg-orange-light tablet-header-width:hidden" />
           <div className="absolute inset-x-0 bottom-0 h-[1px] bg-orange-light" />
-        </header>
+        </div>
 
-        {/* breadcrumbs bar */}
-        <section
+        {/* notice bar - incomplete */}
+        {/* <section
           className="flex h-[--tertiary-header-height] w-full items-center justify-center bg-white text-sm text-primary data-[tertiary-header=hidden]:hidden"
           data-tertiary-header={pathname === "/" ? "hidden" : "visible"}
         >
@@ -149,8 +162,8 @@ export const NavigationBar = () => {
               </button>
             </div>
           </div>
-        </section>
-      </div>
+        </section> */}
+      </header>
     </NavigationBarContext.Provider>
   )
 }

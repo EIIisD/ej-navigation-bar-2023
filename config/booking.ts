@@ -172,7 +172,7 @@ export const createBooking = () => {
       const outboundFlight = createFlight()
       flights.push(outboundFlight)
 
-      const numConnectingFlights = is(scenario.unlikely) ? faker.number.int({ min: 0, max: 2 }) : 0
+      const numConnectingFlights = is(scenario.unlikely) ? faker.number.int({ min: 0, max: 1 }) : 0
 
       for (let i = 0; i < numConnectingFlights; i++) {
         const connectingFlight = createFlight({

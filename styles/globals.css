@@ -41,14 +41,13 @@
     --page-maxWidth: theme("screens.tablet-header-width");
     --header-maxWidth: theme("screens.desktop-header-width");
     --dialog-maxWidth: theme("maxWidth.xl");
-    --tertiary-header-height: 40px;
-    --secondary-header-height: 40px;
-    --primary-header-height: 56px;
     --header-height: var(--primary-header-height);
+    --general-bar-height: theme("height.10");
     --page-inset-large: theme("spacing.9");
     --page-inset: theme("spacing.6");
     --page-inset-small: theme("spacing.3");
 
+    /* easyJet brand container angles */
     --clip-angle: 7/8;
     --clip-angle-section: polygon(0 0, 100% 0%, 100% calc(100% * var(--clip-angle)), 0% 100%);
     --clip-angle-section-sub: polygon(0 0, 100% 0%, 100% 100%, 0% calc(100% * var(--clip-angle)));
@@ -61,6 +60,25 @@
     --font-adjust: 1.4281729428172942;
   }
 
+  :root:has([data-primary-header="visible"]) {
+    --primary-header-height: 56px;
+  }
+  :root:has([data-secondary-header="visible"]) {
+    --secondary-header-height: var(--general-bar-height);
+  }
+  :root:has([data-tertiary-header="visible"]) {
+    --tertiary-header-height: var(--general-bar-height);
+  }
+
+  :root,
+  :root:has([data-primary-header="hidden"]) {
+    --primary-header-height: 0px;
+  }
+  :root,
+  :root:has([data-secondary-header="hidden"]) {
+    --secondary-header-height: 0px;
+  }
+  :root,
   :root:has([data-tertiary-header="hidden"]) {
     --tertiary-header-height: 0px;
   }
@@ -97,6 +115,10 @@
     overflow: visible;
   }
 
+  :where(button) {
+    text-align: inherit;
+  }
+
   :focus {
     /* outline: 1px solid invert;
     outline-offset: 4px; */
@@ -111,10 +133,6 @@
     :focus {
       outline: none;
     }
-  }
-
-  :where(button) {
-    text-align: inherit;
   }
 }
 
