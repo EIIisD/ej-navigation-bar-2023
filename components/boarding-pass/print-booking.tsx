@@ -8,6 +8,7 @@ import { createBooking, formatFlightTitle, formatPassengerTitle, type Luggage } 
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/components/ui/link"
@@ -38,11 +39,11 @@ export const Notice: React.FC<React.PropsWithChildren<{ title: string; icon: Ico
   icon,
   className,
 }) => (
-  <div className={cn("max-w-prose p-4 pr-6", cardStyles, className)}>
+  <div className={cn("max-w-prose p-4 pr-6", "rounded-[6px] bg-slate-50", className)}>
     <div className="flex items-start">
       <Icon name={icon} className="mr-3 h-6 w-6 text-blue-700" />
-      <div className="text-base/6 text-secondary">
-        <div className="font-bold text-primary">{title}</div>
+      <div className="text-sm text-secondary">
+        <div className="text-sm/6 font-bold text-primary">{title}</div>
         {children}
       </div>
     </div>
@@ -124,10 +125,10 @@ export const PrintBooking = () => {
       </div> */}
 
       <div className="mx-auto max-w-[--page-maxWidth] flex-auto px-[--page-inset]">
-        <div className="mt-2 grid gap-6 py-16">
-          {/* <p className="font-bold">Get ready for takeoff</p> */}
+        <div className="grid gap-6 py-16">
+          <p className="font-bold">Get ready for takeoff</p>
 
-          <h1 className="-mb-3 font-display text-5xl/none text-primary">Your boarding passes</h1>
+          <h1 className="-mb-3 -mt-1 font-display text-5xl/none text-primary">Your boarding passes</h1>
 
           <p className="max-w-prose text-base text-secondary">
             Review and print your boarding passes. Make sure to check all the details carefully before proceeding. If you encounter any issues, please
@@ -165,52 +166,69 @@ export const PrintBooking = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="0" className="border-t border-dashed border-gray-100 bg-gray-100/75">
+      {/* <svg width="101" height="2" viewBox="0 0 101 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0.548828" y1="0.781006" x2="100.549" y2="0.781006" stroke="black" />
+      </svg>
+
+      <svg className="h-px w-full text-gray-300" viewBox="0 0 12 82" fill="none" preserveAspectRatio="none">
+        <path d="M0.5 0V31L10.5 41L0.5 51V82" stroke="currentcolor" vectorEffect="non-scaling-stroke" />
+      </svg> */}
+      <Tabs defaultValue="0" className="bg-gray-100/75">
         {flights.length > 1 && (
-          <div className="sticky top-[--header-height] z-10 bg-white shadow-xl shadow-black/[3%]">
-            <div className="mx-auto max-w-[--page-maxWidth] px-[--page-inset]">
-              <TabsList className="border-r">
-                {flights.map((flight, index) => (
-                  <TabsTrigger key={index} value={index.toString()} className="">
-                    <span
-                      className={cn(
-                        // index !== 0 ? 'lg:pl-9' : '',
-                        "flex w-full items-start px-6 py-5 pl-7 text-base"
-                      )}
-                    >
-                      <span className="shrink-0">
-                        <span className="relative flex h-12 w-12 items-center justify-center rounded-md bg-[--highlight-bg] font-display text-4xl/none tracking-wide text-[--highlight-fg]">
-                          <div className="absolute inset-0 rounded-md border border-black/5" />
-                          <div className="absolute inset-px rounded-md border-t border-white/20" />
-                          <span className="translate-x-[0.75px] translate-y-0.5 scale-[90%]">0{index + 1}</span>
+          <>
+            <svg className="h-px w-full bg-gray-100 fill-none text-gray-100">
+              <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" vectorEffect="non-scaling-stroke" stroke-dasharray="9 6" />
+            </svg>
+            <div className="sticky top-[--header-height] z-10 bg-white shadow-xl shadow-black/[3%]">
+              <div className="mx-auto max-w-[--page-maxWidth] px-[--page-inset]">
+                <TabsList className="border-r">
+                  {flights.map((flight, index) => (
+                    <TabsTrigger key={index} value={index.toString()} className="">
+                      <span
+                        className={cn(
+                          // index !== 0 ? 'lg:pl-9' : '',
+                          "flex w-full items-start px-6 py-5 pl-7 text-base"
+                        )}
+                      >
+                        <span className="shrink-0">
+                          <span className="relative flex h-12 w-12 items-center justify-center rounded-md bg-[--highlight-bg] font-display text-4xl/none tracking-wide text-[--highlight-fg]">
+                            <div className="absolute inset-0 rounded-md border border-black/5" />
+                            <div className="absolute inset-px rounded-md border-t border-white/20" />
+                            <span className="translate-x-[0.75px] translate-y-0.5 scale-[90%]">0{index + 1}</span>
+                          </span>
+                        </span>
+                        <span className="ml-4 mt-1.5 flex min-w-0 flex-col">
+                          <span className="line-clamp-1 text-base/5 font-bold text-[--primary]">
+                            {flight.departureAirport.name}{" "}
+                            <span className="text-xs/5 font-normal text-[--secondary]">({flight.departureAirport.code})</span>
+                          </span>
+                          <span className="text-sm/5 text-[--secondary]">{format(flight.departureDate, "d MMMM")}</span>
                         </span>
                       </span>
-                      <span className="ml-4 mt-1.5 flex min-w-0 flex-col">
-                        <span className="line-clamp-1 text-base/5 font-bold text-[--primary]">
-                          {flight.departureAirport.name}{" "}
-                          <span className="text-xs/5 font-normal text-[--secondary]">({flight.departureAirport.code})</span>
-                        </span>
-                        <span className="text-sm/5 text-[--secondary]">{format(flight.departureDate, "d MMMM")}</span>
-                      </span>
-                    </span>
-                    <div className="absolute inset-0 hidden w-3 lg:block">
-                      <svg className="h-full w-full text-gray-300" viewBox="0 0 12 82" fill="none" preserveAspectRatio="none">
-                        <path d="M0.5 0V31L10.5 41L0.5 51V82" stroke="currentcolor" vectorEffect="non-scaling-stroke" />
-                      </svg>
-                    </div>
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+                      <div className="absolute inset-0 hidden w-3 lg:block">
+                        <svg className="h-full w-full text-gray-200" viewBox="0 0 12 82" fill="none" preserveAspectRatio="none">
+                          <path d="M0.5 0V31L10.5 41L0.5 51V82" stroke="currentcolor" vectorEffect="non-scaling-stroke" />
+                        </svg>
+                      </div>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+              {/* <div className="absolute inset-x-0 -bottom-px h-[1px] bg-black/5" /> */}
             </div>
-            {/* <div className="absolute inset-x-0 -bottom-px h-[1px] bg-black/5" /> */}
-          </div>
+          </>
         )}
 
         {flights.map((flight, index) => (
           <TabsContent key={index} value={index.toString()}>
+            <div className="h-[--page-inset-small]" />
             <div className="mx-auto grid min-h-[40vh] max-w-[--page-maxWidth] gap-4 px-[--page-inset] py-6 pb-16">
               <div className="max-sm:hidden">
                 <div className="mb-6 text-base font-bold text-primary">Flight overview</div>
+                {/* <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
+                  dignissimos labore.
+                </div> */}
 
                 {/* flight card */}
                 <div className={cn("overflow-hidden", cardStyles, "border-l-[6px] border-l-green-600")}>
@@ -218,7 +236,9 @@ export const PrintBooking = () => {
                     <div>
                       Flight No. <span className="font-bold">{flight.number}</span>
                     </div>
-                    {/* <div className="font-bold">Check in available</div> */}
+                    <div className="font-bold text-green-600">
+                      Flight {index + 1} of {flights.length}
+                    </div>
                   </div>
 
                   <div
@@ -254,7 +274,11 @@ export const PrintBooking = () => {
               </div>
 
               <div className="max-sm:hidden">
-                <div className="mb-6 mt-8 text-base font-bold text-primary">Your boarding cards</div>
+                <div className="mb-2 mt-8 text-base font-bold text-primary">Your boarding cards & bags</div>
+                <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
+                  dignissimos labore.
+                </div>
                 <Accordion className={cn("overflow-hidden", cardStyles)} type="single" collapsible>
                   {flight.passengers.map((passenger) => (
                     <AccordionItem key={passenger.uid} value={passenger.uid}>
@@ -272,9 +296,10 @@ export const PrintBooking = () => {
                           <Placeholder size="72" className="border border-blue-200">
                             <div>Boarding card</div>
                           </Placeholder>
+                          <div>Cabin baggage</div>
                           <div className="grid grid-cols-2 gap-4">
                             {passenger.hasSmallCabinBag ? (
-                              <div className="flex flex-col overflow-hidden rounded-2xl border">
+                              <div className="flex flex-col overflow-hidden rounded-md border">
                                 <header className="flex items-center gap-4 border-b p-4">
                                   <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange text-white">
                                     <Icon name="smallCabinBag" className="h-12 w-12" />
@@ -299,10 +324,10 @@ export const PrintBooking = () => {
                                     <div className="">Under your seat</div>
                                   </div>
                                 </div>
-                                <div className="p-4 py-2">
-                                  <Link>
+                                <div className="border-t p-4 py-3">
+                                  <Link className="ml-auto flex max-w-max text-sm/4">
                                     <Icon name="informationSolid" className="h-4 w-4" />
-                                    Bag details
+                                    <span>Bag details</span>
                                   </Link>
                                 </div>
                               </div>
@@ -310,7 +335,7 @@ export const PrintBooking = () => {
                               <Placeholder className="!h-auto" />
                             )}
                             {passenger.hasLargeCabinBag ? (
-                              <div className="flex flex-col overflow-hidden rounded-2xl border">
+                              <div className="flex flex-col overflow-hidden rounded-md border">
                                 <header className="flex items-center gap-4 border-b p-4">
                                   <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange text-white">
                                     <Icon name="largeCabinBag" className="h-12 w-12" />
@@ -340,10 +365,10 @@ export const PrintBooking = () => {
                                     <div className="">In an overhead locker</div>
                                   </div>
                                 </div>
-                                <div className="p-4 py-2">
-                                  <Link>
+                                <div className="border-t p-4 py-3">
+                                  <Link className="ml-auto flex max-w-max text-sm/4">
                                     <Icon name="informationSolid" className="h-4 w-4" />
-                                    Bag details
+                                    <span>Bag details</span>
                                   </Link>
                                 </div>
                               </div>
@@ -351,16 +376,29 @@ export const PrintBooking = () => {
                               <Placeholder className="!h-auto" />
                             )}
                           </div>
+                          <Alert>
+                            <Icon name="informationSolid" className="h-4 w-4" />
+                            <AlertTitle>Baggage Information</AlertTitle>
+                            <AlertDescription>
+                              Please note that your large cabin bag is subject to space availability on board your flight. If there is no available
+                              space, your bag will be placed in the hold at the gate, free of charge.
+                            </AlertDescription>
+                          </Alert>
                         </div>
                       </AccordionContent>
                     </AccordionItem>
                   ))}
                 </Accordion>
               </div>
+
               {!![...flight.extras.holdBags.filter((item) => item.amount), ...flight.extras.sportsEquipment.filter((item) => item.amount)].length && (
                 <div className="max-sm:hidden">
-                  <div className="mb-6 mt-8 text-base font-bold text-primary">Your hold luggage</div>
-                  <div className={cn(cardStyles, "p-[--page-inset-small]")}>
+                  <div className="mb-2 mt-8 text-base font-bold text-primary">Your hold luggage</div>
+                  <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut
+                    quos, dignissimos labore.
+                  </div>
+                  <div className={cn(cardStyles, "grid gap-6 p-[--page-inset-small]")}>
                     <div className="grid grid-cols-3 gap-4">
                       {fillEmptyColumns(
                         [...flight.extras.holdBags.filter((item) => item.amount), ...flight.extras.sportsEquipment.filter((item) => item.amount)],
@@ -368,7 +406,7 @@ export const PrintBooking = () => {
                       ).map((item, itemIndex) => {
                         if (item.name !== "Empty") {
                           return (
-                            <div key={itemIndex} className="flex flex-col overflow-hidden rounded-2xl border">
+                            <div key={itemIndex} className="flex flex-col overflow-hidden rounded-md border">
                               <header className="flex items-center gap-4 border-b p-4">
                                 <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange text-white">
                                   {item.name === "Hold Bag" ? (
@@ -408,10 +446,10 @@ export const PrintBooking = () => {
                                   </div>
                                 </div>
                               </header>
-                              <div className="p-4 py-2">
-                                <Link>
+                              <div className="ml-auto p-4 py-3">
+                                <Link className="flex max-w-max text-sm/4">
                                   <Icon name="informationSolid" className="h-4 w-4" />
-                                  Luggage details
+                                  <span>Luggage details</span>
                                 </Link>
                               </div>
                             </div>
@@ -421,15 +459,35 @@ export const PrintBooking = () => {
                         return <Placeholder key={itemIndex} className="!h-auto" />
                       })}
                     </div>
+                    <Alert>
+                      <Icon name="informationSolid" className="h-4 w-4" />
+                      <AlertTitle>Baggage Information</AlertTitle>
+                      <AlertDescription>
+                        Please note that your large cabin bag is subject to space availability on board your flight. If there is no available space,
+                        your bag will be placed in the hold at the gate, free of charge.
+                      </AlertDescription>
+                    </Alert>
                   </div>
                 </div>
               )}
               <div className="max-sm:hidden">
-                <div className="mb-6 mt-8 text-base font-bold text-primary">Your extras</div>
-                <div className={cn(cardStyles, "p-[--page-inset-small]")}>
+                <div className="mb-2 mt-8 text-base font-bold text-primary">Your extras</div>
+                <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
+                  dignissimos labore.
+                </div>
+                <div className={cn(cardStyles, "grid gap-6 p-[--page-inset-small]")}>
                   <Placeholder size="72" className="border border-blue-200">
                     Extras
                   </Placeholder>
+                  <Alert variant="warning">
+                    <Icon name="informationSolid" className="h-4 w-4" />
+                    <AlertTitle>Warning Example</AlertTitle>
+                    <AlertDescription>
+                      Please note that your large cabin bag is subject to space availability on board your flight. If there is no available space,
+                      your bag will be placed in the hold at the gate, free of charge.
+                    </AlertDescription>
+                  </Alert>
                 </div>
               </div>
               <hr className="my-8" />

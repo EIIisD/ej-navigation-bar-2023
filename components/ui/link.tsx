@@ -6,13 +6,10 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-const linkVariants = cva(
-  cn("inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap text-orange hover:underline focus-visible:underline"),
-  {
-    variants: {},
-    defaultVariants: {},
-  }
-)
+const linkVariants = cva(cn("inline-flex cursor-pointer items-center gap-2 whitespace-nowrap text-orange hover:underline focus-visible:underline"), {
+  variants: {},
+  defaultVariants: {},
+})
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
   asChild?: boolean

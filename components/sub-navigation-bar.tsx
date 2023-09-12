@@ -13,8 +13,8 @@ export const SubNavigationBar = () => {
     <div
       className={cn(
         "flex h-[--general-bar-height] w-full items-center justify-center border-b border-gray-100 bg-white text-sm text-primary",
-        pathname === "/" && "hidden",
-        pathname !== "/" && "hidden"
+        pathname === "/" && "hidden"
+        // pathname !== "/" && "hidden"
       )}
     >
       <div className="mx-auto flex w-full max-w-[--header-maxWidth] items-center justify-between px-[--page-inset]">
