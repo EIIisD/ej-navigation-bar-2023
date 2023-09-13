@@ -379,9 +379,9 @@ export interface PrintBookingContext {
 export const printBookingContextDefs = {
   booking: genericBooking,
   setBooking: () => null,
-  selectedPassengers: genericBooking.passengers,
+  selectedPassengers: [],
   setSelectedPassengers: () => null,
-  selectedFlights: genericBooking.flights,
+  selectedFlights: [],
   setSelectedFlights: () => null,
 }
 

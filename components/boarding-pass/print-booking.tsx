@@ -1,10 +1,8 @@
 "use client"
 
-import Image from "next/image"
-import Advert3Cols from "@/public/media/advert-3-cols.jpg"
 import { format } from "date-fns"
 
-import { createBooking, formatFlightTitle, formatPassengerTitle, type Luggage } from "@/config/booking"
+import { createBooking, formatPassengerTitle, type Luggage } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -12,10 +10,25 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/components/ui/link"
+import { Loading } from "@/components/ui/loading"
 import { Placeholder } from "@/components/ui/placeholder"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-stepper"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { Icon, type IconName } from "@/components/icon"
+
+const fillEmptyColumns = (items: Luggage[], columns: number): Luggage[] => {
+  const remainder = items.length % columns
+
+  const emptyItems = Array(remainder ? columns - remainder : 0)
+    .fill({})
+    .map(() => ({
+      name: "Empty",
+      weight: 0,
+      amount: 0,
+    }))
+
+  return [...items, ...emptyItems]
+}
 
 const cardStyles = "bg-white shadow rounded-[6px] outline outline-1 outline-black/5"
 
@@ -33,34 +46,21 @@ const FlightIcon: React.FC<{ className?: string }> = ({ className }) => {
   )
 }
 
-export const Notice: React.FC<React.PropsWithChildren<{ title: string; icon: IconName; className?: string }>> = ({
-  title,
-  children,
-  icon,
-  className,
-}) => (
-  <div className={cn("max-w-prose p-4 pr-6", "rounded-[6px] bg-slate-50", className)}>
-    <div className="flex items-start">
-      <Icon name={icon} className="mr-3 h-6 w-6 text-blue-700" />
-      <div className="text-sm text-secondary">
-        <div className="text-sm/6 font-bold text-primary">{title}</div>
-        {children}
-      </div>
-    </div>
-  </div>
-)
+export const Section: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ className, children }) => {
+  return <div className={cn("", className)}>{children}</div>
+}
 
-export const Section: React.FC<
-  React.PropsWithChildren<{ title?: string; description?: string; className?: string; containerClassName?: string; notice?: React.ReactNode }>
-> = ({ title, description, className, containerClassName, children, notice }) => (
-  <div className={cn("grid border-b pb-12 last:border-none last:pb-0", className)}>
-    {title && <div className="font-display text-5xl text-primary">{title}</div>}
-    {description && <div className="mt-3 max-w-prose text-base text-secondary">{description}</div>}
-    {notice && <div className="mt-4">{notice}</div>}
+// export const Section: React.FC<
+//   React.PropsWithChildren<{ title?: string; description?: string; className?: string; containerClassName?: string; notice?: React.ReactNode }>
+// > = ({ title, description, className, containerClassName, children, notice }) => (
+//   <div className={cn("grid border-b pb-12 last:border-none last:pb-0", className)}>
+//     {title && <div className="font-display text-5xl text-primary">{title}</div>}
+//     {description && <div className="mt-3 max-w-prose text-base text-secondary">{description}</div>}
+//     {notice && <div className="mt-4">{notice}</div>}
 
-    <div className={cn("mt-6", containerClassName)}>{children}</div>
-  </div>
-)
+//     <div className={cn("mt-6", containerClassName)}>{children}</div>
+//   </div>
+// )
 
 export const PrintBooking = () => {
   const { selectedPassengers, selectedFlights, booking, ...printBookingContext } = usePrintBookingContext()
@@ -75,27 +75,21 @@ export const PrintBooking = () => {
     }
   })
 
+  if (selectedPassengers.length === 0) {
+    return (
+      <div className="grid flex-auto place-items-center">
+        <Loading />
+      </div>
+    )
+  }
+
   const flights = selectedFlights.map((flight) => ({
     ...flight,
     passengers: flight.passengers.filter((p) => selectedPassengers.some((sp) => sp.uid === p.uid)),
   }))
 
-  const fillEmptyColumns = (items: Luggage[], columns: number): Luggage[] => {
-    const remainder = items.length % columns
-
-    const emptyItems = Array(remainder ? columns - remainder : 0)
-      .fill({})
-      .map(() => ({
-        name: "Empty",
-        weight: 0,
-        amount: 0,
-      }))
-
-    return [...items, ...emptyItems]
-  }
-
   return (
-    <section className="flex-auto">
+    <section className="flex-auto max-md:[&_*]:hidden">
       {/* <div className="fixed inset-0 top-auto z-20 flex w-full items-center justify-center border-t bg-white pb-[--page-inset] pt-[--page-inset-small]">
         <div className="mx-auto flex max-w-[--page-maxWidth] flex-auto items-center justify-between px-[--page-inset]">
           <div className="flex items-center">
@@ -223,7 +217,7 @@ export const PrintBooking = () => {
           <TabsContent key={index} value={index.toString()}>
             <div className="h-[--page-inset-small]" />
             <div className="mx-auto grid min-h-[40vh] max-w-[--page-maxWidth] gap-4 px-[--page-inset] py-6 pb-16">
-              <div className="max-sm:hidden">
+              <Section>
                 <div className="mb-6 text-base font-bold text-primary">Flight overview</div>
                 {/* <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
@@ -247,33 +241,43 @@ export const PrintBooking = () => {
                   >
                     <div>
                       <div className="text-xs font-bold uppercase tracking-wide text-secondary">Departing</div>
-                      <div className="mt-3">
+                      <div className="mt-2.5">
                         <span className="text-2xl font-bold">{flight.departureAirport.name}</span>{" "}
                         <span className="ml-0.5 align-text-top text-sm text-secondary">({flight.departureAirport.code})</span>
                       </div>
-                      <div className="mt-1.5 flex items-center gap-2 text-sm">
+                      <div className="mt-3 flex items-center gap-2 text-sm">
                         <span>{format(flight.departureDate, "EEE d MMMM yyyy 'at' HH:mm")}</span>
-                        {flight.departureAirport.terminal && <span>Terminal {flight.departureAirport.terminal}</span>}
+                        {flight.departureAirport.terminal && (
+                          <>
+                            <span>•</span>
+                            <span>Terminal {flight.departureAirport.terminal}</span>
+                          </>
+                        )}
                       </div>
                     </div>
-                    <FlightIcon className="w-16 text-tertiary" />
+                    <FlightIcon className="w-16 text-gray-300" />
                     <div>
                       <div className="text-xs font-bold uppercase tracking-wide text-secondary">Arriving</div>
-                      <div className="mt-3">
+                      <div className="mt-2.5">
                         <span className="text-2xl font-bold">{flight.arrivalAirport.name}</span>{" "}
                         <span className="ml-0.5 align-text-top text-sm text-secondary">({flight.arrivalAirport.code})</span>
                       </div>
-                      <div className="mt-1.5 flex items-center gap-2 text-sm">
+                      <div className="mt-3 flex items-center gap-2 text-sm">
                         <span>{format(flight.arrivalDate, "EEE d MMMM yyyy 'at' HH:mm")}</span>
-                        {flight.arrivalAirport.terminal && <span>Terminal {flight.arrivalAirport.terminal}</span>}
+                        {flight.arrivalAirport.terminal && (
+                          <>
+                            <span>•</span>
+                            <span>Terminal {flight.arrivalAirport.terminal}</span>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
                   <div className="p-[--page-inset-small] pt-0 text-sm text-secondary">Bag drop opens at 04:00 and closes at 06:00</div>
                 </div>
-              </div>
+              </Section>
 
-              <div className="max-sm:hidden">
+              <Section>
                 <div className="mb-2 mt-8 text-base font-bold text-primary">Your boarding cards & bags</div>
                 <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
@@ -389,10 +393,10 @@ export const PrintBooking = () => {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </div>
+              </Section>
 
               {!![...flight.extras.holdBags.filter((item) => item.amount), ...flight.extras.sportsEquipment.filter((item) => item.amount)].length && (
-                <div className="max-sm:hidden">
+                <Section>
                   <div className="mb-2 mt-8 text-base font-bold text-primary">Your hold luggage</div>
                   <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut
@@ -468,9 +472,9 @@ export const PrintBooking = () => {
                       </AlertDescription>
                     </Alert>
                   </div>
-                </div>
+                </Section>
               )}
-              <div className="max-sm:hidden">
+              <Section>
                 <div className="mb-2 mt-8 text-base font-bold text-primary">Your extras</div>
                 <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
@@ -489,10 +493,10 @@ export const PrintBooking = () => {
                     </AlertDescription>
                   </Alert>
                 </div>
-              </div>
+              </Section>
               <hr className="my-8" />
 
-              <div className="max-sm:hidden">
+              <Section>
                 {/* <div className="mb-4 mt-8 text-lg font-bold text-primary">Advertisements</div> */}
                 <div className={cn(cardStyles, "p-[--page-inset-small]")}>
                   <Placeholder size="72" className="border border-blue-200">
@@ -500,7 +504,7 @@ export const PrintBooking = () => {
                   </Placeholder>
                   {/* <Image src={Advert3Cols} alt="Advertisement" className="w-full" /> */}
                 </div>
-              </div>
+              </Section>
             </div>
           </TabsContent>
         ))}

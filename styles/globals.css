@@ -161,6 +161,10 @@
     -webkit-mask: var(--mask);
     mask: var(--mask);
   }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer utilities {

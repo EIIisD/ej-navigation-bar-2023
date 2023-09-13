@@ -4,8 +4,6 @@ import React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Icon } from "@/components/icon"
 
 const Tabs = TabsPrimitive.Root
 
