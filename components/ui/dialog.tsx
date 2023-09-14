@@ -11,7 +11,7 @@ const DialogTrigger = DialogPrimitive.Trigger
 
 const DialogClose = DialogPrimitive.Close
 
-const useExperimentalStyling = true
+const useExperimentalStyling = false
 
 const sharedAnimation = cn(
   "data-[state=open]:duration-300 data-[state=open]:ease-out data-[state=open]:animate-in",

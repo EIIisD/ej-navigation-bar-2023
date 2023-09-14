@@ -65,9 +65,9 @@ const StatusByFlightForm = () => {
           name="flightNumber"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>Flight number</FormLabel>
+              {/* <FormLabel>Flight number</FormLabel> */}
               <FormControl>
-                <Input placeholder="1234" iconElement="searchAndMenuAirplaneModeAltSolid" {...field} />
+                <Input placeholder="Flight number" iconElement="flightsSolid" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -115,9 +115,9 @@ const StatusByRouteForm = () => {
           name="flightOrigin"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>From</FormLabel>
+              {/* <FormLabel>From</FormLabel> */}
               <FormControl>
-                <Input placeholder="London Gatwick" iconElementAfter="menuBurger" {...field} />
+                <Input placeholder="Origin" iconElement="flightTakeoffSolid" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -128,9 +128,9 @@ const StatusByRouteForm = () => {
           name="flightDestination"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>To</FormLabel>
+              {/* <FormLabel>To</FormLabel> */}
               <FormControl>
-                <Input placeholder="Amsterdam" iconElementAfter="menuBurger" {...field} />
+                <Input placeholder="Destination" iconElement="flightLandSolid" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

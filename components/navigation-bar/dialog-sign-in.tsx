@@ -65,9 +65,9 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 name="emailAddress"
                 render={({ field }) => (
                   <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
-                    <FormLabel>Email address</FormLabel>
+                    {/* <FormLabel>Email address</FormLabel> */}
                     <FormControl>
-                      <Input type="email" autoComplete="email" placeholder="name@mail.com" {...field} />
+                      <Input type="email" autoComplete="email" placeholder="Email address" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -78,9 +78,9 @@ export const DialogSignIn = ({ children }: { children: React.ReactNode }) => {
                 name="password"
                 render={({ field }) => (
                   <FormItem className={cn(menuMobileItemStyle({ border: "none" }), "flex-col gap-0 space-y-2")}>
-                    <FormLabel>Password</FormLabel>
+                    {/* <FormLabel>Password</FormLabel> */}
                     <FormControl>
-                      <Input type="password" autoComplete="current-password" {...field} />
+                      <Input type="password" autoComplete="current-password" placeholder="Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
