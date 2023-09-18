@@ -65,7 +65,7 @@ DialogMain.displayName = "DialogScrollArea"
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex shrink-0 items-center justify-end gap-[calc(var(--page-inset)/3)] px-[--page-inset] py-[calc(var(--page-inset)/2)]",
+      "z-10 flex shrink-0 items-center justify-end gap-[calc(var(--page-inset)/3)] px-[--page-inset] py-[calc(var(--page-inset)/2)]",
       useExperimentalStyling ? "" : "shadow-md-up",
       className
     )}

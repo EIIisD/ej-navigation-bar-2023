@@ -13,7 +13,7 @@ const genericBooking = {
   passengers: [
     {
       uid: "8xdrbY2" as const,
-      id: "0*4596 (P)" as const,
+      id: "0***4596 (P)" as const,
       gender: "male" as const,
       title: "Herr" as const,
       firstName: "Justin" as const,
@@ -25,7 +25,7 @@ const genericBooking = {
       hasLargeCabinBag: false as const,
       infant: {
         uid: "31pDwJD" as const,
-        id: "7*3468 (P)" as const,
+        id: "7***3468 (P)" as const,
         gender: "male" as const,
         title: "Prof. Dr." as const,
         firstName: "Benno" as const,
@@ -39,7 +39,7 @@ const genericBooking = {
     },
     {
       uid: "IuMSMb7" as const,
-      id: "6*0786 (P)" as const,
+      id: "6***0786 (P)" as const,
       gender: "male" as const,
       title: "Prof. Dr." as const,
       firstName: "Adriano" as const,
@@ -51,7 +51,7 @@ const genericBooking = {
       hasLargeCabinBag: false as const,
       infant: {
         uid: "axAFZc4" as const,
-        id: "9*1535 (P)" as const,
+        id: "9***1535 (P)" as const,
         gender: "male" as const,
         title: "Herr" as const,
         firstName: "Mateo" as const,
@@ -91,7 +91,7 @@ const genericBooking = {
       passengers: [
         {
           uid: "8xdrbY2" as const,
-          id: "0*4596 (P)" as const,
+          id: "0***4596 (P)" as const,
           gender: "male" as const,
           title: "Herr" as const,
           firstName: "Justin" as const,
@@ -103,7 +103,7 @@ const genericBooking = {
           hasLargeCabinBag: true as const,
           infant: {
             uid: "31pDwJD" as const,
-            id: "7*3468 (P)" as const,
+            id: "7***3468 (P)" as const,
             gender: "male" as const,
             title: "Prof. Dr." as const,
             firstName: "Benno" as const,
@@ -117,7 +117,7 @@ const genericBooking = {
         },
         {
           uid: "IuMSMb7" as const,
-          id: "6*0786 (P)" as const,
+          id: "6***0786 (P)" as const,
           gender: "male" as const,
           title: "Prof. Dr." as const,
           firstName: "Adriano" as const,
@@ -129,7 +129,7 @@ const genericBooking = {
           hasLargeCabinBag: false as const,
           infant: {
             uid: "axAFZc4" as const,
-            id: "9*1535 (P)" as const,
+            id: "9***1535 (P)" as const,
             gender: "male" as const,
             title: "Herr" as const,
             firstName: "Mateo" as const,
@@ -238,7 +238,7 @@ const genericBooking = {
       passengers: [
         {
           uid: "8xdrbY2" as const,
-          id: "0*4596 (P)" as const,
+          id: "0***4596 (P)" as const,
           gender: "male" as const,
           title: "Herr" as const,
           firstName: "Justin" as const,
@@ -250,7 +250,7 @@ const genericBooking = {
           hasLargeCabinBag: false as const,
           infant: {
             uid: "31pDwJD" as const,
-            id: "7*3468 (P)" as const,
+            id: "7***3468 (P)" as const,
             gender: "male" as const,
             title: "Prof. Dr." as const,
             firstName: "Benno" as const,
@@ -264,7 +264,7 @@ const genericBooking = {
         },
         {
           uid: "IuMSMb7" as const,
-          id: "6*0786 (P)" as const,
+          id: "6***0786 (P)" as const,
           gender: "male" as const,
           title: "Prof. Dr." as const,
           firstName: "Adriano" as const,
@@ -276,7 +276,7 @@ const genericBooking = {
           hasLargeCabinBag: true as const,
           infant: {
             uid: "axAFZc4" as const,
-            id: "9*1535 (P)" as const,
+            id: "9***1535 (P)" as const,
             gender: "male" as const,
             title: "Herr" as const,
             firstName: "Mateo" as const,

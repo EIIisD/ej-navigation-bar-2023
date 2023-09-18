@@ -68,6 +68,10 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
                 <span>Your boarding passes</span>
               </DialogTitle>
 
+              <div className={cn(menuMobileItemStyle({ variant: "default" }), "-mt-4 pb-8 pt-0")}>
+                <p>Please choose the flights and passengers for whom you'd like to print boarding passes.</p>
+              </div>
+
               <DialogTitle className={cn(menuMobileItemStyle({ variant: "default" }), "items-baseline justify-between border-b text-base font-bold")}>
                 <span>Select Flights</span>
 

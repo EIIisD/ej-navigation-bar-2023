@@ -41,7 +41,8 @@ export const scenario = scenarios[0]
 export const formatFlightTitle = (flight: Flight) =>
   `${flight.departureAirport.code}-${flight.arrivalAirport.code} - ${format(flight.departureDate, "do MMM")}`
 
-export const formatPassengerTitle = (passenger: Passenger) => `${passenger.firstName} ${passenger.lastName} ${passenger.infant ? " + Infant" : ""}`
+export const formatPassengerTitle = (passenger: Passenger) =>
+  `${passenger.firstName} ${passenger.lastName} ${passenger.infant ? ` + Baby ${passenger.infant.lastName} (Infant)` : ""}`
 
 export const formatInfantPassengerTitle = (infant: Passenger) => `${infant.firstName} ${infant.lastName}`
 
@@ -207,7 +208,7 @@ export const createBooking = () => {
   const createPassengers = () => {
     const createPassenger = (type: "Infant" | "Adult") => {
       const censorId = (passengerId: string): string => {
-        const documentCensorCharacter = "*"
+        const documentCensorCharacter = "***"
         const documentFirstCharacter = passengerId.slice(0, 1)
         const documentLastFourCharacters = passengerId.slice(-4)
         const documentCensoredCharacters = passengerId.slice(1, 2).replace(/./g, documentCensorCharacter)
