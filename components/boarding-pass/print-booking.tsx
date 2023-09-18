@@ -4,7 +4,7 @@ import Image from "next/image"
 import { default as Advert3Cols } from "@/public/media/advert-3-cols.jpg"
 import { format } from "date-fns"
 
-import { createBooking, formatPassengerTitle, type Luggage } from "@/config/booking"
+import { Booking, createBooking, formatPassengerTitle, type Flight, type Luggage } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -48,21 +48,146 @@ const FlightIcon: React.FC<{ className?: string }> = ({ className }) => {
   )
 }
 
-export const Section: React.FC<React.PropsWithChildren<{ className?: string }>> = ({ className, children }) => {
-  return <div className={cn("", className)}>{children}</div>
+export const Section: React.FC<React.PropsWithChildren<{ className?: string; title?: string }>> = ({ className, title, children }) => {
+  return (
+    <div className={cn("", className)}>
+      <div className="mb-2 mt-8 text-base font-bold text-primary">{title}</div>
+      <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
+        dignissimos labore.
+      </div>
+      {children}
+    </div>
+  )
 }
 
-// export const Section: React.FC<
-//   React.PropsWithChildren<{ title?: string; description?: string; className?: string; containerClassName?: string; notice?: React.ReactNode }>
-// > = ({ title, description, className, containerClassName, children, notice }) => (
-//   <div className={cn("grid border-b pb-12 last:border-none last:pb-0", className)}>
-//     {title && <div className="font-display text-5xl text-primary">{title}</div>}
-//     {description && <div className="mt-3 max-w-prose text-base text-secondary">{description}</div>}
-//     {notice && <div className="mt-4">{notice}</div>}
+const Hero = () => {
+  return (
+    <div className="mx-auto max-w-[--page-maxWidth] flex-auto px-[--page-inset]">
+      <div className="grid gap-6 py-16">
+        <p className="font-bold">Get ready for takeoff</p>
 
-//     <div className={cn("mt-6", containerClassName)}>{children}</div>
-//   </div>
-// )
+        <h1 className="-mb-3 -mt-1 font-display text-5xl/none text-primary">Your boarding passes</h1>
+
+        <p className="max-w-prose text-base text-secondary">
+          Review and print your boarding passes. Make sure to check all the details carefully before proceeding. If you encounter any issues, please
+          contact our support team.
+        </p>
+
+        {/* <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-sm">
+        <Icon name="flightTakeoffSolid" className="h-5 w-5" /> Flights <Badge>{selectedFlights.length}</Badge>
+      </div>
+      <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-sm">
+        <Icon name="usersSolid" className="h-5 w-5 scale-[75%]" /> Passengers <Badge>{selectedPassengers.length}</Badge>
+      </div>
+    </div> */}
+
+        {/* <Link className="mt-3 gap-2 font-bold">
+        How to use an Airport
+        <Icon name="lucideArrowRight" className="h-4 w-4" />
+      </Link> */}
+
+        <div className="flex items-center gap-2">
+          <Button className="gap-2.5">
+            <Icon name="mobilePrinterPrinterSolid" className="-ml-1.5 h-5 w-5" />
+            Print all
+          </Button>
+          <Button mode="outline" className="gap-2.5">
+            <Icon name="externalDownloadOutlined" className="-ml-1.5 h-5 w-5" />
+            Save all
+          </Button>
+          {/* <Button mode="outline" className="gap-2.5">
+          <Icon name="editChangeEditOutlined" className="-ml-1.5 h-5 w-5" />
+          Edit
+        </Button> */}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const TabButton = ({ flight }: { flight: Flight }) => {
+  return (
+    <>
+      <span className="flex w-full items-start px-6 py-5 pl-7 text-base">
+        <span className="shrink-0">
+          <span className="relative flex h-12 w-12 items-center justify-center rounded-md bg-[--highlight-bg] text-center font-display tracking-wide text-[--highlight-fg]">
+            <div className="absolute inset-0 rounded-md border border-black/5" />
+            <div className="absolute inset-px rounded-md border-t border-white/20" />
+            <span className="translate-x-[0.75px] translate-y-0.5 scale-[90%]">
+              <div className="text-3xl/none">{format(flight.departureDate, "dd")}</div>
+              <div className="-mt-1 text-xl/none">{format(flight.departureDate, "MMM").toUpperCase()}</div>
+            </span>
+          </span>
+        </span>
+        <span className="ml-4 mt-1.5 flex min-w-0 flex-col">
+          <span className="line-clamp-1 text-base/5 font-bold text-[--primary]">
+            {flight.departureAirport.name} <span className="text-xs/5 font-normal text-[--secondary]">({flight.departureAirport.code})</span>
+          </span>
+          <span className="text-sm/5 text-[--secondary]">
+            {flight.number} • {format(flight.departureDate, "HH:mm")}
+          </span>
+        </span>
+      </span>
+      <div className="absolute inset-0 hidden w-3 lg:block">
+        <svg className="h-full w-full text-gray-200" viewBox="0 0 12 82" fill="none" preserveAspectRatio="none">
+          <path d="M0.5 0V31L10.5 41L0.5 51V82" stroke="currentcolor" vectorEffect="non-scaling-stroke" />
+        </svg>
+      </div>
+    </>
+  )
+}
+
+const FlightCard = ({ flight }: { flight: Flight }) => {
+  return (
+    <div className={cn("overflow-hidden", cardStyles, "border-l-[6px] border-l-green-600")}>
+      <div className="flex items-center justify-between border-b px-[--page-inset-small] py-4 text-sm/5">
+        <div>
+          Flight No. <span className="font-bold">{flight.number}</span>
+        </div>
+        <div className="font-bold text-green-600">{/* Flight {index + 1} of {flights.length} */}</div>
+      </div>
+
+      <div className="grid grid-cols-[1fr_max-content_1fr_0.2fr] items-center gap-12 p-[--page-inset-small]">
+        <div>
+          <div className="text-xs font-bold uppercase tracking-wide text-secondary">Departing</div>
+          <div className="mt-2.5">
+            <span className="text-2xl font-bold">{flight.departureAirport.name}</span>{" "}
+            <span className="ml-0.5 align-text-top text-sm text-secondary">({flight.departureAirport.code})</span>
+          </div>
+          <div className="mt-3 flex items-center gap-2 text-sm">
+            <span>{format(flight.departureDate, "EEE d MMMM yyyy 'at' HH:mm")}</span>
+            {flight.departureAirport.terminal && (
+              <>
+                <span>•</span>
+                <span>Terminal {flight.departureAirport.terminal}</span>
+              </>
+            )}
+          </div>
+        </div>
+        <FlightIcon className="w-16 text-gray-300" />
+        <div>
+          <div className="text-xs font-bold uppercase tracking-wide text-secondary">Arriving</div>
+          <div className="mt-2.5">
+            <span className="text-2xl font-bold">{flight.arrivalAirport.name}</span>{" "}
+            <span className="ml-0.5 align-text-top text-sm text-secondary">({flight.arrivalAirport.code})</span>
+          </div>
+          <div className="mt-3 flex items-center gap-2 text-sm">
+            <span>{format(flight.arrivalDate, "EEE d MMMM yyyy 'at' HH:mm")}</span>
+            {flight.arrivalAirport.terminal && (
+              <>
+                <span>•</span>
+                <span>Terminal {flight.arrivalAirport.terminal}</span>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="p-[--page-inset-small] pt-0 text-sm text-secondary">Bag drop opens at 04:00 and closes at 06:00</div>
+    </div>
+  )
+}
 
 export const PrintBooking = () => {
   const { selectedPassengers, selectedFlights, booking, ...printBookingContext } = usePrintBookingContext()
@@ -92,118 +217,19 @@ export const PrintBooking = () => {
 
   return (
     <section className="flex-auto max-md:[&_*]:hidden">
-      {/* <div className="fixed inset-0 top-auto z-20 flex w-full items-center justify-center border-t bg-white pb-[--page-inset] pt-[--page-inset-small]">
-        <div className="mx-auto flex max-w-[--page-maxWidth] flex-auto items-center justify-between px-[--page-inset]">
-          <div className="flex items-center">
-            <div className="mr-6 text-base font-bold">Your selection</div>
-            <div className="mr-2 flex items-center gap-2 rounded-lg bg-gray-100 px-3.5 py-1.5">
-              <Icon name="flightTakeoffSolid" className="h-5 w-5" /> Flights <Badge>{selectedFlights.length}</Badge>
-            </div>
-            <div className="mr-6 flex items-center gap-2 rounded-lg bg-gray-100 px-3.5 py-1.5">
-              <Icon name="adultWithBabySolid" className="h-5 w-5" /> Passengers <Badge>{selectedPassengers.length}</Badge>
-            </div>
-            <Link className="flex items-center gap-2 text-sm font-bold">
-              Edit
-              <Icon name="editChangeEditSolid" className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button size="lg" mode="outline" className="gap-2.5">
-              <Icon name="externalDownloadOutlined" className="-ml-1.5 h-5 w-5" />
-              Save all
-            </Button>
-            <Button size="lg" className="gap-2.5">
-              <Icon name="mobilePrinterPrinterSolid" className="-ml-1.5 h-5 w-5" />
-              Print all
-            </Button>
-          </div>
-        </div>
-      </div> */}
-
-      <div className="mx-auto max-w-[--page-maxWidth] flex-auto px-[--page-inset]">
-        <div className="grid gap-6 py-16">
-          <p className="font-bold">Get ready for takeoff</p>
-
-          <h1 className="-mb-3 -mt-1 font-display text-5xl/none text-primary">Your boarding passes</h1>
-
-          <p className="max-w-prose text-base text-secondary">
-            Review and print your boarding passes. Make sure to check all the details carefully before proceeding. If you encounter any issues, please
-            contact our support team.
-          </p>
-
-          {/* <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-sm">
-              <Icon name="flightTakeoffSolid" className="h-5 w-5" /> Flights <Badge>{selectedFlights.length}</Badge>
-            </div>
-            <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-sm">
-              <Icon name="usersSolid" className="h-5 w-5 scale-[75%]" /> Passengers <Badge>{selectedPassengers.length}</Badge>
-            </div>
-          </div> */}
-
-          {/* <Link className="mt-3 gap-2 font-bold">
-              How to use an Airport
-              <Icon name="lucideArrowRight" className="h-4 w-4" />
-            </Link> */}
-
-          <div className="flex items-center gap-2">
-            <Button className="gap-2.5">
-              <Icon name="mobilePrinterPrinterSolid" className="-ml-1.5 h-5 w-5" />
-              Print all
-            </Button>
-            <Button mode="outline" className="gap-2.5">
-              <Icon name="externalDownloadOutlined" className="-ml-1.5 h-5 w-5" />
-              Save all
-            </Button>
-            {/* <Button mode="outline" className="gap-2.5">
-                <Icon name="editChangeEditOutlined" className="-ml-1.5 h-5 w-5" />
-                Edit
-              </Button> */}
-          </div>
-        </div>
-      </div>
-
+      <Hero />
       <Tabs defaultValue="0" className="bg-gray-100/75">
         {flights.length > 1 && (
           <>
             <svg className="h-px w-full bg-gray-100 fill-none text-gray-100">
               <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" vectorEffect="non-scaling-stroke" stroke-dasharray="9 6" />
             </svg>
-            <div className="sticky top-[--header-height] z-10 bg-white shadow-xl shadow-black/[3%]">
+            <div className="sticky top-[--header-height] z-10 bg-white shadow-xl shadow-black/[2%]">
               <div className="mx-auto max-w-[--page-maxWidth] px-[--page-inset]">
                 <TabsList className="border-r">
                   {flights.map((flight, index) => (
-                    <TabsTrigger key={index} value={index.toString()} className="">
-                      <span
-                        className={cn(
-                          // index !== 0 ? 'lg:pl-9' : '',
-                          "flex w-full items-start px-6 py-5 pl-7 text-base"
-                        )}
-                      >
-                        <span className="shrink-0">
-                          <span className="relative flex h-12 w-12 items-center justify-center rounded-md bg-[--highlight-bg] text-center font-display tracking-wide text-[--highlight-fg]">
-                            <div className="absolute inset-0 rounded-md border border-black/5" />
-                            <div className="absolute inset-px rounded-md border-t border-white/20" />
-                            <span className="translate-x-[0.75px] translate-y-0.5 scale-[90%]">
-                              <div className="text-3xl/none">{format(flight.departureDate, "dd")}</div>
-                              <div className="-mt-1 text-xl/none">{format(flight.departureDate, "MMM").toUpperCase()}</div>
-                            </span>
-                          </span>
-                        </span>
-                        <span className="ml-4 mt-1.5 flex min-w-0 flex-col">
-                          <span className="line-clamp-1 text-base/5 font-bold text-[--primary]">
-                            {flight.departureAirport.name}{" "}
-                            <span className="text-xs/5 font-normal text-[--secondary]">({flight.departureAirport.code})</span>
-                          </span>
-                          <span className="text-sm/5 text-[--secondary]">
-                            {flight.number} • {format(flight.departureDate, "HH:mm")}
-                          </span>
-                        </span>
-                      </span>
-                      <div className="absolute inset-0 hidden w-3 lg:block">
-                        <svg className="h-full w-full text-gray-200" viewBox="0 0 12 82" fill="none" preserveAspectRatio="none">
-                          <path d="M0.5 0V31L10.5 41L0.5 51V82" stroke="currentcolor" vectorEffect="non-scaling-stroke" />
-                        </svg>
-                      </div>
+                    <TabsTrigger key={index} value={index.toString()}>
+                      <TabButton flight={flight} />
                     </TabsTrigger>
                   ))}
                 </TabsList>
@@ -216,12 +242,7 @@ export const PrintBooking = () => {
           <TabsContent key={index} value={index.toString()}>
             <div className="h-[--page-inset-small]" />
             <div className="mx-auto grid min-h-[40vh] max-w-[--page-maxWidth] gap-4 px-[--page-inset] py-6 pb-16">
-              <Section>
-                <div className="mb-2 mt-8 text-base font-bold text-primary">Your boarding cards & bags</div>
-                <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
-                  dignissimos labore.
-                </div>
+              <Section title="Your boarding cards & bags">
                 <Accordion className={cn("overflow-hidden", cardStyles)} type="single" collapsible>
                   {flight.passengers.map((passenger) => (
                     <AccordionItem key={passenger.uid} value={passenger.uid}>
@@ -236,53 +257,7 @@ export const PrintBooking = () => {
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="grid gap-6 pb-6">
-                          <div className={cn("overflow-hidden", cardStyles, "border-l-[6px] border-l-green-600")}>
-                            <div className="flex items-center justify-between border-b px-[--page-inset-small] py-4 text-sm/5">
-                              <div>
-                                Flight No. <span className="font-bold">{flight.number}</span>
-                              </div>
-                              <div className="font-bold text-green-600">
-                                Flight {index + 1} of {flights.length}
-                              </div>
-                            </div>
-
-                            <div className="grid grid-cols-[1fr_max-content_1fr_0.2fr] items-center gap-12 p-[--page-inset-small]">
-                              <div>
-                                <div className="text-xs font-bold uppercase tracking-wide text-secondary">Departing</div>
-                                <div className="mt-2.5">
-                                  <span className="text-2xl font-bold">{flight.departureAirport.name}</span>{" "}
-                                  <span className="ml-0.5 align-text-top text-sm text-secondary">({flight.departureAirport.code})</span>
-                                </div>
-                                <div className="mt-3 flex items-center gap-2 text-sm">
-                                  <span>{format(flight.departureDate, "EEE d MMMM yyyy 'at' HH:mm")}</span>
-                                  {flight.departureAirport.terminal && (
-                                    <>
-                                      <span>•</span>
-                                      <span>Terminal {flight.departureAirport.terminal}</span>
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                              <FlightIcon className="w-16 text-gray-300" />
-                              <div>
-                                <div className="text-xs font-bold uppercase tracking-wide text-secondary">Arriving</div>
-                                <div className="mt-2.5">
-                                  <span className="text-2xl font-bold">{flight.arrivalAirport.name}</span>{" "}
-                                  <span className="ml-0.5 align-text-top text-sm text-secondary">({flight.arrivalAirport.code})</span>
-                                </div>
-                                <div className="mt-3 flex items-center gap-2 text-sm">
-                                  <span>{format(flight.arrivalDate, "EEE d MMMM yyyy 'at' HH:mm")}</span>
-                                  {flight.arrivalAirport.terminal && (
-                                    <>
-                                      <span>•</span>
-                                      <span>Terminal {flight.arrivalAirport.terminal}</span>
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="p-[--page-inset-small] pt-0 text-sm text-secondary">Bag drop opens at 04:00 and closes at 06:00</div>
-                          </div>
+                          <FlightCard flight={flight} />
                           <div>Cabin baggage</div>
                           <div className="grid grid-cols-2 gap-4">
                             {passenger.hasSmallCabinBag ? (
@@ -299,16 +274,13 @@ export const PrintBooking = () => {
                                 </header>
                                 <div className="flex-auto divide-y p-4">
                                   <div className="flex h-12 items-center justify-between">
-                                    <div className="text-secondary">Dimensions</div>
-                                    <div className="">Max. 45 x 36 x 20 cm</div>
+                                    <span className="text-secondary">Dimensions</span> <span>Max. 45 x 36 x 20 cm</span>
                                   </div>
                                   <div className="flex h-12 items-center justify-between">
-                                    <div className="text-secondary">Weight</div>
-                                    <div className="">You must be able to carry it</div>
+                                    <span className="text-secondary">Weight</span> <span>You must be able to carry it</span>
                                   </div>
                                   <div className="flex h-12 items-center justify-between">
-                                    <div className="text-secondary">Stored</div>
-                                    <div className="">Under your seat</div>
+                                    <span className="text-secondary">Stored</span> <span>Under your seat</span>
                                   </div>
                                 </div>
                                 <div className="border-t p-4 py-3">
@@ -340,16 +312,13 @@ export const PrintBooking = () => {
                                 </header>
                                 <div className="flex-auto divide-y p-4">
                                   <div className="flex h-12 items-center justify-between">
-                                    <div className="text-secondary">Dimensions</div>
-                                    <div className="">Max. 56 x 45 x 25 cm</div>
+                                    <span className="text-secondary">Dimensions</span> <span>Max. 56 x 45 x 25 cm</span>
                                   </div>
                                   <div className="flex h-12 items-center justify-between">
-                                    <div className="text-secondary">Weight</div>
-                                    <div className="">Max. 15kg</div>
+                                    <span className="text-secondary">Weight</span> <span>Max. 15kg</span>
                                   </div>
                                   <div className="flex h-12 items-center justify-between">
-                                    <div className="text-secondary">Stored</div>
-                                    <div className="">In an overhead locker</div>
+                                    <span className="text-secondary">Stored</span> <span>In an overhead locker</span>
                                   </div>
                                 </div>
                                 <div className="border-t p-4 py-3">
@@ -379,12 +348,7 @@ export const PrintBooking = () => {
               </Section>
 
               {!![...flight.extras.holdBags.filter((item) => item.amount), ...flight.extras.sportsEquipment.filter((item) => item.amount)].length && (
-                <Section>
-                  <div className="mb-2 mt-8 text-base font-bold text-primary">Your hold luggage</div>
-                  <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut
-                    quos, dignissimos labore.
-                  </div>
+                <Section title="Your hold luggage">
                   <div className={cn(cardStyles, "grid gap-6 p-[--page-inset-small]")}>
                     <div className="grid grid-cols-3 gap-4">
                       {fillEmptyColumns(
@@ -457,12 +421,8 @@ export const PrintBooking = () => {
                   </div>
                 </Section>
               )}
-              <Section>
-                <div className="mb-2 mt-8 text-base font-bold text-primary">Your extras</div>
-                <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
-                  dignissimos labore.
-                </div>
+
+              <Section title="Your extras">
                 <div className={cn(cardStyles, "grid gap-6 p-[--page-inset-small]")}>
                   <Placeholder size="72" className="border border-blue-200">
                     Extras
@@ -477,16 +437,9 @@ export const PrintBooking = () => {
                   </Alert>
                 </div>
               </Section>
-              <Section>
-                <div className="mb-2 mt-8 text-base font-bold text-primary">You may also be interested in</div>
-                <div className="mb-6 max-w-prose text-sm leading-relaxed text-secondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto cumque deleniti culpa possimus dolorum aliquid quaerat ut quos,
-                  dignissimos labore.
-                </div>
+
+              <Section title="You may also be interested in">
                 <div className={cn(cardStyles, "p-[--page-inset-small]")}>
-                  {/* <Placeholder size="72" className="border border-blue-200">
-                    Adverts
-                  </Placeholder> */}
                   <Image src={Advert3Cols} alt="Advertisement" className="w-full" />
                 </div>
               </Section>
