@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { format, sub } from "date-fns"
 
 import { type Booking, type Flight, type Passenger } from "@/config/booking"
@@ -102,14 +103,21 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
   return (
     <div className={cn("overflow-hidden", cardStyles, "border-l-[6px] border-l-green-600")}>
       <div className="flex items-center justify-between border-b px-[--page-inset-small] py-4 text-sm/5">
-        <Icon name="easyJetLogo" className="relative h-5 w-auto [aspect-ratio:91/22]" />
+        <div className="flex items-center gap-2">
+          <Icon name="easyJetLogo" className="relative h-5 w-auto translate-y-[-0.5px] [aspect-ratio:91/22]" />
+          <div className="font-bold">{format(flight.departureDate, "d MMM yyyy")}</div>
+        </div>
+
         <div>
           Flight No. <span className="font-bold">{flight.number}</span>
         </div>
-        <div className="font-bold text-green-600">{/* Flight {index + 1} of {flights.length} */}</div>
       </div>
 
-      <div className="grid grid-cols-[1fr_max-content_1fr_0.2fr] items-start gap-12 p-[--page-inset-small]">
+      <div className="grid">
+        <div></div>
+      </div>
+
+      {/* <div className="grid grid-cols-[1fr_max-content_1fr_0.2fr] items-start gap-12 p-[--page-inset-small]">
         <div>
           <div className="text-xs font-bold uppercase tracking-wide text-secondary">Departing</div>
           <div className="mt-2.5">
@@ -143,8 +151,9 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
             )}
           </div>
         </div>
-      </div>
-      <div className="p-[--page-inset-small] pt-0 text-sm text-secondary">Bag drop opens at 04:00 and closes at 06:00</div>
+      </div> */}
+
+      {/* <div className="p-[--page-inset-small] pt-0 text-sm text-secondary">Bag drop opens at 04:00 and closes at 06:00</div> */}
     </div>
   )
 }

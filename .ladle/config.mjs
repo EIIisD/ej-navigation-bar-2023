@@ -2,6 +2,9 @@
 export default {
   stories: "components/**/*.stories.{ts,tsx}",
   addons: {
+    rtl: {
+      enabled: false,
+    },
     width: {
       options: {
         sm: 425,

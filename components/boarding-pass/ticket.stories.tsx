@@ -16,7 +16,7 @@ export const Default: Story = () => {
   const passenger = booking.passengers[0]
 
   useWindowKeyDown(({ key, shiftKey, metaKey }) => {
-    if (key === "1" && !shiftKey && !metaKey) {
+    if (key === "r" && !shiftKey && !metaKey) {
       const newBooking = createBooking()
       setBooking(newBooking)
       console.log(newBooking)

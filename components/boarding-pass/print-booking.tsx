@@ -5,7 +5,7 @@ import Image from "next/image"
 import { default as Advert3Cols } from "@/public/media/advert-3-cols.jpg"
 import { format } from "date-fns"
 
-import { Booking, createBooking, formatPassengerTitle, type Flight, type Luggage } from "@/config/booking"
+import { createBooking, formatPassengerTitle, type Flight, type Luggage } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
