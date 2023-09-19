@@ -85,6 +85,9 @@ export interface Flight {
   arrivalDate: Date
   arrivalAirport: Airport
   number: string
+  reservationNumber: string
+  checkInSequenceNumber: string
+  customerEntitlementsCode: string
   passengers: Passenger[]
   extras: Extras
 }
@@ -154,6 +157,12 @@ export const createBooking = () => {
         arrivalDate,
         arrivalAirport,
         number: flightNumber,
+        reservationNumber: faker.string.alphanumeric({
+          length: 7,
+          casing: "upper",
+        }),
+        checkInSequenceNumber: `S${faker.number.int({ min: 1, max: 9 })}00`,
+        customerEntitlementsCode: arrayElement(["SA", "S1", "S2", ""]),
         passengers: [],
         extras: {
           hasSmallCabinBag: false,

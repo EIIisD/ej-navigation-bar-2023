@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import Image from "next/image"
 import { default as Advert3Cols } from "@/public/media/advert-3-cols.jpg"
 import { format } from "date-fns"
@@ -16,6 +17,7 @@ import { Loading } from "@/components/ui/loading"
 import { Placeholder } from "@/components/ui/placeholder"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-stepper"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
+import { Ticket } from "@/components/boarding-pass/ticket"
 import { Icon, type IconName } from "@/components/icon"
 
 const fillEmptyColumns = (items: Luggage[], columns: number): Luggage[] => {
@@ -139,7 +141,7 @@ const TabButton = ({ flight }: { flight: Flight }) => {
   )
 }
 
-const FlightCard = ({ flight }: { flight: Flight }) => {
+export const FlightCard = ({ flight }: { flight: Flight }) => {
   return (
     <div className={cn("overflow-hidden", cardStyles, "border-l-[6px] border-l-green-600")}>
       <div className="flex items-center justify-between border-b px-[--page-inset-small] py-4 text-sm/5">
@@ -192,6 +194,15 @@ const FlightCard = ({ flight }: { flight: Flight }) => {
 export const PrintBooking = () => {
   const { selectedPassengers, selectedFlights, booking, ...printBookingContext } = usePrintBookingContext()
 
+  React.useEffect(() => {
+    const newBooking = createBooking()
+    printBookingContext.setBooking(newBooking)
+    printBookingContext.setSelectedPassengers(newBooking.passengers)
+    printBookingContext.setSelectedFlights(newBooking.flights)
+    console.log(newBooking)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useWindowKeyDown(({ key, shiftKey, metaKey }) => {
     if (key === "r" && !shiftKey && !metaKey) {
       const newBooking = createBooking()
@@ -242,6 +253,14 @@ export const PrintBooking = () => {
           <TabsContent key={index} value={index.toString()}>
             <div className="h-[--page-inset-small]" />
             <div className="mx-auto grid min-h-[40vh] max-w-[--page-maxWidth] gap-4 px-[--page-inset] py-6 pb-16">
+              <Alert variant="card">
+                <Icon name="informationSolid" className="h-4 w-4" />
+                <AlertTitle>Airport Information</AlertTitle>
+                <AlertDescription className="text-sm">
+                  Please note that your large cabin bag is subject to space availability on board your flight. If there is no available space, your
+                  bag will be placed in the hold at the gate, free of charge.
+                </AlertDescription>
+              </Alert>
               <Section title="Your boarding cards & bags">
                 <Accordion className={cn("overflow-hidden", cardStyles)} type="single" collapsible>
                   {flight.passengers.map((passenger) => (
@@ -257,7 +276,8 @@ export const PrintBooking = () => {
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="grid gap-6 pb-6">
-                          <FlightCard flight={flight} />
+                          {/* <FlightCard flight={flight} /> */}
+                          <Ticket booking={booking} flight={flight} passenger={passenger} />
                           <div>Cabin baggage</div>
                           <div className="grid grid-cols-2 gap-4">
                             {passenger.hasSmallCabinBag ? (
