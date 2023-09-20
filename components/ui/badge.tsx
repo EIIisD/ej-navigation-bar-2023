@@ -1,11 +1,10 @@
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { Icon, type IconName } from "@/components/icon"
 
-const badgeVariants = cva("inline-flex h-5 items-center gap-1.5 rounded-full border border-gray-200 px-2 pt-[1px] text-xs/5 font-normal", {
+const badgeVariants = cva("inline-flex h-5 items-center gap-1.5 rounded-full border border-gray-200 px-2 text-xs/5 font-normal", {
   variants: {
     variant: {
       default: "border-transparent bg-primary text-gray-50",
@@ -20,18 +19,15 @@ const badgeVariants = cva("inline-flex h-5 items-center gap-1.5 rounded-full bor
 })
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
-  asChild?: boolean
   icon?: IconName
 }
 
-const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ className, variant, asChild = false, children, icon, ...props }, ref) => {
-  const Comp = asChild ? Slot : "div"
-
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ className, variant, children, icon, ...props }, ref) => {
   return (
-    <Comp className={cn(badgeVariants({ variant }), className)} ref={ref} {...props}>
+    <div className={cn(badgeVariants({ variant }), className)} ref={ref} {...props}>
       {icon && <Icon name={icon} className="h-3.5 w-3.5" />}
       {children}
-    </Comp>
+    </div>
   )
 })
 

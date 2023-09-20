@@ -168,6 +168,11 @@
 }
 
 @layer utilities {
+  .debug-grid,
+  .debug-grid * {
+    background-color: theme("colors.sky.500/10%");
+  }
+
   .scrollbar-none {
     scrollbar-width: none;
   }

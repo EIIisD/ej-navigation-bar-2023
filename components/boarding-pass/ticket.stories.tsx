@@ -41,9 +41,9 @@ export const Default: Story = () => {
         </pre>
       </div>
       <Ticket booking={booking} flight={flight} passenger={passenger} />
-      <div className="opacity-50">
+      {/* <div className="opacity-50">
         <OldTicket booking={booking} flight={flight} passenger={passenger} />
-      </div>
+      </div> */}
     </div>
   )
 }

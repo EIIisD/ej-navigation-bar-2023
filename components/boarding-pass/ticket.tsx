@@ -39,14 +39,7 @@ const DataLabel = ({
   children: React.ReactNode
 }) => {
   return (
-    <div
-      className={cn(
-        "min-h-[theme('spacing[4]')] min-w-[1ch] bg-[--dev-2] text-sm/4 font-bold",
-        align === "left" ? "justify-self-start text-left" : "justify-self-end text-right",
-        className
-      )}
-      {...props}
-    >
+    <div className={cn("text-sm/4 font-bold", align === "left" ? "justify-start text-left" : "justify-end text-right", className)} {...props}>
       {children}
     </div>
   )
@@ -66,11 +59,7 @@ const DataValue = ({
 }) => {
   return (
     <div
-      className={cn(
-        "flex min-w-[1ch] items-center gap-1.5 bg-[--dev-1] text-sm",
-        align === "left" ? "justify-self-start text-left" : "justify-self-end text-right",
-        className
-      )}
+      className={cn("flex items-center gap-1.5 text-sm/4", align === "left" ? "justify-start text-left" : "justify-end text-right", className)}
       {...props}
     >
       <Icon name={icon} className="h-[1em] w-[1em]" />
@@ -108,7 +97,7 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
   const isDepartureBetween6AMand6PM = flight.departureDate.getHours() >= 6 && flight.departureDate.getHours() < 18
 
   const headerElement = (
-    <div className="flex items-center justify-between border-b px-[--page-inset-small] py-4 text-sm/5">
+    <div className="flex items-center justify-between border-b border-dashed border-white/50 px-[--page-inset-small] py-4 text-sm/5">
       <div className="flex items-center gap-3">
         <Icon name="easyJetLogo" className="relative h-5 w-auto [aspect-ratio:91/22]" />
         <div className="font-bold">Boarding pass</div>
@@ -121,8 +110,9 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
 
   const flightInfoElement = (
     <Grid
-      className="max-w-max gap-x-6 gap-y-1 [grid-area:flightInfoElement]"
+      className="gap-1.5 [grid-area:flightInfoElement]"
       style={{
+        gridTemplateColumns: "minmax(0,3fr) minmax(0,2fr) minmax(0,3fr)",
         gridTemplateAreas: `
           "departureAirportName     .          arrivalAirportName"
           "departureAirportCode     flightIcon arrivalAirportCode"
@@ -130,61 +120,70 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
         `,
       }}
     >
-      <DataLabel className="max-w-[unset] [grid-area:departureAirportName]">{flight.departureAirport.name}</DataLabel>
+      <DataLabel className="max-w-[unset] self-end [grid-area:departureAirportName]">{flight.departureAirport.name}</DataLabel>
       <DataValue className="text-4xl font-light [grid-area:departureAirportCode]">{flight.departureAirport.code}</DataValue>
-      {flight.departureAirport.terminal && (
-        <DataValue className="text-xs [grid-area:departureAirportTerminal]">Terminal {flight.departureAirport.terminal}</DataValue>
-      )}
-      <FlightIcon className="h-9 self-center text-gray-300 [grid-area:flightIcon]" />
-      <DataLabel className="max-w-[unset] [grid-area:arrivalAirportName]">{flight.arrivalAirport.name}</DataLabel>
-      <DataValue className="text-4xl font-light [grid-area:arrivalAirportCode]">{flight.arrivalAirport.code}</DataValue>
-      {flight.arrivalAirport.terminal && (
-        <DataValue className="text-xs [grid-area:arrivalAirportTerminal]">Terminal {flight.arrivalAirport.terminal}</DataValue>
-      )}
+      <DataValue className="[grid-area:departureAirportTerminal]">
+        {flight.departureAirport.terminal ? `Terminal ${flight.departureAirport.terminal}` : ""}
+      </DataValue>
+      <FlightIcon className="self-center text-black [grid-area:flightIcon]" />
+      <DataLabel align="right" className="max-w-[unset] self-end [grid-area:arrivalAirportName]">
+        {flight.arrivalAirport.name}
+      </DataLabel>
+      <DataValue align="right" className="text-4xl font-light [grid-area:arrivalAirportCode]">
+        {flight.arrivalAirport.code}
+      </DataValue>
+      <DataValue align="right" className="[grid-area:arrivalAirportTerminal]">
+        {flight.arrivalAirport.terminal ? `Terminal ${flight.arrivalAirport.terminal}` : ""}
+      </DataValue>
     </Grid>
   )
 
   const extrasElement = (
     <Data align="right" className="flex-row flex-wrap justify-end [grid-area:extrasElement]">
-      <DataLabel className="basis-[100%] text-right">Extras</DataLabel>
-      <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
-        Speedy Boarding
-      </Badge>
-      <Badge variant="secondary" icon="luggageLuggageDropOutlined">
-        easyJet Plus Bag Drop
-      </Badge>
-      <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
-        Fast Track Security
-      </Badge>
-      <Badge variant="secondary" icon="facilitiesFoodAndDrinkOutlined">
-        Meal Deal
-      </Badge>
-      <Badge variant="secondary" icon="calendarFlexiFlightsSolid">
-        FLEXI
-      </Badge>
-      {/* {flight.extras.hasSpeedyBoarding && <Badge icon="facilitiesFoodAndDrinkSolid">Speed Boarding</Badge>}
-        {flight.extras.hasEasyJetPlusBagDrop && <Badge icon="servicesIconFastTrackOutlined">easyJet Plus Bag Drop</Badge>}
-        {flight.extras.hasFastTrackSecurity && <Badge icon="calendarFlexiFlightsSolid">Fast Track Security</Badge>}
-        {flight.extras.hasMealDeal && <Badge icon="calendarFlexiFlightsSolid">Meal Deal</Badge>}
-        {booking.bookingFareType === "FLEXI" && <Badge icon="calendarFlexiFlightsSolid">FLEXI</Badge>} */}
+      <DataLabel className="basis-[100%] text-right only:hidden">Extras</DataLabel>
+      {flight.extras.hasSpeedyBoarding && (
+        <Badge variant="default" icon="servicesIconFastTrackOutlined">
+          Speedy Boarding
+        </Badge>
+      )}
+      {flight.extras.hasEasyJetPlusBagDrop && (
+        <Badge variant="default" icon="luggageLuggageDropOutlined">
+          easyJet Plus Bag Drop
+        </Badge>
+      )}
+      {flight.extras.hasFastTrackSecurity && (
+        <Badge variant="default" icon="servicesIconFastTrackOutlined">
+          Fast Track Security
+        </Badge>
+      )}
+      {flight.extras.hasMealDeal && (
+        <Badge variant="default" icon="facilitiesFoodAndDrinkOutlined">
+          Food & Drink Voucher
+        </Badge>
+      )}
+      {booking.bookingFareType === "FLEXI" && (
+        <Badge variant="default" icon="calendarFlexiFlightsSolid">
+          FLEXI
+        </Badge>
+      )}
     </Data>
   )
 
   const passengerElement = (
     <Data className="[grid-area:passengerElement]">
       <DataLabel>Passenger{passenger.infant && " + Infant"}</DataLabel>
-      <DataValue className="w-full items-baseline justify-between">
-        {passenger.firstName} {passenger.lastName}
-        <Badge variant="secondary">
+      <DataValue className="gap-2">
+        <Badge variant="default">
           <TNums content={passenger.id} />
         </Badge>
+        {passenger.firstName} {passenger.lastName}
       </DataValue>
       {passenger.infant && (
-        <DataValue className="w-full items-baseline justify-between">
-          {formatInfantPassengerTitle(passenger.infant)} (Infant)
-          <Badge variant="secondary">
+        <DataValue className="gap-2">
+          <Badge variant="default">
             <TNums content={passenger.infant.id} />
           </Badge>
+          {formatInfantPassengerTitle(passenger.infant)} (Infant)
         </DataValue>
       )}
     </Data>
@@ -202,9 +201,7 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
   const dateElement = (
     <Data align="right" className="[grid-area:dateElement]">
       <DataLabel>Date</DataLabel>
-      <DataValue icon="calendarDateRangeSolid">
-        <TNums content={format(flight.departureDate, "dd/MM/yyyy")} />
-      </DataValue>
+      <DataValue icon="calendarDateRangeSolid">{format(flight.departureDate, "EEE, dd MMM yyyy")}</DataValue>
     </Data>
   )
 
@@ -212,7 +209,7 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
     <Data align="right" className="[grid-area:timeElement]">
       <DataLabel>Takes Off</DataLabel>
       <DataValue icon={isDepartureBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
-        <TNums content={format(flight.departureDate, "HH:mm")} />
+        <TNums content={format(flight.departureDate, "hh:mm a")} />
       </DataValue>
     </Data>
   )
@@ -221,7 +218,7 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
     <Data align="right" className="[grid-area:gateClosesElement]">
       <DataLabel>Gate Closes</DataLabel>
       <DataValue icon={isGateClosureBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
-        <TNums content={format(gateClosureDate, "HH:mm")} />
+        <TNums content={format(gateClosureDate, "hh:mm a")} />
       </DataValue>
     </Data>
   )
@@ -242,15 +239,17 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
   )
 
   return (
-    <div className="rounded-[6px] border-l-[6px] border-l-green-600 bg-white shadow outline outline-1 outline-black/5">
+    <div className="relative overflow-hidden rounded-[6px] bg-orange text-white shadow outline outline-1 outline-black/5">
+      <div className="absolute inset-0 bg-gradient-to-b from-white to-black opacity-10 mix-blend-color-dodge" />
       {headerElement}
       <div
-        className="grid flex-auto items-start gap-4 gap-y-8 p-[--page-inset-small]"
+        className={cn("grid flex-auto items-start gap-8 p-[--page-inset-small]")}
         style={{
+          gridTemplateColumns: "minmax(0,3fr) minmax(0,2fr) minmax(0,2fr) auto",
           gridTemplateAreas: `
-            "flightInfoElement dateElement       dateElement   barCodeElement"
+            "flightInfoElement seatElement       dateElement   barCodeElement"
             "flightInfoElement gateClosesElement timeElement   barCodeElement"
-            "passengerElement  seatElement       extrasElement barCodeElement"
+            "passengerElement  extrasElement     extrasElement barCodeElement"
           `,
         }}
       >
