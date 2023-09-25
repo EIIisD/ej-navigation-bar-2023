@@ -25,7 +25,7 @@ export const Default: Story = () => {
 
   return (
     <div className="grid gap-4 p-[--page-inset]">
-      <div className="fixed right-0 top-0 h-screen w-[30vw] overflow-scroll bg-black/90 p-6 text-xs text-white">
+      {/* <div className="fixed right-0 top-0 h-screen w-[30vw] overflow-scroll bg-black/90 p-6 text-xs text-white">
         <pre>
           {JSON.stringify(
             {
@@ -39,7 +39,7 @@ export const Default: Story = () => {
             2
           )}
         </pre>
-      </div>
+      </div> */}
       <Ticket booking={booking} flight={flight} passenger={passenger} />
       {/* <div className="opacity-50">
         <OldTicket booking={booking} flight={flight} passenger={passenger} />

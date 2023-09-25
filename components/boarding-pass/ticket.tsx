@@ -239,8 +239,10 @@ export const Ticket = ({ booking, flight, passenger }: { booking: Booking; fligh
   )
 
   return (
-    <div className="relative overflow-hidden rounded-[6px] bg-orange text-white shadow outline outline-1 outline-black/5">
+    <div className="relative overflow-hidden rounded-[6px] bg-orange text-white shadow">
       <div className="absolute inset-0 bg-gradient-to-b from-white to-black opacity-10 mix-blend-color-dodge" />
+      <div className="absolute inset-0 rounded-[inherit] border border-black/50 mix-blend-overlay" />
+      <div className="absolute inset-0 top-px rounded-[inherit] border-t border-white/25 mix-blend-overlay" />
       {headerElement}
       <div
         className={cn("grid flex-auto items-start gap-8 p-[--page-inset-small]")}
