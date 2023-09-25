@@ -5,107 +5,56 @@
     "prettier",
     "plugin:tailwindcss/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked"
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
-      "parser": "@typescript-eslint/parser"
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        // misc
+        "react/no-unescaped-entities": "off",
+
+        // typescript
+        "@typescript-eslint/consistent-type-imports": [
+          "warn",
+          {
+            "fixStyle": "inline-type-imports",
+            "prefer": "type-imports"
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/padding-line-between-statements": [
+          "warn",
+          {
+            "blankLine": "always",
+            "next": "block",
+            "prev": "*"
+          },
+          {
+            "blankLine": "always",
+            "next": "*",
+            "prev": "block"
+          },
+          {
+            "blankLine": "always",
+            "next": "block-like",
+            "prev": "*"
+          },
+          {
+            "blankLine": "always",
+            "next": "*",
+            "prev": "block-like"
+          }
+        ]
+      }
     }
   ],
-  "plugins": ["@typescript-eslint", "tailwindcss", "unused-imports"],
+  "plugins": ["@typescript-eslint", "tailwindcss", "import"],
   "root": true,
-  "rules": {
-    "react/no-unescaped-entities": "off",
-    "@typescript-eslint/consistent-type-imports": [
-      "warn",
-      {
-        "fixStyle": "inline-type-imports",
-        "prefer": "type-imports"
-      }
-    ],
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": ["warn", { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }],
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/padding-line-between-statements": [
-      "warn",
-      {
-        "blankLine": "always",
-        "next": "block",
-        "prev": "*"
-      },
-      {
-        "blankLine": "always",
-        "next": "*",
-        "prev": "block"
-      },
-      {
-        "blankLine": "always",
-        "next": "block-like",
-        "prev": "*"
-      },
-      {
-        "blankLine": "always",
-        "next": "*",
-        "prev": "block-like"
-      }
-    ],
-    "padding-line-between-statements": [
-      "warn",
-      {
-        "blankLine": "always",
-        "next": "block",
-        "prev": "*"
-      },
-      {
-        "blankLine": "always",
-        "next": "*",
-        "prev": "block"
-      },
-      {
-        "blankLine": "always",
-        "next": "block-like",
-        "prev": "*"
-      },
-      {
-        "blankLine": "always",
-        "next": "*",
-        "prev": "block-like"
-      },
-      {
-        "blankLine": "always",
-        "next": "return",
-        "prev": "*"
-      },
-      {
-        "blankLine": "always",
-        "next": "*",
-        "prev": "return"
-      },
-      {
-        "blankLine": "always",
-        "next": "multiline-const",
-        "prev": "*"
-      },
-      {
-        "blankLine": "always",
-        "next": "*",
-        "prev": "multiline-const"
-      },
-      {
-        "blankLine": "always",
-        "next": "function",
-        "prev": "*"
-      },
-      {
-        "blankLine": "always",
-        "next": "*",
-        "prev": "function"
-      }
-    ]
-  },
   "parserOptions": {
     "project": "./tsconfig.json"
   },

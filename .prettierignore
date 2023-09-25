@@ -1,12 +1,25 @@
-cache
-.cache
-package.json
-package-lock.json
-CHANGELOG.md
-.yarn
-dist
+# dependencies
 node_modules
-.next
-.vercel
+
+# testing
+coverage
+
+# vercel & next
+.next/
+out/
 build
-.contentlayer
+.turbo
+.vercel
+
+# environment
+.env*
+
+# lockfiles
+*.log*
+*.lock*
+*-lock.*
+
+# miscellaneous
+.DS_Store
+.vscode
+*.pem

@@ -1,7 +1,37 @@
-dist/*
-.cache
-public
+# dependencies
 node_modules
+
+# testing
+coverage
+
+# vercel & next
+.next/
+out/
+build
+public
+.turbo
+.vercel
+
+# environment
+.env*
+
+# lockfiles
+*.log*
+*.lock*
+*-lock.*
+
+# miscellaneous
+.DS_Store
+.cache
+.vscode
+*.pem
+
+# not ecmascript
 *.esm.js
 *.js
 *.mjs
+*.cjs
+*.css
+*.html
+*.svg
+*.md
