@@ -9,7 +9,7 @@ const Tabs = TabsPrimitive.Root
 
 const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>>(
   ({ className, ...props }, ref) => {
-    const [isOverflowing, setIsOverflowing] = React.useState(false)
+    const [_isOverflowing, setIsOverflowing] = React.useState(false)
     const [scrollPosition, setScrollPosition] = React.useState(0)
     const tabsListRef = React.useRef<HTMLElement | null>(null)
 
@@ -45,8 +45,8 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, R
       }
     }, [])
 
-    const showBackButton = scrollPosition > 0
-    const showForwardButton = tabsListRef.current && scrollPosition < tabsListRef.current.scrollWidth - tabsListRef.current.clientWidth - 1
+    const _showBackButton = scrollPosition > 0
+    const _showForwardButton = tabsListRef.current && scrollPosition < tabsListRef.current.scrollWidth - tabsListRef.current.clientWidth - 1
 
     return (
       <div className="group relative">

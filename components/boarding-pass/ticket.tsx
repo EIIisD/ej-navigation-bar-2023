@@ -2,7 +2,6 @@
 import { type CSSProperties } from "react"
 import { format, sub } from "date-fns"
 
-import { type Airport } from "@/config/airports"
 import { formatInfantPassengerTitle, type Booking, type Flight, type Passenger } from "@/config/booking"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
