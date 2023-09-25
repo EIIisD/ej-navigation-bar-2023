@@ -51,7 +51,7 @@
     "framer-motion": "10.16.4",
     "glob": "10.3.7",
     "lucide-react": "0.279.0",
-    "nanoid": "5.0.1",
+    "nanoid": "4.0.2",
     "next": "13.5.3",
     "node-html-parser": "6.1.10",
     "postcss": "8.4.27",
