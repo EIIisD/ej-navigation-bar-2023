@@ -3,7 +3,6 @@ import { type Story, type StoryDefault } from "@ladle/react"
 
 import { createBooking } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
-import { OldTicket } from "@/components/boarding-pass/archive/old-ticket"
 import { Ticket } from "@/components/boarding-pass/ticket"
 
 export default {

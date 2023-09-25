@@ -6,9 +6,9 @@
     "start": "next start",
     "dev": "next dev",
     "dev:ladle": "npx ladle serve",
-    "build": "next build",
-    "build:ladle": "npx ladle build",
-    "build:icons": "tsx ./build-icons.mjs && npm run format:write",
+    "build": "bun run \"lint:fix\" && next build",
+    "build:ladle": "bunx ladle build",
+    "build:icons": "bun ./build-icons.mjs && bun run format:write",
     "format": "prettier --check \"**/*.{ts,tsx,mdx,svg}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx,svg}\" --cache",
     "lint": "next lint",
@@ -66,5 +66,8 @@
     "typescript": "5.2.2",
     "use-url-search-params": "2.5.1",
     "zod": "3.22.2"
+  },
+  "devDependencies": {
+    "ts-prune": "^0.10.3"
   }
 }

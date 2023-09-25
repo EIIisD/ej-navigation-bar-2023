@@ -112,11 +112,14 @@ const is = (probability: number): boolean => {
 
 export { twMerge, cn, disablePageScroll, wait, findInMenu, arrayElement, arrayElements, is }
 
-export const keyBy = <T extends object, K extends keyof T>(array: T[], key: K) => {
+export function keyBy<
+  A extends object,
+  K extends keyof {
+    [P in keyof A as A[P] extends PropertyKey ? P : never]: unknown
+  },
+>(array: A[], key: K) {
   return array.reduce(
-    (accumulator, current) => {
-      return { ...accumulator, [current[key]]: current }
-    },
-    {} as Record<T[K], T>
+    (r, x) => ({ ...r, [x[key] as unknown as PropertyKey]: x }),
+    {} as { [P in A[K] as A[K] extends PropertyKey ? A[K] : never]: A }
   )
 }

@@ -91,7 +91,13 @@ const FlightIcon: React.FC<{ className?: string }> = ({ className }) => {
   )
 }
 
-export const Ticket = ({ booking, flight, passenger }: { booking: Booking; flight: Flight; passenger: Passenger }) => {
+export interface TicketProps {
+  booking: Booking
+  flight: Flight
+  passenger: Passenger
+}
+
+export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) => {
   const gateClosureDate = sub(flight.departureDate, { minutes: 30 })
   const isGateClosureBetween6AMand6PM = gateClosureDate.getHours() >= 6 && gateClosureDate.getHours() < 18
   const isDepartureBetween6AMand6PM = flight.departureDate.getHours() >= 6 && flight.departureDate.getHours() < 18

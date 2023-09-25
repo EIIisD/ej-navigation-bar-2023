@@ -1,12 +1,12 @@
 "use client"
 
-import React, { ReactNode } from "react"
+import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { formatFlightTitle, formatInfantPassengerTitle, formatPassengerTitle } from "@/config/booking"
+import { formatInfantPassengerTitle } from "@/config/booking"
 import { useModalState } from "@/lib/use-modal-state"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
@@ -17,7 +17,6 @@ import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
-import { TNums } from "@/components/tnums"
 
 const printBookingFormSchema = z.object({
   flights: z.array(z.string()).refine((flights) => flights.length > 0, {

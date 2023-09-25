@@ -2,7 +2,7 @@ import React from "react"
 import { type Story, type StoryDefault } from "@ladle/react"
 
 import { generateBoardingPass, type IBoardingPass } from "@/lib/boarding-pass"
-import { Hero, type HeroProps } from "@/components/boarding-pass/hero"
+import { Hero, type HeroProps } from "@/components/boarding-pass/archive/hero"
 
 export default {
   meta: { withBg: false, fullWidth: true },

@@ -211,6 +211,9 @@ const genericBooking = {
         hasFastTrackSecurity: true,
         hasMealDeal: true,
       },
+      reservationNumber: "EZY8128" as const,
+      checkInSequenceNumber: "1" as const,
+      customerEntitlementsCode: "ABC123" as const,
     },
     {
       uid: "TrpEJ3b" as const,
@@ -358,6 +361,9 @@ const genericBooking = {
         hasFastTrackSecurity: true,
         hasMealDeal: true,
       },
+      reservationNumber: "EZY1809" as const,
+      checkInSequenceNumber: "2" as const,
+      customerEntitlementsCode: "DEF456" as const,
     },
   ],
   language: {
