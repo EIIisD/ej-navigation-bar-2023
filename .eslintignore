@@ -24,6 +24,7 @@ public
 .DS_Store
 .cache
 .vscode
+.history
 *.pem
 
 # not ecmascript

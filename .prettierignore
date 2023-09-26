@@ -22,4 +22,5 @@ build
 # miscellaneous
 .DS_Store
 .vscode
+.history
 *.pem
