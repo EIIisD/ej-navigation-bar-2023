@@ -1,7 +1,7 @@
 import React from "react"
 import { type GlobalProvider } from "@ladle/react"
 
-import "@/styles/globals.css"
+import "@/app/globals.css"
 
 export const Provider: GlobalProvider = ({ children, globalState, storyMeta }) => {
   return (
