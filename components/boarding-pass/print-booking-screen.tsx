@@ -16,6 +16,8 @@ import { Link } from "@/components/ui/link"
 import { Loading } from "@/components/ui/loading"
 import { Placeholder } from "@/components/ui/placeholder"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-stepper"
+import { DialogPrintAll } from "@/components/boarding-pass/dialog-print-all"
+import { DialogSaveAll } from "@/components/boarding-pass/dialog-save-all"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { Ticket } from "@/components/boarding-pass/ticket"
 import { Icon, type IconName } from "@/components/icon"
@@ -65,7 +67,7 @@ export const Section: React.FC<React.PropsWithChildren<{ className?: string; tit
 
 const Hero = () => {
   return (
-    <div className="mx-auto max-w-[--page-maxWidth] flex-auto px-[--page-inset]">
+    <div className="mx-auto max-w-[--page-maxWidth] flex-auto bg-white px-[--page-inset]">
       <div className="grid gap-6 py-16">
         <p className="font-bold">Get ready for takeoff</p>
 
@@ -91,14 +93,18 @@ const Hero = () => {
       </Link> */}
 
         <div className="flex items-center gap-2">
-          <Button className="gap-2.5">
-            <Icon name="mobilePrinterPrinterSolid" className="-ml-1.5 h-5 w-5" />
-            Print all
-          </Button>
-          <Button mode="outline" className="gap-2.5">
-            <Icon name="externalDownloadOutlined" className="-ml-1.5 h-5 w-5" />
-            Save all
-          </Button>
+          <DialogPrintAll>
+            <Button className="gap-2.5">
+              <Icon name="mobilePrinterPrinterSolid" className="-ml-1.5 h-5 w-5" />
+              Print all
+            </Button>
+          </DialogPrintAll>
+          <DialogSaveAll>
+            <Button mode="outline" className="gap-2.5">
+              <Icon name="externalDownloadOutlined" className="-ml-1.5 h-5 w-5" />
+              Save all
+            </Button>
+          </DialogSaveAll>
           {/* <Button mode="outline" className="gap-2.5">
           <Icon name="editChangeEditOutlined" className="-ml-1.5 h-5 w-5" />
           Edit

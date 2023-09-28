@@ -2,9 +2,9 @@
 
 import React from "react"
 
+import { VERCEL_ENV } from "@/lib/env"
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { cn } from "@/lib/utils"
-import ThresholdFilter from "@/components/threshold-filter"
 
 export const Simulator: React.FC<
   React.PropsWithoutRef<{
@@ -21,12 +21,12 @@ export const Simulator: React.FC<
     }
   })
 
-  if (enabled && !!print) {
+  if (VERCEL_ENV !== "production" && enabled && !!print) {
     return (
       <body
         className="threshold bg-[#2b2d31]"
         // style={{ filter: "saturate(0) url(#threshold)" }}
-        // style={{
+        // style={{rrrerer
         //   filter: "contrast(120%) saturate(0)",
         // }}
       >

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "next start",
-    "dev": "next dev && npm run open",
+    "dev": "next dev",
+    "dev:open": "next dev && npm run open",
     "open": "open http://localhost:3000",
     "ladle": "npx ladle serve",
     "build": "next build",

@@ -3,12 +3,13 @@ import "./globals.css"
 import React from "react"
 import { type Metadata } from "next"
 
+import { VERCEL_ENV } from "@/lib/env"
 import { DevelopmentEffects } from "@/components/development-effects"
 
 export const metadata: Metadata = {
   title: {
     default: "easyJet",
-    template: `%s - easyJet`,
+    template: `%s | easyJet`,
   },
   description: "Private demo of a new design for the easyJet.com main menu.",
   viewport: {
@@ -28,12 +29,14 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  console.log(`Running in ${VERCEL_ENV} environment.`)
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
         {children}
-        <DevelopmentEffects />
+        {VERCEL_ENV === "development" && <DevelopmentEffects />}
       </html>
     </>
   )
