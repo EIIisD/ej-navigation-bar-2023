@@ -39,10 +39,10 @@ export const DialogPrintBooking = ({ children }: { children?: React.ReactNode })
   const printBookingForm = useForm<z.infer<typeof printBookingFormSchema>>({
     resolver: zodResolver(printBookingFormSchema),
     defaultValues: {
-      // flights: booking.flights.map((flight) => flight.uid),
-      // passengers: booking.passengers.map((passenger) => passenger.uid),
-      flights: [],
-      passengers: [],
+      flights: booking.flights.map((flight) => flight.uid),
+      passengers: booking.passengers.map((passenger) => passenger.uid),
+      // flights: [],
+      // passengers: [],
     },
   })
 

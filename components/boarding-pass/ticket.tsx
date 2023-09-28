@@ -21,7 +21,7 @@ const iconFromSeat = (seat: string): IconName => {
 const Data = ({ className, align = "left", ...props }: { className?: string; align?: "left" | "right"; children: React.ReactNode }) => {
   return (
     <div
-      className={cn("flex flex-col gap-x-1 gap-y-1.5", align === "left" ? "items-start text-left" : "items-end text-right", className)}
+      className={cn("flex flex-col gap-x-2 gap-y-1.5", align === "left" ? "items-start text-left" : "items-end text-right", className)}
       {...props}
     />
   )
@@ -59,13 +59,18 @@ const DataValue = ({
   return (
     <div
       className={cn(
-        "flex items-center gap-1 whitespace-nowrap text-sm/4",
+        "flex items-center gap-2 whitespace-nowrap text-sm/4",
         align === "left" ? "justify-start text-left" : "justify-end text-right",
         className
       )}
       {...props}
     >
-      <Icon name={icon} className="h-[1em] w-[1em] text-gray-400" />
+      {/* <Icon name={icon} className="h-[1em] w-[1em] text-gray-400" /> */}
+      {!!icon && (
+        <div className="flex h-6 w-6 items-center justify-center rounded bg-gray-100">
+          <Icon name={icon} className="h-4 w-4  text-primary" />
+        </div>
+      )}
       {children}
     </div>
   )
@@ -155,7 +160,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
 
   const flightInfoElement = (
     <Grid
-      className="w-full max-w-[--flight-info-max] gap-1.5 gap-x-3 [--flight-info-col-max:7rem] [--flight-info-max:20rem] [grid-area:flightInfoElement] [.threshold_&]:[--flight-info-col-max:7rem] [.threshold_&]:[--flight-info-max:16rem]"
+      className="w-full max-w-[--flight-info-max] gap-x-3 gap-y-1 [--flight-info-col-max:7rem] [--flight-info-max:20rem] [grid-area:flightInfoElement] [.threshold_&]:[--flight-info-col-max:7rem] [.threshold_&]:[--flight-info-max:16rem]"
       style={{
         gridTemplateColumns: "minmax(0,4fr) minmax(0,3fr) minmax(0,4fr)",
         gridTemplateAreas: `
@@ -165,30 +170,30 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
         `,
       }}
     >
-      <div className="flex min-h-[theme('height.8')] w-full flex-col items-start justify-end [grid-area:departureAirportName]">
-        <DataLabel className="max-w-[--flight-info-col-max]">{flight.departureAirport.name}</DataLabel>
+      <div className="flex w-full flex-col items-start [grid-area:departureAirportName]">
+        <DataLabel className="max-w-[--flight-info-col-max] !leading-4">{flight.departureAirport.name}</DataLabel>
       </div>
       <div className="flex w-full justify-start [grid-area:departureAirportCode]">
-        <DataValue className="max-w-[--flight-info-col-max] text-4xl font-light">{flight.departureAirport.code}</DataValue>
+        <DataValue className="max-w-[--flight-info-col-max] text-4xl font-light tracking-wide">{flight.departureAirport.code}</DataValue>
       </div>
       <div className="flex w-full justify-start [grid-area:departureAirportTerminal]">
-        <DataValue className="max-w-[--flight-info-col-max]">
+        <DataValue className="max-w-[--flight-info-col-max] text-secondary">
           {flight.departureAirport.terminal ? `Terminal ${flight.departureAirport.terminal}` : ""}
         </DataValue>
       </div>
-      <FlightIcon className="self-center text-gray-400 [grid-area:flightIcon]" />
-      <div className="flex min-h-[theme('height.8')] w-full flex-col items-end justify-end [grid-area:arrivalAirportName]">
-        <DataLabel align="right" className="max-w-[--flight-info-col-max]">
+      <FlightIcon className="self-center text-secondary [grid-area:flightIcon]" />
+      <div className="flex w-full flex-col items-end [grid-area:arrivalAirportName]">
+        <DataLabel align="right" className="max-w-[--flight-info-col-max] !leading-4">
           {flight.arrivalAirport.name}
         </DataLabel>
       </div>
       <div className="flex w-full justify-end [grid-area:arrivalAirportCode]">
-        <DataValue align="right" className="max-w-[--flight-info-col-max] text-4xl font-light">
+        <DataValue align="right" className="max-w-[--flight-info-col-max] text-4xl font-light tracking-wide">
           {flight.arrivalAirport.code}
         </DataValue>
       </div>
       <div className="flex w-full justify-end [grid-area:arrivalAirportTerminal]">
-        <DataValue align="right" className="max-w-[--flight-info-col-max]">
+        <DataValue align="right" className="max-w-[--flight-info-col-max] text-secondary">
           {flight.arrivalAirport.terminal ? `Terminal ${flight.arrivalAirport.terminal}` : ""}
         </DataValue>
       </div>
@@ -246,7 +251,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
     <Data align="right" className="[grid-area:seatElement]">
       <DataLabel>Seat</DataLabel>
       <DataValue icon={iconFromSeat(passenger.selectedSeat)}>
-        <TNums content={passenger.selectedSeat} /> {passenger.selectedSeatType}
+        {passenger.selectedSeat} {passenger.selectedSeatType}
       </DataValue>
     </Data>
   )
@@ -261,18 +266,14 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
   const timeElement = (
     <Data align="right" className="[grid-area:timeElement]">
       <DataLabel>Takes Off</DataLabel>
-      <DataValue icon={isDepartureBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
-        <TNums content={format(flight.departureDate, "hh:mm a")} />
-      </DataValue>
+      <DataValue icon={isDepartureBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>{format(flight.departureDate, "hh:mm a")}</DataValue>
     </Data>
   )
 
   const gateClosesElement = (
     <Data align="right" className="[grid-area:gateClosesElement]">
       <DataLabel>Gate Closes</DataLabel>
-      <DataValue icon={isGateClosureBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>
-        <TNums content={format(gateClosureDate, "hh:mm a")} />
-      </DataValue>
+      <DataValue icon={isGateClosureBetween6AMand6PM ? "lucideSun" : "lucideMoon"}>{format(gateClosureDate, "hh:mm a")}</DataValue>
     </Data>
   )
 
@@ -280,7 +281,10 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
     <div className="flex h-full gap-1 [grid-area:barCodeElement]">
       {/* <div className="relative after:absolute after:inset-0 after:border-2 after:border-primary"> */}
       <div className="flex h-28 gap-1">
-        <BarCode className="h-full w-10 bg-white invert" />
+        <div className="relative h-full w-10">
+          <BarCode className="h-full w-10 bg-white invert" />
+          <div className="absolute inset-0 z-10 border-2 border-primary" />
+        </div>
         <div className="flex  -rotate-180 items-center justify-end gap-x-2 text-xs tracking-wide [writing-mode:vertical-rl]">
           <TNums content={flight.reservationNumber} />
           <TNums content={flight.customerEntitlementsCode} />

@@ -111,6 +111,10 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  #simulator {
+    @apply flex flex-auto flex-col;
+  }
+
   :where(symbol, svg):not(:root, .overflow-hidden) {
     overflow: visible;
   }
@@ -146,6 +150,13 @@
     --spacing-sm: 3mm;
     --spacing: 5mm;
     --spacing-lg: 8mm;
+  }
+
+  .list {
+    @apply space-y-2;
+  }
+  .list > li {
+    @apply list-item pl-1 before:mr-1.5 before:text-tertiary before:content-['•'];
   }
 
   /* --pass-border-color: theme("colors.orange.darker");

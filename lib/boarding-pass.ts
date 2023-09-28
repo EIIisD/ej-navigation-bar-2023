@@ -83,9 +83,6 @@ export const generateBoardingPass = (): IBoardingPass => {
   const generatePassenger = (): IPassenger => {
     const gender = arrayElement(["male", "female", undefined]) as "male" | "female" | undefined
 
-    // we can use this array to select names of a given length, though gender becomes an issue
-    // console.log(faker.definitions.person.male_first_name)
-
     const censorDocumentID = (documentID: string): string => {
       const censorCharacter = "*"
       const firstCharacter = documentID.slice(0, 1)

@@ -1,0 +1,85 @@
+const passengers = [
+  {
+    uid: "RI6YaIO" as const,
+    id: "8***7315 (P)" as const,
+    gender: "male" as const,
+    title: "Sr." as const,
+    firstName: "Iván" as const,
+    lastName: "Calderón Salcido" as const,
+    type: "Adult" as const,
+    selectedSeat: "1A" as const,
+    selectedSeatType: "Standard" as const,
+    hasSmallCabinBag: true as const,
+    hasLargeCabinBag: false as const,
+  },
+]
+
+const extras = {
+  hasSmallCabinBag: true as const,
+  hasLargeCabinBag: false as const,
+  holdBags: [
+    { name: "Hold Bag" as const, weight: 15, amount: 0 },
+    { name: "Hold Bag" as const, weight: 23, amount: 0 },
+    { name: "Hold Bag" as const, weight: 26, amount: 0 },
+    { name: "Hold Bag" as const, weight: 29, amount: 0 },
+    { name: "Hold Bag" as const, weight: 32, amount: 0 },
+  ],
+  sportsEquipment: [
+    { name: "Bicycle" as const, amount: 0 },
+    { name: "Canoe" as const, amount: 0 },
+    { name: "Sporting firearm" as const, amount: 0 },
+    { name: "Golf bag" as const, amount: 0 },
+    { name: "Hang glider" as const, amount: 0 },
+    { name: "Skis and/or boots" as const, amount: 0 },
+    { name: "Snowboard" as const, amount: 0 },
+    { name: "Windsurfing board" as const, amount: 0 },
+  ],
+  hasSpeedyBoarding: false as const,
+  hasEasyJetPlusBagDrop: true as const,
+  hasFastTrackSecurity: false as const,
+  hasMealDeal: false as const,
+}
+
+export const booking = {
+  hasEasyJetPlus: true as const,
+  bookingLabel: "Standby Fare" as const,
+  bookingFareType: "Standard" as const,
+  bookingBundle: "Essentials" as const,
+  passengers,
+  flights: [
+    {
+      uid: "vKKYeVy" as const,
+      departureDate: new Date("2023-10-01T23:49:02.858Z"),
+      departureAirport: {
+        name: "Porto Santo" as const,
+        canonicalUrlToken: "porto-santo" as const,
+        code: "PXO" as const,
+        country: "Portugal" as const,
+        countryCode: "PT" as const,
+        airportGroupCode: "" as const,
+        terminal: null,
+      },
+      arrivalDate: new Date("2023-10-02T06:04:02.858Z"),
+      arrivalAirport: {
+        name: "Milan Linate" as const,
+        canonicalUrlToken: "milan-linate" as const,
+        code: "LIN" as const,
+        country: "Italy" as const,
+        countryCode: "IT" as const,
+        airportGroupCode: "*MI" as const,
+        terminal: null,
+      },
+      number: "EZY0009" as const,
+      reservationNumber: "3CG8Y4A" as const,
+      checkInSequenceNumber: "S400" as const,
+      customerEntitlementsCode: "S1" as const,
+      passengers,
+      extras,
+    },
+  ],
+  language: {
+    value: "Castellano" as const,
+    locale: "es_ES" as const,
+    flag: "spain" as const,
+  },
+}

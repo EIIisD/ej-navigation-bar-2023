@@ -74,6 +74,8 @@
     "phoneOutlined": true,
     "paymentsSolid": true,
     "paymentsOutlined": true,
+    "officialPerson": true,
+    "officialBabyChangingInfant": true,
     "offersUpgradeSolid": true,
     "offersSavingSolid": true,
     "offersPromocodePriceTagSolid": true,

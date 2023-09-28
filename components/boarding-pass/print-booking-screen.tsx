@@ -6,6 +6,7 @@ import { default as Advert3Cols } from "@/public/media/advert-3-cols.jpg"
 import { format } from "date-fns"
 
 import { createBooking, formatPassengerTitle, type Flight, type Luggage } from "@/config/booking"
+import { LOCAL_ENV } from "@/lib/env"
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "@/components/ui/link"
 import { Loading } from "@/components/ui/loading"
 import { Placeholder } from "@/components/ui/placeholder"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs-stepper"
 import { DialogPrintAll } from "@/components/boarding-pass/dialog-print-all"
 import { DialogSaveAll } from "@/components/boarding-pass/dialog-save-all"
@@ -197,17 +199,18 @@ export const FlightCard = ({ flight }: { flight: Flight }) => {
   )
 }
 
-export const PrintBookingScreen = () => {
+export const PrintBookingScreen = ({ isPredefined }: { isPredefined?: boolean }) => {
   const { selectedPassengers, selectedFlights, booking, ...printBookingContext } = usePrintBookingContext()
 
   React.useEffect(() => {
-    const newBooking = createBooking()
-    printBookingContext.setBooking(newBooking)
-    printBookingContext.setSelectedPassengers(newBooking.passengers)
-    printBookingContext.setSelectedFlights(newBooking.flights)
-    console.log(newBooking)
+    if (!isPredefined) {
+      const newBooking = createBooking()
+      printBookingContext.setBooking(newBooking)
+      printBookingContext.setSelectedPassengers(newBooking.passengers)
+      printBookingContext.setSelectedFlights(newBooking.flights)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isPredefined])
 
   useWindowKeyDown(({ key, shiftKey, metaKey }) => {
     if (key === "r" && !shiftKey && !metaKey) {
@@ -239,7 +242,7 @@ export const PrintBookingScreen = () => {
         {flights.length > 1 && (
           <>
             <svg className="h-px w-full bg-gray-100 fill-none text-gray-100">
-              <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" vectorEffect="non-scaling-stroke" stroke-dasharray="9 6" />
+              <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" vectorEffect="non-scaling-stroke" strokeDasharray="9 6" />
             </svg>
             <div className="sticky top-[--header-height] z-10 bg-white shadow-xl shadow-black/[2%]">
               <div className="mx-auto max-w-[--page-maxWidth] px-[--page-inset]">
@@ -268,7 +271,12 @@ export const PrintBookingScreen = () => {
                 </AlertDescription>
               </Alert>
               <Section title="Your boarding cards & bags">
-                <Accordion className={cn("overflow-hidden", cardStyles)} type="single" collapsible>
+                <Accordion
+                  className={cn("overflow-hidden", cardStyles)}
+                  type="single"
+                  collapsible
+                  defaultValue={LOCAL_ENV ? flight.passengers[0].uid : flight.passengers.length === 1 ? flight.passengers[0].uid : undefined}
+                >
                   {flight.passengers.map((passenger) => (
                     <AccordionItem key={passenger.uid} value={passenger.uid}>
                       <AccordionTrigger>
@@ -310,10 +318,24 @@ export const PrintBookingScreen = () => {
                                   </div>
                                 </div>
                                 <div className="border-t p-4 py-3">
-                                  <Link className="ml-auto flex max-w-max text-sm/4">
-                                    <Icon name="informationSolid" className="h-4 w-4" />
-                                    <span>Bag details</span>
-                                  </Link>
+                                  <Popover>
+                                    <PopoverTrigger asChild>
+                                      <Link className="ml-auto flex max-w-max text-sm/4">
+                                        <Icon name="informationSolid" className="h-4 w-4" />
+                                        <span>Bag details</span>
+                                      </Link>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-80">
+                                      <h3 className="font-bold">Small cabin bags</h3>
+                                      <hr />
+                                      <ul className="list">
+                                        <li>Everyone can bring one per person on board for free.</li>
+                                        <li>Kept under the seat in front of you</li>
+                                        <li>Maximum size 45 x 36 x 20cm (including any handles and wheels)</li>
+                                        <li>The size of a handbag or rucksack, but please measure before travel</li>
+                                      </ul>
+                                    </PopoverContent>
+                                  </Popover>
                                 </div>
                               </div>
                             ) : (
@@ -348,10 +370,25 @@ export const PrintBookingScreen = () => {
                                   </div>
                                 </div>
                                 <div className="border-t p-4 py-3">
-                                  <Link className="ml-auto flex max-w-max text-sm/4">
-                                    <Icon name="informationSolid" className="h-4 w-4" />
-                                    <span>Bag details</span>
-                                  </Link>
+                                  <Popover>
+                                    <PopoverTrigger asChild>
+                                      <Link className="ml-auto flex max-w-max text-sm/4">
+                                        <Icon name="informationSolid" className="h-4 w-4" />
+                                        <span>Bag details</span>
+                                      </Link>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-80">
+                                      <h3 className="font-bold">Large cabin bags</h3>
+                                      <hr />
+                                      <ul className="list">
+                                        <li>Book online in advance to avoid airport fees</li>
+                                        <li>Stored in an overhead locker</li>
+                                        <li>Comes with Speedy Boarding included</li>
+                                        <li>Maximum size 56 x 45 x 25 cm (including any handles and wheels)</li>
+                                        <li>The size of a small suitcase, but please measure before travel</li>
+                                      </ul>
+                                    </PopoverContent>
+                                  </Popover>
                                 </div>
                               </div>
                             ) : (
@@ -424,10 +461,27 @@ export const PrintBookingScreen = () => {
                                 </div>
                               </header>
                               <div className="ml-auto p-4 py-3">
-                                <Link className="flex max-w-max text-sm/4">
-                                  <Icon name="informationSolid" className="h-4 w-4" />
-                                  <span>Luggage details</span>
-                                </Link>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Link className="flex max-w-max text-sm/4">
+                                      <Icon name="informationSolid" className="h-4 w-4" />
+                                      <span>Luggage details</span>
+                                    </Link>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-80">
+                                    <h3 className="font-bold">{item.name}</h3>
+                                    <hr />
+                                    <ul className="list">
+                                      <li>Each passenger is allowed one piece of hand luggage</li>
+                                      <li>Additional luggage can be purchased at an extra cost</li>
+                                      <li>Luggage size and weight restrictions apply</li>
+                                      <li>Special items like sports equipment may require special handling</li>
+                                    </ul>
+                                    <aside className="!mt-5 rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700">
+                                      This information is just for demonstration and is not accurate.
+                                    </aside>
+                                  </PopoverContent>
+                                </Popover>
                               </div>
                             </div>
                           )

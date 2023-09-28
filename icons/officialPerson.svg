@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><svg id="Editable" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141.73 141.73">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-linejoin: round;
+      }
+      .cls-1,
+      .cls-2 {
+        stroke-linecap: round;
+      }
+      .cls-1,
+      .cls-2,
+      .cls-3 {
+        fill: none;
+        stroke: #ff6700;
+        stroke-width: 4px;
+      }
+      .cls-2,
+      .cls-3 {
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <path class="cls-3" d="M54.26,47.66c0-9.17,7.43-16.61,16.61-16.61s16.61,7.43,16.61,16.61-7.44,16.61-16.61,16.61-16.61-7.44-16.61-16.61Z" />
+  <path class="cls-1" d="M107.49,110.68c0-15.35,.01-31.85,.01-31.85,0-12.72-12.73-12.72-12.73-12.72h-7.3" />
+  <path class="cls-1" d="M54.26,66.11h-7.3s-12.73,0-12.73,12.72v31.85" />
+  <g>
+    <line class="cls-2" x1="48.98" y1="85.47" x2="48.98" y2="110.68" />
+    <line class="cls-2" x1="92.76" y1="85.47" x2="92.76" y2="110.68" />
+  </g>
+</svg>

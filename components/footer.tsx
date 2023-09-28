@@ -19,6 +19,12 @@ export const Footer = () => {
                         <div className="line-clamp-1 break-all">{item}</div>
                       </TextButton>
                     </Link>
+                  ) : item === "Flight Tracker" ? (
+                    <Link href="/admin">
+                      <TextButton className="-m-1 w-full justify-start whitespace-normal p-1 text-sm text-secondary">
+                        <div className="line-clamp-1 break-all">{item}</div>
+                      </TextButton>
+                    </Link>
                   ) : (
                     <TextButton className="-m-1 w-full justify-start whitespace-normal p-1 text-sm text-secondary">
                       <div className="line-clamp-1 break-all">{item}</div>

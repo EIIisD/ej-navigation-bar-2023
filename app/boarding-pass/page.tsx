@@ -1,5 +1,6 @@
 import { type Metadata } from "next"
 
+import { LOCAL_ENV } from "@/lib/env"
 import { DialogPrintBooking } from "@/components/boarding-pass/dialog-print-booking"
 import { PrintBookingContextProvider } from "@/components/boarding-pass/print-booking-context"
 import { PrintBookingPdf } from "@/components/boarding-pass/print-booking-pdf"
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   title: "Your boarding passes",
 }
 
-export default function IndexPage() {
+export default function BoardingPassPage() {
   return (
     <Simulator
       screen={
@@ -21,7 +22,7 @@ export default function IndexPage() {
           <NavigationBar />
           <SubNavigationBar />
           <PrintBookingContextProvider>
-            {/* <DialogPrintBooking /> */}
+            {!LOCAL_ENV && <DialogPrintBooking />}
             <PrintBookingScreen />
           </PrintBookingContextProvider>
           <Footer />

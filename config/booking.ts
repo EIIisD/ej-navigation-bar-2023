@@ -36,13 +36,13 @@ const scenarios = [
   },
 ] as const
 
-export const scenario = scenarios[0]
+export const scenario = scenarios[3]
 
 export const formatFlightTitle = (flight: Flight) =>
   `${flight.departureAirport.code}-${flight.arrivalAirport.code} - ${format(flight.departureDate, "do MMM")}`
 
 export const formatPassengerTitle = (passenger: Passenger) =>
-  `${passenger.firstName} ${passenger.lastName} ${passenger.infant ? ` + Baby ${passenger.infant.lastName} (Infant)` : ""}`
+  `${passenger.firstName} ${passenger.lastName} ${passenger.infant ? ` + ${passenger.infant.firstName} ${passenger.infant.lastName} (Infant)` : ""}`
 
 export const formatInfantPassengerTitle = (infant: Passenger) => `${infant.firstName} ${infant.lastName}`
 
@@ -257,7 +257,7 @@ export const createBooking = () => {
         selectedSeat: "1A",
         selectedSeatType: "Standard",
         hasSmallCabinBag: type !== "Infant",
-        hasLargeCabinBag: false,
+        hasLargeCabinBag: is(scenario.likely),
       }
 
       return passenger
@@ -281,7 +281,8 @@ export const createBooking = () => {
       }[scenario.name],
     })
 
-    const maximumAmountOfInfantPassengers = Math.min(7, maximumAmountOfPassengers - amountOfAdultPassengers)
+    // const maximumAmountOfInfantPassengers = Math.min(7, maximumAmountOfPassengers - amountOfAdultPassengers)
+    const maximumAmountOfInfantPassengers = amountOfAdultPassengers
 
     const amountOfInfantPassengers = faker.number.int({
       min: 0,
@@ -330,6 +331,7 @@ export const createBooking = () => {
     const hasLargeCabinBag = bookingFareType === "FLEXI" || bookingBundle === "Standard Plus"
 
     const holdBags: Luggage[] = [
+      { name: "Hold Bag", weight: 15, amount: 0 },
       { name: "Hold Bag", weight: 15, amount: 0 },
       {
         name: "Hold Bag",

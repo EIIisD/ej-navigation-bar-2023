@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { VERCEL_ENV } from "@/lib/env"
+import { LOCAL_ENV } from "@/lib/env"
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { cn } from "@/lib/utils"
 
@@ -13,7 +13,7 @@ export const Simulator: React.FC<
     container?: boolean
   }>
 > = ({ screen, print, container = true }) => {
-  const [enabled, setEnabled] = React.useState(true)
+  const [enabled, setEnabled] = React.useState(false)
 
   useWindowKeyDown(({ key, shiftKey, metaKey }) => {
     if (key === "e" && !shiftKey && !metaKey) {
@@ -21,24 +21,17 @@ export const Simulator: React.FC<
     }
   })
 
-  if (VERCEL_ENV !== "production" && enabled && !!print) {
+  if (LOCAL_ENV && enabled && !!print) {
     return (
-      <body
-        className="threshold bg-[#2b2d31]"
-        // style={{ filter: "saturate(0) url(#threshold)" }}
-        // style={{rrrerer
-        //   filter: "contrast(120%) saturate(0)",
-        // }}
-      >
+      <div id="simulator" className="threshold bg-[#2b2d31]">
         {container ? (
           <div className={cn("mx-auto my-[10mm] h-[max-content] w-full max-w-[calc(790px-20mm)] flex-auto overflow-y-scroll bg-white")}>{print}</div>
         ) : (
           <div className="w-full max-w-[calc(790px-20mm)]">{print}</div>
         )}
-        {/* <ThresholdFilter id="threshold" strength={1} blur={0} /> */}
-      </body>
+      </div>
     )
   } else {
-    return <body>{screen}</body>
+    return <div className="contents">{screen}</div>
   }
 }

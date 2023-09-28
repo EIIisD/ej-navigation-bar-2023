@@ -6,371 +6,163 @@ import { useUrlSearchParams } from "use-url-search-params"
 
 import { type Booking, type Flight, type Passenger } from "@/config/booking"
 
-const genericBooking = {
-  hasEasyJetPlus: false,
-  bookingFareType: "FLEXI" as const,
-  bookingBundle: undefined,
+const booking = {
+  hasEasyJetPlus: false as const,
+  bookingLabel: "FLEXI" as const,
+  bookingFareType: "Standard" as const,
+  bookingBundle: "Standard" as const,
   passengers: [
     {
-      uid: "8xdrbY2" as const,
-      id: "0***4596 (P)" as const,
-      gender: "male" as const,
-      title: "Herr" as const,
-      firstName: "Justin" as const,
-      lastName: "Bürklein" as const,
+      uid: "idaSUkx" as const,
+      id: "2***1615 (P)" as const,
+      gender: "female" as const,
+      title: "Prof." as const,
+      firstName: "Emese" as const,
+      lastName: "Király" as const,
       type: "Adult" as const,
       selectedSeat: "1A" as const,
       selectedSeatType: "Standard" as const,
       hasSmallCabinBag: true as const,
       hasLargeCabinBag: false as const,
-      infant: {
-        uid: "31pDwJD" as const,
-        id: "7***3468 (P)" as const,
-        gender: "male" as const,
-        title: "Prof. Dr." as const,
-        firstName: "Benno" as const,
-        lastName: "Bürklein" as const,
-        type: "Infant" as const,
-        selectedSeat: "1A" as const,
-        selectedSeatType: "Standard" as const,
-        hasSmallCabinBag: true as const,
-        hasLargeCabinBag: false as const,
-      },
-    },
-    {
-      uid: "IuMSMb7" as const,
-      id: "6***0786 (P)" as const,
-      gender: "male" as const,
-      title: "Prof. Dr." as const,
-      firstName: "Adriano" as const,
-      lastName: "Meissner" as const,
-      type: "Adult" as const,
-      selectedSeat: "1A" as const,
-      selectedSeatType: "Standard" as const,
-      hasSmallCabinBag: true as const,
-      hasLargeCabinBag: false as const,
-      infant: {
-        uid: "axAFZc4" as const,
-        id: "9***1535 (P)" as const,
-        gender: "male" as const,
-        title: "Herr" as const,
-        firstName: "Mateo" as const,
-        lastName: "Meissner" as const,
-        type: "Infant" as const,
-        selectedSeat: "1A" as const,
-        selectedSeatType: "Standard" as const,
-        hasSmallCabinBag: true as const,
-        hasLargeCabinBag: false as const,
-      },
     },
   ],
   flights: [
     {
-      uid: "k55J9S9" as const,
-      departureDate: new Date("2023-08-20T23:47:37.501Z"),
+      uid: "yfiCvbg" as const,
+      departureDate: new Date("2023-10-06T05:11:39.398Z"),
       departureAirport: {
-        name: "Skopje" as const,
-        canonicalUrlToken: "skopje-international-airport" as const,
-        code: "SKP" as const,
-        country: "North Macedonia" as const,
-        countryCode: "MK" as const,
+        name: "Marseille Provence" as const,
+        canonicalUrlToken: "marseille-provence" as const,
+        code: "MRS" as const,
+        country: "France" as const,
+        countryCode: "FR" as const,
+        airportGroupCode: "" as const,
+        terminal: "MP2" as const,
+      },
+      arrivalDate: new Date("2023-10-06T08:56:39.398Z"),
+      arrivalAirport: {
+        name: "Malaga" as const,
+        canonicalUrlToken: "malaga" as const,
+        code: "AGP" as const,
+        country: "Spain" as const,
+        countryCode: "ES" as const,
+        airportGroupCode: "" as const,
+        terminal: "3" as const,
+      },
+      number: "EZY0048" as const,
+      reservationNumber: "S0LL6RK" as const,
+      checkInSequenceNumber: "S600" as const,
+      customerEntitlementsCode: "S1" as const,
+      passengers: [
+        {
+          uid: "idaSUkx" as const,
+          id: "2***1615 (P)" as const,
+          gender: "female" as const,
+          title: "Prof." as const,
+          firstName: "Emese" as const,
+          lastName: "Király" as const,
+          type: "Adult" as const,
+          selectedSeat: "30D" as const,
+          selectedSeatType: "Standard" as const,
+          hasSmallCabinBag: true as const,
+          hasLargeCabinBag: false as const,
+        },
+      ],
+      extras: {
+        hasSmallCabinBag: true as const,
+        hasLargeCabinBag: false as const,
+        holdBags: [
+          { name: "Hold Bag" as const, weight: 15, amount: 0 },
+          { name: "Hold Bag" as const, weight: 23, amount: 1 },
+          { name: "Hold Bag" as const, weight: 26, amount: 0 },
+          { name: "Hold Bag" as const, weight: 29, amount: 0 },
+          { name: "Hold Bag" as const, weight: 32, amount: 0 },
+        ],
+        sportsEquipment: [
+          { name: "Bicycle" as const, amount: 0 },
+          { name: "Canoe" as const, amount: 0 },
+          { name: "Sporting firearm" as const, amount: 0 },
+          { name: "Golf bag" as const, amount: 1 },
+          { name: "Hang glider" as const, amount: 0 },
+          { name: "Skis and/or boots" as const, amount: 0 },
+          { name: "Snowboard" as const, amount: 0 },
+          { name: "Windsurfing board" as const, amount: 0 },
+        ],
+        hasSpeedyBoarding: false as const,
+        hasEasyJetPlusBagDrop: false as const,
+        hasFastTrackSecurity: false as const,
+        hasMealDeal: false as const,
+      },
+    },
+    {
+      uid: "HBKkX86" as const,
+      departureDate: new Date("2023-10-07T08:56:39.398Z"),
+      departureAirport: {
+        name: "Agadir" as const,
+        canonicalUrlToken: "agadir" as const,
+        code: "AGA" as const,
+        country: "Morocco" as const,
+        countryCode: "MA" as const,
+        airportGroupCode: "" as const,
+        terminal: null,
+      },
+      arrivalDate: new Date("2023-10-07T13:41:39.398Z"),
+      arrivalAirport: {
+        name: "Luxembourg" as const,
+        canonicalUrlToken: "luxembourg" as const,
+        code: "LUX" as const,
+        country: "Luxembourg" as const,
+        countryCode: "LU" as const,
         airportGroupCode: "" as const,
         terminal: "A" as const,
       },
-      arrivalDate: new Date("2023-08-21T07:32:37.501Z"),
-      arrivalAirport: {
-        name: "Belgrade" as const,
-        canonicalUrlToken: "belgrade" as const,
-        code: "BEG" as const,
-        country: "Serbia" as const,
-        countryCode: "RS" as const,
-        airportGroupCode: "" as const,
-        terminal: "1" as const,
-      },
-      number: "EZY8128" as const,
+      number: "EZY0626" as const,
+      reservationNumber: "X0N1666" as const,
+      checkInSequenceNumber: "S400" as const,
+      customerEntitlementsCode: "SA" as const,
       passengers: [
         {
-          uid: "8xdrbY2" as const,
-          id: "0***4596 (P)" as const,
-          gender: "male" as const,
-          title: "Herr" as const,
-          firstName: "Justin" as const,
-          lastName: "Bürklein" as const,
+          uid: "idaSUkx" as const,
+          id: "2***1615 (P)" as const,
+          gender: "female" as const,
+          title: "Prof." as const,
+          firstName: "Emese" as const,
+          lastName: "Király" as const,
           type: "Adult" as const,
-          selectedSeat: "17F" as const,
-          selectedSeatType: "Standard" as const,
-          hasSmallCabinBag: true as const,
-          hasLargeCabinBag: true as const,
-          infant: {
-            uid: "31pDwJD" as const,
-            id: "7***3468 (P)" as const,
-            gender: "male" as const,
-            title: "Prof. Dr." as const,
-            firstName: "Benno" as const,
-            lastName: "Bürklein" as const,
-            type: "Infant" as const,
-            selectedSeat: "1A" as const,
-            selectedSeatType: "Standard" as const,
-            hasSmallCabinBag: true as const,
-            hasLargeCabinBag: false as const,
-          },
-        },
-        {
-          uid: "IuMSMb7" as const,
-          id: "6***0786 (P)" as const,
-          gender: "male" as const,
-          title: "Prof. Dr." as const,
-          firstName: "Adriano" as const,
-          lastName: "Meissner" as const,
-          type: "Adult" as const,
-          selectedSeat: "24E" as const,
+          selectedSeat: "30C" as const,
           selectedSeatType: "Standard" as const,
           hasSmallCabinBag: true as const,
           hasLargeCabinBag: false as const,
-          infant: {
-            uid: "axAFZc4" as const,
-            id: "9***1535 (P)" as const,
-            gender: "male" as const,
-            title: "Herr" as const,
-            firstName: "Mateo" as const,
-            lastName: "Meissner" as const,
-            type: "Infant" as const,
-            selectedSeat: "1A" as const,
-            selectedSeatType: "Standard" as const,
-            hasSmallCabinBag: true as const,
-            hasLargeCabinBag: false as const,
-          },
         },
       ],
       extras: {
-        hasSmallCabinBag: true,
-        hasLargeCabinBag: true,
+        hasSmallCabinBag: true as const,
+        hasLargeCabinBag: false as const,
         holdBags: [
-          {
-            name: "Hold Bag" as const,
-            weight: 15,
-            amount: 0,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 23,
-            amount: 1,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 26,
-            amount: 0,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 29,
-            amount: 0,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 32,
-            amount: 0,
-          },
+          { name: "Hold Bag" as const, weight: 15, amount: 0 },
+          { name: "Hold Bag" as const, weight: 23, amount: 1 },
+          { name: "Hold Bag" as const, weight: 26, amount: 0 },
+          { name: "Hold Bag" as const, weight: 29, amount: 0 },
+          { name: "Hold Bag" as const, weight: 32, amount: 0 },
         ],
         sportsEquipment: [
-          {
-            name: "Bicycle" as const,
-            amount: 0,
-          },
-          {
-            name: "Canoe" as const,
-            amount: 0,
-          },
-          {
-            name: "Sporting firearm" as const,
-            amount: 0,
-          },
-          {
-            name: "Golf bag" as const,
-            amount: 0,
-          },
-          {
-            name: "Hang glider" as const,
-            amount: 0,
-          },
-          {
-            name: "Skis and/or boots" as const,
-            amount: 0,
-          },
-          {
-            name: "Snowboard" as const,
-            amount: 1,
-          },
-          {
-            name: "Windsurfing board" as const,
-            amount: 0,
-          },
+          { name: "Bicycle" as const, amount: 0 },
+          { name: "Canoe" as const, amount: 0 },
+          { name: "Sporting firearm" as const, amount: 0 },
+          { name: "Golf bag" as const, amount: 1 },
+          { name: "Hang glider" as const, amount: 0 },
+          { name: "Skis and/or boots" as const, amount: 0 },
+          { name: "Snowboard" as const, amount: 0 },
+          { name: "Windsurfing board" as const, amount: 0 },
         ],
-        hasSpeedyBoarding: true,
-        hasEasyJetPlusBagDrop: true,
-        hasFastTrackSecurity: true,
-        hasMealDeal: true,
+        hasSpeedyBoarding: false as const,
+        hasEasyJetPlusBagDrop: false as const,
+        hasFastTrackSecurity: false as const,
+        hasMealDeal: false as const,
       },
-      reservationNumber: "EZY8128" as const,
-      checkInSequenceNumber: "1" as const,
-      customerEntitlementsCode: "ABC123" as const,
-    },
-    {
-      uid: "TrpEJ3b" as const,
-      departureDate: new Date("2023-08-22T07:32:37.501Z"),
-      departureAirport: {
-        name: "Cologne Bonn" as const,
-        canonicalUrlToken: "cologne-bonn" as const,
-        code: "CGN" as const,
-        country: "Germany" as const,
-        countryCode: "DE" as const,
-        airportGroupCode: "" as const,
-        terminal: "1" as const,
-      },
-      arrivalDate: new Date("2023-08-22T12:47:37.501Z"),
-      arrivalAirport: {
-        name: "Liverpool" as const,
-        canonicalUrlToken: "liverpool" as const,
-        code: "LPL" as const,
-        country: "United Kingdom" as const,
-        countryCode: "GB" as const,
-        airportGroupCode: "" as const,
-        terminal: "1" as const,
-      },
-      number: "EZY1809" as const,
-      passengers: [
-        {
-          uid: "8xdrbY2" as const,
-          id: "0***4596 (P)" as const,
-          gender: "male" as const,
-          title: "Herr" as const,
-          firstName: "Justin" as const,
-          lastName: "Bürklein" as const,
-          type: "Adult" as const,
-          selectedSeat: "18E" as const,
-          selectedSeatType: "Standard" as const,
-          hasSmallCabinBag: true as const,
-          hasLargeCabinBag: false as const,
-          infant: {
-            uid: "31pDwJD" as const,
-            id: "7***3468 (P)" as const,
-            gender: "male" as const,
-            title: "Prof. Dr." as const,
-            firstName: "Benno" as const,
-            lastName: "Bürklein" as const,
-            type: "Infant" as const,
-            selectedSeat: "1A" as const,
-            selectedSeatType: "Standard" as const,
-            hasSmallCabinBag: true as const,
-            hasLargeCabinBag: false as const,
-          },
-        },
-        {
-          uid: "IuMSMb7" as const,
-          id: "6***0786 (P)" as const,
-          gender: "male" as const,
-          title: "Prof. Dr." as const,
-          firstName: "Adriano" as const,
-          lastName: "Meissner" as const,
-          type: "Adult" as const,
-          selectedSeat: "13E" as const,
-          selectedSeatType: "Standard" as const,
-          hasSmallCabinBag: true as const,
-          hasLargeCabinBag: true as const,
-          infant: {
-            uid: "axAFZc4" as const,
-            id: "9***1535 (P)" as const,
-            gender: "male" as const,
-            title: "Herr" as const,
-            firstName: "Mateo" as const,
-            lastName: "Meissner" as const,
-            type: "Infant" as const,
-            selectedSeat: "1A" as const,
-            selectedSeatType: "Standard" as const,
-            hasSmallCabinBag: true as const,
-            hasLargeCabinBag: false as const,
-          },
-        },
-      ],
-      extras: {
-        hasSmallCabinBag: true,
-        hasLargeCabinBag: true,
-        holdBags: [
-          {
-            name: "Hold Bag" as const,
-            weight: 15,
-            amount: 0,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 23,
-            amount: 1,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 26,
-            amount: 0,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 29,
-            amount: 0,
-          },
-          {
-            name: "Hold Bag" as const,
-            weight: 32,
-            amount: 0,
-          },
-        ],
-        sportsEquipment: [
-          {
-            name: "Bicycle" as const,
-            amount: 0,
-          },
-          {
-            name: "Canoe" as const,
-            amount: 0,
-          },
-          {
-            name: "Sporting firearm" as const,
-            amount: 0,
-          },
-          {
-            name: "Golf bag" as const,
-            amount: 0,
-          },
-          {
-            name: "Hang glider" as const,
-            amount: 0,
-          },
-          {
-            name: "Skis and/or boots" as const,
-            amount: 1,
-          },
-          {
-            name: "Snowboard" as const,
-            amount: 0,
-          },
-          {
-            name: "Windsurfing board" as const,
-            amount: 0,
-          },
-        ],
-        hasSpeedyBoarding: true,
-        hasEasyJetPlusBagDrop: true,
-        hasFastTrackSecurity: true,
-        hasMealDeal: true,
-      },
-      reservationNumber: "EZY1809" as const,
-      checkInSequenceNumber: "2" as const,
-      customerEntitlementsCode: "DEF456" as const,
     },
   ],
-  language: {
-    value: "Deutsch" as const,
-    locale: "de_DE" as const,
-    flag: "germany" as const,
-  },
+  language: { value: "Magyarul" as const, locale: "hu_HU" as const, flag: "hungary" as const },
 }
 
 export interface PrintBookingContext {
@@ -383,7 +175,7 @@ export interface PrintBookingContext {
 }
 
 export const printBookingContextDefs = {
-  booking: genericBooking,
+  booking: booking,
   setBooking: () => null,
   selectedPassengers: [],
   setSelectedPassengers: () => null,
@@ -402,23 +194,25 @@ export const PrintBookingContext = React.createContext<PrintBookingContext>({
 
 export const usePrintBookingContext = () => React.useContext(PrintBookingContext)
 
-export const PrintBookingContextProvider: React.FC<React.PropsWithChildren> = (props) => {
+export const PrintBookingContextProvider: React.FC<React.PropsWithChildren<{ predefinedBooking?: Booking }>> = ({ predefinedBooking, ...props }) => {
   const router = useRouter()
   const { 1: setParams } = useUrlSearchParams()
-  const [booking, setBooking] = React.useState<PrintBookingContext["booking"]>(printBookingContextDefs.booking)
+  const [booking, setBooking] = React.useState<PrintBookingContext["booking"]>(predefinedBooking ?? printBookingContextDefs.booking)
 
   const [selectedPassengers, setSelectedPassengers] = React.useState<PrintBookingContext["selectedPassengers"]>(
-    printBookingContextDefs.selectedPassengers
+    predefinedBooking?.passengers ?? printBookingContextDefs.selectedPassengers
   )
 
-  const [selectedFlights, setSelectedFlights] = React.useState<PrintBookingContext["selectedFlights"]>(printBookingContextDefs.selectedFlights)
+  const [selectedFlights, setSelectedFlights] = React.useState<PrintBookingContext["selectedFlights"]>(
+    predefinedBooking?.flights ?? printBookingContextDefs.selectedFlights
+  )
 
   React.useEffect(() => {
-    const bookingLanguage = booking.language
+    const bookingLanguage = predefinedBooking?.language ?? booking.language
     setParams({ language: bookingLanguage.locale })
     router.replace(window.location.href)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [booking])
+  }, [booking, predefinedBooking])
 
   return (
     <PrintBookingContext.Provider

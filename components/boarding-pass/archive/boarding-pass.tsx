@@ -41,7 +41,6 @@ import { TNums } from "@/components/tnums"
 // )
 
 // export const BoardingPass = ({ boardingPass }: IBoardingPassProps) => {
-//   console.log(boardingPass)
 
 //   return (
 //     <div className="group/pass relative grid gap-[--page-inset-large] rounded-2xl bg-orange text-white p-[--page-inset] ring-1 ring-[--pass-border-color] ring-inset overflow-hidden">
@@ -356,12 +355,11 @@ export const Ticket = ({ bp }: TicketProps) => {
           </Grid>
 
           {/* extras */}
-          {(extras.hasFoodAndDrinkVoucher || extras.hasFastTrackSecurityAllowance || extras.hasFlexiFare) && (
+          {(extras.hasFoodAndDrinkVoucher || extras.hasFastTrackSecurityAllowance) && (
             <Data align="right">
               <DataLabel>Extras</DataLabel>
               {extras.hasFoodAndDrinkVoucher && <DataValue icon="facilitiesFoodAndDrinkSolid">Food & Drink Voucher</DataValue>}
               {extras.hasFastTrackSecurityAllowance && <DataValue icon="servicesIconFastTrackOutlined">Fast Track Security</DataValue>}
-              {extras.hasFlexiFare && <DataValue icon="calendarFlexiFlightsSolid">Flexi Fare</DataValue>}
             </Data>
           )}
         </div>

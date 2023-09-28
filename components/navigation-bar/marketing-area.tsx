@@ -12,7 +12,7 @@ export const MarketingArea = () => {
     <div className="pr-[--page-inset]">
       <button
         type="button"
-        onClick={() => console.log(`You clicked the Marketing Area`)}
+        onClick={() => alert(`You clicked the Marketing Area`)}
         onMouseEnter={() => setShowArrow(true)}
         onMouseLeave={() => setShowArrow(false)}
         onFocus={() => setShowArrow(true)}

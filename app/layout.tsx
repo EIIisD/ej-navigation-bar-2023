@@ -3,7 +3,7 @@ import "./globals.css"
 import React from "react"
 import { type Metadata } from "next"
 
-import { VERCEL_ENV } from "@/lib/env"
+import { LOCAL_ENV } from "@/lib/env"
 import { DevelopmentEffects } from "@/components/development-effects"
 
 export const metadata: Metadata = {
@@ -29,14 +29,16 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  console.log(`Running in ${VERCEL_ENV} environment.`)
+  console.log(`Running in ${LOCAL_ENV ? "local" : "non-local"} environment.`)
 
   return (
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
-        {children}
-        {VERCEL_ENV === "development" && <DevelopmentEffects />}
+        <body>
+          {children}
+          {LOCAL_ENV && <DevelopmentEffects />}
+        </body>
       </html>
     </>
   )
