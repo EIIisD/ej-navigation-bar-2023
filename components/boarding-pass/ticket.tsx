@@ -59,16 +59,15 @@ const DataValue = ({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 whitespace-nowrap text-sm/4",
+        "flex items-center gap-2 whitespace-nowrap text-sm/4 [.threshold_&]:gap-1.5",
         align === "left" ? "justify-start text-left" : "justify-end text-right",
         className
       )}
       {...props}
     >
-      {/* <Icon name={icon} className="h-[1em] w-[1em] text-gray-400" /> */}
       {!!icon && (
-        <div className="flex h-6 w-6 items-center justify-center rounded bg-gray-100">
-          <Icon name={icon} className="h-4 w-4  text-primary" />
+        <div className="flex h-6 w-6 items-center justify-center rounded bg-gray-100 [.threshold_&]:contents">
+          <Icon name={icon} className="h-4 w-4 text-primary [.threshold_&]:h-3.5 [.threshold_&]:w-3.5" />
         </div>
       )}
       {children}
@@ -136,7 +135,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
       <div className="flex items-center justify-between px-6 py-4 text-sm/5">
         <div className="flex items-center gap-4">
           <Icon name="easyJetLogo" className="relative hidden h-5 w-auto [aspect-ratio:91/22] [.threshold_&]:block" />
-          <div className="translate-y-[17%] font-display text-3xl/4 [.threshold_&]:hidden">Boarding pass</div>
+          <div className="translate-y-[17%] font-display text-3xl/4 tracking-wide [.threshold_&]:hidden">Boarding pass</div>
           {booking.bookingLabel !== "None" && (
             <Badge
               variant="default"
@@ -204,40 +203,42 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
     <Data align="right" className="flex-row flex-wrap justify-end [grid-area:extrasElement]">
       {/* <Data align="right" className="flex-col items-end [grid-area:extrasElement]"> */}
       <DataLabel className="basis-[100%] text-right only:hidden">Extras</DataLabel>
-      {flight.extras.hasSpeedyBoarding && (
-        <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
-          Speedy Boarding
-        </Badge>
-      )}
-      {flight.extras.hasEasyJetPlusBagDrop && (
-        <Badge variant="secondary" icon="luggageLuggageDropOutlined">
-          easyJet Plus Bag Drop
-        </Badge>
-      )}
-      {flight.extras.hasFastTrackSecurity && (
-        <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
-          Fast Track Security
-        </Badge>
-      )}
-      {flight.extras.hasMealDeal && (
-        <Badge variant="secondary" icon="facilitiesFoodAndDrinkOutlined">
-          Food & Drink Voucher
-        </Badge>
-      )}
+      <DataValue className="pt-0.5">
+        {flight.extras.hasSpeedyBoarding && (
+          <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
+            Speedy Boarding
+          </Badge>
+        )}
+        {flight.extras.hasEasyJetPlusBagDrop && (
+          <Badge variant="secondary" icon="luggageLuggageDropOutlined">
+            easyJet Plus Bag Drop
+          </Badge>
+        )}
+        {flight.extras.hasFastTrackSecurity && (
+          <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
+            Fast Track Security
+          </Badge>
+        )}
+        {flight.extras.hasMealDeal && (
+          <Badge variant="secondary" icon="facilitiesFoodAndDrinkOutlined">
+            Food & Drink Voucher
+          </Badge>
+        )}
+      </DataValue>
     </Data>
   )
 
   const passengerElement = (
     <Data className="[grid-area:passengerElement]">
       <DataLabel>Passenger{passenger.infant && " + Infant"}</DataLabel>
-      <DataValue className="gap-2">
+      <DataValue className="gap-2 pt-0.5">
         <Badge variant="secondary">
           <TNums content={passenger.id} />
         </Badge>
         {passenger.firstName} {passenger.lastName}
       </DataValue>
       {passenger.infant && (
-        <DataValue className="gap-2">
+        <DataValue className="gap-2 pt-0.5">
           <Badge variant="secondary">
             <TNums content={passenger.infant.id} />
           </Badge>
