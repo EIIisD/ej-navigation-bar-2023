@@ -10,7 +10,7 @@ export const SubNavigationBar = () => {
   const pathname = usePathname()
 
   return (
-    <div
+    <nav
       className={cn(
         "flex h-[--general-bar-height] w-full items-center justify-center border-b border-gray-100 bg-white text-base text-primary",
         pathname === "/" && "hidden"
@@ -40,6 +40,6 @@ export const SubNavigationBar = () => {
           </button> */}
         </div>
       </div>
-    </div>
+    </nav>
   )
 }

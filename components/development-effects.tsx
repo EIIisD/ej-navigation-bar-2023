@@ -2,17 +2,16 @@
 
 import React from "react"
 
-const toggleRootProperty = (propName: string, value: string): void => {
+const toggleRootClass = (className: string): void => {
   if (typeof window !== "object") return
-  const rootStyle = document.documentElement.style
-  if (rootStyle.getPropertyValue(propName)) rootStyle.removeProperty(propName)
-  else rootStyle.setProperty(propName, value)
+  const rootElement = document.documentElement
+  if (rootElement.classList.contains(className)) rootElement.classList.remove(className)
+  else rootElement.classList.add(className)
 }
 
 const handleKeyDown = (event: KeyboardEvent) => {
   if (event.key === "d") {
-    toggleRootProperty("--dev-1", "lch(95 20 .2turn)")
-    toggleRootProperty("--dev-2", "lch(95 20 .6turn)")
+    toggleRootClass("debug")
   }
 }
 

@@ -191,7 +191,7 @@ export const FlightCard = ({ flight }: { flight: Flight }) => {
   )
 }
 
-export const PrintBooking = () => {
+export const PrintBookingScreen = () => {
   const { selectedPassengers, selectedFlights, booking, ...printBookingContext } = usePrintBookingContext()
 
   React.useEffect(() => {
@@ -442,7 +442,7 @@ export const PrintBooking = () => {
                 </Section>
               )}
 
-              <Section title="Your extras">
+              {/* <Section title="Your extras">
                 <div className={cn(cardStyles, "grid gap-6 p-[--page-inset-small]")}>
                   <Placeholder size="72" className="border border-blue-200">
                     Extras
@@ -456,7 +456,7 @@ export const PrintBooking = () => {
                     </AlertDescription>
                   </Alert>
                 </div>
-              </Section>
+              </Section> */}
 
               <Section title="You may also be interested in">
                 <div className={cn(cardStyles, "p-[--page-inset-small]")}>

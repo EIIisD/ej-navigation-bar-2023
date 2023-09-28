@@ -51,7 +51,7 @@ export const PrintBooking = () => {
   })
 
   return (
-    <section className="flex-auto screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
+    <section className="mx-auto w-full max-w-[--page-maxWidth] flex-auto">
       <div className="mx-auto max-w-[--page-maxWidth] flex-auto px-[--page-inset]">
         <div className="grid gap-[--page-inset-large] py-[--page-inset-large]">
           <div className="flex items-center justify-end gap-2">

@@ -569,42 +569,6 @@ export const BoardingPass = ({ bp }: IBoardingPassProps) => {
       <div className="@container/pass">
         <Ticket bp={bp} />
       </div>
-      {/* <div
-        className="fixed inset-0 z-50 flex items-start justify-center overflow-y-scroll bg-gray-400 print:contents"
-        style={
-          {
-            display: !pageMode ? "contents" : undefined,
-            "--dev-1": devMode ? "lch(95 20 .2turn)" : undefined,
-            "--dev-2": devMode ? "lch(95 20 .6turn)" : undefined,
-          } as CSSProperties
-        }
-      >
-        <div
-          className="h-[297mm] max-h-[297mm] w-[210mm] max-w-[210mm] bg-white p-print-bleed print:contents"
-          style={{ display: !pageMode ? "contents" : undefined }}
-        >
-          
-          <div className="@container/pass [page-break-after:always] print:fixed print:inset-0 print:h-screen print:w-screen">
-            <div
-              className="grid h-full w-full grid-cols-1 grid-rows-4 gap-y-12-cqi [--print-safe-inset-x:calc((210mm-100cqw)/2)] [--print-safe-inset-y:calc((297mm-100cqh)/2)] screen:py-12-cqi print:gap-y-[--print-safe-inset-y]"
-              style={
-                {
-                  "--dev-1": devMode ? "lch(95 20 .2turn)" : undefined,
-                  "--dev-2": devMode ? "lch(95 20 .6turn)" : undefined,
-                } as CSSProperties
-              }
-            >
-              <div className="row-span-1 border-2 p-12-cqi">
-                <Ticket bp={bp} />
-              </div>
-              <div className="row-span-2 border-2 p-12-cqi">
-                <div>Middle section</div>
-              </div>
-              <div className="row-span-1 border-2 p-12-cqi">Bottom section</div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   )
 }

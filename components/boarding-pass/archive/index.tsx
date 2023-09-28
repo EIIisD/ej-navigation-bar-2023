@@ -35,9 +35,9 @@ export const BoardingPassWithHelpers = () => {
         } as CSSProperties
       }
     >
-      <section className="flex-auto bg-white screen:mx-auto screen:w-full screen:max-w-[--page-maxWidth]">
+      <section className="mx-auto w-full max-w-[--page-maxWidth] flex-auto bg-white">
         <Tabs defaultValue="1" className="mx-auto max-w-[--page-maxWidth] flex-auto bg-white p-[--page-inset]">
-          <TabsList className="print:hidden">
+          <TabsList>
             <TabsTrigger value="1">
               <Icon name="mobilePrinterMobileBookingOutlined" className="mr-2.5 h-7 w-7" />
               Boarding Pass

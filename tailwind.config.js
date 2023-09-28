@@ -25,6 +25,7 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", ".ladle/**/*.{ts,tsx}"],
+  darkMode: ["class", "threshold"],
   theme: {
     extend: {
       screens: {
@@ -96,9 +97,10 @@ module.exports = {
       colors: {
         gray: colors.gray,
         orange: {
-          light: "#FE8C00",
+          lighter: "#FFAA00",
+          light: "#FF7D00",
           DEFAULT: "#FF6600",
-          dark: "#FF4500",
+          dark: "#FF4600",
           darker: "#E64100",
         },
         primary: {
@@ -155,6 +157,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    variants: {
+      threshold: ["responsive"],
+    },
   },
   plugins: [
     require("@tailwindcss/container-queries"),
@@ -162,6 +167,13 @@ module.exports = {
     require("tailwindcss-animate"),
     plugin(function ({ addVariant }) {
       addVariant("screen", "@media screen")
+    }),
+    plugin(function ({ addVariant, e }) {
+      addVariant("threshold", ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`threshold${separator}${className}`)}:threshold`
+        })
+      })
     }),
   ],
 }

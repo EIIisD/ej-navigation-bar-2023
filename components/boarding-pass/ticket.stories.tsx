@@ -4,9 +4,10 @@ import { type Story, type StoryDefault } from "@ladle/react"
 import { createBooking } from "@/config/booking"
 import useWindowKeyDown from "@/lib/use-window-keydown"
 import { Ticket } from "@/components/boarding-pass/ticket"
+import { Simulator } from "@/components/simulator"
 
 export default {
-  meta: { pageWidth: true, withShade: true },
+  meta: { plain: true, withShade: true },
 } satisfies StoryDefault
 
 export const Default: Story = () => {
@@ -23,26 +24,26 @@ export const Default: Story = () => {
   })
 
   return (
-    <div className="grid gap-4 p-[--page-inset]">
-      {/* <div className="fixed right-0 top-0 h-screen w-[30vw] overflow-scroll bg-black/90 p-6 text-xs text-white">
-        <pre>
-          {JSON.stringify(
-            {
-              ...booking,
-              passenger,
-              flight,
-              passengers: undefined,
-              flights: undefined,
-            },
-            null,
-            2
-          )}
-        </pre>
-      </div> */}
-      <Ticket booking={booking} flight={flight} passenger={passenger} />
-      {/* <div className="opacity-50">
-        <OldTicket booking={booking} flight={flight} passenger={passenger} />
-      </div> */}
-    </div>
+    <Simulator
+      container={false}
+      screen={
+        <>
+          <div className="absolute inset-x-0 top-[10mm] flex w-full flex-auto items-center justify-center">
+            <div className="mx-auto w-full max-w-[840px]">
+              <Ticket booking={booking} flight={flight} passenger={passenger} />
+            </div>
+          </div>
+        </>
+      }
+      print={
+        <>
+          <div className="absolute inset-x-0 top-[10mm] flex w-full flex-auto items-center justify-center">
+            <div className="max-w-[calc(790px-20mm)]">
+              <Ticket booking={booking} flight={flight} passenger={passenger} />
+            </div>
+          </div>
+        </>
+      }
+    />
   )
 }

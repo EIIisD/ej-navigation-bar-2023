@@ -5,7 +5,7 @@ import { TextButton } from "@/components/ui/text-button"
 
 export const Footer = () => {
   return (
-    <section className="border-t bg-gray-100 print:hidden">
+    <footer className="border-t bg-gray-100">
       <main className="mx-auto max-w-[--page-maxWidth] flex-auto p-[--page-inset] py-[--page-inset-large]">
         <div className="grid grid-cols-2 gap-[--page-inset] md:grid-cols-4">
           {menuFooter.map((section) => (
@@ -30,6 +30,6 @@ export const Footer = () => {
           ))}
         </div>
       </main>
-    </section>
+    </footer>
   )
 }

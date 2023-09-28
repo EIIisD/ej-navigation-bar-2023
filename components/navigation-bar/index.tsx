@@ -63,7 +63,7 @@ export const NavigationBar = () => {
     >
       <header
         className={cn(
-          "sticky top-0 z-20 flex w-full flex-col [--menu-gap:theme('spacing.3')] print:hidden tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]",
+          "sticky top-0 z-20 flex w-full flex-col [--menu-gap:theme('spacing.3')] tablet-header-width:[--menu-gap:theme('spacing.4')] desktop-header-width:[--menu-gap:theme('spacing.8')]",
           // hide the header entirely if it has no visible contents
           "[&:not(:has([data-primary-header=visible],[data-secondary-header=visible],[data-tertiary-header=visible]))]:hidden"
         )}

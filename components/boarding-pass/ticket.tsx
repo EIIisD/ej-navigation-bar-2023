@@ -58,10 +58,14 @@ const DataValue = ({
 }) => {
   return (
     <div
-      className={cn("flex items-center gap-1.5 text-sm/4", align === "left" ? "justify-start text-left" : "justify-end text-right", className)}
+      className={cn(
+        "flex items-center gap-1 whitespace-nowrap text-sm/4",
+        align === "left" ? "justify-start text-left" : "justify-end text-right",
+        className
+      )}
       {...props}
     >
-      <Icon name={icon} className="h-[1em] w-[1em]" />
+      <Icon name={icon} className="h-[1em] w-[1em] text-gray-400" />
       {children}
     </div>
   )
@@ -77,7 +81,16 @@ const Grid: React.FC<React.PropsWithChildren<{ className?: string; style?: CSSPr
 
 const FlightIcon: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <svg viewBox="0 0 92 37" className={cn(className)}>
+    <>
+      <FlightIconMaximum className={className} />
+      <FlightIconMinimum className={className} />
+    </>
+  )
+}
+
+const FlightIconMaximum: React.FC<{ className?: string }> = ({ className }) => {
+  return (
+    <svg viewBox="0 0 92 37" className={cn(className, "[.threshold_&]:hidden")}>
       <circle cx="1.78558" cy="18.5" r="1.5" fill="currentColor" />
       <line x1="8.03558" y1="18.5" x2="21.5356" y2="18.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="0.1 4" />
       <path
@@ -86,6 +99,17 @@ const FlightIcon: React.FC<{ className?: string }> = ({ className }) => {
       />
       <line x1="67.0356" y1="18.5" x2="80.5356" y2="18.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="0.1 4" />
       <circle cx="88.2856" cy="18.5" r="3" fill="currentColor" />
+    </svg>
+  )
+}
+
+const FlightIconMinimum: React.FC<{ className?: string }> = ({ className }) => {
+  return (
+    <svg viewBox="0 0 31 29" className={cn(className, "hidden scale-50 [.threshold_&]:block")}>
+      <path
+        d="M11.2946 28.75C11.8346 28.75 12.3296 28.465 12.6296 28.015L19.6646 16.75H27.9146C29.1596 16.75 30.1646 15.745 30.1646 14.5C30.1646 13.255 29.1596 12.25 27.9146 12.25H19.6646L12.6296 0.985C12.3446 0.535 11.8346 0.25 11.2946 0.25C10.2446 0.25 9.47961 1.27 9.79461 2.29L12.9146 12.25H4.66461L2.63961 9.55C2.50461 9.355 2.27961 9.25 2.03961 9.25H1.15461C0.659607 9.25 0.299608 9.73 0.434608 10.21L1.66461 14.5L0.434608 18.79C0.299608 19.27 0.659607 19.75 1.15461 19.75H2.03961C2.27961 19.75 2.50461 19.645 2.63961 19.45L4.66461 16.75H12.9146L9.79461 26.71C9.47961 27.73 10.2446 28.75 11.2946 28.75Z"
+        fill="currentColor"
+      />
     </svg>
   )
 }
@@ -102,22 +126,38 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
   const isDepartureBetween6AMand6PM = flight.departureDate.getHours() >= 6 && flight.departureDate.getHours() < 18
 
   const headerElement = (
-    <div className="flex items-center justify-between border-b border-dashed border-white/50 px-[--page-inset-small] py-4 text-sm/5">
-      <div className="flex items-center gap-3">
-        <Icon name="easyJetLogo" className="relative h-5 w-auto [aspect-ratio:91/22]" />
-        <div className="font-bold">Boarding pass</div>
+    <header className="relative w-full">
+      <div className="absolute bottom-0 left-[6px] h-2 w-full border-b border-gray-300 [.threshold_&]:left-0" />
+      <div className="flex items-center justify-between px-6 py-4 text-sm/5">
+        <div className="flex items-center gap-4">
+          <Icon name="easyJetLogo" className="relative hidden h-5 w-auto [aspect-ratio:91/22] [.threshold_&]:block" />
+          <div className="translate-y-[17%] font-display text-3xl/4 [.threshold_&]:hidden">Boarding pass</div>
+          {booking.bookingLabel !== "None" && (
+            <Badge
+              variant="default"
+              className={cn({
+                "bg-[#347C76] pt-px font-bold": booking.bookingLabel === "FLEXI",
+                "bg-[#1478BE] pt-px font-bold": booking.bookingLabel === "Standby Fare",
+                "bg-[#333333] pt-px font-bold": booking.bookingLabel === "Worldwide by easyJet",
+                "bg-[#FF6600] pt-px font-bold": booking.bookingLabel === "easyJet Holidays" || booking.bookingLabel === "Staff Travel",
+              })}
+            >
+              {booking.bookingLabel}
+            </Badge>
+          )}
+        </div>
+        <div>
+          Flight No. <span className="font-bold">{flight.number}</span>
+        </div>
       </div>
-      <div>
-        Flight No. <span className="font-bold">{flight.number}</span>
-      </div>
-    </div>
+    </header>
   )
 
   const flightInfoElement = (
     <Grid
-      className="gap-1.5 [grid-area:flightInfoElement]"
+      className="w-full max-w-[--flight-info-max] gap-1.5 gap-x-3 [--flight-info-col-max:7rem] [--flight-info-max:20rem] [grid-area:flightInfoElement] [.threshold_&]:[--flight-info-col-max:7rem] [.threshold_&]:[--flight-info-max:16rem]"
       style={{
-        gridTemplateColumns: "minmax(0,3fr) minmax(0,2fr) minmax(0,3fr)",
+        gridTemplateColumns: "minmax(0,4fr) minmax(0,3fr) minmax(0,4fr)",
         gridTemplateAreas: `
           "departureAirportName     .          arrivalAirportName"
           "departureAirportCode     flightIcon arrivalAirportCode"
@@ -125,50 +165,58 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
         `,
       }}
     >
-      <DataLabel className="max-w-[unset] self-end [grid-area:departureAirportName]">{flight.departureAirport.name}</DataLabel>
-      <DataValue className="text-4xl font-light [grid-area:departureAirportCode]">{flight.departureAirport.code}</DataValue>
-      <DataValue className="[grid-area:departureAirportTerminal]">
-        {flight.departureAirport.terminal ? `Terminal ${flight.departureAirport.terminal}` : ""}
-      </DataValue>
-      <FlightIcon className="self-center text-black [grid-area:flightIcon]" />
-      <DataLabel align="right" className="max-w-[unset] self-end [grid-area:arrivalAirportName]">
-        {flight.arrivalAirport.name}
-      </DataLabel>
-      <DataValue align="right" className="text-4xl font-light [grid-area:arrivalAirportCode]">
-        {flight.arrivalAirport.code}
-      </DataValue>
-      <DataValue align="right" className="[grid-area:arrivalAirportTerminal]">
-        {flight.arrivalAirport.terminal ? `Terminal ${flight.arrivalAirport.terminal}` : ""}
-      </DataValue>
+      <div className="flex min-h-[theme('height.8')] w-full flex-col items-start justify-end [grid-area:departureAirportName]">
+        <DataLabel className="max-w-[--flight-info-col-max]">{flight.departureAirport.name}</DataLabel>
+      </div>
+      <div className="flex w-full justify-start [grid-area:departureAirportCode]">
+        <DataValue className="max-w-[--flight-info-col-max] text-4xl font-light">{flight.departureAirport.code}</DataValue>
+      </div>
+      <div className="flex w-full justify-start [grid-area:departureAirportTerminal]">
+        <DataValue className="max-w-[--flight-info-col-max]">
+          {flight.departureAirport.terminal ? `Terminal ${flight.departureAirport.terminal}` : ""}
+        </DataValue>
+      </div>
+      <FlightIcon className="self-center text-gray-400 [grid-area:flightIcon]" />
+      <div className="flex min-h-[theme('height.8')] w-full flex-col items-end justify-end [grid-area:arrivalAirportName]">
+        <DataLabel align="right" className="max-w-[--flight-info-col-max]">
+          {flight.arrivalAirport.name}
+        </DataLabel>
+      </div>
+      <div className="flex w-full justify-end [grid-area:arrivalAirportCode]">
+        <DataValue align="right" className="max-w-[--flight-info-col-max] text-4xl font-light">
+          {flight.arrivalAirport.code}
+        </DataValue>
+      </div>
+      <div className="flex w-full justify-end [grid-area:arrivalAirportTerminal]">
+        <DataValue align="right" className="max-w-[--flight-info-col-max]">
+          {flight.arrivalAirport.terminal ? `Terminal ${flight.arrivalAirport.terminal}` : ""}
+        </DataValue>
+      </div>
     </Grid>
   )
 
   const extrasElement = (
     <Data align="right" className="flex-row flex-wrap justify-end [grid-area:extrasElement]">
+      {/* <Data align="right" className="flex-col items-end [grid-area:extrasElement]"> */}
       <DataLabel className="basis-[100%] text-right only:hidden">Extras</DataLabel>
       {flight.extras.hasSpeedyBoarding && (
-        <Badge variant="default" icon="servicesIconFastTrackOutlined">
+        <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
           Speedy Boarding
         </Badge>
       )}
       {flight.extras.hasEasyJetPlusBagDrop && (
-        <Badge variant="default" icon="luggageLuggageDropOutlined">
+        <Badge variant="secondary" icon="luggageLuggageDropOutlined">
           easyJet Plus Bag Drop
         </Badge>
       )}
       {flight.extras.hasFastTrackSecurity && (
-        <Badge variant="default" icon="servicesIconFastTrackOutlined">
+        <Badge variant="secondary" icon="servicesIconFastTrackOutlined">
           Fast Track Security
         </Badge>
       )}
       {flight.extras.hasMealDeal && (
-        <Badge variant="default" icon="facilitiesFoodAndDrinkOutlined">
+        <Badge variant="secondary" icon="facilitiesFoodAndDrinkOutlined">
           Food & Drink Voucher
-        </Badge>
-      )}
-      {booking.bookingFareType === "FLEXI" && (
-        <Badge variant="default" icon="calendarFlexiFlightsSolid">
-          FLEXI
         </Badge>
       )}
     </Data>
@@ -178,14 +226,14 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
     <Data className="[grid-area:passengerElement]">
       <DataLabel>Passenger{passenger.infant && " + Infant"}</DataLabel>
       <DataValue className="gap-2">
-        <Badge variant="default">
+        <Badge variant="secondary">
           <TNums content={passenger.id} />
         </Badge>
         {passenger.firstName} {passenger.lastName}
       </DataValue>
       {passenger.infant && (
         <DataValue className="gap-2">
-          <Badge variant="default">
+          <Badge variant="secondary">
             <TNums content={passenger.infant.id} />
           </Badge>
           {formatInfantPassengerTitle(passenger.infant)} (Infant)
@@ -198,7 +246,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
     <Data align="right" className="[grid-area:seatElement]">
       <DataLabel>Seat</DataLabel>
       <DataValue icon={iconFromSeat(passenger.selectedSeat)}>
-        <TNums content={passenger.selectedSeat} /> ({passenger.selectedSeatType})
+        <TNums content={passenger.selectedSeat} /> {passenger.selectedSeatType}
       </DataValue>
     </Data>
   )
@@ -206,7 +254,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
   const dateElement = (
     <Data align="right" className="[grid-area:dateElement]">
       <DataLabel>Date</DataLabel>
-      <DataValue icon="calendarDateRangeSolid">{format(flight.departureDate, "EEE, dd MMM yyyy")}</DataValue>
+      <DataValue icon="calendarDateRangeSolid">{format(flight.departureDate, "dd MMM yyyy")}</DataValue>
     </Data>
   )
 
@@ -230,12 +278,11 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
 
   const barCodeElement = (
     <div className="flex h-full gap-1 [grid-area:barCodeElement]">
-      <div className="relative after:absolute after:inset-0 after:border-2 after:border-primary">
+      {/* <div className="relative after:absolute after:inset-0 after:border-2 after:border-primary"> */}
+      <div className="flex h-28 gap-1">
         <BarCode className="h-full w-10 bg-white invert" />
-      </div>
-      <div className="flex -rotate-180 items-center justify-between gap-x-4 text-sm tracking-wide [writing-mode:vertical-rl]">
-        <TNums content={flight.reservationNumber} />
-        <div className="flex items-center justify-end gap-x-4">
+        <div className="flex  -rotate-180 items-center justify-end gap-x-2 text-xs tracking-wide [writing-mode:vertical-rl]">
+          <TNums content={flight.reservationNumber} />
           <TNums content={flight.customerEntitlementsCode} />
           <TNums content={flight.checkInSequenceNumber} />
         </div>
@@ -244,19 +291,24 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
   )
 
   return (
-    <div className="relative overflow-hidden rounded-[6px] bg-white text-primary shadow">
-      <div className="absolute inset-0 right-auto w-[6px] bg-green-600" />
-      <div className="absolute inset-0 rounded-[inherit] border border-black/50 mix-blend-overlay" />
+    <div className="relative overflow-hidden rounded-[6px] bg-white text-primary shadow outline outline-[0.5px] outline-tertiary [.threshold_&]:border [.threshold_&]:outline-[0px]">
+      <div
+        className={cn("absolute inset-0 right-auto w-[6px]", {
+          // this might vary depending on whether the user is checked in etc.
+          "bg-green-500": true,
+        })}
+      />
+      <div className="events-none absolute inset-0 rounded-[inherit] border border-black/50 mix-blend-overlay" />
       {headerElement}
 
       <div
-        className={cn("grid flex-auto items-start gap-8 p-[--page-inset-small]")}
+        className={cn("grid flex-auto items-start gap-8 p-6")}
         style={{
-          gridTemplateColumns: "minmax(0,3fr) minmax(0,2fr) minmax(0,2fr) auto",
+          gridTemplateColumns: "minmax(0,4fr) minmax(0,2fr) minmax(0,1.5fr) minmax(0,1.5fr) auto",
           gridTemplateAreas: `
-            "flightInfoElement seatElement       dateElement   barCodeElement"
-            "flightInfoElement gateClosesElement timeElement   barCodeElement"
-            "passengerElement  extrasElement     extrasElement barCodeElement"
+            "flightInfoElement flightInfoElement seatElement       dateElement   barCodeElement"
+            "flightInfoElement flightInfoElement gateClosesElement timeElement   barCodeElement"
+            "passengerElement  passengerElement extrasElement  extrasElement extrasElement"
           `,
         }}
       >
@@ -269,8 +321,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger }) =>
         {seatElement}
         {barCodeElement}
       </div>
-
-      {/* <div className="p-[--page-inset-small] pt-0 text-sm text-secondary">Bag drop opens at 04:00 and closes at 06:00</div> */}
+      {/* <div className="p-6 pt-0 text-sm text-secondary">Bag drop opens at 04:00 and closes at 06:00</div> */}
     </div>
   )
 }

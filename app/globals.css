@@ -151,9 +151,44 @@
   /* --pass-border-color: theme("colors.orange.darker");
   --pass-cutout-size: 24px;
   --pass-cutout-margin: (var(--page-inset) + 1px); */
+
   /* .group\/pass:before {
     @apply absolute inset-0 bg-[inherit] [mask:linear-gradient(to_bottom,rgb(0_0_0/0)_0%,rgb(0_0_0/1)_100%)] mix-blend-multiply opacity-10 content-[''] pointer-events-none touch-none;
   } */
+
+  /*.threshold {
+    /~ backdrop-filter: blur(0.05px); ~/
+    filter: url(#threshold);
+  }
+
+  :root .print .print\:hidden {
+    display: none;
+  }
+
+  :root .print *,
+  :root .print *:before,
+  :root .print *:after {
+    border-color: black;
+    color: black;
+    fill: black;
+    stroke: black;
+    outline-color: black;
+    background-color: white;
+  }
+
+  :root .print *[class*="shadow"],
+  :root .print *::after[class*="shadow"],
+  :root .print *::before[class*="shadow"] {
+    box-shadow: 0 0 0 1px black;
+  }
+  /~ :root .print *[class*="bg-"],
+  :root .print *::after[class*="bg-"],
+  :root .print *::before[class*="bg-"] {
+    background-color: white;
+  } ~/
+  :root .print use {
+    filter: url(#threshold);
+  }*/
 
   .boarding-pass-mask {
     --r: 40px;
@@ -168,6 +203,84 @@
 }
 
 @layer utilities {
+  .threshold .threshold\:hidden {
+    display: none;
+  }
+
+  .threshold,
+  .threshold [class*="text-"],
+  .threshold [class*="text-"]:before,
+  .threshold [class*="text-"]:after {
+    @apply !text-black;
+  }
+  .threshold [class*="bg-"],
+  .threshold [class*="bg-"]:before,
+  .threshold [class*="bg-"]:after {
+    @apply !bg-white;
+  }
+  .threshold [class*="border"],
+  .threshold [class*="border"]:before,
+  .threshold [class*="border"]:after {
+    @apply !border-black;
+  }
+  .threshold [class*="shadow"],
+  .threshold [class*="shadow"]:before,
+  .threshold [class*="shadow"]:after {
+    @apply !shadow-none;
+  }
+  .threshold [class*="outline-"],
+  .threshold [class*="outline-"]:before,
+  .threshold [class*="outline-"]:after {
+    @apply !outline-black;
+  }
+  .threshold svg {
+    /* @apply !saturate-0; */
+    @apply !text-black;
+    filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(312deg) brightness(100%) contrast(107%);
+  }
+
+  .events-none {
+    pointer-events: none;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .debug {
+    --debug-outline-color: 50 50;
+    --debug-background-color: 95 25;
+    --debug-opacity: 100%;
+    --debug-outline: 0.5px;
+  }
+  .debug :is(section, .grid) > *,
+  .debug :is(section, .grid) > * > *,
+  .debug :is(section, .grid) > * > * > *,
+  .debug :is(section, .grid) > * > * > * > *,
+  .debug :is(section, .grid) > * > * > * > * > *,
+  .debug :is(section, .grid) > * > * > * > * > * > * {
+    outline: var(--debug-outline) solid lch(var(--debug-outline-color) var(--hue)) !important;
+    outline-offset: calc(var(--debug-outline) / -2) !important;
+    background-color: lch(var(--debug-background-color) var(--hue) / var(--debug-opacity)) !important;
+  }
+
+  .debug :is(section, .grid) > * {
+    --hue: 0.2turn;
+  }
+  .debug :is(section, .grid) > * > * {
+    --hue: 0.6turn;
+  }
+  .debug :is(section, .grid) > * > * > * {
+    --hue: 1turn;
+  }
+  .debug :is(section, .grid) > * > * > * > * {
+    --hue: 1.4turn;
+  }
+  .debug :is(section, .grid) > * > * > * > * > * {
+    --hue: 1.8turn;
+  }
+  .debug :is(section, .grid) > * > * > * > * > * > * {
+    --hue: 2.2turn;
+  }
+
   .debug-grid,
   .debug-grid * {
     background-color: theme("colors.sky.500/10%");

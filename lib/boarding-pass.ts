@@ -49,7 +49,6 @@ export interface IBoardingPass {
     hasSpeedyBoarding: boolean
     hasFoodAndDrinkVoucher: boolean
     hasFastTrackSecurityAllowance: boolean
-    hasFlexiFare: boolean
   }
   bagsAndHoldLuggage: {
     cabinBagSmall: boolean
@@ -164,7 +163,6 @@ export const generateBoardingPass = (): IBoardingPass => {
       hasSpeedyBoarding: faker.datatype.boolean(scenario.likely),
       hasFoodAndDrinkVoucher: faker.datatype.boolean(scenario.likely),
       hasFastTrackSecurityAllowance: faker.datatype.boolean(scenario.likely),
-      hasFlexiFare: faker.datatype.boolean(scenario.likely),
     },
     bagsAndHoldLuggage: {
       cabinBagSmall: faker.datatype.boolean(scenario.unlikely),

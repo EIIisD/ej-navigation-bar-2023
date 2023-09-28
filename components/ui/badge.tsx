@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { Icon, type IconName } from "@/components/icon"
 
-const badgeVariants = cva("inline-flex h-5 items-center gap-1.5 rounded-full border border-gray-200 px-2 text-xs/5 font-normal", {
+const badgeVariants = cva("inline-flex h-5 items-center gap-1.5 whitespace-nowrap rounded-full border border-gray-200 px-2 text-xs/5 font-normal", {
   variants: {
     variant: {
       default: "border-transparent bg-primary text-gray-50",

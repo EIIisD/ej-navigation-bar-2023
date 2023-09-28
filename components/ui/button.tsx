@@ -38,7 +38,8 @@ const buttonVariants = cva(
     // White overlay on hover
     "after:hover:bg-[color-mix(in_srgb,var(--button-bg),var(--button-bg-hover,theme('colors.white'))_10%)]",
     // Disabled
-    "disabled:pointer-events-none disabled:opacity-50 disabled:saturate-0"
+    "disabled:pointer-events-none disabled:opacity-50 disabled:saturate-0",
+    "[.threshold_&]:before:hidden [.threshold_&]:after:hidden"
   ),
   {
     variants: {
@@ -48,6 +49,10 @@ const buttonVariants = cva(
           "text-orange [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-bg:theme('colors.white')] [--button-border:theme('colors.orange.DEFAULT')]",
         ghost:
           "text-orange [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-bg:theme('colors.white')] [--button-border:none] after:shadow-none",
+        "print-default": "border [--button-bg:theme('colors.black')] [--button-border:theme('colors.black')] after:shadow-none",
+        "print-outline":
+          "text-black [--button-bg:theme('colors.white')] [--button-border:theme('colors.black')] [--button-bg-hover:unset] after:shadow-none",
+        "print-ghost": "text-black [--button-bg:theme('colors.white')] [--button-border:none] [--button-bg-hover:unset] after:shadow-none",
       },
       size: {
         sm: "text-sm/6 [--button-padding-x:theme('spacing.4')] [--button-padding-y:theme('spacing.1')]",
