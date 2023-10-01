@@ -12,7 +12,7 @@ export const SubNavigationBar = () => {
   return (
     <nav
       className={cn(
-        "flex h-[--general-bar-height] w-full items-center justify-center border-b border-gray-100 bg-white text-base text-primary",
+        "flex h-[--general-bar-height] w-full items-center justify-center border-b bg-white text-base text-primary",
         pathname === "/" && "hidden"
         // pathname !== "/" && "hidden"
       )}

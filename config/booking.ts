@@ -36,7 +36,7 @@ const scenarios = [
   },
 ] as const
 
-export const scenario = scenarios[3]
+export const scenario = scenarios[0]
 
 export const formatFlightTitle = (flight: Flight) =>
   `${flight.departureAirport.code}-${flight.arrivalAirport.code} - ${format(flight.departureDate, "do MMM")}`

@@ -3,9 +3,6 @@ import "./globals.css"
 import React from "react"
 import { type Metadata } from "next"
 
-import { LOCAL_ENV } from "@/lib/env"
-import { DevelopmentEffects } from "@/components/development-effects"
-
 export const metadata: Metadata = {
   title: {
     default: "easyJet",
@@ -29,16 +26,11 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  console.log(`Running in ${LOCAL_ENV ? "local" : "non-local"} environment.`)
-
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className="pdf">
         <head />
-        <body>
-          {children}
-          {LOCAL_ENV && <DevelopmentEffects />}
-        </body>
+        <body>{children}</body>
       </html>
     </>
   )

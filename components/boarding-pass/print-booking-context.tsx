@@ -172,6 +172,10 @@ export interface PrintBookingContext {
   setSelectedPassengers: Dispatch<SetStateAction<PrintBookingContext["selectedPassengers"]>>
   selectedFlights: Flight[]
   setSelectedFlights: Dispatch<SetStateAction<PrintBookingContext["selectedFlights"]>>
+  printMode: boolean
+  setPrintMode: Dispatch<SetStateAction<PrintBookingContext["printMode"]>>
+  showAdverts: boolean
+  setShowAdverts: Dispatch<SetStateAction<PrintBookingContext["showAdverts"]>>
 }
 
 export const printBookingContextDefs = {
@@ -181,6 +185,10 @@ export const printBookingContextDefs = {
   setSelectedPassengers: () => null,
   selectedFlights: [],
   setSelectedFlights: () => null,
+  printMode: false,
+  setPrintMode: () => null,
+  showAdverts: true,
+  setShowAdverts: () => null,
 }
 
 export const PrintBookingContext = React.createContext<PrintBookingContext>({
@@ -190,6 +198,10 @@ export const PrintBookingContext = React.createContext<PrintBookingContext>({
   setSelectedPassengers: printBookingContextDefs.setSelectedPassengers,
   selectedFlights: printBookingContextDefs.selectedFlights,
   setSelectedFlights: printBookingContextDefs.setSelectedFlights,
+  printMode: printBookingContextDefs.printMode,
+  setPrintMode: printBookingContextDefs.setPrintMode,
+  showAdverts: printBookingContextDefs.showAdverts,
+  setShowAdverts: printBookingContextDefs.setShowAdverts,
 })
 
 export const usePrintBookingContext = () => React.useContext(PrintBookingContext)
@@ -207,12 +219,15 @@ export const PrintBookingContextProvider: React.FC<React.PropsWithChildren<{ pre
     predefinedBooking?.flights ?? printBookingContextDefs.selectedFlights
   )
 
+  const [printMode, setPrintMode] = React.useState<PrintBookingContext["printMode"]>(printBookingContextDefs.printMode)
+  const [showAdverts, setShowAdverts] = React.useState<PrintBookingContext["showAdverts"]>(printBookingContextDefs.showAdverts)
+
   React.useEffect(() => {
     const bookingLanguage = predefinedBooking?.language ?? booking.language
     setParams({ language: bookingLanguage.locale })
-    router.replace(window.location.href)
+    router.replace(window.location.href, { scroll: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [booking, predefinedBooking])
+  }, [booking])
 
   return (
     <PrintBookingContext.Provider
@@ -223,6 +238,10 @@ export const PrintBookingContextProvider: React.FC<React.PropsWithChildren<{ pre
         setSelectedPassengers,
         selectedFlights,
         setSelectedFlights,
+        printMode,
+        setPrintMode,
+        showAdverts,
+        setShowAdverts,
       }}
       {...props}
     />

@@ -1,5 +1,5 @@
-/** @type {import('prettier').Config} */
-module.exports = {
+/** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').options} */
+const config = {
   // Basic formatting rules
   endOfLine: "lf",
   semi: false,
@@ -32,7 +32,7 @@ module.exports = {
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
 
   // Prettier plugins
-  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  // plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
 
   // File specific rules
   overrides: [
@@ -44,3 +44,5 @@ module.exports = {
     },
   ],
 }
+
+export default config

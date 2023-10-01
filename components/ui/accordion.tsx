@@ -22,7 +22,10 @@ const AccordionTrigger = React.forwardRef<
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
-      className={cn("group flex flex-1 items-center justify-between px-[--page-inset-small] py-4 transition-all", className)}
+      className={cn(
+        "group flex flex-1 items-center justify-between px-[--page-inset-small] py-4 transition-all data-[state=closed]:text-secondary data-[state=closed]:hover:text-primary",
+        className
+      )}
       {...props}
     >
       {children}

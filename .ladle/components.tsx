@@ -1,11 +1,14 @@
 import React from "react"
 import { type GlobalProvider } from "@ladle/react"
 
+import { useDebugEffects } from "../lib/use-debug-effects"
 import { cn } from "../lib/utils"
 
 import "@/app/globals.css"
 
 export const Provider: GlobalProvider = ({ children, globalState, storyMeta }) => {
+  useDebugEffects()
+
   return (
     <div
       className={cn(

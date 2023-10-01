@@ -44,8 +44,8 @@
     "@typescript-eslint/eslint-plugin": "6.7.2",
     "@typescript-eslint/parser": "6.7.2",
     "autoprefixer": "10.4.16",
-    "class-variance-authority": "0.7.0",
-    "clsx": "2.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
     "date-fns": "2.30.0",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.3",
@@ -55,12 +55,12 @@
     "eslint-plugin-tailwindcss": "3.13.0",
     "eslint-plugin-unused-imports": "^3.0.0",
     "framer-motion": "10.16.4",
-    "glob": "10.3.7",
+    "glob": "10.3.10",
     "lucide-react": "0.279.0",
     "nanoid": "3.1.23",
     "next": "13.5.3",
     "node-html-parser": "6.1.10",
-    "postcss": "8.4.27",
+    "postcss": "8.4.31",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "0.5.4",
     "react": "18.2.0",
@@ -78,6 +78,7 @@
     "@types/gl-react": "^3.15.5",
     "@types/gl-react-dom": "^3.15.5",
     "gl-react": "^5.2.0",
-    "gl-react-dom": "^5.2.1"
+    "gl-react-dom": "^5.2.1",
+    "react-router-dom": "^6.16.0"
   }
 }

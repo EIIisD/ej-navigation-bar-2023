@@ -51,7 +51,7 @@ export const DialogLanguageSelect = ({ children }: { children: React.ReactNode }
       setParams({ language: data.language })
     }
 
-    router.replace(window.location.href)
+    router.replace(window.location.href, { scroll: false })
 
     return false
   })

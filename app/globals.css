@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: "easyJet Rounded";
   font-weight: 400;
@@ -26,16 +30,6 @@
   src: url("/fonts/easyjet_generation_headline_new.otf") format("opentype");
 }
 
-/* @page {
-  size: A4 portrait;
-  margin-top: theme("spacing.print-bleed");
-  margin-bottom: theme("spacing.print-bleed");
-} */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   :root {
     --page-maxWidth: theme("screens.tablet-header-width");
@@ -46,6 +40,10 @@
     --page-inset-large: theme("spacing.9");
     --page-inset: theme("spacing.6");
     --page-inset-small: theme("spacing.3");
+    --print-gap-xs: 2.5mm;
+    --print-gap-sm: 5mm;
+    --print-gap: 10mm;
+    --print-gap-lg: 10mm;
 
     /* easyJet brand container angles */
     --clip-angle: 7/8;
@@ -91,6 +89,12 @@
       --page-inset: theme("spacing.9");
       --page-inset-small: theme("spacing.6");
     }
+
+    #simulator {
+      --page-inset-large: theme("spacing.12");
+      --page-inset: theme("spacing.10");
+      --page-inset-small: theme("spacing.8");
+    }
   }
 
   html {
@@ -124,8 +128,6 @@
   }
 
   :focus {
-    /* outline: 1px solid invert;
-    outline-offset: 4px; */
     outline: none;
   }
 
@@ -138,163 +140,132 @@
       outline: none;
     }
   }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media print {
+    body > :not(#print-content) {
+      display: none !important;
+    }
+  }
+
+  @media not print {
+    body > #print-content {
+      display: none !important;
+    }
+  }
+
+  @page {
+    size: a4;
+    margin: 10mm;
+  }
 }
 
 @layer components {
-  .\@container\/pass {
-    --border-width: 2px;
-    --featured-icon-size: theme("spacing.10-cqi");
-    --margin: 10mm;
-
-    /* unused */
-    --spacing-sm: 3mm;
-    --spacing: 5mm;
-    --spacing-lg: 8mm;
-  }
-
   .list {
-    @apply space-y-2;
+    @apply ml-3 list-outside list-disc space-y-1 pb-1;
   }
   .list > li {
-    @apply list-item pl-1 before:mr-1.5 before:text-tertiary before:content-['•'];
+    @apply list-item pl-0.5 marker:text-tertiary;
   }
 
   /* --pass-border-color: theme("colors.orange.darker");
   --pass-cutout-size: 24px;
   --pass-cutout-margin: (var(--page-inset) + 1px); */
 
-  /* .group\/pass:before {
-    @apply absolute inset-0 bg-[inherit] [mask:linear-gradient(to_bottom,rgb(0_0_0/0)_0%,rgb(0_0_0/1)_100%)] mix-blend-multiply opacity-10 content-[''] pointer-events-none touch-none;
-  } */
-
-  /*.threshold {
-    /~ backdrop-filter: blur(0.05px); ~/
-    filter: url(#threshold);
-  }
-
-  :root .print .print\:hidden {
-    display: none;
-  }
-
-  :root .print *,
-  :root .print *:before,
-  :root .print *:after {
-    border-color: black;
-    color: black;
-    fill: black;
-    stroke: black;
-    outline-color: black;
-    background-color: white;
-  }
-
-  :root .print *[class*="shadow"],
-  :root .print *::after[class*="shadow"],
-  :root .print *::before[class*="shadow"] {
-    box-shadow: 0 0 0 1px black;
-  }
-  /~ :root .print *[class*="bg-"],
-  :root .print *::after[class*="bg-"],
-  :root .print *::before[class*="bg-"] {
-    background-color: white;
-  } ~/
-  :root .print use {
-    filter: url(#threshold);
-  }*/
-
-  .boarding-pass-mask {
+  /* .boarding-pass-mask {
     --r: 40px;
     --mask: radial-gradient(var(--r) at var(--r) 50%, #0000 98%, #000) calc(var(--r) * -1);
     -webkit-mask: var(--mask);
     mask: var(--mask);
+  } */
+
+  .pdf .\[break-after\:page\] {
+    @apply h-[297mm];
+    @apply mb-[10mm];
+    @apply relative after:absolute after:left-[-10mm] after:bottom-[10mm] after:h-[10mm] after:w-[100vw] after:translate-y-[10mm] after:bg-[#444];
   }
 
-  ::-webkit-scrollbar {
-    display: none;
+  [class][class*="text-"],
+  [class][class*="text-"]:before,
+  [class][class*="text-"]:after {
+    @apply print:text-black;
+  }
+
+  [class][class*="bg-"],
+  [class][class*="bg-"]:before,
+  [class][class*="bg-"]:after {
+    @apply print:bg-white;
+  }
+
+  [class][class*="border"],
+  [class][class*="border"]:before,
+  [class][class*="border"]:after {
+    @apply print:border-black;
+  }
+
+  [class][class*="shadow"],
+  [class][class*="shadow"]:before,
+  [class][class*="shadow"]:after {
+    @apply print:shadow-none;
+  }
+
+  [class][class*="outline-"],
+  [class][class*="outline-"]:before,
+  [class][class*="outline-"]:after {
+    @apply print:outline-black;
+  }
+
+  svg,
+  use {
+    @apply print:text-black print:brightness-100 print:contrast-[107%] print:hue-rotate-[312deg] print:invert-0 print:saturate-[7500%] print:sepia-0;
   }
 }
 
 @layer utilities {
-  .threshold .threshold\:hidden {
-    display: none;
-  }
-
-  .threshold,
-  .threshold [class*="text-"],
-  .threshold [class*="text-"]:before,
-  .threshold [class*="text-"]:after {
-    @apply !text-black;
-  }
-  .threshold [class*="bg-"],
-  .threshold [class*="bg-"]:before,
-  .threshold [class*="bg-"]:after {
-    @apply !bg-white;
-  }
-  .threshold [class*="border"],
-  .threshold [class*="border"]:before,
-  .threshold [class*="border"]:after {
-    @apply !border-black;
-  }
-  .threshold [class*="shadow"],
-  .threshold [class*="shadow"]:before,
-  .threshold [class*="shadow"]:after {
-    @apply !shadow-none;
-  }
-  .threshold [class*="outline-"],
-  .threshold [class*="outline-"]:before,
-  .threshold [class*="outline-"]:after {
-    @apply !outline-black;
-  }
-  .threshold svg {
-    /* @apply !saturate-0; */
-    @apply !text-black;
-    filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(312deg) brightness(100%) contrast(107%);
-  }
-
   .events-none {
     pointer-events: none;
     touch-action: none;
     user-select: none;
   }
 
-  .debug {
+  :root.debug {
     --debug-outline-color: 50 50;
     --debug-background-color: 95 25;
     --debug-opacity: 100%;
     --debug-outline: 0.5px;
   }
-  .debug :is(section, .grid) > *,
-  .debug :is(section, .grid) > * > *,
-  .debug :is(section, .grid) > * > * > *,
-  .debug :is(section, .grid) > * > * > * > *,
-  .debug :is(section, .grid) > * > * > * > * > *,
-  .debug :is(section, .grid) > * > * > * > * > * > * {
+
+  :root.debug body > *,
+  :root.debug body > * > *,
+  :root.debug body > * > * > *,
+  :root.debug body > * > * > * > *,
+  :root.debug body > * > * > * > * > *,
+  :root.debug body > * > * > * > * > * > * {
     outline: var(--debug-outline) solid lch(var(--debug-outline-color) var(--hue)) !important;
     outline-offset: calc(var(--debug-outline) / -2) !important;
     background-color: lch(var(--debug-background-color) var(--hue) / var(--debug-opacity)) !important;
   }
 
-  .debug :is(section, .grid) > * {
+  :root.debug body > * {
     --hue: 0.2turn;
   }
-  .debug :is(section, .grid) > * > * {
+  :root.debug body > * > * {
     --hue: 0.6turn;
   }
-  .debug :is(section, .grid) > * > * > * {
+  :root.debug body > * > * > * {
     --hue: 1turn;
   }
-  .debug :is(section, .grid) > * > * > * > * {
+  :root.debug body > * > * > * > * {
     --hue: 1.4turn;
   }
-  .debug :is(section, .grid) > * > * > * > * > * {
+  :root.debug body > * > * > * > * > * {
     --hue: 1.8turn;
   }
-  .debug :is(section, .grid) > * > * > * > * > * > * {
+  :root.debug body > * > * > * > * > * > * {
     --hue: 2.2turn;
-  }
-
-  .debug-grid,
-  .debug-grid * {
-    background-color: theme("colors.sky.500/10%");
   }
 
   .scrollbar-none {

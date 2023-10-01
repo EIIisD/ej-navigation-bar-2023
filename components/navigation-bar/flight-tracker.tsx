@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export const FlightTracker = () => {
   return (
-    <div className="space-y-6 pr-[6px]">
+    <div className="pr-normal space-y-6">
       <div>
         <div className="text-base font-bold text-primary">{toTitleCase("Flight Tracker")}</div>
         <div className="mt-1 text-sm/4 text-secondary">Check your flight status by:</div>

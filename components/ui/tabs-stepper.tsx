@@ -117,7 +117,7 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigg
         "relative z-10 inline-flex min-h-[3rem] items-center justify-center px-0.5 transition-all",
         "data-[state=inactive]:[--primary:theme('colors.secondary.DEFAULT')] data-[state=inactive]:[--secondary:theme('colors.secondary.DEFAULT')] data-[state=inactive]:[--tertiary:theme('colors.gray.300')]",
         "data-[state=active]:[--primary:theme('colors.primary.DEFAULT')] data-[state=active]:[--secondary:theme('colors.primary.DEFAULT')] data-[state=active]:[--tertiary:theme('colors.orange.DEFAULT')]",
-        "data-[state=inactive]:[--highlight-bg:theme('colors.gray.200')] data-[state=inactive]:[--highlight-fg:theme('colors.secondary.DEFAULT')]",
+        "data-[state=inactive]:[--highlight-bg:theme('colors.gray.100')] data-[state=inactive]:[--highlight-fg:theme('colors.secondary.DEFAULT')]",
         "data-[state=active]:[--highlight-bg:theme('colors.orange.DEFAULT')] data-[state=active]:[--highlight-fg:theme('colors.white')]",
         "text-[--primary]",
         "after:absolute after:inset-x-0 after:bottom-0 after:h-[4px] after:transition-colors data-[state=active]:after:bg-orange data-[state=inactive]:hover:after:bg-gray-300",

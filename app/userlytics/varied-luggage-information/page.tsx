@@ -19,7 +19,7 @@ export default function VariedLuggageInformationPage() {
       <SubNavigationBar />
       <PrintBookingContextProvider predefinedBooking={booking}>
         <DialogPrintBooking />
-        <PrintBookingScreen isPredefined />
+        <PrintBookingScreen />
       </PrintBookingContextProvider>
       <Footer />
     </>

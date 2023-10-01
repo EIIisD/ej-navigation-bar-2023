@@ -19,7 +19,7 @@ export default function MultiPassengerSharingPage() {
       <SubNavigationBar />
       <PrintBookingContextProvider predefinedBooking={booking}>
         <DialogPrintBooking />
-        <PrintBookingScreen isPredefined />
+        <PrintBookingScreen />
       </PrintBookingContextProvider>
       <Footer />
     </>

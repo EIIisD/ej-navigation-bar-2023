@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogBody, DialogClose, DialogFooter, DialogMain, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
+import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { menuMobileItemStyle, menuMobileListStyle } from "@/components/navigation-bar/menu-mobile"
 
 const printAllFormSchema = z.object({
@@ -21,16 +22,24 @@ export const dialogPrintAllId = "dialog-print-all"
 
 export const DialogPrintAll = ({ children }: { children: React.ReactNode }) => {
   const [dialog] = useModalState(dialogPrintAllId)
+  const bookingContext = usePrintBookingContext()
+  const { showAdverts, setShowAdverts, printMode, setPrintMode } = bookingContext
+
+  if (printMode) {
+    dialog.close()
+  }
 
   const printAllForm = useForm<z.infer<typeof printAllFormSchema>>({
     resolver: zodResolver(printAllFormSchema),
     defaultValues: {
-      includeAdverts: true,
+      includeAdverts: showAdverts,
     },
   })
 
   const onSubmit = printAllForm.handleSubmit((data: z.infer<typeof printAllFormSchema>) => {
     console.log(data)
+    setShowAdverts(data.includeAdverts)
+    setPrintMode(true)
     dialog.close()
   })
 
@@ -42,11 +51,6 @@ export const DialogPrintAll = ({ children }: { children: React.ReactNode }) => {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-
-              alert(
-                "For the purposes of usability testing, the print action won't be executed. However, if this was a live environment, the action would have been successful."
-              )
-
               return void onSubmit()
             }}
           >

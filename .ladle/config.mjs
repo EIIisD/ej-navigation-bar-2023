@@ -5,6 +5,9 @@ export default {
     rtl: {
       enabled: false,
     },
+    darkMode: {
+      enabled: false,
+    },
     width: {
       options: {
         sm: 425,
@@ -14,5 +17,19 @@ export default {
       enabled: true,
       defaultValue: 0,
     },
+  },
+  hotkeys: {
+    search: ["/", "meta+p"],
+    nextStory: ["alt+arrowright"],
+    previousStory: ["alt+arrowleft"],
+    nextComponent: ["alt+arrowdown"],
+    previousComponent: ["alt+arrowup"],
+    control: ["c"],
+    darkMode: ["-"],
+    fullscreen: ["f"],
+    width: ["-"],
+    rtl: ["r"],
+    source: ["s"],
+    a11y: ["a"],
   },
 }

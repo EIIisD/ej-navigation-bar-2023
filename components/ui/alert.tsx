@@ -5,14 +5,14 @@ import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
   // "relative w-full rounded-lg border border-gray-200 p-4 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-gray-950 [&>svg~*]:pl-7",
-  "relative w-full max-w-prose rounded-md p-4 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-current [&>svg~*]:pl-7",
+  "relative w-full rounded-md p-[--page-inset-small] [&>svg]:absolute [&>svg]:left--[--page-inset-small] [&>svg]:top--[--page-inset-small] [&>svg]:text-current [&>svg~*]:pl-8",
   {
     variants: {
       variant: {
-        card: "max-w-none rounded-[6px] bg-white text-primary shadow outline outline-1 outline-black/5 [&>svg]:text-orange",
-        default: "border border-blue-200 bg-blue-50 text-primary [&>svg]:text-blue-600",
-        warning: "border border-orange-200 bg-orange-50 text-primary [&>svg]:text-orange-600",
-        destructive: "border border-red-500/50 text-red-500 [&>svg]:text-red-500",
+        card: "max-w-none rounded-md bg-white text-primary shadow-lg [&>svg]:text-blue-500",
+        default: "border border-blue-200 bg-blue-50 text-primary print:border-sm print:border-b-md [&>svg]:text-blue-500",
+        warning: "border border-orange-200 bg-orange-50 text-primary print:border-sm print:border-b-md [&>svg]:text-orange-500",
+        destructive: "border border-red-500/50 text-red-500 print:border-sm print:border-b-md [&>svg]:text-red-500",
       },
     },
     defaultVariants: {
@@ -34,7 +34,7 @@ const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<H
 AlertTitle.displayName = "AlertTitle"
 
 const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("text-xs leading-relaxed", className)} {...props} />
+  <div ref={ref} className={cn("max-w-prose text-sm leading-relaxed", className)} {...props} />
 ))
 
 AlertDescription.displayName = "AlertDescription"
