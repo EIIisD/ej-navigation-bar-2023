@@ -75,7 +75,7 @@ export default {
       },
       borderWidth: {
         lg: "8px",
-        md: "2.5px",
+        md: "3px",
         sm: "1px",
         DEFAULT: "1.25px",
       },

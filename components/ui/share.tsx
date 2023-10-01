@@ -42,7 +42,7 @@ export const Share = ({ passenger }: { passenger: Passenger }) => {
           <ShareIcon className="aspect-square h-4 w-4 shrink-0" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent>
         {shareError ? (
           <>
             <div className="flex items-center">

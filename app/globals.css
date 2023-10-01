@@ -146,6 +146,9 @@
   }
 
   @media print {
+    html {
+      /* font-size: 15px; */
+    }
     body > :not(#print-content) {
       display: none !important;
     }
@@ -182,10 +185,32 @@
     mask: var(--mask);
   } */
 
-  .pdf .\[break-after\:page\] {
-    @apply h-[297mm];
-    @apply mb-[10mm];
-    @apply relative after:absolute after:left-[-10mm] after:bottom-[10mm] after:h-[10mm] after:w-[100vw] after:translate-y-[10mm] after:bg-[#444];
+  .pdf body {
+    background: #444;
+  }
+  .pdf #print-content {
+    @apply mx-auto w-[210mm] bg-white grid gap-[10mm];
+  }
+  .pdf #print-content > section {
+    @apply w-[210mm] p-[10mm];
+    aspect-ratio: 1/1.41;
+    outline: 4px solid red;
+    /* overflow: hidden; */
+    /* @apply w-full; */
+    /* @apply after:block after:h-[10mm] after:w-[calc(100%+10mm+10mm)] after:translate-x-[-10mm] after:bg-[#444] after:translate-y-[10mm]; */
+    /* @apply relative after:absolute after:left-[-10mm] after:bottom-[10mm] after:h-[10mm] after:w-[100vw] after:translate-y-[10mm] after:bg-[#444]; */
+  }
+  #print-content > section {
+    /* @apply flex flex-col gap-[10mm]; */
+    @apply space-y-[15mm] w-full;
+    /* aspect-ratio: 1/1.41; */
+  }
+  /* #print-content > section > * {
+    @apply flex-shrink-0;
+  } */
+  #print-content > section > img {
+    @apply w-full max-w-sm h-auto mx-auto;
+    aspect-ratio: 109/50;
   }
 
   [class][class*="text-"],

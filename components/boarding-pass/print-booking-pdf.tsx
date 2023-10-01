@@ -53,7 +53,7 @@ const weightIconMap: Record<15 | 23 | 26 | 29 | 32, IconName> = {
 }
 
 const PageHeader: React.FC<React.HTMLAttributes<HTMLElement>> = ({ children, className, ...props }) => (
-  <header className={cn("flex items-start justify-between", className)} {...props}>
+  <header className={cn("mb-[--print-gap-sm] flex items-start justify-between", className)} {...props}>
     <div className="flex flex-auto items-center justify-start gap-[--print-gap] text-left">{children}</div>
     {/* <div className="flex flex-auto items-center justify-end gap-4 text-right">{children}</div> */}
 
@@ -66,7 +66,7 @@ const PageHeader: React.FC<React.HTMLAttributes<HTMLElement>> = ({ children, cla
       </span>
     </span> */}
 
-    <Icon name="easyJetLogo" className="h-[--print-gap] w-auto max-w-max shrink-0 [aspect-ratio:91/22]" />
+    <Icon name="easyJetLogo" className="h-[7.5mm] w-auto max-w-max shrink-0 [aspect-ratio:91/22]" />
   </header>
 )
 
@@ -100,9 +100,9 @@ export const PrintBookingPdf = () => {
     <main
       id="print-content"
       className={cn(
-        "relative w-full",
+        "relative w-full"
         //--
-        "[.pdf_&]:mx-auto [.pdf_&]:max-w-[calc(210mm-10mm*2)] [.pdf_&]:py-[10mm]"
+        // "[.pdf_&]:mx-auto [.pdf_&]:max-w-[calc(210mm-10mm*2)] [.pdf_&]:py-[10mm]"
       )}
     >
       {flights.map((flight, _flightIndex) => {
@@ -112,22 +112,22 @@ export const PrintBookingPdf = () => {
           <React.Fragment key={_flightIndex}>
             {passengers.map((passenger, _passengerIndex) => {
               const headerElement = (
-                <PageHeader className="mb-[--print-gap-lg]">
+                <PageHeader className="">
                   <div className="flex flex-col">
                     <div className="text-base font-bold">
                       {passenger.firstName} {passenger.lastName} {passenger.infant && <span>+ Infant</span>}
                     </div>
-                    <div className="mt-1 text-base">
+                    <div className="text-base">
                       Flight <TNums content={_flightIndex + 1} /> of <TNums content={flights.length} />
                     </div>
                   </div>
                 </PageHeader>
               )
 
-              const ticketElement = <Ticket booking={booking} flight={flight} passenger={passenger} className="mb-[--print-gap-lg]" />
+              const ticketElement = <Ticket booking={booking} flight={flight} passenger={passenger} className="" />
 
               const bagsTableElement = (
-                <Table className="mb-[--print-gap]">
+                <Table className="">
                   <TableHeader>
                     <TableRow>
                       <TableHead>Item</TableHead>
@@ -191,7 +191,7 @@ export const PrintBookingPdf = () => {
               )
 
               const bagsAlertElement = (
-                <Alert className="border-b-md">
+                <Alert>
                   <Icon name="informationSolid" className="h-4 w-4" />
                   <AlertTitle>Bags Information</AlertTitle>
                   <AlertDescription className="text-sm">
@@ -201,20 +201,33 @@ export const PrintBookingPdf = () => {
                 </Alert>
               )
 
-              const advertsElement = showAdverts && (
-                <div className="h-64">
-                  <Image src={Advert3Cols} alt="Advertisement" width={2000} />
-                </div>
-              )
+              const advertsElement = showAdverts && <Image src={Advert3Cols} alt="Advertisement" width={2000} />
 
               return (
-                <section key={_passengerIndex} className="[break-after:page] [break-inside:avoid]">
-                  {headerElement}
-                  {ticketElement}
-                  {bagsTableElement}
-                  {bagsAlertElement}
-                  {advertsElement}
-                </section>
+                <React.Fragment key={_passengerIndex}>
+                  <section className="[break-after:page] [break-inside:avoid]">
+                    {headerElement}
+                    {ticketElement}
+                    {bagsTableElement}
+                    {bagsAlertElement}
+                    {/* {advertsElement} */}
+                  </section>
+                  {/* <section className="[break-after:page] [break-inside:avoid]">
+                    <PageHeader className="">
+                      <div className="flex  flex-col">
+                        <div className="text-base font-bold text-[--primary]">Exclusive Offers & Deals</div>
+                        <div className="text-base">
+                          Flight <TNums content={_flightIndex + 1} /> of <TNums content={flights.length} />
+                        </div>
+                        <div className="max-w-measure mt-4 text-base text-[--secondary]">
+                          Explore our curated selection of special offers and deals tailored for your journey. Enhance your travel experience with our
+                          exclusive services and partnerships.
+                        </div>
+                      </div>
+                    </PageHeader>
+                    {advertsElement}
+                  </section> */}
+                </React.Fragment>
               )
             })}
           </React.Fragment>
@@ -222,19 +235,19 @@ export const PrintBookingPdf = () => {
 
         const flightSharedLuggageElement = !!luggage.length && (
           <section key={_flightIndex + "flightSharedLuggageElement"} className="[break-after:page] [break-inside:avoid]">
-            <PageHeader className="mb-[--print-gap-lg]">
+            <PageHeader className="">
               {/* <span className="flex h-8 flex-col ">
                 <span className="text-base font-bold text-[--primary]">Hold luggage for your flight</span>
               </span> */}
               <div className="flex max-w-[35ch] flex-col">
                 <div className="text-base font-bold text-[--primary]">Hold luggage for your flight</div>
-                <div className="mt-1 text-base text-[--secondary]">
+                <div className="text-base text-[--secondary]">
                   Hold luggage is shared among all passengers on the flight, regardless of ownership.
                 </div>
               </div>
             </PageHeader>
 
-            <div className="mb-[--print-gap] grid grid-cols-3 gap-[--print-gap]">
+            <div className=" grid grid-cols-3 gap-[--print-gap-sm]">
               {fillEmptyColumns(luggage, 3).map((item, itemIndex) => {
                 if (item.name !== "Empty") {
                   return (
@@ -280,7 +293,7 @@ export const PrintBookingPdf = () => {
         )
       })}
 
-      <div className="events-none absolute inset-[-10mm] hidden [outline:50vw_solid_#444] [.pdf_&]:block" />
+      {/* <div className="events-none absolute inset-[-10mm] hidden [outline:50vw_solid_#444] [.pdf_&]:block" /> */}
     </main>
   )
 }

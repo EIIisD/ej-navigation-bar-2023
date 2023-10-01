@@ -313,7 +313,18 @@ export const createBooking = () => {
   const passengers = createPassengers()
   flights.forEach((_, index) => (flights[index].passengers = passengers))
 
-  const bookingLabel = arrayElement(["FLEXI", "Standby Fare", "Worldwide by easyJet", "easyJet Holidays", "Staff Travel"])
+  const bookingLabel = arrayElement([
+    "FLEXI",
+    "Standby Fare",
+    "Worldwide by easyJet",
+    "easyJet Holidays",
+    "Staff Travel",
+    "None",
+    "None",
+    "None",
+    "None",
+    "None",
+  ])
   const bookingFareOptions = is(scenario.unlikely) ? ["Standard", "FLEXI"] : ["Standard"]
   const bookingFareType = arrayElement(passengers.length <= 8 ? bookingFareOptions : ["Standard"])
   const bookingBundle = bookingFareType !== "FLEXI" ? arrayElement(["Standard", "Standard Plus", "Essentials"]) : undefined

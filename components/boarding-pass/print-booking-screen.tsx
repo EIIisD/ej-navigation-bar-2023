@@ -268,10 +268,10 @@ export const PrintBookingScreen = () => {
                                             <span>Bag details</span>
                                           </Link>
                                         </PopoverTrigger>
-                                        <PopoverContent className="w-80">
+                                        <PopoverContent>
                                           <h3 className="flex items-center gap-2 font-bold">
-                                            <Icon name="informationSolid" className="h-4 w-4 text-blue-500" />
-                                            <span>Small cabin bags</span>
+                                            <Icon name="informationSolid" className="mr-2 h-4 w-4 scale-[150%] text-orange" />
+                                            <span className="translate-y-[1px]">Small cabin bags</span>
                                           </h3>
                                           <hr />
                                           <ul className="list">
@@ -319,10 +319,10 @@ export const PrintBookingScreen = () => {
                                             <span>Bag details</span>
                                           </Link>
                                         </PopoverTrigger>
-                                        <PopoverContent className="w-80">
+                                        <PopoverContent>
                                           <h3 className="flex items-center gap-2 font-bold">
-                                            <Icon name="informationSolid" className="h-4 w-4 text-blue-500" />
-                                            <span>Large cabin bags</span>
+                                            <Icon name="informationSolid" className="mr-2 h-4 w-4 scale-[150%] text-orange" />
+                                            <span className="translate-y-[1px]">Large cabin bags</span>
                                           </h3>
                                           <hr />
                                           <ul className="list">
@@ -411,10 +411,10 @@ export const PrintBookingScreen = () => {
                                           <span>Luggage details</span>
                                         </Link>
                                       </PopoverTrigger>
-                                      <PopoverContent className="w-80">
+                                      <PopoverContent>
                                         <h3 className="flex items-center gap-2 font-bold">
-                                          <Icon name="informationSolid" className="h-4 w-4" />
-                                          <span>{item.name}</span>
+                                          <Icon name="informationSolid" className="mr-2 h-4 w-4 scale-[150%] text-orange" />
+                                          <span className="translate-y-[1px]">{item.name}</span>
                                         </h3>
                                         <hr />
                                         <ul className="list">
@@ -460,7 +460,7 @@ export const PrintBookingScreen = () => {
             description="Explore our curated selection of special offers and deals tailored for your journey. Enhance your travel experience with our exclusive services and partnerships."
             className="mt-0 w-full"
           >
-            <Image src={Advert3Cols} alt="Advertisement" className="w-full" />
+            <Image src={Advert3Cols} alt="Advertisement" className="" width={2000} />
           </Section>
         </section>
       </section>

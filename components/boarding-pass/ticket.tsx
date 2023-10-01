@@ -21,11 +21,7 @@ const iconFromSeat = (seat: string): IconName => {
 const Data = ({ className, align = "left", ...props }: { className?: string; align?: "left" | "right"; children: React.ReactNode }) => {
   return (
     <div
-      className={cn(
-        "flex w-full max-w-max flex-col gap-x-2 gap-y-1.5",
-        align === "left" ? "items-start text-left" : "items-end text-right",
-        className
-      )}
+      className={cn("flex w-full max-w-max flex-col gap-2", align === "left" ? "items-start text-left" : "items-end text-right", className)}
       {...props}
     />
   )
@@ -128,13 +124,13 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger, clas
     <header className="relative w-full">
       <div className="absolute bottom-0 left-0 w-full border-b-sm border-gray-200 print:border-b-md" />
       <div className="flex  items-center justify-between px-[--px] py-[--py] text-base/5">
-        <div className="flex items-center gap-x-4 gap-y-[--gap-y]">
+        <div className="flex items-center gap-x-5 gap-y-[--gap-y]">
           <div className="translate-y-[10%] font-display text-[2rem]/4 tracking-[0.015em]">Boarding pass</div>
+        </div>
+        <div className="flex items-center gap-x-4 gap-y-[--gap-y]">
           <div>
             Flight No. <span className="font-bold">{flight.number}</span>
           </div>
-        </div>
-        <div className="flex items-center gap-x-[--gap-x] gap-y-[--gap-y]">
           {booking.bookingLabel !== "None" && (
             <Badge
               variant="default"
@@ -158,7 +154,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger, clas
 
   const flightInfoElement = (
     <Grid
-      className="mr-auto grid-cols-[minmax(0,max-content)_var(--icon-size)_minmax(0,max-content)] gap-x-[--gap-x] gap-y-[--gap-y] [--gap-x:theme('spacing.4')] [--icon-size:5rem] [grid-area:flightInfoElement] print:[--icon-size:2rem]"
+      className="mr-auto grid-cols-[minmax(0,max-content)_var(--icon-size)_minmax(0,max-content)] gap-x-[--gap-x] gap-y-2 [--gap-x:theme('spacing.4')] [--icon-size:5rem] [grid-area:flightInfoElement] print:[--icon-size:2rem]"
       style={{
         gridTemplateAreas: `
           "departureAirportName     .          arrivalAirportName"
@@ -167,13 +163,13 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger, clas
         `,
       }}
     >
-      <div className="flex min-h-[theme('height.4')] w-full flex-col items-start justify-end [grid-area:departureAirportName]">
+      <div className="flex  w-full flex-col items-start justify-end [grid-area:departureAirportName]">
         <DataLabel className="line-clamp-2 ">{flight.departureAirport.name}</DataLabel>
       </div>
       <div className="flex w-full justify-start [grid-area:departureAirportCode]">
         <DataValue className=" text-[2.6rem] font-light leading-[2.6rem]">{flight.departureAirport.code}</DataValue>
       </div>
-      <div className="flex min-h-[theme('height.4')] w-full justify-start [grid-area:departureAirportTerminal]">
+      <div className="flex  w-full justify-start [grid-area:departureAirportTerminal]">
         <DataValue className=" text-secondary">{flight.departureAirport.terminal ? `Terminal ${flight.departureAirport.terminal}` : ""}</DataValue>
       </div>
 
@@ -182,13 +178,13 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger, clas
       <FlightIconMinimum className="w-[--icon-size] self-center text-secondary [grid-area:flightIcon]" />
       {/* </div> */}
 
-      <div className="flex min-h-[theme('height.4')] w-full flex-col items-start justify-end [grid-area:arrivalAirportName]">
+      <div className="flex  w-full flex-col items-start justify-end [grid-area:arrivalAirportName]">
         <DataLabel className="line-clamp-2 ">{flight.arrivalAirport.name}</DataLabel>
       </div>
       <div className="flex w-full justify-start [grid-area:arrivalAirportCode]">
         <DataValue className=" text-[2.6rem] font-light leading-[2.6rem]">{flight.arrivalAirport.code}</DataValue>
       </div>
-      <div className="flex min-h-[theme('height.4')] w-full justify-start [grid-area:arrivalAirportTerminal]">
+      <div className="flex  w-full justify-start [grid-area:arrivalAirportTerminal]">
         <DataValue className=" text-secondary">{flight.arrivalAirport.terminal ? `Terminal ${flight.arrivalAirport.terminal}` : ""}</DataValue>
       </div>
     </Grid>
@@ -312,7 +308,7 @@ export const Ticket: React.FC<TicketProps> = ({ booking, flight, passenger, clas
     <div
       className={cn(
         "relative flex flex-col overflow-hidden rounded-md border border-l-[length:theme('borderRadius.md')] border-l-green-600 bg-white text-primary outline-tertiary print:border-sm print:border-b-md print:outline-[0px]",
-        "[--gap-x:2rem] [--gap-y:1.5rem] [--px:1.5rem] [--py:1.5rem]",
+        "[--gap-x:1.5rem] [--gap-y:1.5rem] [--px:1.5rem] [--py:1.5rem]",
         className
       )}
     >

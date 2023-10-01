@@ -37,10 +37,13 @@ export const DialogPrintAll = ({ children }: { children: React.ReactNode }) => {
   })
 
   const onSubmit = printAllForm.handleSubmit((data: z.infer<typeof printAllFormSchema>) => {
-    console.log(data)
     setShowAdverts(data.includeAdverts)
     setPrintMode(true)
     dialog.close()
+    setTimeout(() => {
+      window.print()
+      setPrintMode(false)
+    }, 1000)
   })
 
   return (
