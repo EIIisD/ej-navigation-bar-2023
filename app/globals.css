@@ -256,43 +256,6 @@
     user-select: none;
   }
 
-  :root.debug {
-    --debug-outline-color: 50 50;
-    --debug-background-color: 95 25;
-    --debug-opacity: 100%;
-    --debug-outline: 0.5px;
-  }
-
-  :root.debug body > *,
-  :root.debug body > * > *,
-  :root.debug body > * > * > *,
-  :root.debug body > * > * > * > *,
-  :root.debug body > * > * > * > * > *,
-  :root.debug body > * > * > * > * > * > * {
-    outline: var(--debug-outline) solid lch(var(--debug-outline-color) var(--hue)) !important;
-    outline-offset: calc(var(--debug-outline) / -2) !important;
-    background-color: lch(var(--debug-background-color) var(--hue) / var(--debug-opacity)) !important;
-  }
-
-  :root.debug body > * {
-    --hue: 0.2turn;
-  }
-  :root.debug body > * > * {
-    --hue: 0.6turn;
-  }
-  :root.debug body > * > * > * {
-    --hue: 1turn;
-  }
-  :root.debug body > * > * > * > * {
-    --hue: 1.4turn;
-  }
-  :root.debug body > * > * > * > * > * {
-    --hue: 1.8turn;
-  }
-  :root.debug body > * > * > * > * > * > * {
-    --hue: 2.2turn;
-  }
-
   .scrollbar-none {
     scrollbar-width: none;
   }
@@ -325,4 +288,152 @@
   .rounded-full {
     --rounded: theme("borderRadius.full");
   }
+}
+
+@layer debug {
+  :root {
+    --debugGrey05: rgba(120, 120, 120, calc(0.05 * var(--debug-opacity, 1)));
+    --debugGrey1: rgba(120, 120, 120, calc(0.1 * var(--debug-opacity, 1)));
+    --debugGrey2: rgba(120, 120, 120, calc(0.2 * var(--debug-opacity, 1)));
+    --debugRed2: rgba(238, 39, 17, calc(0.2 * var(--debug-opacity, 1)));
+    --debugBlue2: rgba(24, 113, 233, calc(0.2 * var(--debug-opacity, 1)));
+    --debugGreen2: rgba(18, 192, 91, calc(0.2 * var(--debug-opacity, 1)));
+    --debugYellow2: rgba(249, 191, 15, calc(0.2 * var(--debug-opacity, 1)));
+    --debugPink2: rgba(255, 0, 255, calc(0.2 * var(--debug-opacity, 1)));
+    --debugCyan2: rgba(20, 230, 245, calc(0.2 * var(--debug-opacity, 1)));
+    --debugCyan3: rgba(20, 230, 245, calc(0.3 * var(--debug-opacity, 1)));
+    --debugGrey4: rgba(120, 120, 120, calc(0.4 * var(--debug-opacity, 1)));
+    --debugRed4: rgba(238, 39, 17, calc(0.4 * var(--debug-opacity, 1)));
+    --debugBlue4: rgba(24, 113, 233, calc(0.4 * var(--debug-opacity, 1)));
+    --debugGreen4: rgba(18, 192, 91, calc(0.4 * var(--debug-opacity, 1)));
+    --debugYellow4: rgba(249, 191, 15, calc(0.4 * var(--debug-opacity, 1)));
+    --debugPink4: rgba(255, 0, 255, calc(0.4 * var(--debug-opacity, 1)));
+    --debugCyan4: rgba(20, 230, 245, calc(0.4 * var(--debug-opacity, 1)));
+    --debugGrey8: rgba(120, 120, 120, calc(0.8 * var(--debug-opacity, 1)));
+    --debugRed8: rgba(238, 39, 17, calc(0.8 * var(--debug-opacity, 1)));
+    --debugBlue8: rgba(24, 113, 233, calc(0.8 * var(--debug-opacity, 1)));
+    --debugGreen8: rgba(18, 192, 91, calc(0.8 * var(--debug-opacity, 1)));
+    --debugYellow8: rgba(249, 191, 15, calc(0.8 * var(--debug-opacity, 1)));
+    --debugPink8: rgba(255, 0, 255, calc(0.8 * var(--debug-opacity, 1)));
+    --debugCyan8: rgba(20, 230, 245, calc(0.8 * var(--debug-opacity, 1)));
+    --pixel: 0.5px;
+    --debug-opacity: 0.85;
+  }
+
+  :root.debug
+    :is(
+      address,
+      article,
+      aside,
+      blockquote,
+      canvas,
+      dd,
+      div,
+      dl,
+      dt,
+      fieldset,
+      figcaption,
+      figure,
+      footer,
+      form,
+      grid,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      header,
+      hr,
+      li,
+      main,
+      nav,
+      noscript,
+      ol,
+      p,
+      pre,
+      section,
+      table,
+      tfoot,
+      ul,
+      video,
+
+    ):not([class*="bg-white"]) {
+    outline: var(--pixel) solid var(--debugPink4) !important;
+    background: var(--debugPink2) !important;
+  }
+  :root.debug hr:not([class*="bg-white"]) {
+    outline: var(--pixel) solid var(--debugGreen4) !important;
+    background: var(--debugGreen2) !important;
+  }
+  :root.debug :first-child:not([class*="bg-white"]) {
+    outline: var(--pixel) solid var(--debugBlue4) !important;
+    background: var(--debugBlue2) !important;
+  }
+  :root.debug :last-child:not([class*="bg-white"]) {
+    outline: var(--pixel) solid var(--debugRed4) !important;
+    background: var(--debugRed2) !important;
+  }
+  :root.debug :first-child:last-child:not([class*="bg-white"]) {
+    outline: var(--pixel) solid var(--debugGrey4) !important;
+    background: var(--debugGrey2) !important;
+  }
+
+  :root.debug :is(.grid) > *:not([class*="bg-white"]) {
+    outline: var(--pixel) solid var(--debugGreen8) !important;
+    background: var(--debugGreen2) !important;
+  }
+
+  /* .debug {
+    --debug-outline-color: 50 50;
+    --debug-background-color: 95 25;
+    --debug-opacity: 100%;
+    --debug-outline: 0.5px;
+  }
+
+  .debug * {
+    outline: var(--debug-outline) solid lch(var(--debug-outline-color) var(--hue)) !important;
+    outline-offset: calc(var(--debug-outline) / -2) !important;
+    background-color: lch(var(--debug-background-color) var(--hue) / var(--debug-opacity)) !important;
+  }
+
+  .debug > * {
+    --hue: 15deg;
+  }
+  .debug > * > * {
+    --hue: 32deg;
+  }
+  .debug > * > * > * {
+    --hue: 44deg;
+  }
+  .debug > * > * > * > * {
+    --hue: 61deg;
+  }
+  .debug > * > * > * > * > * {
+    --hue: 75deg;
+  }
+  .debug > * > * > * > * > * > * {
+    --hue: 89deg;
+  }
+  .debug > * > * > * > * > * > * > * {
+    --hue: 104deg;
+  }
+  .debug > * > * > * > * > * > * > * > * {
+    --hue: 120deg;
+  }
+  .debug > * > * > * > * > * > * > * > * > * {
+    --hue: 135deg;
+  }
+  .debug > * > * > * > * > * > * > * > * > * > * {
+    --hue: 150deg;
+  }
+  .debug > * > * > * > * > * > * > * > * > * > * > * {
+    --hue: 165deg;
+  }
+  .debug > * > * > * > * > * > * > * > * > * > * > * > * {
+    --hue: 179deg;
+  }
+  .debug > * > * > * > * > * > * > * > * > * > * > * > * > * {
+    --hue: 195deg;
+  } */
 }

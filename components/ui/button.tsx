@@ -46,9 +46,9 @@ const buttonVariants = cva(
       mode: {
         default: "text-white [--button-bg:theme('colors.orange.DEFAULT')] [--button-border:theme('colors.orange.dark/90%')]",
         outline:
-          "text-orange [--button-bg:theme('colors.white')] [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-border:theme('colors.orange.DEFAULT')]",
+          "text-orange [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-bg:theme('colors.white')] [--button-border:theme('colors.orange.DEFAULT')]",
         ghost:
-          "text-orange [--button-bg:theme('colors.white')] [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-border:none] after:shadow-none",
+          "text-orange [--button-bg-hover:theme('colors.orange.DEFAULT')] [--button-bg:theme('colors.white')] [--button-border:none] after:shadow-none",
         "print-default": "border [--button-bg:theme('colors.black')] [--button-border:theme('colors.black')] after:shadow-none",
         "print-outline":
           "text-black [--button-bg:theme('colors.white')] [--button-border:theme('colors.black')] [--button-bg-hover:unset] after:shadow-none",

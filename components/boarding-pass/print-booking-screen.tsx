@@ -22,6 +22,7 @@ import { DialogSaveAll } from "@/components/boarding-pass/dialog-save-all"
 import { usePrintBookingContext } from "@/components/boarding-pass/print-booking-context"
 import { Ticket } from "@/components/boarding-pass/ticket"
 import { Icon, type IconName } from "@/components/icon"
+import { LOCAL_ENV } from "@/lib/env"
 
 const fillEmptyColumns = (items: Luggage[], columns: number): Luggage[] => {
   const remainder = items.length % columns
@@ -235,6 +236,7 @@ export const PrintBookingScreen = () => {
                           <AccordionContent>
                             <div className="grid gap-6 pb-6">
                               <Ticket booking={booking} flight={flight} passenger={passenger} />
+
                               {/* <div className="flex items-center justify-start">
                                 <Share passenger={passenger} />
                               </div> */}
