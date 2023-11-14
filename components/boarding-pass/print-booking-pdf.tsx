@@ -53,7 +53,7 @@ const weightIconMap: Record<15 | 23 | 26 | 29 | 32, IconName> = {
 }
 
 const PageHeader: React.FC<React.HTMLAttributes<HTMLElement>> = ({ children, className, ...props }) => (
-  <header className={cn("mb-[--print-gap-sm] flex items-start justify-between", className)} {...props}>
+  <header className={cn("flex items-start justify-between", className)} {...props}>
     <div className="flex flex-auto items-center justify-start gap-[--print-gap] text-left">{children}</div>
     {/* <div className="flex flex-auto items-center justify-end gap-4 text-right">{children}</div> */}
 
@@ -66,7 +66,7 @@ const PageHeader: React.FC<React.HTMLAttributes<HTMLElement>> = ({ children, cla
       </span>
     </span> */}
 
-    <Icon name="easyJetLogo" className="h-[7.5mm] w-auto max-w-max shrink-0 [aspect-ratio:91/22]" />
+    {/* <Icon name="easyJetLogo" className="h-[7.5mm] w-auto max-w-max shrink-0 [aspect-ratio:91/22]" /> */}
   </header>
 )
 
@@ -191,27 +191,94 @@ export const PrintBookingPdf = () => {
               )
 
               const bagsAlertElement = (
-                <Alert>
+                <div className="mx-[--print-gap-xs] flex gap-4">
                   <Icon name="informationSolid" className="h-4 w-4" />
-                  <AlertTitle>Bags Information</AlertTitle>
-                  <AlertDescription className="text-sm">
-                    Please note that your large cabin bag is subject to space availability on board your flight. If there is no available space, your
-                    bag will be placed in the hold at the gate, free of charge.
-                  </AlertDescription>
-                </Alert>
+                  <div>
+                    <AlertTitle>Bags Information</AlertTitle>
+                    <AlertDescription className="text-sm">
+                      Please note that your large cabin bag is subject to space availability on board your flight. If there is no available space,
+                      your bag will be placed in the hold at the gate, free of charge.
+                    </AlertDescription>
+                  </div>
+                </div>
               )
 
-              const advertsElement = showAdverts && <Image src={Advert3Cols} alt="Advertisement" width={2000} />
+              const flightSharedLuggageElement = !!luggage.length && (
+                <>
+                  <div className="flex flex-col">
+                    <div className="text-base font-bold text-[--primary]">Shared hold luggage for your flight</div>
+                    <div className="text-base text-[--secondary]">
+                      Hold luggage is shared among all passengers on the flight, regardless of ownership.
+                    </div>
+                  </div>
+
+                  <div className=" grid grid-cols-3 gap-[--print-gap-sm]">
+                    {fillEmptyColumns(luggage, 3).map((item, itemIndex) => {
+                      if (item.name !== "Empty") {
+                        return (
+                          <div key={itemIndex} className="flex flex-col overflow-hidden rounded-md border-sm border-b-md">
+                            <header className="flex items-center gap-[--print-gap-xs] p-[--print-gap-xs]">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange text-white">
+                                {item.name === "Hold Bag" ? (
+                                  <Icon name={weightIconMap[item.weight as 15 | 23 | 26 | 29 | 32]} className="h-12 w-12" />
+                                ) : (
+                                  <Icon name={luggageIconMap[item.name]} className="h-12 w-12" />
+                                )}
+                              </div>
+                              <div>
+                                <div>
+                                  {item.amount} x {!!item.weight && <b>{item.weight}kg</b>} {item.name}
+                                </div>
+                              </div>
+                            </header>
+                          </div>
+                        )
+                      }
+
+                      return <></>
+                    })}
+                  </div>
+
+                  <div className="mx-[--print-gap-xs] flex gap-4">
+                    <Icon name="informationSolid" className="h-4 w-4" />
+                    <div>
+                      <AlertTitle>Luggage Information</AlertTitle>
+                      <AlertDescription className="text-sm">
+                        Please note that all luggage must be checked in at least 2 hours before departure. Any luggage checked in after this time may
+                        not be loaded onto the flight. Thank you for your understanding.
+                      </AlertDescription>
+                    </div>
+                  </div>
+                </>
+              )
+
+              const advertsElement = showAdverts && <Image src={Advert3Cols} alt="Advertisement" width={2000} className="w-full" />
 
               return (
                 <React.Fragment key={_passengerIndex}>
                   <section className="[break-after:page] [break-inside:avoid]">
-                    {headerElement}
+                    {/* {headerElement} */}
                     {ticketElement}
                     {bagsTableElement}
+                    {flightSharedLuggageElement}
                     {bagsAlertElement}
-                    {/* {advertsElement} */}
+                    {showAdverts ? advertsElement : ""}
                   </section>
+                  {/* {showAdverts && (
+                    <section className="[break-after:page] [break-inside:avoid]">
+                      <PageHeader className="">
+                        <div className="flex flex-col">
+                          <div className="text-base font-bold">
+                            {passenger.firstName} {passenger.lastName} {passenger.infant && <span>+ Infant</span>}
+                          </div>
+                          <div className="text-base">
+                            Flight <TNums content={_flightIndex + 1} /> of <TNums content={flights.length} />
+                          </div>
+                        </div>
+                      </PageHeader>
+                      {advertsElement}
+                    </section>
+                  )} */}
                   {/* <section className="[break-after:page] [break-inside:avoid]">
                     <PageHeader className="">
                       <div className="flex  flex-col">
@@ -233,64 +300,7 @@ export const PrintBookingPdf = () => {
           </React.Fragment>
         )
 
-        const flightSharedLuggageElement = !!luggage.length && (
-          <section key={_flightIndex + "flightSharedLuggageElement"} className="[break-after:page] [break-inside:avoid]">
-            <PageHeader className="">
-              {/* <span className="flex h-8 flex-col ">
-                <span className="text-base font-bold text-[--primary]">Hold luggage for your flight</span>
-              </span> */}
-              <div className="flex max-w-[35ch] flex-col">
-                <div className="text-base font-bold text-[--primary]">Hold luggage for your flight</div>
-                <div className="text-base text-[--secondary]">
-                  Hold luggage is shared among all passengers on the flight, regardless of ownership.
-                </div>
-              </div>
-            </PageHeader>
-
-            <div className=" grid grid-cols-3 gap-[--print-gap-sm]">
-              {fillEmptyColumns(luggage, 3).map((item, itemIndex) => {
-                if (item.name !== "Empty") {
-                  return (
-                    <div key={itemIndex} className="flex flex-col overflow-hidden rounded-md border-sm border-b-md">
-                      <header className="flex items-center gap-[--print-gap-xs] p-[--print-gap-xs]">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange text-white">
-                          {item.name === "Hold Bag" ? (
-                            <Icon name={weightIconMap[item.weight as 15 | 23 | 26 | 29 | 32]} className="h-12 w-12" />
-                          ) : (
-                            <Icon name={luggageIconMap[item.name]} className="h-12 w-12" />
-                          )}
-                        </div>
-                        <div>
-                          <div>
-                            {item.amount} x {!!item.weight && <b>{item.weight}kg</b>} {item.name}
-                          </div>
-                        </div>
-                      </header>
-                    </div>
-                  )
-                }
-
-                return <Placeholder key={itemIndex} className="!h-auto opacity-0" />
-              })}
-            </div>
-
-            <Alert className="border-b-md">
-              <Icon name="informationSolid" className="h-4 w-4" />
-              <AlertTitle>Luggage Information</AlertTitle>
-              <AlertDescription className="text-sm">
-                Please note that all luggage must be checked in at least 2 hours before departure. Any luggage checked in after this time may not be
-                loaded onto the flight. Thank you for your understanding.
-              </AlertDescription>
-            </Alert>
-          </section>
-        )
-
-        return (
-          <React.Fragment key={_flightIndex}>
-            {flightPassengerPagesElement}
-            {flightSharedLuggageElement}
-          </React.Fragment>
-        )
+        return <React.Fragment key={_flightIndex}>{flightPassengerPagesElement}</React.Fragment>
       })}
 
       {/* <div className="events-none absolute inset-[-10mm] hidden [outline:50vw_solid_#444] [.pdf_&]:block" /> */}

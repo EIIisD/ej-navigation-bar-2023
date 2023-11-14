@@ -42,8 +42,8 @@
     --page-inset-small: theme("spacing.3");
     --print-gap-xs: 2.5mm;
     --print-gap-sm: 5mm;
-    --print-gap: 10mm;
-    --print-gap-lg: 10mm;
+    --print-gap: 5mm;
+    --print-gap-lg: 5mm;
 
     /* easyJet brand container angles */
     --clip-angle: 7/8;
@@ -102,6 +102,7 @@
     overflow-y: scroll;
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
+    @apply print:[font-size:14px];
   }
 
   body {
@@ -162,7 +163,7 @@
 
   @page {
     size: a4;
-    margin: 10mm;
+    margin: 5mm;
   }
 }
 
@@ -189,20 +190,20 @@
     background: #444;
   }
   .pdf #print-content {
-    @apply mx-auto w-[210mm] bg-white grid gap-[10mm];
+    @apply mx-auto w-[210mm] bg-white grid gap-[5mm];
   }
   .pdf #print-content > section {
-    @apply w-[210mm] p-[10mm];
+    @apply w-[210mm] p-[5mm];
     aspect-ratio: 1/1.41;
     outline: 4px solid red;
     /* overflow: hidden; */
     /* @apply w-full; */
-    /* @apply after:block after:h-[10mm] after:w-[calc(100%+10mm+10mm)] after:translate-x-[-10mm] after:bg-[#444] after:translate-y-[10mm]; */
-    /* @apply relative after:absolute after:left-[-10mm] after:bottom-[10mm] after:h-[10mm] after:w-[100vw] after:translate-y-[10mm] after:bg-[#444]; */
+    /* @apply after:block after:h-[5mm] after:w-[calc(100%+5mm+5mm)] after:translate-x-[-5mm] after:bg-[#444] after:translate-y-[5mm]; */
+    /* @apply relative after:absolute after:left-[-5mm] after:bottom-[5mm] after:h-[5mm] after:w-[100vw] after:translate-y-[5mm] after:bg-[#444]; */
   }
   #print-content > section {
-    /* @apply flex flex-col gap-[10mm]; */
-    @apply space-y-[15mm] w-full;
+    /* @apply flex flex-col gap-[5mm]; */
+    @apply space-y-[7.5mm] w-full;
     /* aspect-ratio: 1/1.41; */
   }
   /* #print-content > section > * {

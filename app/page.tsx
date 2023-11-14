@@ -19,7 +19,7 @@ export default function IndexPage() {
           <SubNavigationBar />
           <section className="flex-auto bg-white">
             <div className="relative [aspect-ratio:16/9] md:[aspect-ratio:4/1]">
-              <Image src="/media/hero-3.jpg" width={2755} height={3415} alt="" className="h-full object-cover" priority />
+              <Image src="/media/hero-2.jpg" width={2755} height={3415} alt="" className="h-full object-cover" priority />
               <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-black/0"></div>
             </div>
           </section>
